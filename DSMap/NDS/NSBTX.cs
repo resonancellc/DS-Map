@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace DSMap.NDS
 {
-    public static class NSBTX
+    public static class NSBTXLoader
     {
         // Magic stamps
         public const uint BTX0MAGIC = 0x30585442;
@@ -345,7 +345,14 @@ namespace DSMap.NDS
                 // static int[] PaletteSize = new int[] { 0x00, 0x40, 0x08, 0x20, 0x200, 0x200, 0x10, 0x00 };
                 // (that's in bytes, so I'll adjust it for colors next...)
 
-                int colorCount = (int)tex.PaletteDataSize / 2;
+                int[] paletteSizes = new int[tex.PaletteInfo.InfoBlock.Length];
+                for (int i = 0; i < tex.PaletteInfo.InfoBlock.Length; i++)
+                {
+
+                }
+
+
+                /*int colorCount = (int)tex.PaletteDataSize / 2;
                 tex.PaletteData = new Color[colorCount];
 
                 for (int i = 0; i < colorCount; i++)
@@ -360,7 +367,7 @@ namespace DSMap.NDS
 
                     // Color-ify
                     tex.PaletteData[i] = Color.FromArgb(r, g, b);
-                }
+                }*/
 
                 //throw new Exception("Palette Count: " + paletteCount + "\nActual: " + tex.PaletteInfo.InfoBlock.Length);
             }
@@ -447,9 +454,80 @@ namespace DSMap.NDS
         public struct PaletteInfo : InfoSection
         {
             public uint Offset;
+            public int Size;
             public ushort Unkown; // either 0 or 1
         }
     }
 
-    
+    // A better thing?
+    public struct NSBTX
+    {
+        // Header
+        //public char[] type;
+        //public uint section_size;
+        //public uint padding1;
+        public ushort TextureDataSize;
+        public ushort TextureInfoOffset;
+        //public uint padding2;
+        public uint TextureDataOffset;
+        //public uint padding3;
+        public ushort CompressedTextureDataSize;
+        public ushort CompressedTextureInfoOffset;
+        //public uint padding4;
+        public uint CompressedTextureDataOffset;
+        public uint CompressedTextureInfoDataOffset;
+        //public uint padding5;
+        public uint PaletteDataSize;
+        public uint PaletteInfoOffset;
+        public uint PaletteDataOffset;
+
+        public Texture[] Textures;
+        public Palette[] Palettes;
+        public Color[] PaletteColors;
+
+        public struct Texture
+        {
+            //
+            public ushort[] UnkownBlock;
+
+            // Info block
+            public uint Offset;
+            public ushort Parameters;
+            public byte Width2;
+            public byte Unknown, Unknown2, Unknown3;
+
+            // Parameters
+            public byte RepeatX;   // 0 = freeze; 1 = repeat
+            public byte RepeatY;   // 0 = freeze; 1 = repeat
+            public byte FlipX;     // 0 = no; 1 = flip each 2nd texture (requires repeat)
+            public byte FlipY;     // 0 = no; 1 = flip each 2nd texture (requires repeat)
+            public ushort Width;      // 8 << width
+            public ushort Height;     // 8 << height
+            public byte Format;     // Texture format (bit depth)
+            public byte Color0; // 0 = displayed; 1 = transparent
+            public byte CoordTransf; // Texture coordination transformation mode
+
+            public byte BitDepth; // gotten from format
+            //public uint CompressedDataStart;
+            public bool Compressed;
+
+            // Name block
+            public string Name;
+
+            //
+            public byte[] TileData;
+            // yeah...
+        }
+
+        public struct Palette
+        {
+            //
+            public ushort[] UnknownBlock;
+
+            public uint Offset;
+            public ushort Unknown;
+
+            public string Name;
+        }
+    }
 }

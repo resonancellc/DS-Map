@@ -8,12 +8,16 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 
+using DSMap.NDS;
+
 namespace DSMap
 {
     public partial class MainForm : Form
     {
         private ROM rom = new ROM();
         private Ini ini = new Ini();
+
+        private int selTex = -1, selPal = -1;
 
         public MainForm()
         {
@@ -81,15 +85,17 @@ namespace DSMap
 
             if (openDialog.ShowDialog() != DialogResult.OK) return;
 
+            
             try
             {
-                NDS.TEX0 texture = NDS.NSBTX.LoadBTX0(openDialog.FileName);
+                //NDS.TEX0 texture = NDS.NSBTXLoader.LoadBTX0(openDialog.FileName);
+                TEX0 tex0 = NSBTXLoader.LoadBTX0(openDialog.FileName);
                 
                 listBox1.Items.Clear();
-                listBox1.Items.AddRange(texture.TextureInfo.NameBlock);
+                listBox1.Items.AddRange(tex0.TextureInfo.NameBlock);
 
                 listBox2.Items.Clear();
-                listBox2.Items.AddRange(texture.PaletteInfo.NameBlock);
+                listBox2.Items.AddRange(tex0.PaletteInfo.NameBlock);
 
             }
             catch (Exception ex)
@@ -98,7 +104,24 @@ namespace DSMap
             }
         }
 
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selTex = listBox1.SelectedIndex;
+            DrawTexture();
+        }
 
+        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selPal = listBox2.SelectedIndex;
+            DrawTexture();
+        }
+
+        private void DrawTexture()
+        {
+            if (selTex < 0 || selPal < 0) return;
+
+            
+        }
         
     }
 }

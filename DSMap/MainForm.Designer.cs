@@ -42,9 +42,11 @@
             this.openDialog = new System.Windows.Forms.OpenFileDialog();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
+            this.pTexture = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBanner)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pTexture)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -97,7 +99,7 @@
             // 
             this.saveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripMenuItem.Image")));
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -153,6 +155,7 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(120, 225);
             this.listBox1.TabIndex = 3;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // listBox2
             // 
@@ -161,12 +164,23 @@
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(120, 225);
             this.listBox2.TabIndex = 4;
+            this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
+            // 
+            // pTexture
+            // 
+            this.pTexture.Location = new System.Drawing.Point(302, 52);
+            this.pTexture.Name = "pTexture";
+            this.pTexture.Size = new System.Drawing.Size(100, 50);
+            this.pTexture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pTexture.TabIndex = 5;
+            this.pTexture.TabStop = false;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(594, 430);
+            this.Controls.Add(this.pTexture);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.pBanner);
@@ -182,6 +196,7 @@
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBanner)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pTexture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -202,6 +217,7 @@
         private System.Windows.Forms.OpenFileDialog openDialog;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.PictureBox pTexture;
     }
 }
 
