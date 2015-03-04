@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Formats\Matrix.cs" />
     <Compile Include="Ini.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

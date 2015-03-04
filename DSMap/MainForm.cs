@@ -80,8 +80,8 @@ namespace DSMap
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             openDialog.FileName = "";
-            openDialog.Filter = "Textures|*.bin";
-            openDialog.Title = "Open an NSBTX!";
+            openDialog.Filter = "Map Matrixs|*.narc";
+            openDialog.Title = "Open the Map Matrixes!";
 
             if (openDialog.ShowDialog() != DialogResult.OK) return;
 
@@ -89,13 +89,14 @@ namespace DSMap
             try
             {
                 //NDS.TEX0 texture = NDS.NSBTXLoader.LoadBTX0(openDialog.FileName);
-                TEX0 tex0 = NSBTXLoader.LoadBTX0(openDialog.FileName);
-                
+                NARC matrixFile = new NARC(openDialog.FileName);
+                string[] matrixes = Formats.Matrix.LoadAllMatrixNames(matrixFile);
+
                 listBox1.Items.Clear();
-                listBox1.Items.AddRange(tex0.TextureInfo.NameBlock);
+                listBox1.Items.AddRange(matrixes);
 
                 listBox2.Items.Clear();
-                listBox2.Items.AddRange(tex0.PaletteInfo.NameBlock);
+                //listBox2.Items.AddRange(tex0.PaletteInfo.NameBlock);
 
             }
             catch (Exception ex)

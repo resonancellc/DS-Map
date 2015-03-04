@@ -153,6 +153,8 @@ namespace DSMap.NDS
             }
         }
 
+        #region Properties
+
         public byte[][] Files
         {
             get { return _files; }
@@ -163,11 +165,21 @@ namespace DSMap.NDS
             get { return _files.Length; }
         }
 
+        #endregion
+
         public byte[] GetFile(int id)
         {
             if (id >= _files.Length) throw new IndexOutOfRangeException();
 
             return _files[id];
+        }
+
+        // Useful for BinaryReaders
+        // We can't use this for replacement, because MemoryStreams cannot change size
+        public MemoryStream GetFileMemoryStream(int id)
+        {
+            byte[] buffer = GetFile(id);
+            return new MemoryStream(buffer);
         }
 
         public void SetFile(int id, byte[] data)

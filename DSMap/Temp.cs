@@ -37,14 +37,24 @@ namespace DSMap
         /// <returns></returns>
         public static string CreateTemporaryFile(byte[] buffer)
         {
+            string path = GetTemporaryFileName();
+            File.WriteAllBytes(path, buffer);
+            return path;
+        }
+
+        /// <summary>
+        /// Get the name for a new temporary file.
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <returns></returns>
+        public static string GetTemporaryFileName()
+        {
             string path = "temp\\temp";
             int id = 0;
             while (File.Exists(path + id + ".bin"))
             {
                 id++;
             }
-
-            File.WriteAllBytes(path + id + ".bin", buffer);
             return path + id + ".bin";
         }
     }
