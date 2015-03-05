@@ -134,8 +134,11 @@ namespace DSMap.NDS
                 bw.Write(currentOffset); // Set during FAT part
                 for (int i = 0; i < _files.Length; i++)
                 {
+                    // Write file data
                     bw.Write(_files[i]);
 
+                    // Files have to end on an offset that is a multiple of four
+                    // So fill with FF
                     if (_files[i].Length % 4 != 0)
                     {
                         for (int x = 0; x < (4 - (_files[i].Length % 4)); x++)
@@ -143,8 +146,6 @@ namespace DSMap.NDS
                             bw.Write((byte)0xFF);
                         }
                     }
-
-                    _files[i] = null;
                 }
 
                 // Write file size
