@@ -15,10 +15,20 @@ namespace DSMap
 {
     public partial class MainForm : Form
     {
+        // main
         private ROM rom = new ROM();
         private Ini ini = new Ini();
 
-        private int selTex = -1, selPal = -1;
+        // stuff we need
+        private NARC mapData;
+        private uint headerTable;
+        private string[] headerNames;
+
+        // editing
+        private int selectedMap = -1;
+        private Map map = null;
+        private Header header = null;
+        private Dictionary<int, int> mapHeaders = new Dictionary<int, int>();
 
         public MainForm()
         {
@@ -96,22 +106,21 @@ namespace DSMap
             {
                 // Load the map and matrix NARCs
                 NARC matrixData = new NARC(GetROMFilePathFromIni("MatrixData"));
-                NARC mapData = new NARC(GetROMFilePathFromIni("MapData"));
+                mapData = new NARC(GetROMFilePathFromIni("MapData"));
 
                 // Load the map names
                 string[] mapNames = Map.LoadMapNames(mapData);
 
                 // Load the header names
-                int headerCount = 0;
-                string[] headerNames = Header.LoadHeaderNames(GetROMFilePathFromIni("HeaderNames"), out headerCount);
+                headerNames = Header.LoadHeaderNames(GetROMFilePathFromIni("HeaderNames"));
 
                 // Match the map headers to the maps
-                uint headerTable = Convert.ToUInt32(ini[rom.Header.Code, "HeaderTable"], 16);
-                Dictionary<int, int> headerMatrixMatches = Header.LoadHeaderMatrixMatches(rom.GetFullFilePath("arm9.bin"), headerTable, headerCount);
+                headerTable = Convert.ToUInt32(ini[rom.Header.Code, "HeaderTable"], 16);
+                Dictionary<int, int> headerMatrixMatches = Header.LoadHeaderMatrixMatches(rom.GetFullFilePath("arm9.bin"), headerTable, headerNames.Length);
                 Dictionary<int, List<int>> headerMapMatches = Matrix.LoadHeaderMapMatches(matrixData, headerMatrixMatches);
 
                 // Fill the treeview with headers and associated maps
-                treeMaps.Nodes.Clear();
+                treeMaps.Nodes.Clear(); mapHeaders.Clear();
                 for (int header = 0; header < headerNames.Length; header++)
                 {
                     TreeNode node = new TreeNode(headerNames[header]);
@@ -124,6 +133,7 @@ namespace DSMap
                         jr.Tag = map; // For easy loading
 
                         node.Nodes.Add(jr);
+                        mapHeaders[map] = header;
                     }
 
                     treeMaps.Nodes.Add(node);
@@ -141,6 +151,47 @@ namespace DSMap
                 return rom.GetFullFilePath(ini[rom.Header.Code, iniSection]);
             else
                 return string.Empty;
+        }
+
+        private void treeMaps_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            
+        }
+
+        private void treeMaps_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            // Make sure the ROM has been loaded
+            if (!rom.IsLoaded() || treeMaps.SelectedNode == null) return;
+
+            // Get current selection
+            TreeNode selectedNode = treeMaps.SelectedNode;
+            int tag = (int)selectedNode.Tag;
+            if (tag == -1) return;
+
+            // Load the map
+            try
+            {
+                selectedMap = tag;
+                LoadAll();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\n\n" + ex.StackTrace);
+            }
+        }
+
+        private void LoadAll()
+        {
+            // Load the map
+            using (MemoryStream ms = mapData.GetFileMemoryStream(selectedMap))
+            {
+                map = new Map(ms);
+            }
+
+            // Load the header;
+            header = new Header(rom.GetFullFilePath("arm9.bin"), headerTable, mapHeaders[selectedMap]);
+            txtHMapTextures.Value = header.MapTextures;
+            txtHObjectTextures.Value = header.ObjectTexutres;
         }
         
     }

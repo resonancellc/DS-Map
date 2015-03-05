@@ -10,7 +10,7 @@ namespace DSMap.Formats
     {
         // I'm not bothering with properties for this
         // It would take too long to type :p
-        public byte Textures, ObjectTexutres;
+        public byte MapTextures, ObjectTexutres;
         public ushort Matrix, Scripts, Unknown1, Texts;
         public ushort MusicDay, MusicNight;
         public ushort WildPokemon;
@@ -27,7 +27,7 @@ namespace DSMap.Formats
 
                 // And read
                 // This format is unique to DPPt
-                Textures = br.ReadByte();
+                MapTextures = br.ReadByte();
                 ObjectTexutres = br.ReadByte();
 
                 Matrix = br.ReadUInt16();
@@ -53,7 +53,7 @@ namespace DSMap.Formats
             {
                 bs.BaseStream.Seek(tableStart + id * 24, SeekOrigin.Begin);
 
-                bs.Write(Textures);
+                bs.Write(MapTextures);
                 bs.Write(ObjectTexutres);
 
                 bs.Write(Matrix);
@@ -73,13 +73,12 @@ namespace DSMap.Formats
             }
         }
 
-        public static string[] LoadHeaderNames(string file, out int headerCount)
+        public static string[] LoadHeaderNames(string file)
         {
             using (BinaryReader br = new BinaryReader(File.OpenRead(file)))
             {
                 // Calculate number of names
                 string[] names = new string[br.BaseStream.Length / 16];
-                headerCount = names.Length;
 
                 // And read them all
                 for (int i = 0; i < names.Length; i++)
