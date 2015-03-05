@@ -38,15 +38,13 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.bLoadROM = new System.Windows.Forms.ToolStripButton();
             this.bBuildROM = new System.Windows.Forms.ToolStripButton();
-            this.pBanner = new System.Windows.Forms.PictureBox();
             this.openDialog = new System.Windows.Forms.OpenFileDialog();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.pTexture = new System.Windows.Forms.PictureBox();
+            this.treeMaps = new System.Windows.Forms.TreeView();
+            this.lblROM = new System.Windows.Forms.Label();
+            this.pBanner = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBanner)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pTexture)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -75,7 +73,7 @@
             this.loadToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("loadToolStripMenuItem.Image")));
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
             this.loadToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
@@ -83,7 +81,7 @@
             // 
             this.buildToolStripMenuItem.Image = global::DSMap.Properties.Resources.compile;
             this.buildToolStripMenuItem.Name = "buildToolStripMenuItem";
-            this.buildToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.buildToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.buildToolStripMenuItem.Text = "Build";
             this.buildToolStripMenuItem.Click += new System.EventHandler(this.buildToolStripMenuItem_Click);
             // 
@@ -136,54 +134,46 @@
             this.bBuildROM.Text = "Build ROM";
             this.bBuildROM.Click += new System.EventHandler(this.buildToolStripMenuItem_Click);
             // 
-            // pBanner
-            // 
-            this.pBanner.Location = new System.Drawing.Point(12, 52);
-            this.pBanner.Name = "pBanner";
-            this.pBanner.Size = new System.Drawing.Size(32, 32);
-            this.pBanner.TabIndex = 2;
-            this.pBanner.TabStop = false;
-            // 
             // openDialog
             // 
             this.openDialog.FileName = "openFileDialog1";
             // 
-            // listBox1
+            // treeMaps
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(50, 52);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(120, 225);
-            this.listBox1.TabIndex = 3;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.treeMaps.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.treeMaps.Location = new System.Drawing.Point(12, 52);
+            this.treeMaps.Name = "treeMaps";
+            this.treeMaps.Size = new System.Drawing.Size(164, 328);
+            this.treeMaps.TabIndex = 6;
             // 
-            // listBox2
+            // lblROM
             // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(176, 52);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(120, 225);
-            this.listBox2.TabIndex = 4;
-            this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
+            this.lblROM.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblROM.AutoSize = true;
+            this.lblROM.Location = new System.Drawing.Point(50, 383);
+            this.lblROM.Name = "lblROM";
+            this.lblROM.Size = new System.Drawing.Size(77, 13);
+            this.lblROM.TabIndex = 8;
+            this.lblROM.Text = "Load a ROM...";
             // 
-            // pTexture
+            // pBanner
             // 
-            this.pTexture.Location = new System.Drawing.Point(302, 52);
-            this.pTexture.Name = "pTexture";
-            this.pTexture.Size = new System.Drawing.Size(100, 50);
-            this.pTexture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pTexture.TabIndex = 5;
-            this.pTexture.TabStop = false;
+            this.pBanner.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pBanner.Location = new System.Drawing.Point(12, 386);
+            this.pBanner.Name = "pBanner";
+            this.pBanner.Size = new System.Drawing.Size(32, 32);
+            this.pBanner.TabIndex = 7;
+            this.pBanner.TabStop = false;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(594, 430);
-            this.Controls.Add(this.pTexture);
-            this.Controls.Add(this.listBox2);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.lblROM);
             this.Controls.Add(this.pBanner);
+            this.Controls.Add(this.treeMaps);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -196,7 +186,6 @@
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBanner)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pTexture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -213,11 +202,10 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton bLoadROM;
         private System.Windows.Forms.ToolStripButton bBuildROM;
-        private System.Windows.Forms.PictureBox pBanner;
         private System.Windows.Forms.OpenFileDialog openDialog;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.PictureBox pTexture;
+        private System.Windows.Forms.TreeView treeMaps;
+        private System.Windows.Forms.Label lblROM;
+        private System.Windows.Forms.PictureBox pBanner;
     }
 }
 

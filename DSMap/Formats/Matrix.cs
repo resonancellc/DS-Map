@@ -69,6 +69,117 @@ namespace DSMap.Formats
             }
         }
 
+        public Matrix(byte[] file)
+        {
+            using (MemoryStream ms = new MemoryStream(file))
+            {
+                BinaryReader br = new BinaryReader(ms);
+
+                // Load the matrix header
+                _width = br.ReadByte();
+                _height = br.ReadByte();
+                _hasLayer2 = (br.ReadByte() == 1);
+                _hasLayer3 = (br.ReadByte() == 1);
+
+                byte nameLen = br.ReadByte();
+                _name = Encoding.UTF8.GetString(br.ReadBytes(nameLen));
+
+                // Load the data
+                _layer1 = new ushort[_width, _height];
+                for (int y = 0; y < _height; y++)
+                {
+                    for (int x = 0; x < _width; x++)
+                    {
+                        _layer1[x, y] = br.ReadUInt16();
+                    }
+                }
+
+                if (_hasLayer2)
+                {
+                    _layer2 = new byte[_width, _height];
+                    for (int y = 0; y < _height; y++)
+                    {
+                        for (int x = 0; x < _width; x++)
+                        {
+                            _layer2[x, y] = br.ReadByte();
+                        }
+                    }
+                }
+                else _layer2 = null;
+
+                if (_hasLayer3)
+                {
+                    _layer3 = new ushort[_width, _height];
+                    for (int y = 0; y < _height; y++)
+                    {
+                        for (int x = 0; x < _width; x++)
+                        {
+                            _layer3[x, y] = br.ReadUInt16();
+                        }
+                    }
+                }
+                else _layer3 = null;
+
+                br.Dispose();
+            }
+        }
+
+        /*public Matrix(byte[] file)
+        {
+            _width = file[0];
+            _height = file[1];
+            _hasLayer2 = (file[2] == 1);
+            _hasLayer3 = (file[3] == 1);
+
+            byte nameLen = file[4];
+            //byte[] nameBuffer = new byte[nameLen];
+            //for (int i = 0; i < nameLen; i++) nameBuffer[i] = file[i + 4];
+            _name = Encoding.UTF8.GetString(file, 5, nameLen);
+
+            int layer1Start = 5 + nameLen;
+            _layer1 = new ushort[_width, _height];
+            for (int y = 0; y < _height; y++)
+            {
+                for (int x = 0; x < _width; x++)
+                {
+                    int index = layer1Start + (y * _width) + (x * 2);
+                    _layer1[x, y] = (ushort)((file[index + 1] << 8) + file[index]);
+                }
+            }
+
+            if (_hasLayer2)
+            {
+                int layer2Start = layer1Start + _width * _height * 2;
+                _layer2 = new byte[_width, _height];
+                for (int y = 0; y < _height; y++)
+                {
+                    for (int x = 0; x < _width; x++)
+                    {
+                        int index = layer2Start + (y * _width) + x;
+                        _layer2[x, y] = file[index];
+                    }
+                }
+            }
+            else _layer2 = null;
+
+            if (_hasLayer3)
+            {
+                int layer3Start = layer1Start + _width * _height * 2;
+                if (_hasLayer2) layer3Start += _width * _height;
+
+                _layer3 = new ushort[_width, _height];
+                for (int y = 0; y < _height; y++)
+                {
+                    for (int x = 0; x < _width; x++)
+                    {
+                        int index = layer3Start + (y * _width) + (x * 2);
+                        _layer3[x, y] = (ushort)((file[index + 1] << 8) + file[index]);
+                    }
+                }
+            }
+            else _layer3 = null;
+        }*/
+
         public string SaveToTempFile()
         {
             string file = Temporary.GetTemporaryFileName();
@@ -163,5 +274,131 @@ namespace DSMap.Formats
             }
             return names;
         }
+
+        public static Dictionary<int, List<int>> LoadHeaderMapMatches(NDS.NARC narc, Dictionary<int, int> headerMatrixMatches)
+        {
+            Dictionary<int, List<int>> headerMapMatches = new Dictionary<int, List<int>>();
+            foreach (int header in headerMatrixMatches.Keys)
+            {
+                // Load the matrix
+                int matrixId = headerMatrixMatches[header];
+                Matrix matrix = new Matrix(narc.GetFile(matrixId)); // The MemoryStream approach. Faster.
+
+                // Create a new list of maps for this header
+                if (!headerMapMatches.ContainsKey(header)) headerMapMatches.Add(header, new List<int>());
+
+                // Go through the matrix's data
+                for (int x = 0; x < matrix._width; x++)
+                {
+                    for (int y = 0; y < matrix._height; y++)
+                    {
+                        // There are two types of matrixes that we will deal with
+                        // A matrix with layer 3 will always have layer 2
+                        // But that doesn't matter anyway, because layer 2's data is worthless
+                        // For this kind of operation
+                        if (matrix._hasLayer3)
+                        {
+                            // Check for current header
+                            int h = matrix._layer1[x, y];
+                            if (h != header) continue;
+
+                            // If it matches... check for a map file
+                            int m = matrix._layer3[x, y];
+                            if (m == 0xFFFF) continue;
+                            if (headerMapMatches[header].Contains(m)) continue;
+
+                            headerMapMatches[header].Add(m);
+                        }
+                        else
+                        {
+                            // In a single layer matrix, the only data available will be map files
+                            // This is why we needed to load the matrix-header matches
+                            int m = matrix._layer1[x, y];
+                            if (!headerMapMatches[header].Contains(m)) headerMapMatches[header].Add(m);
+                        }
+                    }
+                }
+            }
+            return headerMapMatches;
+        }
+
+        #region Properties
+
+        public ushort[,] Layer1
+        {
+            get { return _layer1; }
+        }
+
+        public byte[,] Layer2
+        {
+            get { return _layer2; }
+        }
+
+        public ushort[,] Layer3
+        {
+            get { return _layer3; }
+        }
+
+        public string Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
+
+        public int Width
+        {
+            get { return _width; }
+        }
+
+        public int Height
+        {
+            get { return _height; }
+        }
+
+        // TODO: Resizing
+
+        public bool HasLayer2
+        {
+            get { return _hasLayer2; }
+            set
+            {
+                _hasLayer2 = value;
+                if (_hasLayer2)
+                {
+                    _layer2 = new byte[_width, _height];
+                    for (int y = 0; y < _height; y++)
+                    {
+                        for (int x = 0; x < _width; x++)
+                        {
+                            _layer2[x, y] = 0;
+                        }
+                    }
+                }
+                else _layer2 = null;
+            }
+        }
+
+        public bool HasLayer3
+        {
+            get { return _hasLayer3; }
+            set
+            {
+                _hasLayer3 = value;
+                if (_hasLayer3)
+                {
+                    _layer3 = new ushort[_width, _height];
+                    for (int y = 0; y < _height; y++)
+                    {
+                        for (int x = 0; x < _width; x++)
+                        {
+                            _layer3[x, y] = 0;
+                        }
+                    }
+                }
+                else _layer3 = null;
+            }
+        }
+
+        #endregion
     }
 }

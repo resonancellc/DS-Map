@@ -189,6 +189,13 @@ namespace DSMap.NDS
             _files[id] = data;
         }
 
+        public void ReplaceFile(int id, string file)
+        {
+            if (id >= _files.Length) throw new IndexOutOfRangeException();
+
+            _files[id] = File.ReadAllBytes(file);
+        }
+
         public string GetFileInTempFile(int id)
         {
             if (id >= _files.Length) throw new IndexOutOfRangeException();

@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.IO;
 
 using DSMap.NDS;
+using DSMap.Formats;
 
 namespace DSMap
 {
@@ -67,6 +68,11 @@ namespace DSMap
 
                 // Do stuff with it
                 pBanner.Image = rom.Banner.Image;
+                lblROM.Text = "Name: " + rom.Header.Title;
+                lblROM.Text += "\nCode: " + rom.Header.Code;
+
+                LoadROMData();
+                //MessageBox.Show("Code: '" + rom.Header.Code + "'");
             }
         }
 
@@ -79,49 +85,62 @@ namespace DSMap
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openDialog.FileName = "";
-            openDialog.Filter = "Map Matrixs|*.narc";
-            openDialog.Title = "Open the Map Matrixes!";
 
-            if (openDialog.ShowDialog() != DialogResult.OK) return;
+        }
 
-            
+        private void LoadROMData()
+        {
+            if (!rom.IsLoaded()) return;
+
             try
             {
-                //NDS.TEX0 texture = NDS.NSBTXLoader.LoadBTX0(openDialog.FileName);
-                NARC matrixFile = new NARC(openDialog.FileName);
-                string[] matrixes = Formats.Matrix.LoadAllMatrixNames(matrixFile);
+                // Load the map and matrix NARCs
+                NARC matrixData = new NARC(GetROMFilePathFromIni("MatrixData"));
+                NARC mapData = new NARC(GetROMFilePathFromIni("MapData"));
 
-                listBox1.Items.Clear();
-                listBox1.Items.AddRange(matrixes);
+                // Load the map names
+                string[] mapNames = Map.LoadMapNames(mapData);
 
-                listBox2.Items.Clear();
-                //listBox2.Items.AddRange(tex0.PaletteInfo.NameBlock);
+                // Load the header names
+                int headerCount = 0;
+                string[] headerNames = Header.LoadHeaderNames(GetROMFilePathFromIni("HeaderNames"), out headerCount);
 
+                // Match the map headers to the maps
+                uint headerTable = Convert.ToUInt32(ini[rom.Header.Code, "HeaderTable"], 16);
+                Dictionary<int, int> headerMatrixMatches = Header.LoadHeaderMatrixMatches(rom.GetFullFilePath("arm9.bin"), headerTable, headerCount);
+                Dictionary<int, List<int>> headerMapMatches = Matrix.LoadHeaderMapMatches(matrixData, headerMatrixMatches);
+
+                // Fill the treeview with headers and associated maps
+                treeMaps.Nodes.Clear();
+                for (int header = 0; header < headerNames.Length; header++)
+                {
+                    TreeNode node = new TreeNode(headerNames[header]);
+                    node.Tag = -1; // All headers will be -1
+
+                    int[] maps = headerMapMatches[header].ToArray();
+                    foreach (int map in maps)
+                    {
+                        TreeNode jr = new TreeNode(mapNames[map]);
+                        jr.Tag = map; // For easy loading
+
+                        node.Nodes.Add(jr);
+                    }
+
+                    treeMaps.Nodes.Add(node);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "\n\n" + ex.StackTrace);
             }
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private string GetROMFilePathFromIni(string iniSection)
         {
-            selTex = listBox1.SelectedIndex;
-            DrawTexture();
-        }
-
-        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            selPal = listBox2.SelectedIndex;
-            DrawTexture();
-        }
-
-        private void DrawTexture()
-        {
-            if (selTex < 0 || selPal < 0) return;
-
-            
+            if (rom.IsLoaded())
+                return rom.GetFullFilePath(ini[rom.Header.Code, iniSection]);
+            else
+                return string.Empty;
         }
         
     }
