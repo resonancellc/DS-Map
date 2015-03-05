@@ -48,15 +48,20 @@
             this.tabModel = new System.Windows.Forms.TabPage();
             this.tabMovements = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pMovements = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabObjects = new System.Windows.Forms.TabPage();
             this.tabHeader = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtHObjectTextures = new DSMap.NumericTextBox();
-            this.txtHMapTextures = new DSMap.NumericTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.rMovePermissions = new System.Windows.Forms.RadioButton();
+            this.rMoveFlags = new System.Windows.Forms.RadioButton();
+            this.cMovePermission = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.bMoveColors = new System.Windows.Forms.Button();
+            this.txtHObjectTextures = new DSMap.NumericTextBox();
+            this.txtHMapTextures = new DSMap.NumericTextBox();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBanner)).BeginInit();
@@ -65,7 +70,8 @@
             this.tabControl2.SuspendLayout();
             this.tabMovements.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pMovements)).BeginInit();
+            this.panel1.SuspendLayout();
             this.tabHeader.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -165,6 +171,7 @@
             // 
             this.treeMaps.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.treeMaps.HideSelection = false;
             this.treeMaps.Location = new System.Drawing.Point(12, 52);
             this.treeMaps.Name = "treeMaps";
             this.treeMaps.Size = new System.Drawing.Size(164, 370);
@@ -255,27 +262,35 @@
             // 
             this.panel2.AutoScroll = true;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel2.Controls.Add(this.pictureBox1);
+            this.panel2.Controls.Add(this.pMovements);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Location = new System.Drawing.Point(3, 49);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(243, 338);
+            this.panel2.Size = new System.Drawing.Size(401, 292);
             this.panel2.TabIndex = 1;
             // 
-            // pictureBox1
+            // pMovements
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(512, 512);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.pMovements.Location = new System.Drawing.Point(0, 0);
+            this.pMovements.Name = "pMovements";
+            this.pMovements.Size = new System.Drawing.Size(512, 512);
+            this.pMovements.TabIndex = 0;
+            this.pMovements.TabStop = false;
+            this.pMovements.Paint += new System.Windows.Forms.PaintEventHandler(this.pMovements_Paint);
+            this.pMovements.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pMovements_MouseDown);
+            this.pMovements.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pMovements_MouseMove);
             // 
             // panel1
             // 
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(246, 3);
+            this.panel1.Controls.Add(this.bMoveColors);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.cMovePermission);
+            this.panel1.Controls.Add(this.rMoveFlags);
+            this.panel1.Controls.Add(this.rMovePermissions);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(158, 338);
+            this.panel1.Size = new System.Drawing.Size(401, 46);
             this.panel1.TabIndex = 0;
             // 
             // tabObjects
@@ -312,6 +327,80 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Textures";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 48);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(46, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Objects:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(31, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Map:";
+            // 
+            // rMovePermissions
+            // 
+            this.rMovePermissions.AutoSize = true;
+            this.rMovePermissions.Checked = true;
+            this.rMovePermissions.Location = new System.Drawing.Point(3, 3);
+            this.rMovePermissions.Name = "rMovePermissions";
+            this.rMovePermissions.Size = new System.Drawing.Size(80, 17);
+            this.rMovePermissions.TabIndex = 0;
+            this.rMovePermissions.TabStop = true;
+            this.rMovePermissions.Text = "Permissions";
+            this.rMovePermissions.UseVisualStyleBackColor = true;
+            this.rMovePermissions.CheckedChanged += new System.EventHandler(this.rMove_CheckChanged);
+            // 
+            // rMoveFlags
+            // 
+            this.rMoveFlags.AutoSize = true;
+            this.rMoveFlags.Location = new System.Drawing.Point(89, 3);
+            this.rMoveFlags.Name = "rMoveFlags";
+            this.rMoveFlags.Size = new System.Drawing.Size(50, 17);
+            this.rMoveFlags.TabIndex = 1;
+            this.rMoveFlags.Text = "Flags";
+            this.rMoveFlags.UseVisualStyleBackColor = true;
+            this.rMoveFlags.CheckedChanged += new System.EventHandler(this.rMove_CheckChanged);
+            // 
+            // cMovePermission
+            // 
+            this.cMovePermission.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cMovePermission.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cMovePermission.FormattingEnabled = true;
+            this.cMovePermission.Location = new System.Drawing.Point(2, 22);
+            this.cMovePermission.Name = "cMovePermission";
+            this.cMovePermission.Size = new System.Drawing.Size(136, 21);
+            this.cMovePermission.TabIndex = 6;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(3, 23);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(108, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Left on - Right off";
+            this.label3.Visible = false;
+            // 
+            // bMoveColors
+            // 
+            this.bMoveColors.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bMoveColors.Location = new System.Drawing.Point(323, 20);
+            this.bMoveColors.Name = "bMoveColors";
+            this.bMoveColors.Size = new System.Drawing.Size(75, 23);
+            this.bMoveColors.TabIndex = 10;
+            this.bMoveColors.Text = "Edit Colors";
+            this.bMoveColors.UseVisualStyleBackColor = true;
+            this.bMoveColors.Click += new System.EventHandler(this.bMoveColors_Click);
+            // 
             // txtHObjectTextures
             // 
             this.txtHObjectTextures.Location = new System.Drawing.Point(58, 45);
@@ -333,24 +422,6 @@
             this.txtHMapTextures.TabIndex = 2;
             this.txtHMapTextures.Text = "0";
             this.txtHMapTextures.Value = ((uint)(0u));
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 48);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Objects:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(31, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Map:";
             // 
             // MainForm
             // 
@@ -378,7 +449,9 @@
             this.tabControl2.ResumeLayout(false);
             this.tabMovements.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pMovements)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.tabHeader.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -416,7 +489,12 @@
         private System.Windows.Forms.TabPage tabObjects;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pMovements;
+        private System.Windows.Forms.RadioButton rMovePermissions;
+        private System.Windows.Forms.RadioButton rMoveFlags;
+        private System.Windows.Forms.ComboBox cMovePermission;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button bMoveColors;
     }
 }
 

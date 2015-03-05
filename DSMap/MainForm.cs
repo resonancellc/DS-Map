@@ -18,6 +18,7 @@ namespace DSMap
         // main
         private ROM rom = new ROM();
         private Ini ini = new Ini();
+        private Color[] movementsPalette = null;
 
         // stuff we need
         private NARC mapData;
@@ -53,6 +54,49 @@ namespace DSMap
             else
             {
                 ini.Load("Games.ini");
+            }
+
+            // Load movements palette
+            if (File.Exists("Movements.act"))
+            {
+                using (FileStream fs = File.OpenRead("Movements.act"))
+                {
+                    movementsPalette = new Color[256];
+                    for (int i = 0; i < 256; i++)
+                    {
+                        int r = fs.ReadByte();
+                        int g = fs.ReadByte();
+                        int b = fs.ReadByte();
+
+                        movementsPalette[i] = Color.FromArgb(140, r, g, b);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Could not find Movements.act!\nPlease place a copy in this tool's directory before use.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+            }
+
+            // Finally, load behaviours
+            // TODO: Other text (for language?)
+            if (File.Exists("Text.ini"))
+            {
+                Ini text = new Ini("Text.ini");
+
+                // Fill movement permissions
+                cMovePermission.Items.Clear();
+                for (int i = 0; i < 256; i++)
+                {
+                    string b = text["Behaviours", i.ToString()];
+                    if (b == string.Empty) cMovePermission.Items.Add(i.ToString());
+                    else cMovePermission.Items.Add(b);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Could not find Games.ini!\nPlease place a copy in this tool's directory before use.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
             }
 
             // Create temporary data directory
@@ -95,7 +139,14 @@ namespace DSMap
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //
+            if (!rom.IsLoaded() || selectedMap == -1) return;
 
+            // Save data
+            mapData.ReplaceFile(selectedMap, map.Save());
+
+            // Save NARCs
+            mapData.Save();
         }
 
         private void LoadROMData()
@@ -190,9 +241,121 @@ namespace DSMap
 
             // Load the header;
             header = new Header(rom.GetFullFilePath("arm9.bin"), headerTable, mapHeaders[selectedMap]);
+            
+
+            // Display
+            pMovements.Invalidate();
+            cMovePermission.SelectedIndex = 0;
+
+            // Show header
             txtHMapTextures.Value = header.MapTextures;
             txtHObjectTextures.Value = header.ObjectTexutres;
         }
+
+        #region Movements
+
+        private void pMovements_Paint(object sender, PaintEventArgs e)
+        {
+            if (map == null) return;
+
+            Font f = new Font("Arial", 8.5f);
+            for (int x = 0; x < 32; x++)
+            {
+                for (int y = 0; y < 32; y++)
+                {
+                    Rectangle dest = new Rectangle(x * 16, y * 16, 16, 16);
+
+                    // flags
+                    byte value = map.Movements[x, y].Flag;
+
+                    if (value == 0x80)
+                        e.Graphics.FillRectangle(Brushes.Red, dest);
+                    else
+                        e.Graphics.FillRectangle(Brushes.Green, dest);
+
+                    // permissions
+                    if (rMovePermissions.Checked)
+                    {
+                        value = map.Movements[x, y].Permission;
+                        e.Graphics.FillRectangle(new SolidBrush(movementsPalette[value]), dest);
+
+                        if (value != 0) e.Graphics.DrawString(value.ToString("X2"), f,
+                             Brushes.Black, (x * 16) + 0, (y * 16) + 2);
+                    }
+                }
+            }
+            f.Dispose();
+        }
+
+        private void rMove_CheckChanged(object sender, EventArgs e)
+        {
+            pMovements.Invalidate();
+            if (rMovePermissions.Checked)
+            {
+                cMovePermission.Visible = true;
+                label3.Visible = false;
+            }
+            else
+            {
+                cMovePermission.Visible = false;
+                label3.Visible = true;
+            }
+        }
+
+        private void pMovements_Clicked(MouseEventArgs e)
+        {
+            int x = e.X / 16;
+            int y = e.Y / 16;
+            //lblXY.Text = string.Format("X: {0}, Y: {1}", x, y);
+
+            if (map == null) return;
+
+            if (e.Button == MouseButtons.Left)
+            {
+                if (rMoveFlags.Checked)
+                {
+                    map.Movements[x, y].Flag = 0;
+                    pMovements.Invalidate();
+                }
+                else
+                {
+                    map.Movements[x, y].Permission = (byte)cMovePermission.SelectedIndex;
+                    pMovements.Invalidate();
+                }
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                if (rMoveFlags.Checked)
+                {
+                    map.Movements[x, y].Flag = 0x80;
+                    pMovements.Invalidate();
+                }
+                else
+                {
+                    cMovePermission.SelectedIndex = map.Movements[x, y].Permission;
+                }
+            }
+        }
+
+        private void pMovements_MouseDown(object sender, MouseEventArgs e)
+        {
+            pMovements_Clicked(e);
+        }
+
+        private void pMovements_MouseMove(object sender, MouseEventArgs e)
+        {
+            pMovements_Clicked(e);
+        }
+
+        private void bMoveColors_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion
+
         
+
+
     }
 }

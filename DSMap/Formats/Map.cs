@@ -82,7 +82,88 @@ namespace DSMap.Formats
             }
         }
 
-        // TODO: Map files
+        public byte[] Save()
+        {
+            // Write the data
+            string file = Temporary.GetTemporaryFileName();
+            using (BinaryWriter bw = new BinaryWriter(File.Create(file)))
+            {
+                // Header
+                bw.Write(2048);
+                bw.Write(_objects.Count * 48);
+                bw.Write(_rawModel.Length); // This will be 0 in the future...
+                bw.Write(_rawBDHC.Length);
+
+                // Movements
+                for (int y = 0; y < 32; y++)
+                    for (int x = 0; x < 32; x++)
+                    {
+                        bw.Write(_movements[x, y].Permission);
+                        bw.Write(_movements[x, y].Flag);
+                    }
+
+                // Objects
+                foreach (MapObject obj in _objects)
+                {
+                    // #
+                    bw.Write(obj.Number);
+
+                    // XYZ
+                    bw.Write(obj.XFlag);
+                    if (obj.X < 17)
+                        bw.Write((ushort)(obj.X + 0xFEFF));
+                    else
+                        bw.Write((ushort)(obj.X - 17));
+
+                    bw.Write(obj.YFlag);
+                    bw.Write(obj.Y);
+
+                    bw.Write(obj.ZFlag);
+                    if (obj.Z < 17)
+                        bw.Write((ushort)(obj.Z + 0xFEFF));
+                    else
+                        bw.Write((ushort)(obj.Z - 17));
+
+                    // Filler
+                    for (int x = 0; x < 13; x++) bw.Write((byte)0);
+
+                    // Width/Height/Length
+                    bw.Write(obj.Width);
+                    bw.Write(obj.Height);
+                    bw.Write(obj.Length);
+
+                    // Filler
+                    for (int x = 0; x < 7; x++) bw.Write((byte)0);
+                }
+
+                // Model
+                bw.Write(_rawModel);
+
+                // BDHC
+                bw.Write(_rawBDHC);
+
+                // TODO: Allow changing of model name
+            }
+
+            // Return
+            byte[] data = File.ReadAllBytes(file);
+            File.Delete(file);
+            return data;
+        }
+
+        #region Properties
+
+        public List<MapObject> Objects
+        {
+            get { return _objects; }
+        }
+
+        public Movement[,] Movements
+        {
+            get { return _movements; }
+        }
+
+        #endregion
 
         public static string[] LoadMapNames(NARC narc)
         {

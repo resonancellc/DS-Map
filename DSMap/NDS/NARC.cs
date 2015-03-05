@@ -182,7 +182,7 @@ namespace DSMap.NDS
             return new MemoryStream(buffer);
         }
 
-        public void SetFile(int id, byte[] data)
+        public void ReplaceFile(int id, byte[] data)
         {
             if (id >= _files.Length) throw new IndexOutOfRangeException();
 
