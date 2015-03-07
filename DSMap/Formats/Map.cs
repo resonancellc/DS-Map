@@ -34,7 +34,7 @@ namespace DSMap.Formats
                     for (int x = 0; x < 32; x++)
                     {
                         _movements[x, y] = new Movement(); // I don't think this is needed.
-                        _movements[x, y].Permission = br.ReadByte();
+                        _movements[x, y].Behaviour = br.ReadByte();
                         _movements[x, y].Flag = br.ReadByte();
                     }
                 }
@@ -52,16 +52,16 @@ namespace DSMap.Formats
                         obj.Number = br.ReadInt32();
 
                         obj.XFlag = br.ReadUInt16();
-                        //short y = (short)(br.ReadByte() + (br.ReadByte() << 8));
-                        short y = br.ReadInt16();
-                        obj.X = y > 16 ? (short)(y - 0xFFEF) : (short)(y + 17);
+                        short x = (short)(br.ReadByte() + (br.ReadByte() << 8));
+                        //short y = br.ReadInt16();
+                        obj.X = x > 16 ? (short)(x - 0xFFEF) : (short)(x + 17);
 
                         obj.YFlag = br.ReadUInt16();
                         obj.Y = br.ReadInt16();
 
                         obj.ZFlag = br.ReadUInt16();
-                        //short z = (short)(br.ReadByte() + (br.ReadByte() << 8));
-                        short z = br.ReadInt16();
+                        short z = (short)(br.ReadByte() + (br.ReadByte() << 8));
+                        //short z = br.ReadInt16();
                         obj.Z = z > 16 ? (short)(z - 0xFFEF) : (short)(z + 17);
 
                         br.BaseStream.Seek(13L, SeekOrigin.Current);
@@ -71,6 +71,8 @@ namespace DSMap.Formats
                         obj.Length = br.ReadInt32();
 
                         br.BaseStream.Seek(7L, SeekOrigin.Current);
+
+                        _objects.Add(obj);
                     }
                 }
 
@@ -98,7 +100,7 @@ namespace DSMap.Formats
                 for (int y = 0; y < 32; y++)
                     for (int x = 0; x < 32; x++)
                     {
-                        bw.Write(_movements[x, y].Permission);
+                        bw.Write(_movements[x, y].Behaviour);
                         bw.Write(_movements[x, y].Flag);
                     }
 
@@ -110,17 +112,17 @@ namespace DSMap.Formats
 
                     // XYZ
                     bw.Write(obj.XFlag);
-                    if (obj.X < 17)
-                        bw.Write((ushort)(obj.X + 0xFEFF));
+                    if (obj.X <= 16)
+                        bw.Write((ushort)(obj.X + 0xFFEF));
                     else
                         bw.Write((ushort)(obj.X - 17));
 
                     bw.Write(obj.YFlag);
-                    bw.Write(obj.Y);
+                    bw.Write((ushort)obj.Y);
 
                     bw.Write(obj.ZFlag);
-                    if (obj.Z < 17)
-                        bw.Write((ushort)(obj.Z + 0xFEFF));
+                    if (obj.Z <= 16)
+                        bw.Write((ushort)(obj.Z + 0xFFEF));
                     else
                         bw.Write((ushort)(obj.Z - 17));
 
@@ -204,7 +206,7 @@ namespace DSMap.Formats
 
         public struct Movement
         {
-            public byte Permission, Flag;
+            public byte Behaviour, Flag;
         }
 
         // Only classes allow for manipulation of properties outside initialization in a list

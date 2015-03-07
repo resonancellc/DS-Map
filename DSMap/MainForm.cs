@@ -31,6 +31,10 @@ namespace DSMap
         private Header header = null;
         private Dictionary<int, int> mapHeaders = new Dictionary<int, int>();
 
+        private int selectedObj = -1;
+
+        private bool mc = false;
+
         public MainForm()
         {
             InitializeComponent();
@@ -244,8 +248,21 @@ namespace DSMap
             
 
             // Display
+
+            // Movements
             pMovements.Invalidate();
             cMovePermission.SelectedIndex = 0;
+            pObjMap.Invalidate();
+
+            // Objects
+            listObjects.Items.Clear();
+            foreach (var obj in map.Objects)
+            {
+                var item = new ListViewItem(obj.Number.ToString());
+                item.SubItems.Add("???");
+                listObjects.Items.Add(item);
+            }
+            selectedObj = -1;
 
             // Show header
             txtHMapTextures.Value = header.MapTextures;
@@ -274,9 +291,9 @@ namespace DSMap
                         e.Graphics.FillRectangle(Brushes.Green, dest);
 
                     // permissions
-                    if (rMovePermissions.Checked)
+                    if (rMoveBehaviours.Checked)
                     {
-                        value = map.Movements[x, y].Permission;
+                        value = map.Movements[x, y].Behaviour;
                         e.Graphics.FillRectangle(new SolidBrush(movementsPalette[value]), dest);
 
                         if (value != 0) e.Graphics.DrawString(value.ToString("X2"), f,
@@ -290,7 +307,7 @@ namespace DSMap
         private void rMove_CheckChanged(object sender, EventArgs e)
         {
             pMovements.Invalidate();
-            if (rMovePermissions.Checked)
+            if (rMoveBehaviours.Checked)
             {
                 cMovePermission.Visible = true;
                 label3.Visible = false;
@@ -319,7 +336,7 @@ namespace DSMap
                 }
                 else
                 {
-                    map.Movements[x, y].Permission = (byte)cMovePermission.SelectedIndex;
+                    map.Movements[x, y].Behaviour = (byte)cMovePermission.SelectedIndex;
                     pMovements.Invalidate();
                 }
             }
@@ -332,7 +349,7 @@ namespace DSMap
                 }
                 else
                 {
-                    cMovePermission.SelectedIndex = map.Movements[x, y].Permission;
+                    cMovePermission.SelectedIndex = map.Movements[x, y].Behaviour;
                 }
             }
         }
@@ -349,12 +366,132 @@ namespace DSMap
 
         private void bMoveColors_Click(object sender, EventArgs e)
         {
+            // Enable editing of the palette
+            PaletteEditDialog ped = new PaletteEditDialog(ref movementsPalette);
+            ped.Text = "Edit Behaviour Colors";
+            ped.ShowDialog();
 
+            // Show the changes
+            pMovements.Invalidate();
+
+            // Save the palette
+            using (FileStream fs = File.OpenWrite("Movements.act"))
+            {
+                for (int i = 0; i < 256; i++)
+                {
+                    fs.WriteByte(movementsPalette[i].R);
+                    fs.WriteByte(movementsPalette[i].G);
+                    fs.WriteByte(movementsPalette[i].B);
+                }
+            }
         }
 
         #endregion
 
-        
+        private void pObjMap_Paint(object sender, PaintEventArgs e)
+        {
+            if (map == null) return;
+
+            for (int x = 0; x < 32; x++)
+            {
+                for (int y = 0; y < 32; y++)
+                {
+                    Rectangle dest = new Rectangle(x * 8, y * 8, 8, 8);
+                    byte value = map.Movements[x, y].Flag;
+
+                    if (value == 0x80)
+                        e.Graphics.FillRectangle(Brushes.Red, dest);
+                    else
+                        e.Graphics.FillRectangle(Brushes.Green, dest);
+                }
+            }
+
+            if (selectedObj > -1)
+            {
+                e.Graphics.FillRectangle(Brushes.Purple,
+                        (float)(txtObjX.Value - 1) * 8,
+                        (float)(txtObjZ.Value - 1) * 8, 8, 8);
+            }
+        }
+
+        private void listObjects_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (map == null) return;
+
+            int index = -1;
+            foreach (int i in listObjects.SelectedIndices) index = i;
+            if (index == -1) return;
+
+            selectedObj = index;
+            var obj = map.Objects[selectedObj];
+
+            mc = true;
+            txtObjModel.Value = (uint)obj.Number;
+            
+            txtObjX.Value = obj.X;
+            txtObjY.Value = obj.Y;
+            txtObjZ.Value = obj.Z;
+
+            txtObjXFlag.Value = obj.XFlag;
+            txtObjYFlag.Value = obj.YFlag;
+            txtObjZFlag.Value = obj.ZFlag;
+
+            txtObjWidth.Value = (uint)obj.Width;
+            txtObjLength.Value = (uint)obj.Length;
+            txtObjHeight.Value = (uint)obj.Height;
+
+            pObjMap.Invalidate();
+            mc = false;
+        }
+
+        private void txtObjModel_TextChanged(object sender, EventArgs e)
+        {
+            if (mc) return;
+
+            if (selectedObj > -1)
+            {
+                listObjects.Items[selectedObj].Text = txtObjModel.Value.ToString();
+                map.Objects[selectedObj].Number = (int)txtObjModel.Value;
+            }
+        }
+
+        private void txtObjXYZ_TextChanged(object sender, EventArgs e)
+        {
+            if (mc) return;
+
+            if (selectedObj > -1)
+            {
+                map.Objects[selectedObj].X = (short)txtObjX.Value;
+                map.Objects[selectedObj].Y = (short)txtObjY.Value;
+                map.Objects[selectedObj].Z = (short)txtObjZ.Value;
+
+                pObjMap.Invalidate();
+            }
+        }
+
+        private void txtObjXYZFlags_TextChanged(object sender, EventArgs e)
+        {
+            if (mc) return;
+
+            if (selectedObj > -1)
+            {
+                map.Objects[selectedObj].XFlag = (ushort)txtObjXFlag.Value;
+                map.Objects[selectedObj].YFlag = (ushort)txtObjYFlag.Value;
+                map.Objects[selectedObj].ZFlag = (ushort)txtObjZFlag.Value;
+            }
+        }
+
+        private void txtObjWHL_TextChanged(object sender, EventArgs e)
+        {
+            if (mc) return;
+
+            if (selectedObj > -1)
+            {
+                map.Objects[selectedObj].Width = (int)txtObjWidth.Value;
+                map.Objects[selectedObj].Height = (int)txtObjHeight.Value;
+                map.Objects[selectedObj].Length = (int)txtObjLength.Value;
+            }
+        }
 
 
     }
