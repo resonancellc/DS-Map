@@ -75,6 +75,10 @@
             this.listObjects = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.loadAnNSBTXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txtObjHeight = new DSMap.NumericTextBox();
             this.txtObjLength = new DSMap.NumericTextBox();
             this.txtObjWidth = new DSMap.NumericTextBox();
@@ -92,6 +96,7 @@
             this.tabControl1.SuspendLayout();
             this.tabMap.SuspendLayout();
             this.tabControl2.SuspendLayout();
+            this.tabModel.SuspendLayout();
             this.tabMovements.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -104,13 +109,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.pObjMap)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rOMToolStripMenuItem,
-            this.mapToolStripMenuItem});
+            this.mapToolStripMenuItem,
+            this.loadAnNSBTXToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -214,10 +221,13 @@
             // 
             // tabModel
             // 
+            this.tabModel.Controls.Add(this.pictureBox1);
+            this.tabModel.Controls.Add(this.listBox2);
+            this.tabModel.Controls.Add(this.listBox1);
             this.tabModel.Location = new System.Drawing.Point(4, 22);
             this.tabModel.Name = "tabModel";
             this.tabModel.Padding = new System.Windows.Forms.Padding(3);
-            this.tabModel.Size = new System.Drawing.Size(653, 411);
+            this.tabModel.Size = new System.Drawing.Size(570, 411);
             this.tabModel.TabIndex = 0;
             this.tabModel.Text = "Model";
             this.tabModel.UseVisualStyleBackColor = true;
@@ -229,7 +239,7 @@
             this.tabMovements.Location = new System.Drawing.Point(4, 22);
             this.tabMovements.Name = "tabMovements";
             this.tabMovements.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMovements.Size = new System.Drawing.Size(653, 411);
+            this.tabMovements.Size = new System.Drawing.Size(570, 411);
             this.tabMovements.TabIndex = 1;
             this.tabMovements.Text = "Movements";
             this.tabMovements.UseVisualStyleBackColor = true;
@@ -242,7 +252,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 49);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(647, 359);
+            this.panel2.Size = new System.Drawing.Size(564, 359);
             this.panel2.TabIndex = 1;
             // 
             // panel1
@@ -255,13 +265,13 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(647, 46);
+            this.panel1.Size = new System.Drawing.Size(564, 46);
             this.panel1.TabIndex = 0;
             // 
             // bMoveColors
             // 
             this.bMoveColors.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bMoveColors.Location = new System.Drawing.Point(569, 20);
+            this.bMoveColors.Location = new System.Drawing.Point(486, 20);
             this.bMoveColors.Name = "bMoveColors";
             this.bMoveColors.Size = new System.Drawing.Size(75, 23);
             this.bMoveColors.TabIndex = 10;
@@ -333,7 +343,7 @@
             this.tabHeader.Location = new System.Drawing.Point(4, 22);
             this.tabHeader.Name = "tabHeader";
             this.tabHeader.Padding = new System.Windows.Forms.Padding(3);
-            this.tabHeader.Size = new System.Drawing.Size(673, 449);
+            this.tabHeader.Size = new System.Drawing.Size(590, 449);
             this.tabHeader.TabIndex = 1;
             this.tabHeader.Text = "Header";
             this.tabHeader.UseVisualStyleBackColor = true;
@@ -590,6 +600,40 @@
             this.columnHeader2.Text = "Model";
             this.columnHeader2.Width = 76;
             // 
+            // loadAnNSBTXToolStripMenuItem
+            // 
+            this.loadAnNSBTXToolStripMenuItem.Name = "loadAnNSBTXToolStripMenuItem";
+            this.loadAnNSBTXToolStripMenuItem.Size = new System.Drawing.Size(100, 20);
+            this.loadAnNSBTXToolStripMenuItem.Text = "Load an NSBTX";
+            this.loadAnNSBTXToolStripMenuItem.Click += new System.EventHandler(this.loadAnNSBTXToolStripMenuItem_Click);
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(6, 6);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(120, 225);
+            this.listBox1.TabIndex = 0;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            // 
+            // listBox2
+            // 
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.Location = new System.Drawing.Point(132, 6);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(120, 225);
+            this.listBox2.TabIndex = 1;
+            this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(258, 6);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
+            // 
             // txtObjHeight
             // 
             this.txtObjHeight.Location = new System.Drawing.Point(6, 240);
@@ -752,6 +796,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabMap.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
+            this.tabModel.ResumeLayout(false);
+            this.tabModel.PerformLayout();
             this.tabMovements.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
@@ -767,6 +813,7 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -832,6 +879,10 @@
         private System.Windows.Forms.ListView listObjects;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ToolStripMenuItem loadAnNSBTXToolStripMenuItem;
+        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

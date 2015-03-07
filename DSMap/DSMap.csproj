@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bits.cs" />
     <Compile Include="Formats\Header.cs" />
     <Compile Include="Formats\Map.cs" />
     <Compile Include="Formats\Matrix.cs" />

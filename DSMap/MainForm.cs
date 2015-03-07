@@ -33,6 +33,9 @@ namespace DSMap
 
         private int selectedObj = -1;
 
+        private NSBTX nsbtx;
+        private int selectedTex = -1, selectedPal = -1;
+
         private bool mc = false;
 
         public MainForm()
@@ -491,6 +494,52 @@ namespace DSMap
                 map.Objects[selectedObj].Height = (int)txtObjHeight.Value;
                 map.Objects[selectedObj].Length = (int)txtObjLength.Value;
             }
+        }
+
+        private void loadAnNSBTXToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openDialog.FileName = "";
+            openDialog.Filter = "All Files|*.*";
+            openDialog.Title = "Open an NSBTX";
+
+            if (openDialog.ShowDialog() == DialogResult.OK)
+            {
+                nsbtx = NSBTXLoader.LoadBTX02(openDialog.FileName);
+
+                listBox1.Items.Clear();
+                listBox2.Items.Clear();
+
+                foreach (var tex in nsbtx.Textures)
+                {
+                    listBox1.Items.Add(tex.Name);
+                }
+
+                foreach (var pal in nsbtx.Palettes)
+                {
+                    listBox2.Items.Add(pal.Name);
+                }
+
+                selectedTex = -1;
+                selectedPal = -1;
+
+                //pictureBox1.Image = NSBTXDrawer.DrawTexture(nsbtx.Textures[0], nsbtx.Palettes[0]);
+            }
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selectedTex = listBox1.SelectedIndex;
+
+            if (selectedTex>=0 && selectedPal >= 0)
+                pictureBox1.Image = NSBTXDrawer.DrawTexture(nsbtx.Textures[listBox1.SelectedIndex], nsbtx.Palettes[listBox2.SelectedIndex]);
+        }
+
+        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selectedPal = listBox2.SelectedIndex;
+
+            if (selectedTex >= 0 && selectedPal >= 0)
+                pictureBox1.Image = NSBTXDrawer.DrawTexture(nsbtx.Textures[listBox1.SelectedIndex], nsbtx.Palettes[listBox2.SelectedIndex]);
         }
 
 

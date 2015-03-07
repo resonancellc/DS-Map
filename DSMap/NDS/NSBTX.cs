@@ -24,6 +24,7 @@ namespace DSMap.NDS
         //                                                 0  1  2  3  4  5  6  7
         public static byte[] FormatBitDepth = new byte[] { 0, 8, 2, 4, 8, 2, 8, 16 };
 
+        /*
         public static TEX0 LoadBTX0(string file)
         {
             // BTX0 all has stuff we can calculate at runtime
@@ -42,7 +43,7 @@ namespace DSMap.NDS
                     throw new Exception("Invalid BTX0 header size!");
                 if (br.ReadUInt16() != 1)
                     throw new Exception("Cannot load an NSBTX file with more than 1 section!");
-                
+
                 // Assuming all goes right, this will be at the correct offset
                 uint tex0Offest = br.ReadUInt32();
                 if (br.BaseStream.Position != tex0Offest)
@@ -54,7 +55,40 @@ namespace DSMap.NDS
 
             return tex0;
         }
+        */
 
+        public static NSBTX LoadBTX02(string file)
+        {
+            // BTX0 all has stuff we can calculate at runtime
+            // So we'll just read it, then load the TEX0 section
+            NSBTX nsbtx = new NSBTX();
+            using (BinaryReader br = new BinaryReader(File.OpenRead(file)))
+            {
+                // BTX0 Header
+                if (br.ReadUInt32() != BTX0MAGIC)
+                    throw new Exception("This is not a NSBTX file!");
+                if (br.ReadUInt32() != BTX0VERSION)
+                    throw new Exception("Invalid NSBTX version/format!");
+                if (br.BaseStream.Length < br.ReadUInt32())
+                    throw new Exception("Invalid NSBTX file size!");
+                if (br.ReadUInt16() != 0x10)
+                    throw new Exception("Invalid BTX0 header size!");
+                if (br.ReadUInt16() != 1)
+                    throw new Exception("Cannot load an NSBTX file with more than 1 section!");
+
+                // Assuming all goes right, this will be at the correct offset
+                uint tex0Offest = br.ReadUInt32();
+                if (br.BaseStream.Position != tex0Offest)
+                    throw new Exception("Wut? Bad TEX0 offset!");
+
+                // Read TEX0 section
+                nsbtx = LoadTEX02(br);
+            }
+
+            return nsbtx;
+        }
+
+        /*
         public static TEX0 LoadTEX0(string file)
         {
             TEX0 tex0 = new TEX0();
@@ -367,13 +401,330 @@ namespace DSMap.NDS
 
                     // Color-ify
                     tex.PaletteData[i] = Color.FromArgb(r, g, b);
-                }*/
+                }*
 
                 //throw new Exception("Palette Count: " + paletteCount + "\nActual: " + tex.PaletteInfo.InfoBlock.Length);
             }
             #endregion
 
             return tex;
+        }
+        */
+
+        public static NSBTX LoadTEX02(BinaryReader br)
+        {
+            NSBTX nsbtx = new NSBTX();
+
+            uint tex0Offset = (uint)br.BaseStream.Position;
+
+            // --------------------------------------------
+            // Load the header
+            // --------------------------------------------
+            // This is the worst format
+            #region Header
+            {
+                // This accounts for relative offset nonsense
+                // So if we read this from a BTX0 file or something, it will know
+                uint offsetAdjust = (uint)br.BaseStream.Position;
+
+                if (br.ReadUInt32() != TEX0MAGIC)
+                    throw new Exception("Invalid TEX0 magic stamp!");
+                uint sectionSize = br.ReadUInt32(); // not sure what to do with this yet
+                br.BaseStream.Seek(4L, SeekOrigin.Current); // padding
+                nsbtx.TextureDataSize = br.ReadUInt16();
+                nsbtx.TextureInfoOffset = (ushort)(br.ReadUInt16() + offsetAdjust);
+                br.BaseStream.Seek(4L, SeekOrigin.Current); // padding 2
+                nsbtx.TextureDataOffset = br.ReadUInt32() + offsetAdjust; // - 0x14?
+                br.BaseStream.Seek(4L, SeekOrigin.Current); // padding 3
+                nsbtx.CompressedTextureDataSize = (ushort)(br.ReadUInt16() << 3);
+                nsbtx.CompressedTextureInfoOffset = (ushort)(br.ReadUInt16() + offsetAdjust);
+                br.BaseStream.Seek(4L, SeekOrigin.Current); // padding 4
+                nsbtx.CompressedTextureDataOffset = br.ReadUInt32() + offsetAdjust;
+                nsbtx.CompressedTextureInfoDataOffset = br.ReadUInt32() + offsetAdjust;
+                br.BaseStream.Seek(4L, SeekOrigin.Current); // padding
+                nsbtx.PaletteDataSize = (uint)(br.ReadUInt32() << 3);
+                nsbtx.PaletteInfoOffset = br.ReadUInt32() + offsetAdjust;
+                nsbtx.PaletteDataOffset = br.ReadUInt32() + offsetAdjust;
+
+
+            }
+            #endregion
+
+            // --------------------------------------------
+            // Load the 3D Info sections
+            // --------------------------------------------
+
+            #region Texture Info3D
+            {
+                // ...
+                if (br.ReadByte() != 0x0) throw new Exception("Expected dummy byte!");
+                byte objectCount = br.ReadByte();
+                ushort sectionSize = br.ReadUInt16();
+
+                // Uknown block
+                if (br.ReadUInt16() != 8) throw new Exception("Bad unknown block size!");
+                ushort unknownBlockSize = br.ReadUInt16();
+                if (br.ReadUInt32() != 0x0000017F) // offset 0x58
+                    throw new Exception("Bad unknown block constant!");
+
+                nsbtx.Textures = new NSBTX.Texture[objectCount];
+                for (int j = 0; j < objectCount; j++)
+                {
+                    nsbtx.Textures[j].UnknownBlock = new ushort[2];
+                    nsbtx.Textures[j].UnknownBlock[0] = br.ReadUInt16();
+                    nsbtx.Textures[j].UnknownBlock[1] = br.ReadUInt16();
+                }
+
+                // Texture info block
+                if (br.ReadUInt16() != 8) throw new Exception("Bad texture block size!");
+                ushort dataSize = br.ReadUInt16(); // not sure if we'll ever want this
+
+                for (int k = 0; k < objectCount; k++)
+                {
+                    nsbtx.Textures[k].Offset = (uint)(br.ReadUInt16() * 8); // This is a ushort
+                    ushort parameters = br.ReadUInt16();
+
+                    nsbtx.Textures[k].Width2 = br.ReadByte(); // look into this nonsense
+                    nsbtx.Textures[k].Unknown = br.ReadByte();
+                    nsbtx.Textures[k].Unknown2 = br.ReadByte();
+                    nsbtx.Textures[k].Unknown3 = br.ReadByte();
+
+                    // Do the parameters
+                    nsbtx.Textures[k].CoordTransf = (byte)(parameters & 14);
+                    nsbtx.Textures[k].Color0 = (byte)((parameters >> 13) & 1);
+                    nsbtx.Textures[k].Format = (byte)((parameters >> 10) & 7);
+                    nsbtx.Textures[k].Height = (byte)(8 << ((parameters >> 7) & 7));
+                    nsbtx.Textures[k].Width = (byte)(8 << ((parameters >> 4) & 7));
+                    nsbtx.Textures[k].FlipY = (byte)((parameters >> 3) & 1);
+                    nsbtx.Textures[k].FlipX = (byte)((parameters >> 2) & 1);
+                    nsbtx.Textures[k].RepeatY = (byte)((parameters >> 1) & 1);
+                    nsbtx.Textures[k].RepeatX = (byte)(parameters & 1);
+
+                    // Not sure why, but this is a thing
+                    if (nsbtx.Textures[k].Width == 0)
+                    {
+                        if ((nsbtx.Textures[k].Unknown & 3) == 2) nsbtx.Textures[k].Width = 0x200;
+                        else nsbtx.Textures[k].Height = 0x100;
+                    }
+
+                    if (nsbtx.Textures[k].Height == 0)
+                    {
+                        if (((nsbtx.Textures[k].Unknown >> 4) & 3) == 2) nsbtx.Textures[k].Height = 0x200;
+                        else nsbtx.Textures[k].Height = 0x100;
+                    }
+
+                    // Do some stuff with the format
+                    nsbtx.Textures[k].BitDepth = FormatBitDepth[nsbtx.Textures[k].Format];
+                    if (nsbtx.Textures[k].Format == 5)
+                    {
+                        // Compressed
+                        nsbtx.Textures[k].Compressed = true;
+                        nsbtx.Textures[k].Offset += nsbtx.CompressedTextureDataOffset;
+                    }
+                    else
+                    {
+                        nsbtx.Textures[k].Offset += nsbtx.TextureDataOffset;
+                    }
+
+                    //if (texInfo.Width << 3 != texInfo.Width2) throw new Exception("Uh-oh!\nWidth: " + (texInfo.Width << 3) + "\nWidth2: " + texInfo.Width2);
+                }
+
+                // Names
+                for (int n = 0; n < objectCount; n++)
+                {
+                    nsbtx.Textures[n].Name = Encoding.UTF8.GetString(br.ReadBytes(16)).Replace("\0", "");
+                    nsbtx.Textures[n].TileData = null; // And tile data ;)
+                }
+            }
+            #endregion
+
+            #region Palette Info3D
+            {
+                if (br.ReadByte() != 0x0) throw new Exception("Expected dummy byte!");
+                byte objectCount = br.ReadByte();
+                ushort sectionSize = br.ReadUInt16();
+
+                // Uknown block
+                if (br.ReadUInt16() != 8) throw new Exception("Bad unknown block size!");
+                ushort unknownBlockSize = br.ReadUInt16();
+                if (br.ReadUInt32() != 0x0000017F) // offset 0x58
+                    throw new Exception("Bad unknown block constant!");
+
+                nsbtx.Palettes = new NSBTX.Palette[objectCount];
+                for (int j = 0; j < objectCount; j++)
+                {
+                    nsbtx.Palettes[j].UnknownBlock = new ushort[2];
+                    nsbtx.Palettes[j].UnknownBlock[0] = br.ReadUInt16();
+                    nsbtx.Palettes[j].UnknownBlock[1] = br.ReadUInt16();
+                }
+
+                // Palette info block
+                if (br.ReadUInt16() != 4) throw new Exception("Bad palette block size!");
+                //throw new Exception("Bad palette block size " + br.ReadUInt16());
+                ushort dataSize = br.ReadUInt16(); // not sure if we'll ever want this
+
+                //uint lastPalOffset = (uint)br.BaseStream.Position;
+                for (int i = 0; i < objectCount; i++)
+                {
+                    nsbtx.Palettes[i].Offset = (uint)(br.ReadUInt16() << 3) + nsbtx.PaletteDataOffset;
+                    nsbtx.Palettes[i].Unknown = br.ReadUInt16();
+                }
+
+                // Read name block
+                for (int n = 0; n < objectCount; n++)
+                {
+                    nsbtx.Palettes[n].Name = Encoding.UTF8.GetString(br.ReadBytes(16)).Replace("\0", "");
+                }
+            }
+            #endregion
+
+            // --------------------------------------------
+            // Load the tile data
+            // --------------------------------------------
+            for (int t = 0; t < nsbtx.Textures.Length; t++)
+            {
+                // Go to the texture's tile data
+                br.BaseStream.Seek(nsbtx.Textures[t].Offset, SeekOrigin.Begin);
+
+                // Read the data (width * height * bpp / 8)
+                nsbtx.Textures[t].TileData = br.ReadBytes(nsbtx.Textures[t].Width
+                    * nsbtx.Textures[t].Height * nsbtx.Textures[t].BitDepth / 8);
+            }
+
+            // --------------------------------------------
+            // Load the palette data
+            // --------------------------------------------
+
+            // Calculate the size of each palette.
+            int[] paletteSizes = new int[nsbtx.Palettes.Length];
+            for (int p = 0; p < paletteSizes.Length - 1; p++)
+            {
+                paletteSizes[p] = (int)(nsbtx.Palettes[p + 1].Offset - nsbtx.Palettes[p].Offset) / 2;
+            }
+            paletteSizes[paletteSizes.Length - 1] = (int)(nsbtx.Palettes[paletteSizes.Length - 1].Offset - nsbtx.Palettes[paletteSizes.Length - 2].Offset) / 2;
+
+            //
+            for (int p = 0; p < nsbtx.Palettes.Length; p++)
+            {
+                // Go to the palette's offset
+                br.BaseStream.Seek(nsbtx.Palettes[p].Offset, SeekOrigin.Begin);
+
+                // Load the palette
+                Color[] palette = new Color[paletteSizes[p]];
+                //MessageBox.Show("Palette " + p + " is " + paletteSizes[p] + " colors!");
+                for (int i = 0; i < palette.Length; i++)
+                {
+                    // Read the color
+                    int bgr = br.ReadUInt16();
+
+                    // Get the color components
+                    int r = (bgr & 0x001F) * 8;
+                    int g = ((bgr & 0x03E0) >> 5) * 8;
+                    int b = ((bgr & 0x7C00) >> 10) * 8;
+
+                    //
+                    palette[i] = Color.FromArgb(r, g, b);
+                }
+
+                // Done
+                nsbtx.Palettes[p].Data = palette;
+            }
+
+            return nsbtx;
+        }
+    }
+
+    public static class NSBTXDrawer
+    {
+        public static Bitmap DrawTexture(NSBTX.Texture texture, NSBTX.Palette palette)
+        {
+            if (texture.Compressed)
+                return DrawCompressed(texture, palette);
+            else
+                return DrawNormal(texture, palette);
+        }
+
+        private static Bitmap DrawCompressed(NSBTX.Texture texture, NSBTX.Palette palette)
+        {
+            return new Bitmap(texture.Width, texture.Height);
+        }
+
+        private static Bitmap DrawNormal(NSBTX.Texture texture, NSBTX.Palette palette)
+        {
+            Bitmap bmp = new Bitmap(texture.Width, texture.Height);
+            byte[] data = texture.TileData;
+            if (texture.Format == 2) data = BytesToBit2(data);
+            else if (texture.Format == 3) data = BytesToBit4(data);
+
+            for (int y = 0; y < texture.Height; y++)
+            {
+                for (int x = 0; x < texture.Width; x++)
+                {
+                    // The default "error" color
+                    Color color = Color.Black;
+
+                    // Try to get the color
+                    if (texture.Format == 1) // a3i5
+                    {
+                        int pal = data[x + y * texture.Width] & 0x1F;
+                        int alpha = (data[x + y * texture.Width] >> 5);
+                        alpha = ((alpha * 4) + (alpha / 2)) * 8;
+
+                        if (pal < palette.Data.Length)
+                            color = Color.FromArgb(alpha, palette[pal].R, palette[pal].G, palette[pal].B);
+                    }
+                    else if (texture.Format == 2 || texture.Format == 3 || texture.Format == 4) // 2, 4, 8 bpp
+                    {
+                        int pal = data[x + y * texture.Width];
+                        if (pal < palette.Data.Length)
+                            color = palette[pal];
+                    }
+                    else if (texture.Format == 6) // a5i3
+                    {
+                        int pal = data[x + y * texture.Width] & 7;
+                        int alpha = (data[x + y * texture.Width] >> 3) * 8;
+
+                        if (pal < palette.Data.Length)
+                            color = Color.FromArgb(alpha, palette[pal].R, palette[pal].G, palette[pal].B);
+                    }
+                    else if (texture.Format == 7)
+                    {
+                        // direct texture
+                        throw new Exception("Please report this texture.");
+                    }
+
+                    // And set it
+                    bmp.SetPixel(x, y, color);
+                }
+            }
+
+            return bmp;
+        }
+
+        private static byte[] BytesToBit2(byte[] data)
+        {
+            List<Byte> bit2 = new List<byte>();
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                bit2.Add((byte)(data[i] & 0x3));
+                bit2.Add((byte)((data[i] >> 2) & 0x3));
+                bit2.Add((byte)((data[i] >> 4) & 0x3));
+                bit2.Add((byte)((data[i] >> 6) & 0x3));
+            }
+
+            return bit2.ToArray();
+        }
+
+        private static byte[] BytesToBit4(byte[] data)
+        {
+            byte[] bit4 = new byte[data.Length * 2];
+            for (int i = 0; i < data.Length; i++)
+            {
+                bit4[i * 2] = (byte)(data[i] & 0xF);
+                bit4[i * 2 + 1] = (byte)((data[i] >> 4) & 0xF);
+            }
+            return bit4;
         }
     }
 
@@ -384,6 +735,7 @@ namespace DSMap.NDS
     }*/
 
     // Texture
+    /*
     public struct TEX0
     {
         // Header
@@ -458,7 +810,7 @@ namespace DSMap.NDS
             public ushort Unkown; // either 0 or 1
         }
     }
-
+    */
     // A better thing?
     public struct NSBTX
     {
@@ -483,12 +835,11 @@ namespace DSMap.NDS
 
         public Texture[] Textures;
         public Palette[] Palettes;
-        public Color[] PaletteColors;
 
         public struct Texture
         {
             //
-            public ushort[] UnkownBlock;
+            public ushort[] UnknownBlock;
 
             // Info block
             public uint Offset;
@@ -528,6 +879,14 @@ namespace DSMap.NDS
             public ushort Unknown;
 
             public string Name;
+
+            public Color[] Data;
+
+            // :D
+            public Color this[int index]
+            {
+                get { return Data[index]; }
+            }
         }
     }
 }
