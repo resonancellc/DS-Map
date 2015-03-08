@@ -57,7 +57,7 @@ namespace DSMap.NDS
         }
         */
 
-        public static NSBTX LoadBTX02(string file)
+        public static NSBTX LoadBTX0(string file)
         {
             // BTX0 all has stuff we can calculate at runtime
             // So we'll just read it, then load the TEX0 section
@@ -82,7 +82,7 @@ namespace DSMap.NDS
                     throw new Exception("Wut? Bad TEX0 offset!");
 
                 // Read TEX0 section
-                nsbtx = LoadTEX02(br);
+                nsbtx = LoadTEX0(br);
             }
 
             return nsbtx;
@@ -411,7 +411,7 @@ namespace DSMap.NDS
         }
         */
 
-        public static NSBTX LoadTEX02(BinaryReader br)
+        public static NSBTX LoadTEX0(BinaryReader br)
         {
             NSBTX nsbtx = new NSBTX();
 
@@ -597,11 +597,17 @@ namespace DSMap.NDS
 
             // Calculate the size of each palette.
             int[] paletteSizes = new int[nsbtx.Palettes.Length];
-            for (int p = 0; p < paletteSizes.Length - 1; p++)
+            if (paletteSizes.Length > 1)
             {
-                paletteSizes[p] = (int)(nsbtx.Palettes[p + 1].Offset - nsbtx.Palettes[p].Offset) / 2;
+                for (int p = 0; p < paletteSizes.Length - 1; p++)
+                {
+                    paletteSizes[p] = (int)(nsbtx.Palettes[p + 1].Offset - nsbtx.Palettes[p].Offset) / 2;
+                }
+
+                if (paletteSizes.Length > 2)
+                    paletteSizes[paletteSizes.Length - 1] = (int)(nsbtx.Palettes[paletteSizes.Length - 1].Offset - nsbtx.Palettes[paletteSizes.Length - 2].Offset) / 2;
             }
-            paletteSizes[paletteSizes.Length - 1] = (int)(nsbtx.Palettes[paletteSizes.Length - 1].Offset - nsbtx.Palettes[paletteSizes.Length - 2].Offset) / 2;
+            else paletteSizes[0] = (int)nsbtx.PaletteDataSize / 2;
 
             //
             for (int p = 0; p < nsbtx.Palettes.Length; p++)
@@ -729,11 +735,6 @@ namespace DSMap.NDS
     }
 
     // File
-    /*public struct BTX0
-    {
-
-    }*/
-
     // Texture
     /*
     public struct TEX0
@@ -811,6 +812,7 @@ namespace DSMap.NDS
         }
     }
     */
+
     // A better thing?
     public struct NSBTX
     {

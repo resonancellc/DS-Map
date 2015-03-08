@@ -504,7 +504,7 @@ namespace DSMap
 
             if (openDialog.ShowDialog() == DialogResult.OK)
             {
-                nsbtx = NSBTXLoader.LoadBTX02(openDialog.FileName);
+                nsbtx = NSBTXLoader.LoadBTX0(openDialog.FileName);
 
                 listBox1.Items.Clear();
                 listBox2.Items.Clear();
@@ -528,7 +528,7 @@ namespace DSMap
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            selectedTex = listBox1.SelectedIndex;
+            //selectedTex = listBox1.SelectedIndex;
 
             if (selectedTex>=0 && selectedPal >= 0)
                 pictureBox1.Image = NSBTXDrawer.DrawTexture(nsbtx.Textures[listBox1.SelectedIndex], nsbtx.Palettes[listBox2.SelectedIndex]);
@@ -536,10 +536,39 @@ namespace DSMap
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            selectedPal = listBox2.SelectedIndex;
+            //selectedPal = listBox2.SelectedIndex;
 
             if (selectedTex >= 0 && selectedPal >= 0)
                 pictureBox1.Image = NSBTXDrawer.DrawTexture(nsbtx.Textures[listBox1.SelectedIndex], nsbtx.Palettes[listBox2.SelectedIndex]);
+        }
+
+        private void loadAnNSBMDToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openDialog.FileName = "";
+            openDialog.Filter = "All Files|*.*";
+            openDialog.Title = "Open an NSBMD";
+
+            if (openDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    NSBMD bmd = NSBMDLoader.LoadBMD0(openDialog.FileName);
+
+                    listBox1.Items.Clear();
+                    listBox1.Items.Add(bmd.MDL0.Name);
+
+                    listBox2.Items.Clear();
+                    foreach (var obj in bmd.MDL0.Objects)
+                    {
+                        listBox2.Items.Add(obj.Name);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + "\n\n" + ex.StackTrace);
+                }
+                //pictureBox1.Image = NSBTXDrawer.DrawTexture(nsbtx.Textures[0], nsbtx.Palettes[0]);
+            }
         }
 
 

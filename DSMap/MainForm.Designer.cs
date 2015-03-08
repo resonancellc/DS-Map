@@ -75,10 +75,10 @@
             this.listObjects = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.loadAnNSBTXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.loadAnNSBMDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtObjHeight = new DSMap.NumericTextBox();
             this.txtObjLength = new DSMap.NumericTextBox();
             this.txtObjWidth = new DSMap.NumericTextBox();
@@ -117,7 +117,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rOMToolStripMenuItem,
             this.mapToolStripMenuItem,
-            this.loadAnNSBTXToolStripMenuItem});
+            this.loadAnNSBMDToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -600,13 +600,6 @@
             this.columnHeader2.Text = "Model";
             this.columnHeader2.Width = 76;
             // 
-            // loadAnNSBTXToolStripMenuItem
-            // 
-            this.loadAnNSBTXToolStripMenuItem.Name = "loadAnNSBTXToolStripMenuItem";
-            this.loadAnNSBTXToolStripMenuItem.Size = new System.Drawing.Size(100, 20);
-            this.loadAnNSBTXToolStripMenuItem.Text = "Load an NSBTX";
-            this.loadAnNSBTXToolStripMenuItem.Click += new System.EventHandler(this.loadAnNSBTXToolStripMenuItem_Click);
-            // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
@@ -629,10 +622,16 @@
             // 
             this.pictureBox1.Location = new System.Drawing.Point(258, 6);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.Size = new System.Drawing.Size(256, 256);
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
+            // 
+            // loadAnNSBMDToolStripMenuItem
+            // 
+            this.loadAnNSBMDToolStripMenuItem.Name = "loadAnNSBMDToolStripMenuItem";
+            this.loadAnNSBMDToolStripMenuItem.Size = new System.Drawing.Size(105, 20);
+            this.loadAnNSBMDToolStripMenuItem.Text = "Load an NSBMD";
+            this.loadAnNSBMDToolStripMenuItem.Click += new System.EventHandler(this.loadAnNSBMDToolStripMenuItem_Click);
             // 
             // txtObjHeight
             // 
@@ -786,6 +785,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DS Map";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -797,7 +797,6 @@
             this.tabMap.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
             this.tabModel.ResumeLayout(false);
-            this.tabModel.PerformLayout();
             this.tabMovements.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
@@ -879,10 +878,10 @@
         private System.Windows.Forms.ListView listObjects;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ToolStripMenuItem loadAnNSBTXToolStripMenuItem;
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolStripMenuItem loadAnNSBMDToolStripMenuItem;
     }
 }
 

@@ -14,6 +14,7 @@ namespace DSMap.Formats
         private List<MapObject> _objects;
         private byte[] _rawModel;
         private byte[] _rawBDHC;
+        private NSBMD _model;
 
         public Map(MemoryStream file)
         {
@@ -81,6 +82,10 @@ namespace DSMap.Formats
 
                 // BDHC (not sure what this does yet)
                 _rawBDHC = br.ReadBytes(bdhcSize);
+
+                // Read the model into the NSBMD now
+                br.BaseStream.Seek(movementSize + objectSize + 16, SeekOrigin.Begin);
+                _model = NSBMDLoader.LoadBMD0(br);
             }
         }
 
