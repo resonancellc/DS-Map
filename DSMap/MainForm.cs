@@ -558,9 +558,9 @@ namespace DSMap
                     listBox1.Items.Add(bmd.MDL0.Name);
 
                     listBox2.Items.Clear();
-                    foreach (var obj in bmd.MDL0.Objects)
+                    foreach (var mat in bmd.MDL0.Materials)
                     {
-                        listBox2.Items.Add(obj.Name);
+                        listBox2.Items.Add(mat.Name);
                     }
                 }
                 catch (Exception ex)

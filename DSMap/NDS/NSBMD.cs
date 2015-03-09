@@ -126,11 +126,12 @@ namespace DSMap.NDS
             // --------------------------------------------
             // Load the MDL data header
             // --------------------------------------------
+            #region
             mdl.BlockSize = br.ReadUInt32();
-            mdl.BonesOffset = br.ReadUInt32() + mdl0Offset;
-            mdl.MaterialsOffset = br.ReadUInt32() + mdl0Offset;
-            mdl.PolygonStartOffset = br.ReadUInt32() + mdl0Offset;
-            mdl.PolygonEndOffset = br.ReadUInt32() + mdl0Offset;
+            mdl.BonesOffset = br.ReadUInt32() + mdl.Offset;
+            mdl.MaterialsOffset = br.ReadUInt32() + mdl.Offset;
+            mdl.PolygonStartOffset = br.ReadUInt32() + mdl.Offset;
+            mdl.PolygonEndOffset = br.ReadUInt32() + mdl.Offset;
             mdl.Unknown = br.ReadBytes(3);
             mdl.ObjectCount = br.ReadByte();
             mdl.MaterialCount = br.ReadByte();
@@ -149,6 +150,7 @@ namespace DSMap.NDS
             mdl.BoundingHeight = GetSignedFixedPoint(br.ReadUInt16());
             mdl.BoundingDepth = GetSignedFixedPoint(br.ReadUInt16());
             mdl.RuntimeData = br.ReadUInt64(); // unused, but necessary..?
+            #endregion
 
             // --------------------------------------------
             // Load the objects section
@@ -166,7 +168,6 @@ namespace DSMap.NDS
                 if (objectCount != mdl.ObjectCount)
                     throw new Exception("objectCount doesn't match mdl.ObjectCount!\n" + objectCount + " vs. " + mdl.ObjectCount + "\n 0x" + br.BaseStream.Position.ToString("X"));
 
-                // The unknown block
                 // Uknown block
                 if (br.ReadUInt16() != 8) throw new Exception("Bad unknown block size!");
                 ushort objUnknownBlockSize = br.ReadUInt16();
@@ -208,7 +209,7 @@ namespace DSMap.NDS
                 {
                     if (br.BaseStream.Position != mdl.Objects[i].Offset)
                         throw new Exception("Uh-oh!\nBad object" + i + " offset!");
-                    MessageBox.Show("Object Data @ 0x" + br.BaseStream.Position.ToString("X"));
+                    //MessageBox.Show("Object Data @ 0x" + br.BaseStream.Position.ToString("X"));
 
                     ushort transFlag = br.ReadUInt16();
                     br.BaseStream.Seek(2, SeekOrigin.Current); // padding
@@ -256,11 +257,212 @@ namespace DSMap.NDS
             // --------------------------------------------
             // Load the bones commands
             // --------------------------------------------
+            #region
             {
                 if (br.BaseStream.Position != mdl.BonesOffset)
-                    throw new Exception("Bad bones offset?\nExpected 0x" +
-                        mdl.BonesOffset.ToString("X") + " but got 0x" + br.BaseStream.Position.ToString("X"));
+                    throw new Exception("Bad bones offset!");
+
+                List<MDL0.Bone> bones = new List<MDL0.Bone>();
+                byte cmd = 0x0; // It will auto quite or something like that
+                do
+                {
+                    // Read the command
+                    cmd = br.ReadByte();
+
+                    var bone = new MDL0.Bone();
+                    bone.Command = cmd;
+                    switch (cmd)
+                    {
+                        case 0x0:
+                            bone.Size = 0;
+                            break;
+                        case 0x1:
+                            bone.Size = 0;
+                            break;
+                        case 0x2:
+                            bone.Size = 2;
+                            bone.Parameters = new byte[2];
+                            bone.Parameters[0] = br.ReadByte();  // Node ID
+                            bone.Parameters[1] = br.ReadByte();  // Visibility
+                            break;
+                        case 0x03:
+                            bone.Size = 1;
+                            bone.Parameters = new byte[1];
+                            bone.Parameters[0] = br.ReadByte();  // Set Polygon Stack ID?
+                            break;
+                        case 0x04:
+                            bone.Parameters = new byte[3];
+                            bone.Parameters[0] = br.ReadByte();  // Material ID
+                            bone.Parameters[1] = br.ReadByte();  // 0x05
+                            bone.Parameters[2] = br.ReadByte();  // Polygon ID
+                            break;
+                        case 0x05:
+                            bone.Size = 1;
+                            bone.Parameters = new byte[1];
+                            bone.Parameters[0] = br.ReadByte();
+                            break;
+                        case 0x06:
+                            bone.Size = 3;
+                            bone.Parameters = new byte[3];
+                            bone.Parameters[0] = br.ReadByte();  // Object ID
+                            bone.Parameters[1] = br.ReadByte();  // Parent ID
+                            bone.Parameters[2] = br.ReadByte();  // Dummy 0
+                            break;
+                        case 0x07:
+                            bone.Size = 1;
+                            bone.Parameters = new byte[1];
+                            bone.Parameters[0] = br.ReadByte();
+                            break;
+                        case 0x08:
+                            bone.Size = 1;
+                            bone.Parameters = new byte[1];
+                            bone.Parameters[0] = br.ReadByte();
+                            break;
+                        case 0x09:
+                            bone.Size = 8;
+                            bone.Parameters = new byte[8];
+                            bone.Parameters[0] = br.ReadByte();
+                            bone.Parameters[1] = br.ReadByte();
+                            bone.Parameters[2] = br.ReadByte();
+                            bone.Parameters[3] = br.ReadByte();
+                            bone.Parameters[4] = br.ReadByte();
+                            bone.Parameters[5] = br.ReadByte();
+                            bone.Parameters[6] = br.ReadByte();
+                            bone.Parameters[7] = br.ReadByte();
+                            break;
+                        case 0x0B:
+                            bone.Size = 0;   // Begin Polygon/Material pairing
+                            break;
+                        case 0x24:
+                            bone.Size = 3;
+                            bone.Parameters = new byte[3];
+                            bone.Parameters[0] = br.ReadByte();  // Material ID
+                            bone.Parameters[1] = br.ReadByte();  // 0x05
+                            bone.Parameters[2] = br.ReadByte();  // Polygon ID
+                            break;
+                        case 0x26:
+                            bone.Size = 4;
+                            bone.Parameters = new byte[4];
+                            bone.Parameters[0] = br.ReadByte();  // Object ID
+                            bone.Parameters[1] = br.ReadByte();  // Parent ID
+                            bone.Parameters[2] = br.ReadByte();  // Dummy 0
+                            bone.Parameters[3] = br.ReadByte();  // Stack ID
+                            break;
+                        case 0x2B:
+                            bone.Size = 0;   // End Polygon/Material Pairing
+                            break;
+                        case 0x44:
+                            bone.Size = 3;
+                            bone.Parameters = new byte[3];
+                            bone.Parameters[0] = br.ReadByte();  // Material ID
+                            bone.Parameters[1] = br.ReadByte();  // 0x05
+                            bone.Parameters[2] = br.ReadByte();  // Polygon ID
+                            break;
+                        case 0x46:
+                            bone.Size = 4;
+                            bone.Parameters = new byte[4];
+                            bone.Parameters[0] = br.ReadByte();  // Object ID
+                            bone.Parameters[1] = br.ReadByte();  // Parent ID
+                            bone.Parameters[2] = br.ReadByte();  // Dummy 0
+                            bone.Parameters[3] = br.ReadByte();  // Restore ID
+                            break;
+                        case 0x66:
+                            bone.Size = 5;
+                            bone.Parameters = new byte[5];
+                            bone.Parameters[0] = br.ReadByte();  // Object ID
+                            bone.Parameters[1] = br.ReadByte();  // Parent ID
+                            bone.Parameters[2] = br.ReadByte();  // Dummy 0
+                            bone.Parameters[3] = br.ReadByte();  // Stack ID
+                            bone.Parameters[4] = br.ReadByte();  // Restore ID
+                            break;
+
+                        default:
+                            throw new Exception("Unknown bone command 0x" + cmd.ToString("X") + "!");
+                    }
+
+                    bones.Add(bone);
+                } while (cmd != 0x1);
+
+                // Done
+                mdl.Bones = bones.ToArray();
+
+                // The bones data should end on an offset of 4
+                // If it doesn't, there will be filler data
+                // The DS likes multiples of four after all ;)
+                if (br.BaseStream.Position % 4 != 0)
+                {
+                    br.BaseStream.Seek(4 - (br.BaseStream.Position % 4), SeekOrigin.Current);
+                }
             }
+            #endregion
+
+            // --------------------------------------------
+            // Load the materials section
+            // It tells how textures should be used
+            // --------------------------------------------
+            #region
+            {
+                if (br.BaseStream.Position != mdl.MaterialsOffset)
+                    throw new Exception("Bad materials offset!");
+
+                // A small header
+                uint texOffset = br.ReadUInt16() + mdl.MaterialsOffset;
+                uint palOffset = br.ReadUInt16() + mdl.MaterialsOffset;
+
+                #region 3D Info
+
+                if (br.ReadByte() != 0) throw new Exception("Expected dummy byte!");
+                byte materialCount = br.ReadByte();
+                ushort materialSectionSize = br.ReadUInt16();
+
+                if (mdl.MaterialCount != materialCount)
+                    throw new Exception("Invalid material count!");
+
+                // Uknown block
+                if (br.ReadUInt16() != 8) throw new Exception("Bad unknown block size!");
+                ushort objUnknownBlockSize = br.ReadUInt16();
+                if (br.ReadUInt32() != 0x0000017F) // offset 0x58
+                    throw new Exception("Bad unknown block constant!");
+
+                mdl.Materials = new MDL0.Material[materialCount];
+                for (int i = 0; i < materialCount; i++)
+                {
+                    mdl.Materials[i].UnknownBlock = new ushort[2];
+                    mdl.Materials[i].UnknownBlock[0] = br.ReadUInt16();
+                    mdl.Materials[i].UnknownBlock[1] = br.ReadUInt16();
+                }
+
+                // Material info block
+                if (br.ReadUInt16() != 4) throw new Exception("Bad material block size!");
+                /*ushort dataSize = */br.ReadUInt16(); // not sure if we'll ever want this
+
+                for (int i = 0; i < materialCount; i++)
+                {
+                    mdl.Materials[i].DefinitionOffset = br.ReadUInt32() + mdl.MaterialsOffset;
+                }
+
+                // Names
+                for (int i = 0; i < materialCount; i++)
+                {
+                    mdl.Materials[i].Name = Encoding.UTF8.GetString(br.ReadBytes(16)).Replace("\0", "");
+                }
+
+                #endregion
+
+                #region Texture 3D Info
+
+                if (br.BaseStream.Position != texOffset)
+                    throw new Exception("Bad material texture data offset!");
+
+                #endregion
+
+                #region Palette 3D Info
+
+                #endregion
+
+
+            }
+            #endregion
 
             return mdl;
         }
@@ -311,6 +513,8 @@ namespace DSMap.NDS
         public ulong RuntimeData;
 
         public Obj[] Objects;
+        public Bone[] Bones;
+        public Material[] Materials;
 
         public struct Obj
         {
@@ -341,6 +545,23 @@ namespace DSMap.NDS
             public ushort rot7;
             public ushort rot8;*/
             public ushort[] Rotation;
+        }
+
+        public struct Bone
+        {
+            public byte Command;
+
+            public int Size;
+            public byte[] Parameters;
+        }
+
+        public struct Material
+        {
+            public ushort[] UnknownBlock;
+            public uint DefinitionOffset;
+            public string Name;
+
+
         }
     }
 }
