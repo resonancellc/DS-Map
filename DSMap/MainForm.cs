@@ -561,6 +561,8 @@ namespace DSMap
                     foreach (var mat in bmd.MDL0.Materials)
                     {
                         listBox2.Items.Add(mat.Name);
+                        listBox2.Items.Add("> " + mat.Texture.Name);
+                        listBox2.Items.Add("> " + mat.Palette.Name);
                     }
                 }
                 catch (Exception ex)

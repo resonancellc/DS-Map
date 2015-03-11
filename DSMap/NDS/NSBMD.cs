@@ -398,7 +398,7 @@ namespace DSMap.NDS
 
             // --------------------------------------------
             // Load the materials section
-            // It tells how textures should be used
+            // It tells how textures/palettes should be used
             // --------------------------------------------
             #region
             {
@@ -452,16 +452,202 @@ namespace DSMap.NDS
                 #region Texture 3D Info
 
                 if (br.BaseStream.Position != texOffset)
-                    throw new Exception("Bad material texture data offset!");
+                    throw new Exception("Bad material texture definitions offset!");
+
+                if (br.ReadByte() != 0) throw new Exception("Expected dummy byte!");
+                byte textureCount = br.ReadByte();
+                ushort texSectionSize = br.ReadUInt16();
+
+                // Uknown block
+                if (br.ReadUInt16() != 8) throw new Exception("Bad unknown block size!");
+                ushort texUnknownBlockSize = br.ReadUInt16();
+                if (br.ReadUInt32() != 0x0000017F) // offset 0x58
+                    throw new Exception("Bad unknown block constant!");
+                
+                MDL0.TextureDef[] texDefs = new MDL0.TextureDef[textureCount];
+                for (int i = 0; i < textureCount; i++)
+                {
+                    texDefs[i].UnknownBlock = new ushort[2];
+                    texDefs[i].UnknownBlock[0] = br.ReadUInt16();
+                    texDefs[i].UnknownBlock[1] = br.ReadUInt16();
+                }
+
+                /*if (textureCount == materialCount)
+                    throw new Exception("They are the same count!");*/
+                // Material info block
+                if (br.ReadUInt16() != 4) throw new Exception("Bad material block size!");
+                /*ushort dataSize = */
+                br.ReadUInt16(); // not sure if we'll ever want this
+
+                for (int i = 0; i < textureCount; i++)
+                {
+                    texDefs[i].MatchingOffset = br.ReadUInt16() + mdl.MaterialsOffset;
+                    texDefs[i].AssociatedMaterialNum = br.ReadByte();
+                    if (br.ReadByte() != 0) throw new Exception("Expected dummy byte in texture def!");
+
+                    /*long pos = br.BaseStream.Position;
+                    br.BaseStream.Seek(texDefs[i].MatchingOffset, SeekOrigin.Begin);
+                    texDefs[i].AssociatedMaterialID = br.ReadByte();
+                    br.BaseStream.Seek(pos, SeekOrigin.Begin);*/
+                }
+
+                // Names
+                for (int i = 0; i < textureCount; i++)
+                {
+                    texDefs[i].Name = Encoding.UTF8.GetString(br.ReadBytes(16)).Replace("\0", "");
+                }
 
                 #endregion
 
                 #region Palette 3D Info
 
+                if (br.BaseStream.Position != palOffset)
+                    throw new Exception("Bad material palette definitions offset!");
+
+                // Header
+                if (br.ReadByte() != 0) throw new Exception("Expected dummy byte!");
+                byte paletteCount = br.ReadByte();
+                ushort palSectionSize = br.ReadUInt16();
+
+                // Uknown block
+                if (br.ReadUInt16() != 8) throw new Exception("Bad unknown block size!");
+                ushort palUnknownBlockSize = br.ReadUInt16();
+                if (br.ReadUInt32() != 0x0000017F) // offset 0x58
+                    throw new Exception("Bad unknown block constant!");
+
+                MDL0.PaletteDef[] palDefs = new MDL0.PaletteDef[paletteCount];
+                for (int i = 0; i < paletteCount; i++)
+                {
+                    palDefs[i].UnknownBlock = new ushort[2];
+                    palDefs[i].UnknownBlock[0] = br.ReadUInt16();
+                    palDefs[i].UnknownBlock[1] = br.ReadUInt16();
+                }
+
+                // Material info block
+                if (br.ReadUInt16() != 4) throw new Exception("Bad material block size!");
+                /*ushort dataSize = */
+                br.ReadUInt16(); // not sure if we'll ever want this
+
+                for (int i = 0; i < paletteCount; i++)
+                {
+                    palDefs[i].MatchingOffset = br.ReadUInt16() + mdl.MaterialsOffset;
+                    palDefs[i].AssociatedMaterialNum = br.ReadByte();
+                    if (br.ReadByte() != 0) throw new Exception("Expected dummy byte in palette def!");
+
+                    /*long pos = br.BaseStream.Position;
+                    br.BaseStream.Seek(palDefs[i].MatchingOffset, SeekOrigin.Begin);
+                    palDefs[i].AssociatedMaterialID = br.ReadByte();
+                    br.BaseStream.Seek(pos, SeekOrigin.Begin);*/
+                }
+
+                // Names
+                for (int i = 0; i < paletteCount; i++)
+                {
+                    palDefs[i].Name = Encoding.UTF8.GetString(br.ReadBytes(16)).Replace("\0", "");
+                }
+
                 #endregion
 
+                #region IDs
+                
+                // Read texture IDs
+                for (int i = 0; i < textureCount; i++)
+                {
+                    //if (texDefs[i].MatchingOffset != br.BaseStream.Position)
+                    //    throw new Exception("Texture def " + i + " doesn't have the correct offset!");
 
+                    br.BaseStream.Seek(texDefs[i].MatchingOffset, SeekOrigin.Begin);
+                    texDefs[i].AssociatedMaterialID = br.ReadByte();
+                    //MessageBox.Show("Tex " + i + " associacted num " + texDefs[i].AssociatedMaterialNum + " and ID " + texDefs[i].AssociatedMaterialID);
+                }
+
+                //if (textureCount % 4 != 0) br.BaseStream.Position += 1;// (textureCount % 4);
+                //MessageBox.Show("Current offset: " + br.BaseStream.Position + "\nPal def 0: " + palDefs[0].MatchingOffset + "\nTexture count: " + textureCount);
+
+                // Read palette IDs
+                for (int i = 0; i < paletteCount; i++)
+                {
+                    //if (palDefs[i].MatchingOffset != br.BaseStream.Position)
+                    //    throw new Exception("Palette def " + i + " doesn't have the correct offset!\nExpected " + palDefs[i].MatchingOffset.ToString() + " but got " + br.BaseStream.Position.ToString());
+
+                    br.BaseStream.Seek(palDefs[i].MatchingOffset, SeekOrigin.Begin);
+                    palDefs[i].AssociatedMaterialID = br.ReadByte();
+                }
+
+                //if (paletteCount % 2 != 0) br.BaseStream.Position += 1;
+                
+
+                //MessageBox.Show("Texture defs: " + textureCount + "\nPalette defs: " + paletteCount + "\n\nOffset: " + br.BaseStream.Position.ToString("X"));
+
+                //br.BaseStream.Position += texDefs.Length;
+                
+
+                //br.BaseStream.Position += palDefs.Length;
+
+                /*if (mdl.Materials[0].DefinitionOffset - br.BaseStream.Position > 0)
+                {
+                    br.BaseStream.Seek(mdl.Materials[0].DefinitionOffset - br.BaseStream.Position, SeekOrigin.Current);
+                }*/
+
+                #endregion
+
+                #region Materials Definitions/Matching
+
+                br.BaseStream.Seek(mdl.Materials[0].DefinitionOffset, SeekOrigin.Begin);
+                for (int i = 0; i < materialCount; i++)
+                {
+                    if (br.BaseStream.Position != mdl.Materials[i].DefinitionOffset)
+                        throw new Exception("Bad material def " + i + " offset!\nExpected 0x" + mdl.Materials[i].DefinitionOffset.ToString("X") + " but got 0x" + br.BaseStream.Position.ToString("X"));
+
+                    br.ReadBytes(0x2C); // this is an error in tinke ;)
+
+                    // figure out which texture and palette goes to which
+                    bool foundTex = false;
+                    foreach (var tex in texDefs)
+                    {
+                        if (tex.AssociatedMaterialID == i)
+                        {
+                            foundTex = true;
+                            mdl.Materials[i].Texture = tex;
+                            break;
+                        }
+                    }
+
+                    if (!foundTex)
+                    {
+                        MessageBox.Show("Unable to match a texture for material " + mdl.Materials[i].Name);
+                        // TODO: match texture manually ;)
+                    }
+
+                    bool foundPal = false;
+                    foreach (var pal in palDefs)
+                    {
+                        if (pal.AssociatedMaterialID == i)
+                        {
+                            foundPal = true;
+                            mdl.Materials[i].Palette = pal;
+                            break;
+                        }
+                    }
+
+                    if (!foundPal)
+                    {
+                        MessageBox.Show("Unable to match a palette for material " + mdl.Materials[i].Name);
+                        // TODO: match texture manually ;)
+                    }
+                }
+
+                #endregion
             }
+            #endregion
+
+            // --------------------------------------------
+            // Load the polygons section
+            // --------------------------------------------
+            #region
+
+            // This is next.
+
             #endregion
 
             return mdl;
@@ -561,7 +747,30 @@ namespace DSMap.NDS
             public uint DefinitionOffset;
             public string Name;
 
+            public TextureDef Texture;
+            public PaletteDef Palette;
+        }
 
+        public struct TextureDef
+        {
+            public ushort[] UnknownBlock;
+            public string Name;
+
+            public uint MatchingOffset;
+            public byte AssociatedMaterialNum;
+            public byte AssociatedMaterialID;
+            //public byte Dummy;
+        }
+
+        public struct PaletteDef
+        {
+            public ushort[] UnknownBlock;
+            public string Name;
+
+            public uint MatchingOffset;
+            public byte AssociatedMaterialNum;
+            public byte AssociatedMaterialID;
+            //public byte Dummy;
         }
     }
 }
