@@ -555,14 +555,17 @@ namespace DSMap
                     NSBMD bmd = NSBMDLoader.LoadBMD0(openDialog.FileName);
 
                     listBox1.Items.Clear();
-                    listBox1.Items.Add(bmd.MDL0.Name);
-
-                    listBox2.Items.Clear();
                     foreach (var mat in bmd.MDL0.Materials)
                     {
-                        listBox2.Items.Add(mat.Name);
-                        listBox2.Items.Add("> " + mat.Texture.Name);
-                        listBox2.Items.Add("> " + mat.Palette.Name);
+                        listBox1.Items.Add(mat.Name);
+                        listBox1.Items.Add("> " + mat.Texture.Name);
+                        listBox1.Items.Add("> " + mat.Palette.Name);
+                    }
+
+                    listBox2.Items.Clear();
+                    foreach (var poly in bmd.MDL0.Polygons)
+                    {
+                        listBox2.Items.Add(poly.Name);
                     }
                 }
                 catch (Exception ex)

@@ -66,9 +66,9 @@ namespace DSMap.NDS
             return bmd;
         }
 
-        public static MDL0 LoadMDL0(BinaryReader br)
+        public static Model LoadMDL0(BinaryReader br)
         {
-            MDL0 mdl = new MDL0();
+            Model mdl = new Model();
             uint mdl0Offset = (uint)br.BaseStream.Position;
 
             // --------------------------------------------
@@ -175,7 +175,7 @@ namespace DSMap.NDS
                     throw new Exception("Bad unknown block constant!");
 
                 // It doesn't have any effect on displaying?
-                mdl.Objects = new MDL0.Obj[objectCount];
+                mdl.Objects = new Model.Obj[objectCount];
                 for (int i = 0; i < objectCount; i++)
                 {
                     mdl.Objects[i].UnknownBlock = new ushort[2];
@@ -262,14 +262,14 @@ namespace DSMap.NDS
                 if (br.BaseStream.Position != mdl.BonesOffset)
                     throw new Exception("Bad bones offset!");
 
-                List<MDL0.Bone> bones = new List<MDL0.Bone>();
+                List<Model.Bone> bones = new List<Model.Bone>();
                 byte cmd = 0x0; // It will auto quite or something like that
                 do
                 {
                     // Read the command
                     cmd = br.ReadByte();
 
-                    var bone = new MDL0.Bone();
+                    var bone = new Model.Bone();
                     bone.Command = cmd;
                     switch (cmd)
                     {
@@ -424,7 +424,7 @@ namespace DSMap.NDS
                 if (br.ReadUInt32() != 0x0000017F) // offset 0x58
                     throw new Exception("Bad unknown block constant!");
 
-                mdl.Materials = new MDL0.Material[materialCount];
+                mdl.Materials = new Model.Material[materialCount];
                 for (int i = 0; i < materialCount; i++)
                 {
                     mdl.Materials[i].UnknownBlock = new ushort[2];
@@ -434,7 +434,8 @@ namespace DSMap.NDS
 
                 // Material info block
                 if (br.ReadUInt16() != 4) throw new Exception("Bad material block size!");
-                /*ushort dataSize = */br.ReadUInt16(); // not sure if we'll ever want this
+                /*ushort dataSize = */
+                br.ReadUInt16(); // not sure if we'll ever want this
 
                 for (int i = 0; i < materialCount; i++)
                 {
@@ -463,8 +464,8 @@ namespace DSMap.NDS
                 ushort texUnknownBlockSize = br.ReadUInt16();
                 if (br.ReadUInt32() != 0x0000017F) // offset 0x58
                     throw new Exception("Bad unknown block constant!");
-                
-                MDL0.TextureDef[] texDefs = new MDL0.TextureDef[textureCount];
+
+                Model.TextureDef[] texDefs = new Model.TextureDef[textureCount];
                 for (int i = 0; i < textureCount; i++)
                 {
                     texDefs[i].UnknownBlock = new ushort[2];
@@ -515,7 +516,7 @@ namespace DSMap.NDS
                 if (br.ReadUInt32() != 0x0000017F) // offset 0x58
                     throw new Exception("Bad unknown block constant!");
 
-                MDL0.PaletteDef[] palDefs = new MDL0.PaletteDef[paletteCount];
+                Model.PaletteDef[] palDefs = new Model.PaletteDef[paletteCount];
                 for (int i = 0; i < paletteCount; i++)
                 {
                     palDefs[i].UnknownBlock = new ushort[2];
@@ -549,7 +550,7 @@ namespace DSMap.NDS
                 #endregion
 
                 #region IDs
-                
+
                 // Read texture IDs
                 for (int i = 0; i < textureCount; i++)
                 {
@@ -575,12 +576,12 @@ namespace DSMap.NDS
                 }
 
                 //if (paletteCount % 2 != 0) br.BaseStream.Position += 1;
-                
+
 
                 //MessageBox.Show("Texture defs: " + textureCount + "\nPalette defs: " + paletteCount + "\n\nOffset: " + br.BaseStream.Position.ToString("X"));
 
                 //br.BaseStream.Position += texDefs.Length;
-                
+
 
                 //br.BaseStream.Position += palDefs.Length;
 
@@ -645,12 +646,169 @@ namespace DSMap.NDS
             // Load the polygons section
             // --------------------------------------------
             #region
+            {
+                // Offset check, again.
+                if (br.BaseStream.Position != mdl.PolygonStartOffset)
+                    throw new Exception("Bad polygon start offset!");
 
-            // This is next.
+                #region 3D Info
 
+                if (br.ReadByte() != 0) throw new Exception("Expected dummy byte!");
+                byte polyCount = br.ReadByte();
+                ushort polySectionSize = br.ReadUInt16();
+
+                if (mdl.PolygonCount != polyCount)
+                    throw new Exception("Invalid polygon count!");
+
+                // Uknown block
+                if (br.ReadUInt16() != 8) throw new Exception("Bad unknown block size!");
+                ushort polyUnknownBlockSize = br.ReadUInt16();
+                if (br.ReadUInt32() != 0x0000017F) // offset 0x58
+                    throw new Exception("Bad unknown block constant!");
+
+                mdl.Polygons = new Model.Polygon[polyCount];
+                for (int i = 0; i < polyCount; i++)
+                {
+                    mdl.Polygons[i].UnknownBlock = new ushort[2];
+                    mdl.Polygons[i].UnknownBlock[0] = br.ReadUInt16();
+                    mdl.Polygons[i].UnknownBlock[1] = br.ReadUInt16();
+                }
+
+                // Polygon info block
+                if (br.ReadUInt16() != 4) throw new Exception("Bad polygon block size!");
+                /*ushort dataSize = */
+                br.ReadUInt16(); // not sure if we'll ever want this
+
+                for (int i = 0; i < polyCount; i++)
+                {
+                    mdl.Polygons[i].DefOffset = br.ReadUInt32() + mdl.PolygonStartOffset;
+                }
+
+                // Names
+                for (int i = 0; i < polyCount; i++)
+                {
+                    mdl.Polygons[i].Name = Encoding.UTF8.GetString(br.ReadBytes(16)).Replace("\0", "");
+                }
+
+                #endregion
+
+                #region Polygon Definition
+
+                for (int i = 0; i < polyCount; i++)
+                {
+                    if (br.BaseStream.Position != mdl.Polygons[i].DefOffset)
+                        throw new Exception("Bad polygon " + i + " definition offset!");
+
+                    mdl.Polygons[i].Unknown1 = br.ReadUInt32();
+                    mdl.Polygons[i].Unknown2 = br.ReadUInt32();
+                    mdl.Polygons[i].DisplayOffset = br.ReadUInt32() + mdl.Polygons[i].DefOffset;
+                    mdl.Polygons[i].DisplaySize = br.ReadUInt32();
+                }
+
+                #endregion Display List
+
+                #region Geometry Commands
+
+                for (int i = 0; i < polyCount; i++)
+                {
+                    if (br.BaseStream.Position != mdl.Polygons[i].DisplayOffset)
+                        throw new Exception("Bad polygon " + i + " display offset!");
+
+                    //byte[] buffer = br.ReadBytes((int)mdl.Polygons[i].DisplaySize);
+                    List<Model.GeoCommand> commands = new List<Model.GeoCommand>();
+                    for (int c = 0; c < mdl.Polygons[i].DisplaySize; /*c += 4*/)
+                    {
+                        // Commands are stored in groups of four
+                        byte[] fourCmds = br.ReadBytes(4);
+                        c += 4;
+
+                        // Read the commands
+                        foreach (byte val in fourCmds)
+                        {
+                            Model.GeoCommand cmd = new Model.GeoCommand();
+                            cmd.Value = val;
+
+                            int paramSize = GetGeometryCommandSize(val);
+                            cmd.Parameters = new uint[paramSize];
+
+                            if (paramSize > 0)
+                            {
+                                for (int n = 0; n < paramSize; n++)
+                                {
+                                    c += 4;
+                                    cmd.Parameters[n] = br.ReadUInt32();
+                                }
+                            }
+
+                            commands.Add(cmd);
+                        }
+                    }
+                    mdl.Polygons[i].Commands = commands.ToArray();
+                }
+
+                #endregion
+            }
             #endregion
 
+            // And that's it!
+
             return mdl;
+        }
+
+        public static int GetGeometryCommandSize(byte cmd)
+        {
+            switch (cmd)
+            {
+                case 0: return 0;
+
+                case 0x10: return 1;
+                case 0x11: return 0;
+                case 0x12: return 1;
+                case 0x13: return 1;
+                case 0x14: return 1;
+                case 0x15: return 0;
+                case 0x16: return 16;
+                case 0x17: return 12;
+                case 0x18: return 16;
+                case 0x19: return 12;
+                case 0x1A: return 9;
+                case 0x1B: return 3;
+                case 0x1C: return 3;
+
+                case 0x20: return 1;
+                case 0x21: return 1;
+                case 0x22: return 1;
+                case 0x23: return 2;
+                case 0x24: return 1;
+                case 0x25: return 1;
+                case 0x26: return 1;
+                case 0x27: return 1;
+                case 0x28: return 1;
+
+                case 0x29: return 1;
+                case 0x2A: return 1;
+                case 0x2B: return 1;
+
+                case 0x30: return 1;
+                case 0x31: return 1;
+                case 0x32: return 1;
+                case 0x33: return 1;
+                case 0x34: return 32;
+
+                case 0x40: return 1;
+                case 0x41: return 0;
+
+                case 0x50: return 1;
+
+                case 0x60: return 1;
+
+                case 0x70: return 3;
+                case 0x71: return 2;
+                case 0x72: return 1;
+
+                default:
+                    return 0;
+            }
         }
 
         public static double GetSignedFixedPoint(ushort value)
@@ -669,13 +827,13 @@ namespace DSMap.NDS
 
     public struct NSBMD
     {
-        public MDL0 MDL0; 
+        public Model MDL0; 
 
         public bool HasTEX0;
         public NSBTX TEX0;
     }
 
-    public struct MDL0
+    public struct Model
     {
         public ushort[] UnknownBlock;
         //public uint ModelOffset;
@@ -701,6 +859,7 @@ namespace DSMap.NDS
         public Obj[] Objects;
         public Bone[] Bones;
         public Material[] Materials;
+        public Polygon[] Polygons;
 
         public struct Obj
         {
@@ -771,6 +930,27 @@ namespace DSMap.NDS
             public byte AssociatedMaterialNum;
             public byte AssociatedMaterialID;
             //public byte Dummy;
+        }
+
+        public struct Polygon
+        {
+            // Header
+            public ushort[] UnknownBlock;
+            public uint DefOffset;
+            public string Name;
+            
+            // Definition
+            public uint Unknown1, Unknown2;
+            public uint DisplayOffset, DisplaySize;
+
+            // Geometry Commands
+            public GeoCommand[] Commands;
+        }
+
+        public struct GeoCommand
+        {
+            public byte Value;
+            public uint[] Parameters;
         }
     }
 }
