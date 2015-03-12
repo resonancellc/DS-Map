@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace DSMap.NDS
@@ -54,7 +55,7 @@ namespace DSMap.NDS
 
             if (sectionCount == 2)
             {
-                MessageBox.Show("Ooh!\nThis model has textures included!");
+                //MessageBox.Show("Ooh!\nThis model has textures included!");
 
                 // Read TEX0 section (if it has one)
                 br.BaseStream.Seek(tex0Offset, SeekOrigin.Begin);
@@ -603,38 +604,58 @@ namespace DSMap.NDS
                     br.ReadBytes(0x2C); // this is an error in tinke ;)
 
                     // figure out which texture and palette goes to which
-                    bool foundTex = false;
+                    mdl.Materials[i].MatchedTex = false;
                     foreach (var tex in texDefs)
                     {
                         if (tex.AssociatedMaterialID == i)
                         {
-                            foundTex = true;
+                            mdl.Materials[i].MatchedTex = true;
                             mdl.Materials[i].Texture = tex;
                             break;
                         }
                     }
 
-                    if (!foundTex)
+                    if (!mdl.Materials[i].MatchedTex)
                     {
-                        MessageBox.Show("Unable to match a texture for material " + mdl.Materials[i].Name);
+                        //MessageBox.Show("Unable to match a texture for material " + mdl.Materials[i].Name);
                         // TODO: match texture manually ;)
+                        foreach (var tex in texDefs)
+                        {
+                            // For now, just match the first one?
+                            if (tex.AssociatedMaterialNum > 1)
+                            {
+                                mdl.Materials[i].MatchedTex = true;
+                                mdl.Materials[i].Texture = tex;
+                                break;
+                            }
+                        }
                     }
 
-                    bool foundPal = false;
+                    mdl.Materials[i].MatchedPal = false;
                     foreach (var pal in palDefs)
                     {
                         if (pal.AssociatedMaterialID == i)
                         {
-                            foundPal = true;
+                            mdl.Materials[i].MatchedPal = true;
                             mdl.Materials[i].Palette = pal;
                             break;
                         }
                     }
 
-                    if (!foundPal)
+                    if (!mdl.Materials[i].MatchedPal)
                     {
-                        MessageBox.Show("Unable to match a palette for material " + mdl.Materials[i].Name);
+                        //MessageBox.Show("Unable to match a palette for material " + mdl.Materials[i].Name);
                         // TODO: match texture manually ;)
+
+                        foreach (var pal in palDefs)
+                        {
+                            if (pal.AssociatedMaterialNum > 1)
+                            {
+                                mdl.Materials[i].MatchedPal = true;
+                                mdl.Materials[i].Palette = pal;
+                                break;
+                            }
+                        }
                     }
                 }
 
@@ -747,8 +768,42 @@ namespace DSMap.NDS
                 }
 
                 #endregion
+
+                #region Match Materials to Polygons
+
+                // To do this, we have to look through the bones
+                foreach (var bone in mdl.Bones)
+                {
+                    switch (bone.Command)
+                    {
+                            // All the necessary commands
+                            // These three are all the same parameters:
+                            // [material ID] [5] [polygon ID]
+                        case 0x4:
+                        case 0x24:
+                        case 0x44:
+                            byte material = bone.Parameters[0];
+                            if (bone.Parameters[1] != 5) throw new Exception("Bad material-polygon matching bone command!");
+                            byte polygon = bone.Parameters[2];
+
+                            if (polygon < mdl.PolygonCount)
+                            {
+                                mdl.Polygons[polygon].MaterialID = material;
+                            }
+                            else
+                            {
+                                throw new Exception("Uh, help?");
+                            }
+                            break;
+
+                        default: break;
+                    }
+                }
+
+                #endregion
             }
             #endregion
+
 
             // And that's it!
 
@@ -820,6 +875,34 @@ namespace DSMap.NDS
             // sign
             if ((value >> 15) == 1)
                 point = -point;
+
+            return point;
+        }
+
+        public static float GetDouble(int value, bool signed, int integer, int fractional)
+        {
+            int integerMask = 0;
+            float point = 0;
+
+            if (signed)
+            {
+                if ((value >> (integer + fractional)) == 1)
+                {
+                    integerMask = (int)Math.Pow(2, integer + 1) - 1;
+                    int intPart = ((value >> fractional) & integerMask);
+                    point = intPart - (int)Math.Pow(2, integer + 1);
+                }
+                else
+                {
+                    integerMask = (int)Math.Pow(2, integer) - 1;
+                    point = ((value >> fractional) & integerMask);
+                }
+            }
+
+
+            // Fractional part
+            int fractionalMask = (int)Math.Pow(2, fractional) - 1;
+            point += (float)(value & fractionalMask) / (fractionalMask + 1);
 
             return point;
         }
@@ -908,6 +991,8 @@ namespace DSMap.NDS
 
             public TextureDef Texture;
             public PaletteDef Palette;
+
+            public bool MatchedTex, MatchedPal;
         }
 
         public struct TextureDef
@@ -945,6 +1030,9 @@ namespace DSMap.NDS
 
             // Geometry Commands
             public GeoCommand[] Commands;
+
+            // Materail
+            public byte MaterialID;
         }
 
         public struct GeoCommand
@@ -952,5 +1040,48 @@ namespace DSMap.NDS
             public byte Value;
             public uint[] Parameters;
         }
+    }
+
+    public enum GeometryCmd : byte
+    {
+        Unknown,
+        NOP = 0x00,
+        MTX_MODE = 0x10,
+        MTX_PUSH = 0x11,
+        MTX_POP = 0x12,
+        MTX_STORE = 0x13,
+        MTX_RESTORE = 0x14,
+        MTX_IDENTITY = 0x15,
+        MTX_LOAD_4x4 = 0x16,
+        MTX_LOAD_4x3 = 0x17,
+        MTX_MULT_4x4 = 0x18,
+        MTX_MULT_4x3 = 0x19,
+        MTX_MULT_3x3 = 0x1A,
+        MTX_SCALE = 0x1B,
+        MTX_TRANS = 0x1C,
+        COLOR = 0x20,
+        NORMAL = 0x21,
+        TEXCOORD = 0x22,
+        VTX_16 = 0x23,
+        VTX_10 = 0x24,
+        VTX_XY = 0x25,
+        VTX_XZ = 0x26,
+        VTX_YZ = 0x27,
+        VTX_DIFF = 0x28,
+        POLYGON_ATTR = 0x29,
+        TEXIMAGE_PARAM = 0x2A,
+        PLTT_BASE = 0x2B,
+        DIF_AMB = 0x30,
+        SPE_EMI = 0x31,
+        LIGHT_VECTOR = 0x32,
+        LIGHT_COLOR = 0x33,
+        SHININESS = 0x34,
+        BEGIN_VTXS = 0x40,
+        END_VTXS = 0x41,
+        SWAP_BUFFERS = 0x50,
+        VIEWPORT = 0x60,
+        BOX_TEST = 0x70,
+        POS_TEST = 0x71,
+        VEC_TEST = 0x72,
     }
 }

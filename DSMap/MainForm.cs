@@ -11,6 +11,8 @@ using System.IO;
 using DSMap.NDS;
 using DSMap.Formats;
 
+using OpenTK.Graphics.OpenGL;
+
 namespace DSMap
 {
     public partial class MainForm : Form
@@ -24,6 +26,7 @@ namespace DSMap
         private NARC mapData;
         private uint headerTable;
         private string[] headerNames;
+        private NARC mapTextureData;
 
         // editing
         private int selectedMap = -1;
@@ -33,8 +36,10 @@ namespace DSMap
 
         private int selectedObj = -1;
 
-        private NSBTX nsbtx;
-        private int selectedTex = -1, selectedPal = -1;
+        //private Model mapModel;
+        private NSBTX mapTextures;
+        private bool mapTexturesSet = false;
+        private Dictionary<int, int> mapTextureAssoc = new Dictionary<int, int>();
 
         private bool mc = false;
 
@@ -108,6 +113,10 @@ namespace DSMap
 
             // Create temporary data directory
             Temporary.Create();
+
+            // GL
+            glMapModel.Context.MakeCurrent(glMapModel.WindowInfo);
+            GL.Viewport(0, 0, glMapModel.Width, glMapModel.Height);
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -166,6 +175,9 @@ namespace DSMap
                 NARC matrixData = new NARC(GetROMFilePathFromIni("MatrixData"));
                 mapData = new NARC(GetROMFilePathFromIni("MapData"));
 
+                // Load the map texture NARC
+                mapTextureData = new NARC(GetROMFilePathFromIni("MapTextureData"));
+
                 // Load the map names
                 string[] mapNames = Map.LoadMapNames(mapData);
 
@@ -211,11 +223,6 @@ namespace DSMap
                 return string.Empty;
         }
 
-        private void treeMaps_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            
-        }
-
         private void treeMaps_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             // Make sure the ROM has been loaded
@@ -249,8 +256,17 @@ namespace DSMap
             // Load the header;
             header = new Header(rom.GetFullFilePath("arm9.bin"), headerTable, mapHeaders[selectedMap]);
             
+            // Load map textures
+            using (MemoryStream ms = mapTextureData.GetFileMemoryStream(header.MapTextures))
+            {
+                mapTextures = NSBTXLoader.LoadBTX0(ms);
+                mapTexturesSet = true; // This will allow textures to be loaded
+            }
 
             // Display
+            //mapModel = map.Model;
+            LoadAllMapTextures();
+            glMapModel.Invalidate();
 
             // Movements
             pMovements.Invalidate();
@@ -391,6 +407,8 @@ namespace DSMap
 
         #endregion
 
+        #region Objects
+
         private void pObjMap_Paint(object sender, PaintEventArgs e)
         {
             if (map == null) return;
@@ -496,6 +514,8 @@ namespace DSMap
             }
         }
 
+        #endregion
+
         private void loadAnNSBTXToolStripMenuItem_Click(object sender, EventArgs e)
         {
             openDialog.FileName = "";
@@ -504,42 +524,9 @@ namespace DSMap
 
             if (openDialog.ShowDialog() == DialogResult.OK)
             {
-                nsbtx = NSBTXLoader.LoadBTX0(openDialog.FileName);
-
-                listBox1.Items.Clear();
-                listBox2.Items.Clear();
-
-                foreach (var tex in nsbtx.Textures)
-                {
-                    listBox1.Items.Add(tex.Name);
-                }
-
-                foreach (var pal in nsbtx.Palettes)
-                {
-                    listBox2.Items.Add(pal.Name);
-                }
-
-                selectedTex = -1;
-                selectedPal = -1;
-
-                //pictureBox1.Image = NSBTXDrawer.DrawTexture(nsbtx.Textures[0], nsbtx.Palettes[0]);
+                NSBTX btx = NSBTXLoader.LoadBTX0(openDialog.FileName);
+                MessageBox.Show("Loaded!");
             }
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //selectedTex = listBox1.SelectedIndex;
-
-            if (selectedTex>=0 && selectedPal >= 0)
-                pictureBox1.Image = NSBTXDrawer.DrawTexture(nsbtx.Textures[listBox1.SelectedIndex], nsbtx.Palettes[listBox2.SelectedIndex]);
-        }
-
-        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //selectedPal = listBox2.SelectedIndex;
-
-            if (selectedTex >= 0 && selectedPal >= 0)
-                pictureBox1.Image = NSBTXDrawer.DrawTexture(nsbtx.Textures[listBox1.SelectedIndex], nsbtx.Palettes[listBox2.SelectedIndex]);
         }
 
         private void loadAnNSBMDToolStripMenuItem_Click(object sender, EventArgs e)
@@ -554,7 +541,7 @@ namespace DSMap
                 {
                     NSBMD bmd = NSBMDLoader.LoadBMD0(openDialog.FileName);
 
-                    listBox1.Items.Clear();
+                    /*listBox1.Items.Clear();
                     foreach (var mat in bmd.MDL0.Materials)
                     {
                         listBox1.Items.Add(mat.Name);
@@ -566,7 +553,17 @@ namespace DSMap
                     foreach (var poly in bmd.MDL0.Polygons)
                     {
                         listBox2.Items.Add(poly.Name);
+                        listBox2.Items.Add("> " + poly.MaterialID + " = " + bmd.MDL0.Materials[poly.MaterialID].Name);
+                    }*/
+
+                    //mapModel = bmd.MDL0; mapModelSet = true;
+                    if (bmd.HasTEX0)
+                    {
+                        mapTextures = bmd.TEX0;
+                        mapTexturesSet = true;
+                        LoadAllMapTextures();
                     }
+                    glMapModel.Invalidate();
                 }
                 catch (Exception ex)
                 {
@@ -576,6 +573,323 @@ namespace DSMap
             }
         }
 
+        private void glMapModel_Resize(object sender, EventArgs e)
+        {
+            GL.Viewport(0, 0, glMapModel.Width, glMapModel.Height);
+        }
+
+        private void glMapModel_Paint(object sender, PaintEventArgs e)
+        {
+            GL.ClearColor(0f, 0f, 0f, 1f); // That cool looking gray
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+
+            GL.PushMatrix();    // For translation and scale
+
+            GL.MatrixMode(MatrixMode.Modelview);
+            GL.LoadIdentity();
+
+            float angleX = -180f, angleY = 0f, angleZ = 45f; // rotate
+            float transX = 0f, transY = -1.5f, transZ = 0f; // translate
+            float zoom = 0.2f; // zoom
+
+            GL.Rotate(angleX, 0f, 1f, 0f);
+            GL.Rotate(angleY, 0f, 0f, 1f);
+            GL.Rotate(angleZ, 1f, 0f, 0f);
+            GL.Scale(-zoom, zoom, zoom);
+            GL.Translate(transX, transY, transZ);
+
+            GL.Disable(EnableCap.Texture2D);
+
+            if (map == null)
+            {
+                glMapModel.SwapBuffers();
+                return;
+            }
+
+            if (!mapTexturesSet)
+            {
+                glMapModel.SwapBuffers();
+                return;
+            }
+
+            GL.Enable(EnableCap.PolygonSmooth);
+            GL.Enable(EnableCap.DepthTest);
+            GL.Enable(EnableCap.Texture2D);
+            GL.Enable(EnableCap.AlphaTest);
+            //GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+            
+            GL.Enable(EnableCap.Blend);
+            GL.AlphaFunc(AlphaFunction.Greater, 0f);
+            GL.Disable(EnableCap.CullFace);
+            //pm = PolygonMode.Line;
+            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
+
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (float)TextureWrapMode.Repeat);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (float)TextureWrapMode.Repeat);
+            //GL.TexEnv(TextureEnvTarget.TextureEnv, TextureEnvParameter.TextureEnvMode, (int)TextureEnvMode.Replace);
+            GL.TexEnv(TextureEnvTarget.TextureEnv, TextureEnvParameter.TextureEnvMode, (int)TextureEnvMode.Replace);
+
+            foreach (var poly in map.Model.Polygons)
+            {
+                // Get the material
+                var mat = map.Model.Materials[poly.MaterialID];
+                if (!mat.MatchedTex || !mat.MatchedPal) continue;
+
+                // Get the texture and palette
+                var tex = mapTextures.GetTexture(mat.Texture.Name); // so we can scale things
+                //var pal = mapTextures.GetPalette(mat.Palette.Name);
+
+                if (mapTextureAssoc.ContainsKey(poly.MaterialID))
+                {
+                    GL.BindTexture(TextureTarget.Texture2D, mapTextureAssoc[poly.MaterialID]);
+                }
+                else
+                {
+                    GL.BindTexture(TextureTarget.Texture2D, 0);
+                }
+
+                GL.MatrixMode(MatrixMode.Texture);
+                GL.LoadIdentity();
+
+                GL.Scale(1.0f / (float)tex.Width, 1.0f / (float)tex.Height, 1.0f); // Scale the texture to fill the polygon
+                //BMD0Loader.GeometryCommands(poly.commands);
+                DoGeometryCommands(poly);
+            }
+
+            GL.PopMatrix();
+
+            GL.Flush();
+            glMapModel.SwapBuffers();
+        }
+
+        private void LoadAllMapTextures()
+        {
+            // Prevent if this don't work out
+            if (!mapTexturesSet || map == null)
+            {
+                return;
+            }
+
+            // Delete existing textures
+            if (mapTextureAssoc.Count > 0)
+            {
+                foreach (int texID in mapTextureAssoc.Keys)
+                {
+                    GL.DeleteTexture(mapTextureAssoc[texID]);
+                }
+            }
+
+            // Load new textures
+            mapTextureAssoc.Clear();
+            for (int i = 0; i < map.Model.Materials.Length; i++)
+            {
+                var mat = map.Model.Materials[i];
+                if (mat.MatchedPal && mat.MatchedTex)
+                {
+                    var tex = mapTextures.GetTexture(mat.Texture.Name);
+                    var pal = mapTextures.GetPalette(mat.Palette.Name);
+                    mapTextureAssoc.Add(i, LoadTexture(tex, pal));
+                }
+            }
+        }
+
+        private int LoadTexture(NSBTX.Texture tex, NSBTX.Palette pal)
+        {
+            int texID = GL.GenTexture();
+            GL.BindTexture(TextureTarget.Texture2D, texID);
+
+            Bitmap bmp = NSBTXDrawer.DrawTexture(tex, pal);
+            var bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bmpData.Width, bmpData.Height, 0,
+                OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bmpData.Scan0);
+
+            bmp.UnlockBits(bmpData);
+
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (float)TextureMagFilter.Nearest);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (float)TextureMinFilter.Nearest);
+
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (float)TextureWrapMode.Repeat);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (float)TextureWrapMode.Repeat);
+
+            return texID;
+        }
+
+        public static void DoGeometryCommands(Model.Polygon poly)
+        {
+            OpenTK.Vector3 vector = new OpenTK.Vector3();
+
+            foreach (var cmd in poly.Commands)
+            {
+
+                switch ((GeometryCmd)cmd.Value)
+                {
+                    case GeometryCmd.NOP:
+                        break;
+                    case GeometryCmd.MTX_MODE:
+                        break;
+                    case GeometryCmd.MTX_PUSH:
+                        break;
+                    case GeometryCmd.MTX_POP:
+                        break;
+                    case GeometryCmd.MTX_STORE:
+                        break;
+                    case GeometryCmd.MTX_RESTORE:
+                        break;
+                    case GeometryCmd.MTX_IDENTITY:
+                        break;
+                    case GeometryCmd.MTX_LOAD_4x4:
+                        break;
+                    case GeometryCmd.MTX_LOAD_4x3:
+                        break;
+                    case GeometryCmd.MTX_MULT_4x4:
+                        break;
+                    case GeometryCmd.MTX_MULT_4x3:
+                        break;
+                    case GeometryCmd.MTX_MULT_3x3:
+                        break;
+                    case GeometryCmd.MTX_SCALE:
+                        break;
+                    case GeometryCmd.MTX_TRANS:
+                        break;
+
+                    #region Vertex commands
+                    // Multiply by the clipmatrix
+                    case GeometryCmd.VTX_16:
+                        vector.X = NSBMDLoader.GetDouble((int)(cmd.Parameters[0] & 0xFFFF), true, 3, 12);
+                        vector.Y = NSBMDLoader.GetDouble((int)(cmd.Parameters[0] >> 16), true, 3, 12);
+                        vector.Z = NSBMDLoader.GetDouble((int)(cmd.Parameters[1] & 0xFFFF), true, 3, 12);
+
+                        GL.Vertex3(vector);
+
+                        break;
+
+                    case GeometryCmd.VTX_10:
+                        vector.X = NSBMDLoader.GetDouble((int)(cmd.Parameters[0] & 0x3FF), true, 3, 6);
+                        vector.Y = NSBMDLoader.GetDouble((int)((cmd.Parameters[0] >> 10) & 0x3FF), true, 3, 6);
+                        vector.Z = NSBMDLoader.GetDouble((int)(cmd.Parameters[0] >> 20), true, 3, 6);
+
+                        GL.Vertex3(vector);
+                        break;
+
+                    case GeometryCmd.VTX_XY:
+                        vector.X = NSBMDLoader.GetDouble((int)(cmd.Parameters[0] & 0xFFFF), true, 3, 12);
+                        vector.Y = NSBMDLoader.GetDouble((int)(cmd.Parameters[0] >> 16), true, 3, 12);
+
+                        GL.Vertex3(vector);
+
+                        break;
+
+                    case GeometryCmd.VTX_XZ:
+                        vector.X = NSBMDLoader.GetDouble((int)(cmd.Parameters[0] & 0xFFFF), true, 3, 12);
+                        vector.Z = NSBMDLoader.GetDouble((int)(cmd.Parameters[0] >> 16), true, 3, 12);
+
+                        GL.Vertex3(vector);
+
+                        break;
+
+                    case GeometryCmd.VTX_YZ:
+                        vector.Y = NSBMDLoader.GetDouble((int)(cmd.Parameters[0] & 0xFFFF), true, 3, 12);
+                        vector.Z = NSBMDLoader.GetDouble((int)(cmd.Parameters[0] >> 16), true, 3, 12);
+
+                        GL.Vertex3(vector);
+
+                        break;
+
+                    case GeometryCmd.VTX_DIFF:
+                        float diffX, diffY, diffZ;
+
+                        diffX = NSBMDLoader.GetDouble((int)(cmd.Parameters[0] & 0x3FF), true, 0, 9);
+                        diffY = NSBMDLoader.GetDouble((int)((cmd.Parameters[0] >> 10) & 0x3FFF), true, 0, 9);
+                        diffZ = NSBMDLoader.GetDouble((int)(cmd.Parameters[0] >> 20), true, 0, 9);
+
+                        vector.X += (diffX / 8);
+                        vector.Y += (diffY / 8);
+                        vector.Z += (diffZ / 8);
+
+                        GL.Vertex3(vector);
+                        break;
+                    #endregion
+
+                    case GeometryCmd.COLOR:
+                        // Convert the param to RGB555 color
+                        int r = (int)(cmd.Parameters[0] & 0x1F);
+                        int g = (int)((cmd.Parameters[0] >> 5) & 0x1F);
+                        int b = (int)((cmd.Parameters[0] >> 10) & 0x1F);
+
+                        GL.Color3((float)r / 31.0f, (float)g / 31.0f, (float)b / 31.0f);
+                        break;
+                    case GeometryCmd.POLYGON_ATTR:
+                        break;
+
+                    #region Texture attributes
+                    case GeometryCmd.TEXCOORD:
+                        double s, t;
+                        s = NSBMDLoader.GetDouble((int)(cmd.Parameters[0] & 0xFFFF), true, 11, 4);
+                        t = NSBMDLoader.GetDouble((int)(cmd.Parameters[0] >> 16), true, 11, 4);
+                        GL.TexCoord2(s, t);
+                        break;
+
+                    case GeometryCmd.TEXIMAGE_PARAM:
+                        break;
+                    case GeometryCmd.PLTT_BASE:
+                        break;
+                    #endregion
+
+                    case GeometryCmd.DIF_AMB:
+                        break;
+                    case GeometryCmd.SPE_EMI:
+                        break;
+                    case GeometryCmd.LIGHT_VECTOR:
+                        break;
+                    case GeometryCmd.LIGHT_COLOR:
+                        break;
+                    case GeometryCmd.SHININESS:
+                        break;
+
+                    case GeometryCmd.NORMAL:
+                        float x, y, z;
+                        x = NSBMDLoader.GetDouble((int)(cmd.Parameters[0] & 0x3FFF), true, 0, 9);
+                        y = NSBMDLoader.GetDouble((int)((cmd.Parameters[0] >> 10) & 0x3FFF), true, 0, 9);
+                        z = NSBMDLoader.GetDouble((int)(cmd.Parameters[0] >> 20), true, 0, 9);
+
+                        // Multiplay by the directional matrix
+                        GL.Normal3(x, y, z);
+                        break;
+
+                    case GeometryCmd.BEGIN_VTXS:
+                        if (cmd.Parameters[0] == 0)
+                            GL.Begin(BeginMode.Triangles);
+                        else if (cmd.Parameters[0] == 1)
+                            GL.Begin(BeginMode.Quads);
+                        else if (cmd.Parameters[0] == 2)
+                            GL.Begin(BeginMode.TriangleStrip);
+                        else if (cmd.Parameters[0] == 3)
+                            GL.Begin(BeginMode.QuadStrip);
+                        break;
+                    case GeometryCmd.END_VTXS:
+                        GL.End();
+                        break;
+
+                    case GeometryCmd.SWAP_BUFFERS:
+                        break;
+                    case GeometryCmd.VIEWPORT:
+                        break;
+                    case GeometryCmd.BOX_TEST:
+                        break;
+                    case GeometryCmd.POS_TEST:
+                        break;
+                    case GeometryCmd.VEC_TEST:
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            GL.Flush();
+        }
 
     }
 }

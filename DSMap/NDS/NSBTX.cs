@@ -88,6 +88,34 @@ namespace DSMap.NDS
             return nsbtx;
         }
 
+        public static NSBTX LoadBTX0(MemoryStream ms)
+        {
+            NSBTX nsbtx = new NSBTX();
+            using (BinaryReader br = new BinaryReader(ms))
+            {
+                // BTX0 Header
+                if (br.ReadUInt32() != BTX0MAGIC)
+                    throw new Exception("This is not a NSBTX file!");
+                if (br.ReadUInt32() != BTX0VERSION)
+                    throw new Exception("Invalid NSBTX version/format!");
+                if (br.BaseStream.Length < br.ReadUInt32())
+                    throw new Exception("Invalid NSBTX file size!");
+                if (br.ReadUInt16() != 0x10)
+                    throw new Exception("Invalid BTX0 header size!");
+                if (br.ReadUInt16() != 1)
+                    throw new Exception("Cannot load an NSBTX file with more than 1 section!");
+
+                // Assuming all goes right, this will be at the correct offset
+                uint tex0Offest = br.ReadUInt32();
+                if (br.BaseStream.Position != tex0Offest)
+                    throw new Exception("Wut? Bad TEX0 offset!");
+
+                // Read TEX0 section
+                nsbtx = LoadTEX0(br);
+            }
+            return nsbtx;
+        }
+
         /*
         public static TEX0 LoadTEX0(string file)
         {
@@ -597,17 +625,34 @@ namespace DSMap.NDS
 
             // Calculate the size of each palette.
             int[] paletteSizes = new int[nsbtx.Palettes.Length];
-            if (paletteSizes.Length > 1)
+            /*if (paletteSizes.Length > 1)
             {
                 for (int p = 0; p < paletteSizes.Length - 1; p++)
                 {
                     paletteSizes[p] = (int)(nsbtx.Palettes[p + 1].Offset - nsbtx.Palettes[p].Offset) / 2;
+                    if (paletteSizes[p] < 0) throw new Exception("Palette" + p + " was < 0?\n= " + paletteSizes[p]);
                 }
 
                 if (paletteSizes.Length > 2)
                     paletteSizes[paletteSizes.Length - 1] = (int)(nsbtx.Palettes[paletteSizes.Length - 1].Offset - nsbtx.Palettes[paletteSizes.Length - 2].Offset) / 2;
             }
-            else paletteSizes[0] = (int)nsbtx.PaletteDataSize / 2;
+            else paletteSizes[0] = (int)nsbtx.PaletteDataSize / 2;*/
+            if (paletteSizes.Length == 1)
+            {
+                paletteSizes[0] = (int)nsbtx.PaletteDataSize / 2;
+            }
+            else
+            {
+
+            }
+
+            // This WILL waste memory
+            // I'm going to load every color available afeer each palette...
+            uint paletteDataEnd = nsbtx.PaletteDataSize + nsbtx.PaletteDataOffset;
+            for (int i = 0; i < paletteSizes.Length; i++)
+            {
+                paletteSizes[i] = (int)(paletteDataEnd - nsbtx.Palettes[i].Offset) / 2;
+            }
 
             //
             for (int p = 0; p < nsbtx.Palettes.Length; p++)
@@ -682,6 +727,8 @@ namespace DSMap.NDS
                     else if (texture.Format == 2 || texture.Format == 3 || texture.Format == 4) // 2, 4, 8 bpp
                     {
                         int pal = data[x + y * texture.Width];
+
+                        // Else
                         if (pal < palette.Data.Length)
                             color = palette[pal];
                     }
@@ -702,6 +749,12 @@ namespace DSMap.NDS
                     // And set it
                     bmp.SetPixel(x, y, color);
                 }
+            }
+
+            // Handle transparency
+            if (texture.Color0 == 1)
+            {
+                bmp.MakeTransparent(palette[0]);
             }
 
             return bmp;
@@ -837,6 +890,24 @@ namespace DSMap.NDS
 
         public Texture[] Textures;
         public Palette[] Palettes;
+
+        public Texture GetTexture(string name)
+        {
+            foreach (Texture tex in Textures)
+            {
+                if (tex.Name == name) return tex;
+            }
+            return Textures[0];
+        }
+
+        public Palette GetPalette(string name)
+        {
+            foreach (Palette pal in Palettes)
+            {
+                if (pal.Name == name) return pal;
+            }
+            return Palettes[0];
+        }
 
         public struct Texture
         {

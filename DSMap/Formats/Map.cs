@@ -170,6 +170,11 @@ namespace DSMap.Formats
             get { return _movements; }
         }
 
+        public Model Model
+        {
+            get { return _model.MDL0; }
+        }
+
         #endregion
 
         public static string[] LoadMapNames(NARC narc)

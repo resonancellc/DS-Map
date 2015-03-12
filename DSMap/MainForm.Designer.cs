@@ -31,8 +31,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.rOMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buildToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.bLoadROM = new System.Windows.Forms.ToolStripButton();
+            this.bBuildROM = new System.Windows.Forms.ToolStripButton();
             this.openDialog = new System.Windows.Forms.OpenFileDialog();
             this.treeMaps = new System.Windows.Forms.TreeView();
             this.lblROM = new System.Windows.Forms.Label();
@@ -40,8 +45,10 @@
             this.tabMap = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabModel = new System.Windows.Forms.TabPage();
+            this.glMapModel = new OpenTK.GLControl();
             this.tabMovements = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.pMovements = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.bMoveColors = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -49,36 +56,26 @@
             this.rMoveFlags = new System.Windows.Forms.RadioButton();
             this.rMoveBehaviours = new System.Windows.Forms.RadioButton();
             this.tabObjects = new System.Windows.Forms.TabPage();
-            this.tabHeader = new System.Windows.Forms.TabPage();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.pMovements = new System.Windows.Forms.PictureBox();
-            this.pBanner = new System.Windows.Forms.PictureBox();
-            this.bLoadROM = new System.Windows.Forms.ToolStripButton();
-            this.bBuildROM = new System.Windows.Forms.ToolStripButton();
-            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.buildToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.pObjMap = new System.Windows.Forms.PictureBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.bObjRemove = new System.Windows.Forms.Button();
             this.bObjAdd = new System.Windows.Forms.Button();
             this.listObjects = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.loadAnNSBMDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.pObjMap = new System.Windows.Forms.PictureBox();
+            this.tabHeader = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pBanner = new System.Windows.Forms.PictureBox();
             this.txtObjHeight = new DSMap.NumericTextBox();
             this.txtObjLength = new DSMap.NumericTextBox();
             this.txtObjWidth = new DSMap.NumericTextBox();
@@ -99,25 +96,23 @@
             this.tabModel.SuspendLayout();
             this.tabMovements.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pMovements)).BeginInit();
             this.panel1.SuspendLayout();
             this.tabObjects.SuspendLayout();
-            this.tabHeader.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pMovements)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pBanner)).BeginInit();
+            this.groupBox4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pObjMap)).BeginInit();
-            this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tabHeader.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pBanner)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rOMToolStripMenuItem,
-            this.mapToolStripMenuItem,
-            this.loadAnNSBMDToolStripMenuItem});
+            this.mapToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -134,6 +129,23 @@
             this.rOMToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.rOMToolStripMenuItem.Text = "ROM";
             // 
+            // loadToolStripMenuItem
+            // 
+            this.loadToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("loadToolStripMenuItem.Image")));
+            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
+            this.loadToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadToolStripMenuItem.Text = "Load";
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+            // 
+            // buildToolStripMenuItem
+            // 
+            this.buildToolStripMenuItem.Image = global::DSMap.Properties.Resources.compile;
+            this.buildToolStripMenuItem.Name = "buildToolStripMenuItem";
+            this.buildToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.buildToolStripMenuItem.Text = "Build";
+            this.buildToolStripMenuItem.Click += new System.EventHandler(this.buildToolStripMenuItem_Click);
+            // 
             // mapToolStripMenuItem
             // 
             this.mapToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -141,6 +153,15 @@
             this.mapToolStripMenuItem.Name = "mapToolStripMenuItem";
             this.mapToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.mapToolStripMenuItem.Text = "Map";
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripMenuItem.Image")));
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // toolStrip1
             // 
@@ -155,6 +176,26 @@
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
+            // bLoadROM
+            // 
+            this.bLoadROM.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bLoadROM.Image = global::DSMap.Properties.Resources.folder_open;
+            this.bLoadROM.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bLoadROM.Name = "bLoadROM";
+            this.bLoadROM.Size = new System.Drawing.Size(23, 22);
+            this.bLoadROM.Text = "Load ROM (Ctrl + O)";
+            this.bLoadROM.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+            // 
+            // bBuildROM
+            // 
+            this.bBuildROM.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bBuildROM.Image = global::DSMap.Properties.Resources.compile;
+            this.bBuildROM.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bBuildROM.Name = "bBuildROM";
+            this.bBuildROM.Size = new System.Drawing.Size(23, 22);
+            this.bBuildROM.Text = "Build ROM";
+            this.bBuildROM.Click += new System.EventHandler(this.buildToolStripMenuItem_Click);
+            // 
             // openDialog
             // 
             this.openDialog.FileName = "openFileDialog1";
@@ -166,16 +207,15 @@
             this.treeMaps.HideSelection = false;
             this.treeMaps.Location = new System.Drawing.Point(12, 52);
             this.treeMaps.Name = "treeMaps";
-            this.treeMaps.Size = new System.Drawing.Size(164, 437);
+            this.treeMaps.Size = new System.Drawing.Size(164, 496);
             this.treeMaps.TabIndex = 6;
             this.treeMaps.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeMaps_NodeMouseDoubleClick);
-            this.treeMaps.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.treeMaps_MouseDoubleClick);
             // 
             // lblROM
             // 
             this.lblROM.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblROM.AutoSize = true;
-            this.lblROM.Location = new System.Drawing.Point(50, 492);
+            this.lblROM.Location = new System.Drawing.Point(50, 551);
             this.lblROM.Name = "lblROM";
             this.lblROM.Size = new System.Drawing.Size(77, 13);
             this.lblROM.TabIndex = 8;
@@ -191,7 +231,7 @@
             this.tabControl1.Location = new System.Drawing.Point(182, 52);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(598, 475);
+            this.tabControl1.Size = new System.Drawing.Size(598, 534);
             this.tabControl1.TabIndex = 9;
             // 
             // tabMap
@@ -200,7 +240,7 @@
             this.tabMap.Location = new System.Drawing.Point(4, 22);
             this.tabMap.Name = "tabMap";
             this.tabMap.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMap.Size = new System.Drawing.Size(590, 449);
+            this.tabMap.Size = new System.Drawing.Size(590, 508);
             this.tabMap.TabIndex = 0;
             this.tabMap.Text = "Map";
             this.tabMap.UseVisualStyleBackColor = true;
@@ -216,21 +256,32 @@
             this.tabControl2.Location = new System.Drawing.Point(6, 6);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(578, 437);
+            this.tabControl2.Size = new System.Drawing.Size(578, 496);
             this.tabControl2.TabIndex = 0;
             // 
             // tabModel
             // 
-            this.tabModel.Controls.Add(this.pictureBox1);
-            this.tabModel.Controls.Add(this.listBox2);
-            this.tabModel.Controls.Add(this.listBox1);
+            this.tabModel.AutoScroll = true;
+            this.tabModel.Controls.Add(this.glMapModel);
             this.tabModel.Location = new System.Drawing.Point(4, 22);
             this.tabModel.Name = "tabModel";
             this.tabModel.Padding = new System.Windows.Forms.Padding(3);
-            this.tabModel.Size = new System.Drawing.Size(570, 411);
+            this.tabModel.Size = new System.Drawing.Size(570, 470);
             this.tabModel.TabIndex = 0;
             this.tabModel.Text = "Model";
             this.tabModel.UseVisualStyleBackColor = true;
+            // 
+            // glMapModel
+            // 
+            this.glMapModel.BackColor = System.Drawing.Color.Black;
+            this.glMapModel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.glMapModel.Location = new System.Drawing.Point(3, 3);
+            this.glMapModel.Name = "glMapModel";
+            this.glMapModel.Size = new System.Drawing.Size(564, 464);
+            this.glMapModel.TabIndex = 3;
+            this.glMapModel.VSync = false;
+            this.glMapModel.Paint += new System.Windows.Forms.PaintEventHandler(this.glMapModel_Paint);
+            this.glMapModel.Resize += new System.EventHandler(this.glMapModel_Resize);
             // 
             // tabMovements
             // 
@@ -239,7 +290,7 @@
             this.tabMovements.Location = new System.Drawing.Point(4, 22);
             this.tabMovements.Name = "tabMovements";
             this.tabMovements.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMovements.Size = new System.Drawing.Size(570, 411);
+            this.tabMovements.Size = new System.Drawing.Size(570, 470);
             this.tabMovements.TabIndex = 1;
             this.tabMovements.Text = "Movements";
             this.tabMovements.UseVisualStyleBackColor = true;
@@ -252,8 +303,19 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 49);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(564, 359);
+            this.panel2.Size = new System.Drawing.Size(564, 418);
             this.panel2.TabIndex = 1;
+            // 
+            // pMovements
+            // 
+            this.pMovements.Location = new System.Drawing.Point(0, 0);
+            this.pMovements.Name = "pMovements";
+            this.pMovements.Size = new System.Drawing.Size(512, 512);
+            this.pMovements.TabIndex = 0;
+            this.pMovements.TabStop = false;
+            this.pMovements.Paint += new System.Windows.Forms.PaintEventHandler(this.pMovements_Paint);
+            this.pMovements.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pMovements_MouseDown);
+            this.pMovements.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pMovements_MouseMove);
             // 
             // panel1
             // 
@@ -332,216 +394,10 @@
             this.tabObjects.Location = new System.Drawing.Point(4, 22);
             this.tabObjects.Name = "tabObjects";
             this.tabObjects.Padding = new System.Windows.Forms.Padding(3);
-            this.tabObjects.Size = new System.Drawing.Size(570, 411);
+            this.tabObjects.Size = new System.Drawing.Size(570, 470);
             this.tabObjects.TabIndex = 2;
             this.tabObjects.Text = "Objects";
             this.tabObjects.UseVisualStyleBackColor = true;
-            // 
-            // tabHeader
-            // 
-            this.tabHeader.Controls.Add(this.groupBox1);
-            this.tabHeader.Location = new System.Drawing.Point(4, 22);
-            this.tabHeader.Name = "tabHeader";
-            this.tabHeader.Padding = new System.Windows.Forms.Padding(3);
-            this.tabHeader.Size = new System.Drawing.Size(590, 449);
-            this.tabHeader.TabIndex = 1;
-            this.tabHeader.Text = "Header";
-            this.tabHeader.UseVisualStyleBackColor = true;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.txtHObjectTextures);
-            this.groupBox1.Controls.Add(this.txtHMapTextures);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(6, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(187, 71);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Textures";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 48);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Objects:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(31, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Map:";
-            // 
-            // pMovements
-            // 
-            this.pMovements.Location = new System.Drawing.Point(0, 0);
-            this.pMovements.Name = "pMovements";
-            this.pMovements.Size = new System.Drawing.Size(512, 512);
-            this.pMovements.TabIndex = 0;
-            this.pMovements.TabStop = false;
-            this.pMovements.Paint += new System.Windows.Forms.PaintEventHandler(this.pMovements_Paint);
-            this.pMovements.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pMovements_MouseDown);
-            this.pMovements.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pMovements_MouseMove);
-            // 
-            // pBanner
-            // 
-            this.pBanner.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.pBanner.Location = new System.Drawing.Point(12, 495);
-            this.pBanner.Name = "pBanner";
-            this.pBanner.Size = new System.Drawing.Size(32, 32);
-            this.pBanner.TabIndex = 7;
-            this.pBanner.TabStop = false;
-            // 
-            // bLoadROM
-            // 
-            this.bLoadROM.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bLoadROM.Image = global::DSMap.Properties.Resources.folder_open;
-            this.bLoadROM.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bLoadROM.Name = "bLoadROM";
-            this.bLoadROM.Size = new System.Drawing.Size(23, 22);
-            this.bLoadROM.Text = "Load ROM (Ctrl + O)";
-            this.bLoadROM.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
-            // 
-            // bBuildROM
-            // 
-            this.bBuildROM.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bBuildROM.Image = global::DSMap.Properties.Resources.compile;
-            this.bBuildROM.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bBuildROM.Name = "bBuildROM";
-            this.bBuildROM.Size = new System.Drawing.Size(23, 22);
-            this.bBuildROM.Text = "Build ROM";
-            this.bBuildROM.Click += new System.EventHandler(this.buildToolStripMenuItem_Click);
-            // 
-            // loadToolStripMenuItem
-            // 
-            this.loadToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("loadToolStripMenuItem.Image")));
-            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.loadToolStripMenuItem.Text = "Load";
-            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
-            // 
-            // buildToolStripMenuItem
-            // 
-            this.buildToolStripMenuItem.Image = global::DSMap.Properties.Resources.compile;
-            this.buildToolStripMenuItem.Name = "buildToolStripMenuItem";
-            this.buildToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.buildToolStripMenuItem.Text = "Build";
-            this.buildToolStripMenuItem.Click += new System.EventHandler(this.buildToolStripMenuItem_Click);
-            // 
-            // saveToolStripMenuItem
-            // 
-            this.saveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripMenuItem.Image")));
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
-            this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.pObjMap);
-            this.groupBox2.Location = new System.Drawing.Point(164, 6);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(268, 281);
-            this.groupBox2.TabIndex = 3;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Position";
-            // 
-            // pObjMap
-            // 
-            this.pObjMap.Location = new System.Drawing.Point(6, 19);
-            this.pObjMap.Name = "pObjMap";
-            this.pObjMap.Size = new System.Drawing.Size(256, 256);
-            this.pObjMap.TabIndex = 66;
-            this.pObjMap.TabStop = false;
-            this.pObjMap.Paint += new System.Windows.Forms.PaintEventHandler(this.pObjMap_Paint);
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.label9);
-            this.groupBox3.Controls.Add(this.label8);
-            this.groupBox3.Controls.Add(this.label7);
-            this.groupBox3.Controls.Add(this.txtObjHeight);
-            this.groupBox3.Controls.Add(this.txtObjLength);
-            this.groupBox3.Controls.Add(this.txtObjWidth);
-            this.groupBox3.Controls.Add(this.txtObjZ);
-            this.groupBox3.Controls.Add(this.txtObjZFlag);
-            this.groupBox3.Controls.Add(this.txtObjY);
-            this.groupBox3.Controls.Add(this.txtObjYFlag);
-            this.groupBox3.Controls.Add(this.label6);
-            this.groupBox3.Controls.Add(this.txtObjX);
-            this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.txtObjXFlag);
-            this.groupBox3.Controls.Add(this.label4);
-            this.groupBox3.Controls.Add(this.txtObjModel);
-            this.groupBox3.Location = new System.Drawing.Point(438, 6);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(126, 266);
-            this.groupBox3.TabIndex = 4;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Object";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 16);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(39, 13);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Model:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 55);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(43, 13);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "X, Y, Z:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(63, 55);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 13);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Flags:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 146);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(38, 13);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Width:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 185);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(43, 13);
-            this.label8.TabIndex = 14;
-            this.label8.Text = "Length:";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 224);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(41, 13);
-            this.label9.TabIndex = 15;
-            this.label9.Text = "Height:";
             // 
             // groupBox4
             // 
@@ -600,38 +456,154 @@
             this.columnHeader2.Text = "Model";
             this.columnHeader2.Width = 76;
             // 
-            // listBox1
+            // groupBox3
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(6, 6);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(120, 225);
-            this.listBox1.TabIndex = 0;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.groupBox3.Controls.Add(this.label9);
+            this.groupBox3.Controls.Add(this.label8);
+            this.groupBox3.Controls.Add(this.label7);
+            this.groupBox3.Controls.Add(this.txtObjHeight);
+            this.groupBox3.Controls.Add(this.txtObjLength);
+            this.groupBox3.Controls.Add(this.txtObjWidth);
+            this.groupBox3.Controls.Add(this.txtObjZ);
+            this.groupBox3.Controls.Add(this.txtObjZFlag);
+            this.groupBox3.Controls.Add(this.txtObjY);
+            this.groupBox3.Controls.Add(this.txtObjYFlag);
+            this.groupBox3.Controls.Add(this.label6);
+            this.groupBox3.Controls.Add(this.txtObjX);
+            this.groupBox3.Controls.Add(this.label5);
+            this.groupBox3.Controls.Add(this.txtObjXFlag);
+            this.groupBox3.Controls.Add(this.label4);
+            this.groupBox3.Controls.Add(this.txtObjModel);
+            this.groupBox3.Location = new System.Drawing.Point(438, 6);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(126, 266);
+            this.groupBox3.TabIndex = 4;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Object";
             // 
-            // listBox2
+            // label9
             // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(132, 6);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(120, 225);
-            this.listBox2.TabIndex = 1;
-            this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 224);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(41, 13);
+            this.label9.TabIndex = 15;
+            this.label9.Text = "Height:";
             // 
-            // pictureBox1
+            // label8
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(258, 6);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(256, 256);
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 185);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(43, 13);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "Length:";
             // 
-            // loadAnNSBMDToolStripMenuItem
+            // label7
             // 
-            this.loadAnNSBMDToolStripMenuItem.Name = "loadAnNSBMDToolStripMenuItem";
-            this.loadAnNSBMDToolStripMenuItem.Size = new System.Drawing.Size(105, 20);
-            this.loadAnNSBMDToolStripMenuItem.Text = "Load an NSBMD";
-            this.loadAnNSBMDToolStripMenuItem.Click += new System.EventHandler(this.loadAnNSBMDToolStripMenuItem_Click);
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 146);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(38, 13);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Width:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(63, 55);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Flags:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 55);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(43, 13);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "X, Y, Z:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 16);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(39, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Model:";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.pObjMap);
+            this.groupBox2.Location = new System.Drawing.Point(164, 6);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(268, 281);
+            this.groupBox2.TabIndex = 3;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Position";
+            // 
+            // pObjMap
+            // 
+            this.pObjMap.Location = new System.Drawing.Point(6, 19);
+            this.pObjMap.Name = "pObjMap";
+            this.pObjMap.Size = new System.Drawing.Size(256, 256);
+            this.pObjMap.TabIndex = 66;
+            this.pObjMap.TabStop = false;
+            this.pObjMap.Paint += new System.Windows.Forms.PaintEventHandler(this.pObjMap_Paint);
+            // 
+            // tabHeader
+            // 
+            this.tabHeader.Controls.Add(this.groupBox1);
+            this.tabHeader.Location = new System.Drawing.Point(4, 22);
+            this.tabHeader.Name = "tabHeader";
+            this.tabHeader.Padding = new System.Windows.Forms.Padding(3);
+            this.tabHeader.Size = new System.Drawing.Size(590, 508);
+            this.tabHeader.TabIndex = 1;
+            this.tabHeader.Text = "Header";
+            this.tabHeader.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.txtHObjectTextures);
+            this.groupBox1.Controls.Add(this.txtHMapTextures);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Location = new System.Drawing.Point(6, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(187, 71);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Textures";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 48);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(46, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Objects:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(31, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Map:";
+            // 
+            // pBanner
+            // 
+            this.pBanner.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pBanner.Location = new System.Drawing.Point(12, 554);
+            this.pBanner.Name = "pBanner";
+            this.pBanner.Size = new System.Drawing.Size(32, 32);
+            this.pBanner.TabIndex = 7;
+            this.pBanner.TabStop = false;
             // 
             // txtObjHeight
             // 
@@ -776,7 +748,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(792, 539);
+            this.ClientSize = new System.Drawing.Size(792, 598);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.lblROM);
             this.Controls.Add(this.pBanner);
@@ -799,20 +771,19 @@
             this.tabModel.ResumeLayout(false);
             this.tabMovements.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pMovements)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tabObjects.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pObjMap)).EndInit();
             this.tabHeader.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pMovements)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBanner)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pObjMap)).EndInit();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -878,10 +849,7 @@
         private System.Windows.Forms.ListView listObjects;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.ToolStripMenuItem loadAnNSBMDToolStripMenuItem;
+        private OpenTK.GLControl glMapModel;
     }
 }
 
