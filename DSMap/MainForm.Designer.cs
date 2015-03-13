@@ -76,6 +76,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pBanner = new System.Windows.Forms.PictureBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.bModelExport = new System.Windows.Forms.Button();
+            this.bModelImport = new System.Windows.Forms.Button();
+            this.saveDialog = new System.Windows.Forms.SaveFileDialog();
             this.txtObjHeight = new DSMap.NumericTextBox();
             this.txtObjLength = new DSMap.NumericTextBox();
             this.txtObjWidth = new DSMap.NumericTextBox();
@@ -106,6 +110,7 @@
             this.tabHeader.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBanner)).BeginInit();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -134,7 +139,7 @@
             this.loadToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("loadToolStripMenuItem.Image")));
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
             this.loadToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
@@ -142,7 +147,7 @@
             // 
             this.buildToolStripMenuItem.Image = global::DSMap.Properties.Resources.compile;
             this.buildToolStripMenuItem.Name = "buildToolStripMenuItem";
-            this.buildToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.buildToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.buildToolStripMenuItem.Text = "Build";
             this.buildToolStripMenuItem.Click += new System.EventHandler(this.buildToolStripMenuItem_Click);
             // 
@@ -207,7 +212,7 @@
             this.treeMaps.HideSelection = false;
             this.treeMaps.Location = new System.Drawing.Point(12, 52);
             this.treeMaps.Name = "treeMaps";
-            this.treeMaps.Size = new System.Drawing.Size(164, 496);
+            this.treeMaps.Size = new System.Drawing.Size(164, 528);
             this.treeMaps.TabIndex = 6;
             this.treeMaps.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeMaps_NodeMouseDoubleClick);
             // 
@@ -215,7 +220,7 @@
             // 
             this.lblROM.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblROM.AutoSize = true;
-            this.lblROM.Location = new System.Drawing.Point(50, 551);
+            this.lblROM.Location = new System.Drawing.Point(50, 583);
             this.lblROM.Name = "lblROM";
             this.lblROM.Size = new System.Drawing.Size(77, 13);
             this.lblROM.TabIndex = 8;
@@ -231,7 +236,7 @@
             this.tabControl1.Location = new System.Drawing.Point(182, 52);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(598, 534);
+            this.tabControl1.Size = new System.Drawing.Size(598, 566);
             this.tabControl1.TabIndex = 9;
             // 
             // tabMap
@@ -240,7 +245,7 @@
             this.tabMap.Location = new System.Drawing.Point(4, 22);
             this.tabMap.Name = "tabMap";
             this.tabMap.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMap.Size = new System.Drawing.Size(590, 508);
+            this.tabMap.Size = new System.Drawing.Size(590, 540);
             this.tabMap.TabIndex = 0;
             this.tabMap.Text = "Map";
             this.tabMap.UseVisualStyleBackColor = true;
@@ -256,17 +261,18 @@
             this.tabControl2.Location = new System.Drawing.Point(6, 6);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(578, 496);
+            this.tabControl2.Size = new System.Drawing.Size(578, 528);
             this.tabControl2.TabIndex = 0;
             // 
             // tabModel
             // 
             this.tabModel.AutoScroll = true;
             this.tabModel.Controls.Add(this.glMapModel);
+            this.tabModel.Controls.Add(this.panel3);
             this.tabModel.Location = new System.Drawing.Point(4, 22);
             this.tabModel.Name = "tabModel";
             this.tabModel.Padding = new System.Windows.Forms.Padding(3);
-            this.tabModel.Size = new System.Drawing.Size(570, 470);
+            this.tabModel.Size = new System.Drawing.Size(570, 502);
             this.tabModel.TabIndex = 0;
             this.tabModel.Text = "Model";
             this.tabModel.UseVisualStyleBackColor = true;
@@ -275,7 +281,7 @@
             // 
             this.glMapModel.BackColor = System.Drawing.Color.Black;
             this.glMapModel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.glMapModel.Location = new System.Drawing.Point(3, 3);
+            this.glMapModel.Location = new System.Drawing.Point(3, 35);
             this.glMapModel.Name = "glMapModel";
             this.glMapModel.Size = new System.Drawing.Size(564, 464);
             this.glMapModel.TabIndex = 3;
@@ -290,7 +296,7 @@
             this.tabMovements.Location = new System.Drawing.Point(4, 22);
             this.tabMovements.Name = "tabMovements";
             this.tabMovements.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMovements.Size = new System.Drawing.Size(570, 470);
+            this.tabMovements.Size = new System.Drawing.Size(570, 502);
             this.tabMovements.TabIndex = 1;
             this.tabMovements.Text = "Movements";
             this.tabMovements.UseVisualStyleBackColor = true;
@@ -303,7 +309,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 49);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(564, 418);
+            this.panel2.Size = new System.Drawing.Size(564, 450);
             this.panel2.TabIndex = 1;
             // 
             // pMovements
@@ -388,13 +394,14 @@
             // 
             // tabObjects
             // 
+            this.tabObjects.AutoScroll = true;
             this.tabObjects.Controls.Add(this.groupBox4);
             this.tabObjects.Controls.Add(this.groupBox3);
             this.tabObjects.Controls.Add(this.groupBox2);
             this.tabObjects.Location = new System.Drawing.Point(4, 22);
             this.tabObjects.Name = "tabObjects";
             this.tabObjects.Padding = new System.Windows.Forms.Padding(3);
-            this.tabObjects.Size = new System.Drawing.Size(570, 470);
+            this.tabObjects.Size = new System.Drawing.Size(570, 502);
             this.tabObjects.TabIndex = 2;
             this.tabObjects.Text = "Objects";
             this.tabObjects.UseVisualStyleBackColor = true;
@@ -560,7 +567,7 @@
             this.tabHeader.Location = new System.Drawing.Point(4, 22);
             this.tabHeader.Name = "tabHeader";
             this.tabHeader.Padding = new System.Windows.Forms.Padding(3);
-            this.tabHeader.Size = new System.Drawing.Size(590, 508);
+            this.tabHeader.Size = new System.Drawing.Size(590, 540);
             this.tabHeader.TabIndex = 1;
             this.tabHeader.Text = "Header";
             this.tabHeader.UseVisualStyleBackColor = true;
@@ -599,11 +606,41 @@
             // pBanner
             // 
             this.pBanner.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.pBanner.Location = new System.Drawing.Point(12, 554);
+            this.pBanner.Location = new System.Drawing.Point(12, 586);
             this.pBanner.Name = "pBanner";
             this.pBanner.Size = new System.Drawing.Size(32, 32);
             this.pBanner.TabIndex = 7;
             this.pBanner.TabStop = false;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.bModelImport);
+            this.panel3.Controls.Add(this.bModelExport);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(3, 3);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(564, 32);
+            this.panel3.TabIndex = 4;
+            // 
+            // bModelExport
+            // 
+            this.bModelExport.Location = new System.Drawing.Point(3, 3);
+            this.bModelExport.Name = "bModelExport";
+            this.bModelExport.Size = new System.Drawing.Size(75, 23);
+            this.bModelExport.TabIndex = 0;
+            this.bModelExport.Text = "Export";
+            this.bModelExport.UseVisualStyleBackColor = true;
+            this.bModelExport.Click += new System.EventHandler(this.bModelExport_Click);
+            // 
+            // bModelImport
+            // 
+            this.bModelImport.Location = new System.Drawing.Point(84, 3);
+            this.bModelImport.Name = "bModelImport";
+            this.bModelImport.Size = new System.Drawing.Size(75, 23);
+            this.bModelImport.TabIndex = 1;
+            this.bModelImport.Text = "Import";
+            this.bModelImport.UseVisualStyleBackColor = true;
+            this.bModelImport.Click += new System.EventHandler(this.bModelImport_Click);
             // 
             // txtObjHeight
             // 
@@ -748,7 +785,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(792, 598);
+            this.ClientSize = new System.Drawing.Size(792, 630);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.lblROM);
             this.Controls.Add(this.pBanner);
@@ -784,6 +821,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBanner)).EndInit();
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -850,6 +888,10 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private OpenTK.GLControl glMapModel;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Button bModelImport;
+        private System.Windows.Forms.Button bModelExport;
+        private System.Windows.Forms.SaveFileDialog saveDialog;
     }
 }
 

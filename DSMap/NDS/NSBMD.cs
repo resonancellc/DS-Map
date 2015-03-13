@@ -41,7 +41,7 @@ namespace DSMap.NDS
 
             ushort sectionCount = br.ReadUInt16();
             if (sectionCount != 1 && sectionCount != 2)
-                throw new Exception("Invalid section number!!");
+                throw new Exception("Invalid section number!");
 
             uint mdl0Offest = br.ReadUInt32() + bmd0Offset;
             uint tex0Offset = (sectionCount == 2 ? br.ReadUInt32() + bmd0Offset : 0);
@@ -810,6 +810,52 @@ namespace DSMap.NDS
             return mdl;
         }
 
+        public static byte[] ExtractMDL0(string file)
+        {
+            using (BinaryReader br = new BinaryReader(File.OpenRead(file)))
+            {
+                br.BaseStream.Seek(0, SeekOrigin.Begin);
+                return ExtractMDL0(br);
+            }
+        }
+
+        public static byte[] ExtractMDL0(BinaryReader br)
+        {
+            uint bmd0Offset = (uint)br.BaseStream.Position;
+
+            if (br.ReadUInt32() != BMD0MAGIC)
+                throw new Exception("This is not an NSBMD model!");
+            if (br.ReadUInt32() != BMD0VERSION)
+                throw new Exception("Invaild NSBMD version/format!");
+            if (br.BaseStream.Length < br.ReadUInt32())
+                throw new Exception("Invalid NSBMD file size!");
+            if (br.ReadUInt16() != 0x10)
+                throw new Exception("Invalid BMD0 header size!");
+
+            ushort sectionCount = br.ReadUInt16();
+            if (sectionCount == 1)
+            {
+                uint mdl0Offset = br.ReadUInt32() + bmd0Offset;
+                int mdl0Size = (int)(br.BaseStream.Length - mdl0Offset);
+
+                br.BaseStream.Seek(mdl0Offset, SeekOrigin.Begin);
+                return br.ReadBytes(mdl0Size);
+            }
+            else if (sectionCount == 2)
+            {
+                uint mdl0Offset = br.ReadUInt32() + bmd0Offset;
+                uint tex0Offset = br.ReadUInt32() + bmd0Offset;
+                int mdl0Size = (int)(tex0Offset - mdl0Offset);
+
+                br.BaseStream.Seek(mdl0Offset, SeekOrigin.Begin);
+                return br.ReadBytes(mdl0Size);
+            }
+            else
+            {
+                throw new Exception("Invalid section number!");
+            }
+        }
+
         public static int GetGeometryCommandSize(byte cmd)
         {
             switch (cmd)
@@ -905,6 +951,56 @@ namespace DSMap.NDS
             point += (float)(value & fractionalMask) / (fractionalMask + 1);
 
             return point;
+        }
+    }
+
+    public class NSBMDSaver
+    {
+        public const uint BMD0MAGIC = 0x30444D42;
+        public const uint BMD0VERSION = 0x0002FEFF; // endian/version 2
+        public const uint MDL0MAGIC = 0x304C444D;
+
+        public static byte[] CreateBMD0(byte[] mdl0)
+        {
+            string file = Temporary.GetTemporaryFileName();
+            using (BinaryWriter bw = new BinaryWriter(File.Create(file)))
+            {
+                // Header
+                bw.Write(BMD0MAGIC);
+                bw.Write(BMD0VERSION);
+                bw.Write((uint)(16 + mdl0.Length));
+                bw.Write((ushort)16);
+                bw.Write((ushort)1); // sections
+
+                bw.Write((uint)0x14);
+                bw.Write(mdl0);
+            }
+
+            byte[] buffer = File.ReadAllBytes(file);
+            return buffer;
+        }
+
+        public static byte[] CreateBMD0(byte[] mdl0, byte[] tex0)
+        {
+            string file = Temporary.GetTemporaryFileName();
+            using (BinaryWriter bw = new BinaryWriter(File.Create(file)))
+            {
+                // Header
+                bw.Write(BMD0MAGIC);
+                bw.Write(BMD0VERSION);
+                bw.Write((uint)(16 + mdl0.Length + tex0.Length));
+                bw.Write((ushort)16);
+                bw.Write((ushort)2); // sections
+
+                bw.Write((uint)0x18);
+                bw.Write((uint)0x18 + mdl0.Length);
+
+                bw.Write(mdl0);
+                bw.Write(tex0);
+            }
+
+            byte[] buffer = File.ReadAllBytes(file);
+            return buffer;
         }
     }
 

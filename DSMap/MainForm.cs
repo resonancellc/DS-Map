@@ -43,6 +43,26 @@ namespace DSMap
 
         private bool mc = false;
 
+        private ModelDisplaySettings mapModelSettings = new ModelDisplaySettings()
+        {
+            AngleX = -180f,
+            AngleY = 0f,
+            AngleZ = 45f,
+
+            TranslateX = 0f,
+            TranslateY = -1.5f,
+            TranslateZ = 0f,
+
+            Zoom = 0.2f
+        };
+
+        private struct ModelDisplaySettings
+        {
+            public float AngleX, AngleY, AngleZ;
+            public float TranslateX, TranslateY, TranslateZ;
+            public float Zoom;
+        }
+
         public MainForm()
         {
             InitializeComponent();
@@ -155,7 +175,7 @@ namespace DSMap
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //
+            // 
             if (!rom.IsLoaded() || selectedMap == -1) return;
 
             // Save data
@@ -255,6 +275,11 @@ namespace DSMap
 
             // Load the header;
             header = new Header(rom.GetFullFilePath("arm9.bin"), headerTable, mapHeaders[selectedMap]);
+
+            // Reset angle settings
+            //mapModelSettings.AngleX = -180f;
+            //mapModelSettings.AngleY = 0f;
+            //mapModelSettings.AngleZ = 45f;
             
             // Load map textures
             using (MemoryStream ms = mapTextureData.GetFileMemoryStream(header.MapTextures))
@@ -516,62 +541,9 @@ namespace DSMap
 
         #endregion
 
-        private void loadAnNSBTXToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            openDialog.FileName = "";
-            openDialog.Filter = "All Files|*.*";
-            openDialog.Title = "Open an NSBTX";
+        #region Map Model
 
-            if (openDialog.ShowDialog() == DialogResult.OK)
-            {
-                NSBTX btx = NSBTXLoader.LoadBTX0(openDialog.FileName);
-                MessageBox.Show("Loaded!");
-            }
-        }
-
-        private void loadAnNSBMDToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            openDialog.FileName = "";
-            openDialog.Filter = "All Files|*.*";
-            openDialog.Title = "Open an NSBMD";
-
-            if (openDialog.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    NSBMD bmd = NSBMDLoader.LoadBMD0(openDialog.FileName);
-
-                    /*listBox1.Items.Clear();
-                    foreach (var mat in bmd.MDL0.Materials)
-                    {
-                        listBox1.Items.Add(mat.Name);
-                        listBox1.Items.Add("> " + mat.Texture.Name);
-                        listBox1.Items.Add("> " + mat.Palette.Name);
-                    }
-
-                    listBox2.Items.Clear();
-                    foreach (var poly in bmd.MDL0.Polygons)
-                    {
-                        listBox2.Items.Add(poly.Name);
-                        listBox2.Items.Add("> " + poly.MaterialID + " = " + bmd.MDL0.Materials[poly.MaterialID].Name);
-                    }*/
-
-                    //mapModel = bmd.MDL0; mapModelSet = true;
-                    if (bmd.HasTEX0)
-                    {
-                        mapTextures = bmd.TEX0;
-                        mapTexturesSet = true;
-                        LoadAllMapTextures();
-                    }
-                    glMapModel.Invalidate();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message + "\n\n" + ex.StackTrace);
-                }
-                //pictureBox1.Image = NSBTXDrawer.DrawTexture(nsbtx.Textures[0], nsbtx.Palettes[0]);
-            }
-        }
+        #region Rendering
 
         private void glMapModel_Resize(object sender, EventArgs e)
         {
@@ -588,15 +560,14 @@ namespace DSMap
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadIdentity();
 
-            float angleX = -180f, angleY = 0f, angleZ = 45f; // rotate
-            float transX = 0f, transY = -1.5f, transZ = 0f; // translate
-            float zoom = 0.2f; // zoom
+            // Rotate, translate, zoom
+            GL.Rotate(mapModelSettings.AngleX, 0f, 1f, 0f);
+            GL.Rotate(mapModelSettings.AngleY, 0f, 0f, 1f);
+            GL.Rotate(mapModelSettings.AngleZ, 1f, 0f, 0f);
+            GL.Scale(-mapModelSettings.Zoom, mapModelSettings.Zoom, mapModelSettings.Zoom);
+            GL.Translate(mapModelSettings.TranslateX, mapModelSettings.TranslateY, mapModelSettings.TranslateZ);
 
-            GL.Rotate(angleX, 0f, 1f, 0f);
-            GL.Rotate(angleY, 0f, 0f, 1f);
-            GL.Rotate(angleZ, 1f, 0f, 0f);
-            GL.Scale(-zoom, zoom, zoom);
-            GL.Translate(transX, transY, transZ);
+            //GL.Scale(-mapModelSettings.Zoom, mapModelSettings.Zoom, mapModelSettings.Zoom);
 
             GL.Disable(EnableCap.Texture2D);
 
@@ -890,6 +861,41 @@ namespace DSMap
 
             GL.Flush();
         }
+
+        #endregion
+
+        private void bModelExport_Click(object sender, EventArgs e)
+        {
+            saveDialog.FileName = map.Model.Name;
+            saveDialog.Filter = "Nitro Models|*.nsbmd";
+            saveDialog.Title = "Export Map Model";
+
+            if (saveDialog.ShowDialog() == DialogResult.OK)
+            {
+                // This is much easier than replacing, let me tell you.
+                File.WriteAllBytes(saveDialog.FileName, map.GetModelData());
+            }
+        }
+
+        private void bModelImport_Click(object sender, EventArgs e)
+        {
+            openDialog.FileName = "";
+            openDialog.Filter = "Nitro Models|*.nsbmd";
+            openDialog.Title = "Import Map Model";
+
+            if (openDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Try to import a new model
+                if (map.SetModelData(File.ReadAllBytes(openDialog.FileName)))
+                {
+                    // Success, reload textures
+                    LoadAllMapTextures();
+                    glMapModel.Invalidate();
+                }
+            }
+        }
+
+        #endregion
 
     }
 }

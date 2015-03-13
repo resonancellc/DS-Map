@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Windows.Forms;
 
 using DSMap.NDS;
 
@@ -15,6 +16,7 @@ namespace DSMap.Formats
         private byte[] _rawModel;
         private byte[] _rawBDHC;
         private NSBMD _model;
+        private string _modelName;
 
         public Map(MemoryStream file)
         {
@@ -86,6 +88,12 @@ namespace DSMap.Formats
                 // Read the model into the NSBMD now
                 br.BaseStream.Seek(movementSize + objectSize + 16, SeekOrigin.Begin);
                 _model = NSBMDLoader.LoadBMD0(br);
+                //_modelName = new string(_model.MDL0.Name.ToArray());
+                _modelName = "";
+                foreach (char c in _model.MDL0.Name)
+                {
+                    _modelName += c;
+                }
             }
         }
 
@@ -149,7 +157,14 @@ namespace DSMap.Formats
                 // BDHC
                 bw.Write(_rawBDHC);
 
-                // TODO: Allow changing of model name
+                // Write the model name
+                // This will help later
+                /*bw.Seek(2048 + (_objects.Count * 48) + 60, SeekOrigin.Current);
+                for (int i = 0; i < 16; i++)
+                {
+                    if (i < _modelName.Length) bw.Write((byte)_modelName[i]);
+                    else bw.Write((byte)0);
+                }*/
             }
 
             // Return
@@ -176,6 +191,51 @@ namespace DSMap.Formats
         }
 
         #endregion
+
+        public byte[] GetModelData()
+        {
+            return _rawModel;
+        }
+
+        public bool SetModelData(byte[] buffer)
+        {
+            // Just in case
+            byte[] safe = new byte[_rawModel.Length];
+            _rawModel.CopyTo(safe, 0);
+
+            try
+            {
+                MemoryStream ms = new MemoryStream(buffer);
+                BinaryReader br = new BinaryReader(ms);
+
+                var mdl = NSBMDLoader.LoadBMD0(br);
+                
+                if (mdl.HasTEX0)
+                {
+                    br.BaseStream.Seek(0, SeekOrigin.Begin);
+                    _rawModel = NSBMDSaver.CreateBMD0(NSBMDLoader.ExtractMDL0(br));
+                }
+                else
+                {
+                    _rawModel = buffer;
+                }
+                _model = mdl;
+
+                br.Dispose();
+                ms.Dispose();
+
+                // I don't need to adjust any offsets within the data
+                // because the models use relative offsets
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                _rawModel = safe;
+
+                return false;
+            }
+            return true;
+        }
 
         public static string[] LoadMapNames(NARC narc)
         {
