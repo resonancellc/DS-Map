@@ -183,11 +183,20 @@ namespace DSMap.NDS
             return new MemoryStream(buffer);
         }
 
+        public string GetFileInTempFile(int id)
+        {
+            if (id >= _files.Length) throw new IndexOutOfRangeException();
+
+            return Temporary.CreateTemporaryFile(_files[id]);
+        }
+
         public void ReplaceFile(int id, byte[] data)
         {
             if (id >= _files.Length) throw new IndexOutOfRangeException();
 
-            _files[id] = data;
+            //_files[id] = data;
+            _files[id] = new byte[data.Length];
+            data.CopyTo(_files[id], 0);
         }
 
         public void ReplaceFile(int id, string file)
@@ -195,13 +204,6 @@ namespace DSMap.NDS
             if (id >= _files.Length) throw new IndexOutOfRangeException();
 
             _files[id] = File.ReadAllBytes(file);
-        }
-
-        public string GetFileInTempFile(int id)
-        {
-            if (id >= _files.Length) throw new IndexOutOfRangeException();
-
-            return Temporary.CreateTemporaryFile(_files[id]);
         }
     }
 }

@@ -46,6 +46,9 @@
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabModel = new System.Windows.Forms.TabPage();
             this.glMapModel = new OpenTK.GLControl();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.bModelImport = new System.Windows.Forms.Button();
+            this.bModelExport = new System.Windows.Forms.Button();
             this.tabMovements = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pMovements = new System.Windows.Forms.PictureBox();
@@ -76,10 +79,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pBanner = new System.Windows.Forms.PictureBox();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.bModelExport = new System.Windows.Forms.Button();
-            this.bModelImport = new System.Windows.Forms.Button();
             this.saveDialog = new System.Windows.Forms.SaveFileDialog();
+            this.txtMapModelName = new System.Windows.Forms.TextBox();
             this.txtObjHeight = new DSMap.NumericTextBox();
             this.txtObjLength = new DSMap.NumericTextBox();
             this.txtObjWidth = new DSMap.NumericTextBox();
@@ -98,6 +99,7 @@
             this.tabMap.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabModel.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.tabMovements.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pMovements)).BeginInit();
@@ -110,7 +112,6 @@
             this.tabHeader.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBanner)).BeginInit();
-            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -288,6 +289,37 @@
             this.glMapModel.VSync = false;
             this.glMapModel.Paint += new System.Windows.Forms.PaintEventHandler(this.glMapModel_Paint);
             this.glMapModel.Resize += new System.EventHandler(this.glMapModel_Resize);
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.txtMapModelName);
+            this.panel3.Controls.Add(this.bModelImport);
+            this.panel3.Controls.Add(this.bModelExport);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(3, 3);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(564, 32);
+            this.panel3.TabIndex = 4;
+            // 
+            // bModelImport
+            // 
+            this.bModelImport.Location = new System.Drawing.Point(486, 3);
+            this.bModelImport.Name = "bModelImport";
+            this.bModelImport.Size = new System.Drawing.Size(75, 23);
+            this.bModelImport.TabIndex = 1;
+            this.bModelImport.Text = "Import";
+            this.bModelImport.UseVisualStyleBackColor = true;
+            this.bModelImport.Click += new System.EventHandler(this.bModelImport_Click);
+            // 
+            // bModelExport
+            // 
+            this.bModelExport.Location = new System.Drawing.Point(405, 3);
+            this.bModelExport.Name = "bModelExport";
+            this.bModelExport.Size = new System.Drawing.Size(75, 23);
+            this.bModelExport.TabIndex = 0;
+            this.bModelExport.Text = "Export";
+            this.bModelExport.UseVisualStyleBackColor = true;
+            this.bModelExport.Click += new System.EventHandler(this.bModelExport_Click);
             // 
             // tabMovements
             // 
@@ -612,35 +644,14 @@
             this.pBanner.TabIndex = 7;
             this.pBanner.TabStop = false;
             // 
-            // panel3
+            // txtMapModelName
             // 
-            this.panel3.Controls.Add(this.bModelImport);
-            this.panel3.Controls.Add(this.bModelExport);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(3, 3);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(564, 32);
-            this.panel3.TabIndex = 4;
-            // 
-            // bModelExport
-            // 
-            this.bModelExport.Location = new System.Drawing.Point(3, 3);
-            this.bModelExport.Name = "bModelExport";
-            this.bModelExport.Size = new System.Drawing.Size(75, 23);
-            this.bModelExport.TabIndex = 0;
-            this.bModelExport.Text = "Export";
-            this.bModelExport.UseVisualStyleBackColor = true;
-            this.bModelExport.Click += new System.EventHandler(this.bModelExport_Click);
-            // 
-            // bModelImport
-            // 
-            this.bModelImport.Location = new System.Drawing.Point(84, 3);
-            this.bModelImport.Name = "bModelImport";
-            this.bModelImport.Size = new System.Drawing.Size(75, 23);
-            this.bModelImport.TabIndex = 1;
-            this.bModelImport.Text = "Import";
-            this.bModelImport.UseVisualStyleBackColor = true;
-            this.bModelImport.Click += new System.EventHandler(this.bModelImport_Click);
+            this.txtMapModelName.Location = new System.Drawing.Point(3, 5);
+            this.txtMapModelName.MaxLength = 16;
+            this.txtMapModelName.Name = "txtMapModelName";
+            this.txtMapModelName.Size = new System.Drawing.Size(120, 20);
+            this.txtMapModelName.TabIndex = 2;
+            this.txtMapModelName.TextChanged += new System.EventHandler(this.txtMapModelName_TextChanged);
             // 
             // txtObjHeight
             // 
@@ -806,6 +817,8 @@
             this.tabMap.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
             this.tabModel.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.tabMovements.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pMovements)).EndInit();
@@ -821,7 +834,6 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBanner)).EndInit();
-            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -892,6 +904,7 @@
         private System.Windows.Forms.Button bModelImport;
         private System.Windows.Forms.Button bModelExport;
         private System.Windows.Forms.SaveFileDialog saveDialog;
+        private System.Windows.Forms.TextBox txtMapModelName;
     }
 }
 

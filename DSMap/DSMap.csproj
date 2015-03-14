@@ -53,6 +53,7 @@
     <Compile Include="Formats\Header.cs" />
     <Compile Include="Formats\Map.cs" />
     <Compile Include="Formats\Matrix.cs" />
+    <Compile Include="Formats\OBJ.cs" />
     <Compile Include="Ini.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -62,7 +63,6 @@
     </Compile>
     <Compile Include="NDS\NARC.cs" />
     <Compile Include="NDS\NSBMD.cs" />
-    <Compile Include="NDS\NSBMDViewer2.cs" />
     <Compile Include="NDS\NSBTX.cs" />
     <Compile Include="NumericTextBox.cs">
       <SubType>Component</SubType>

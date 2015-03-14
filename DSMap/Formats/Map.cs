@@ -88,12 +88,7 @@ namespace DSMap.Formats
                 // Read the model into the NSBMD now
                 br.BaseStream.Seek(movementSize + objectSize + 16, SeekOrigin.Begin);
                 _model = NSBMDLoader.LoadBMD0(br);
-                //_modelName = new string(_model.MDL0.Name.ToArray());
-                _modelName = "";
-                foreach (char c in _model.MDL0.Name)
-                {
-                    _modelName += c;
-                }
+                _modelName = new string(_model.MDL0.Name.ToArray());
             }
         }
 
@@ -152,6 +147,12 @@ namespace DSMap.Formats
                 }
 
                 // Model
+                byte[] name = Encoding.UTF8.GetBytes(_modelName);
+                for (int i = 0; i < 16; i++)
+                {
+                    _rawModel[i + 0x34] = (i < name.Length ? name[i] : (byte)0);
+                }
+
                 bw.Write(_rawModel);
 
                 // BDHC
@@ -159,6 +160,14 @@ namespace DSMap.Formats
 
                 // Write the model name
                 // This will help later
+                
+                /*bw.Seek(2048 + (_objects.Count * 48) + 60, SeekOrigin.Current);
+                bw.Write(name);
+                for (int i = 0; i < 16 - name.Length; i++)
+                {
+                    bw.Write((byte)0x0);
+                }*/
+
                 /*bw.Seek(2048 + (_objects.Count * 48) + 60, SeekOrigin.Current);
                 for (int i = 0; i < 16; i++)
                 {
@@ -188,6 +197,12 @@ namespace DSMap.Formats
         public Model Model
         {
             get { return _model.MDL0; }
+        }
+
+        public string Name
+        {
+            get { return _modelName; }
+            set { _modelName = value; }
         }
 
         #endregion

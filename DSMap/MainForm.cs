@@ -292,6 +292,7 @@ namespace DSMap
             //mapModel = map.Model;
             LoadAllMapTextures();
             glMapModel.Invalidate();
+            txtMapModelName.Text = map.Model.Name;
 
             // Movements
             pMovements.Invalidate();
@@ -895,7 +896,17 @@ namespace DSMap
             }
         }
 
+        private void txtMapModelName_TextChanged(object sender, EventArgs e)
+        {
+            if (map != null)
+            {
+                if (txtMapModelName.TextLength > 0) map.Name = txtMapModelName.Text;
+            }
+        }
+
         #endregion
+
+
 
     }
 }
