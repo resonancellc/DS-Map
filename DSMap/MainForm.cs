@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
 
 using DSMap.NDS;
 using DSMap.Formats;
@@ -155,6 +156,7 @@ namespace DSMap
             {
                 // Set the ROM
                 rom.Load(openDialog.FileName);
+                Stopwatch watch = Stopwatch.StartNew();
 
                 // Do stuff with it
                 pBanner.Image = rom.Banner.Image;
@@ -162,6 +164,9 @@ namespace DSMap
                 lblROM.Text += "\nCode: " + rom.Header.Code;
 
                 LoadROMData();
+                watch.Stop();
+
+                MessageBox.Show("Done!\nYour ROM was loaded in " + watch.Elapsed.TotalSeconds + " s!");
                 //MessageBox.Show("Code: '" + rom.Header.Code + "'");
             }
         }
@@ -227,6 +232,17 @@ namespace DSMap
                     }
 
                     treeMaps.Nodes.Add(node);
+                }
+
+                // Load text that we need
+                NARC textData = new NARC(GetROMFilePathFromIni("MessageData"));
+                int mapNamesFileID = Convert.ToInt32(ini[rom.Header.Code, "Text:MapNames"]);
+
+                PkText ndsMapNames = new PkText(textData.GetFileMemoryStream(mapNamesFileID));
+                listBox1.Items.Clear();
+                for (int i = 0; i < ndsMapNames.Count; i++)
+                {
+                    listBox1.Items.Add(ndsMapNames[i]);
                 }
             }
             catch (Exception ex)

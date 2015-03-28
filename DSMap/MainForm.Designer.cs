@@ -47,6 +47,7 @@
             this.tabModel = new System.Windows.Forms.TabPage();
             this.glMapModel = new OpenTK.GLControl();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.txtMapModelName = new System.Windows.Forms.TextBox();
             this.bModelImport = new System.Windows.Forms.Button();
             this.bModelExport = new System.Windows.Forms.Button();
             this.tabMovements = new System.Windows.Forms.TabPage();
@@ -80,7 +81,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pBanner = new System.Windows.Forms.PictureBox();
             this.saveDialog = new System.Windows.Forms.SaveFileDialog();
-            this.txtMapModelName = new System.Windows.Forms.TextBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.txtObjHeight = new DSMap.NumericTextBox();
             this.txtObjLength = new DSMap.NumericTextBox();
             this.txtObjWidth = new DSMap.NumericTextBox();
@@ -300,6 +301,15 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(564, 32);
             this.panel3.TabIndex = 4;
+            // 
+            // txtMapModelName
+            // 
+            this.txtMapModelName.Location = new System.Drawing.Point(3, 5);
+            this.txtMapModelName.MaxLength = 16;
+            this.txtMapModelName.Name = "txtMapModelName";
+            this.txtMapModelName.Size = new System.Drawing.Size(120, 20);
+            this.txtMapModelName.TabIndex = 2;
+            this.txtMapModelName.TextChanged += new System.EventHandler(this.txtMapModelName_TextChanged);
             // 
             // bModelImport
             // 
@@ -595,6 +605,7 @@
             // 
             // tabHeader
             // 
+            this.tabHeader.Controls.Add(this.listBox1);
             this.tabHeader.Controls.Add(this.groupBox1);
             this.tabHeader.Location = new System.Drawing.Point(4, 22);
             this.tabHeader.Name = "tabHeader";
@@ -644,14 +655,13 @@
             this.pBanner.TabIndex = 7;
             this.pBanner.TabStop = false;
             // 
-            // txtMapModelName
+            // listBox1
             // 
-            this.txtMapModelName.Location = new System.Drawing.Point(3, 5);
-            this.txtMapModelName.MaxLength = 16;
-            this.txtMapModelName.Name = "txtMapModelName";
-            this.txtMapModelName.Size = new System.Drawing.Size(120, 20);
-            this.txtMapModelName.TabIndex = 2;
-            this.txtMapModelName.TextChanged += new System.EventHandler(this.txtMapModelName_TextChanged);
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(199, 6);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(132, 173);
+            this.listBox1.TabIndex = 1;
             // 
             // txtObjHeight
             // 
@@ -905,6 +915,7 @@
         private System.Windows.Forms.Button bModelExport;
         private System.Windows.Forms.SaveFileDialog saveDialog;
         private System.Windows.Forms.TextBox txtMapModelName;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }
 

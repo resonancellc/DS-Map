@@ -54,6 +54,7 @@
     <Compile Include="Formats\Map.cs" />
     <Compile Include="Formats\Matrix.cs" />
     <Compile Include="Formats\OBJ.cs" />
+    <Compile Include="Formats\Text.cs" />
     <Compile Include="Ini.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
