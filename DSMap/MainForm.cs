@@ -28,12 +28,14 @@ namespace DSMap
         private uint headerTable;
         private string[] headerNames;
         private NARC mapTextureData;
+        private NARC encounterData;
 
         // editing
         private int selectedMap = -1;
         private Map map = null;
         private Header header = null;
         private Dictionary<int, int> mapHeaders = new Dictionary<int, int>();
+        private Encounters encounters = null;
 
         private int selectedObj = -1;
 
@@ -275,6 +277,9 @@ namespace DSMap
                 // Load the map texture NARC
                 mapTextureData = new NARC(GetROMFilePathFromIni("MapTextureData"));
 
+                // Load the encounter NARC
+                encounterData = new NARC(GetROMFilePathFromIni("EncounterData"));
+
                 // Load the map names
                 string[] mapModelNames = Map.LoadMapNames(mapData);
 
@@ -310,10 +315,83 @@ namespace DSMap
                 // Load text that we need
                 NARC textData = new NARC(GetROMFilePathFromIni("MessageData"));
                 //int mapNamesFileID = Convert.ToInt32(ini[rom.Header.Code, "Text:MapNames"]);
-                int mapNamesFileID = ini.GetInt32(rom.Header.Code, "Text:MapNames");
+                int mapNamesFileID = ini.GetInt32(rom.Header.Code, "Text~MapNames");
+                int pkmnNamesFileID = ini.GetInt32(rom.Header.Code, "Text~PokemonNames");
 
                 PkmnText locationNames = new PkmnText(textData.GetFileMemoryStream(mapNamesFileID));
-                listBox1.Items.Clear();
+                PkmnText pokemonNames = new PkmnText(textData.GetFileMemoryStream(pkmnNamesFileID), true);
+
+                cWildsWalking0.Items.Clear();
+                cWildsWalking1.Items.Clear();
+                cWildsWalking2.Items.Clear();
+                cWildsWalking3.Items.Clear();
+                cWildsWalking4.Items.Clear();
+                cWildsWalking5.Items.Clear();
+                cWildsWalking6.Items.Clear();
+                cWildsWalking7.Items.Clear();
+                cWildsWalking8.Items.Clear();
+                cWildsWalking9.Items.Clear();
+                cWildsWalking10.Items.Clear();
+                cWildsWalking11.Items.Clear();
+                cWildsRuby0.Items.Clear();
+                cWildsRuby1.Items.Clear();
+                cWildsSapp0.Items.Clear();
+                cWildsSapp1.Items.Clear();
+                cWildsEm0.Items.Clear();
+                cWildsEm1.Items.Clear();
+                cWildsFire0.Items.Clear();
+                cWildsFire1.Items.Clear();
+                cWildsLeaf0.Items.Clear();
+                cWildsLeaf1.Items.Clear();
+                cWildsRadar0.Items.Clear();
+                cWildsRadar1.Items.Clear();
+                cWildsRadar2.Items.Clear();
+                cWildsRadar3.Items.Clear();
+                cWildsMorn0.Items.Clear();
+                cWildsMorn1.Items.Clear();
+                cWildsDay0.Items.Clear();
+                cWildsDay1.Items.Clear();
+                cWildsNight0.Items.Clear();
+                cWildsNight1.Items.Clear();
+                for (int i = 0; i < pokemonNames.Count; i++)
+                {
+                    cWildsWalking0.Items.Add(pokemonNames[i]);
+                    cWildsWalking1.Items.Add(pokemonNames[i]);
+                    cWildsWalking2.Items.Add(pokemonNames[i]);
+                    cWildsWalking3.Items.Add(pokemonNames[i]);
+                    cWildsWalking4.Items.Add(pokemonNames[i]);
+                    cWildsWalking5.Items.Add(pokemonNames[i]);
+                    cWildsWalking6.Items.Add(pokemonNames[i]);
+                    cWildsWalking7.Items.Add(pokemonNames[i]);
+                    cWildsWalking8.Items.Add(pokemonNames[i]);
+                    cWildsWalking9.Items.Add(pokemonNames[i]);
+                    cWildsWalking10.Items.Add(pokemonNames[i]);
+                    cWildsWalking11.Items.Add(pokemonNames[i]);
+
+                    cWildsRuby0.Items.Add(pokemonNames[i]);
+                    cWildsRuby1.Items.Add(pokemonNames[i]);
+                    cWildsSapp0.Items.Add(pokemonNames[i]);
+                    cWildsSapp1.Items.Add(pokemonNames[i]);
+                    cWildsEm0.Items.Add(pokemonNames[i]);
+                    cWildsEm1.Items.Add(pokemonNames[i]);
+                    cWildsFire0.Items.Add(pokemonNames[i]);
+                    cWildsFire1.Items.Add(pokemonNames[i]);
+                    cWildsLeaf0.Items.Add(pokemonNames[i]);
+                    cWildsLeaf1.Items.Add(pokemonNames[i]);
+
+                    cWildsRadar0.Items.Add(pokemonNames[i]);
+                    cWildsRadar1.Items.Add(pokemonNames[i]);
+                    cWildsRadar2.Items.Add(pokemonNames[i]);
+                    cWildsRadar3.Items.Add(pokemonNames[i]);
+                    cWildsMorn0.Items.Add(pokemonNames[i]);
+                    cWildsMorn1.Items.Add(pokemonNames[i]);
+                    cWildsDay0.Items.Add(pokemonNames[i]);
+                    cWildsDay1.Items.Add(pokemonNames[i]);
+                    cWildsNight0.Items.Add(pokemonNames[i]);
+                    cWildsNight1.Items.Add(pokemonNames[i]);
+                }
+
+                    listBox1.Items.Clear();
                 for (int i = 0; i < locationNames.Count; i++)
                 {
                     listBox1.Items.Add(locationNames[i]);
@@ -379,9 +457,12 @@ namespace DSMap
             }
 
             // Load encounters
-            using (MemoryStream ms = null)
+            if (header.WildPokemon != 0xFFFF)
             {
-
+                using (MemoryStream ms = encounterData.GetFileMemoryStream(header.WildPokemon))
+                {
+                    encounters = new Encounters(ms);
+                }
             }
 
             // Display
@@ -405,7 +486,66 @@ namespace DSMap
             selectedObj = -1;
 
             // Encounters
-            // TODO
+            if (header.WildPokemon == 0xFFFF)
+            {
+                lblNoWilds.Visible = true;
+                tabControlWilds.Visible = false;
+            }
+            else
+            {
+                lblNoWilds.Visible = false;
+                tabControlWilds.Visible = true;
+
+                txtWildsWalkingRate.Value = encounters.WalkingRate;
+                cWildsWalking0.SelectedIndex = encounters.WalkingSpecies[0];
+                cWildsWalking1.SelectedIndex = encounters.WalkingSpecies[1];
+                cWildsWalking2.SelectedIndex = encounters.WalkingSpecies[2];
+                cWildsWalking3.SelectedIndex = encounters.WalkingSpecies[3];
+                cWildsWalking4.SelectedIndex = encounters.WalkingSpecies[4];
+                cWildsWalking5.SelectedIndex = encounters.WalkingSpecies[5];
+                cWildsWalking6.SelectedIndex = encounters.WalkingSpecies[6];
+                cWildsWalking7.SelectedIndex = encounters.WalkingSpecies[7];
+                cWildsWalking8.SelectedIndex = encounters.WalkingSpecies[8];
+                cWildsWalking9.SelectedIndex = encounters.WalkingSpecies[9];
+                cWildsWalking10.SelectedIndex = encounters.WalkingSpecies[10];
+                cWildsWalking11.SelectedIndex = encounters.WalkingSpecies[11];
+                txtWildsWalking0.Value = encounters.WalkingLevels[0];
+                txtWildsWalking1.Value = encounters.WalkingLevels[1];
+                txtWildsWalking2.Value = encounters.WalkingLevels[2];
+                txtWildsWalking3.Value = encounters.WalkingLevels[3];
+                txtWildsWalking4.Value = encounters.WalkingLevels[4];
+                txtWildsWalking5.Value = encounters.WalkingLevels[5];
+                txtWildsWalking6.Value = encounters.WalkingLevels[6];
+                txtWildsWalking7.Value = encounters.WalkingLevels[7];
+                txtWildsWalking8.Value = encounters.WalkingLevels[8];
+                txtWildsWalking9.Value = encounters.WalkingLevels[9];
+                txtWildsWalking10.Value = encounters.WalkingLevels[10];
+                txtWildsWalking11.Value = encounters.WalkingLevels[11];
+
+                cWildsMorn0.SelectedIndex = encounters.Morning[0];
+                cWildsMorn1.SelectedIndex = encounters.Morning[1];
+                cWildsDay0.SelectedIndex = encounters.Day[0];
+                cWildsDay1.SelectedIndex = encounters.Day[1];
+                cWildsNight0.SelectedIndex = encounters.Night[0];
+                cWildsNight1.SelectedIndex = encounters.Night[1];
+
+                cWildsRuby0.SelectedIndex = encounters.Ruby[0];
+                cWildsRuby1.SelectedIndex = encounters.Ruby[1];
+                cWildsSapp0.SelectedIndex = encounters.Sapphire[0];
+                cWildsSapp1.SelectedIndex = encounters.Sapphire[1];
+                cWildsFire0.SelectedIndex = encounters.FireRed[0];
+                cWildsFire1.SelectedIndex = encounters.FireRed[1];
+                cWildsLeaf0.SelectedIndex = encounters.LeafGreen[0];
+                cWildsLeaf1.SelectedIndex = encounters.LeafGreen[1];
+                cWildsEm0.SelectedIndex = encounters.Emerald[0];
+                cWildsEm1.SelectedIndex = encounters.Emerald[1];
+
+                cWildsRadar0.SelectedIndex = encounters.Radar[0];
+                cWildsRadar1.SelectedIndex = encounters.Radar[1];
+                cWildsRadar2.SelectedIndex = encounters.Radar[0];
+                cWildsRadar3.SelectedIndex = encounters.Radar[1];
+
+            }
 
             // Show header
             txtHMapTextures.Value = header.MapTextures;
@@ -1003,6 +1143,7 @@ namespace DSMap
         }
 
         #endregion
+
 
 
 

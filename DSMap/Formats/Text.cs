@@ -26,7 +26,7 @@ namespace DSMap.Formats
         private Message[] messages;
         private ushort originalKey;
 
-        public PkmnText(MemoryStream ms)
+        public PkmnText(MemoryStream ms, bool trimEnding = false)
         {
             using (BinaryReader br = new BinaryReader(ms))
             {
@@ -105,6 +105,8 @@ namespace DSMap.Formats
 
                     }
                     msg.Text = sb.ToString();
+
+                    if (trimEnding) msg.Text = msg.Text.Replace("\\0", ""); // ~~~
 
                     messages[i] = msg;
                 }

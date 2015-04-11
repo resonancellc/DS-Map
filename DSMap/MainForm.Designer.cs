@@ -35,6 +35,9 @@
             this.buildToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.patchingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createPatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.applyPatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.bLoadROM = new System.Windows.Forms.ToolStripButton();
             this.bBuildROM = new System.Windows.Forms.ToolStripButton();
@@ -83,9 +86,72 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pBanner = new System.Windows.Forms.PictureBox();
             this.saveDialog = new System.Windows.Forms.SaveFileDialog();
-            this.patchingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.createPatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.applyPatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblNoWilds = new System.Windows.Forms.Label();
+            this.tabControlWilds = new System.Windows.Forms.TabControl();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.lblWalkingEncounterRate = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.cWildsWalking0 = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label15 = new System.Windows.Forms.Label();
+            this.cWildsWalking1 = new System.Windows.Forms.ComboBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.cWildsWalking2 = new System.Windows.Forms.ComboBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.cWildsWalking3 = new System.Windows.Forms.ComboBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.cWildsWalking4 = new System.Windows.Forms.ComboBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.cWildsWalking5 = new System.Windows.Forms.ComboBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.cWildsWalking6 = new System.Windows.Forms.ComboBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.cWildsWalking7 = new System.Windows.Forms.ComboBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.cWildsWalking8 = new System.Windows.Forms.ComboBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.cWildsWalking9 = new System.Windows.Forms.ComboBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.cWildsWalking10 = new System.Windows.Forms.ComboBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.cWildsWalking11 = new System.Windows.Forms.ComboBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.cWildsMorn0 = new System.Windows.Forms.ComboBox();
+            this.cWildsMorn1 = new System.Windows.Forms.ComboBox();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.cWildsDay1 = new System.Windows.Forms.ComboBox();
+            this.cWildsDay0 = new System.Windows.Forms.ComboBox();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.cWildsNight1 = new System.Windows.Forms.ComboBox();
+            this.cWildsNight0 = new System.Windows.Forms.ComboBox();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.cWildsRuby1 = new System.Windows.Forms.ComboBox();
+            this.cWildsRuby0 = new System.Windows.Forms.ComboBox();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.cWildsSapp1 = new System.Windows.Forms.ComboBox();
+            this.cWildsSapp0 = new System.Windows.Forms.ComboBox();
+            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.cWildsFire1 = new System.Windows.Forms.ComboBox();
+            this.cWildsFire0 = new System.Windows.Forms.ComboBox();
+            this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.cWildsLeaf1 = new System.Windows.Forms.ComboBox();
+            this.cWildsLeaf0 = new System.Windows.Forms.ComboBox();
+            this.groupBox15 = new System.Windows.Forms.GroupBox();
+            this.cWildsEm1 = new System.Windows.Forms.ComboBox();
+            this.cWildsEm0 = new System.Windows.Forms.ComboBox();
+            this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.cWildsRadar2 = new System.Windows.Forms.ComboBox();
+            this.cWildsRadar0 = new System.Windows.Forms.ComboBox();
+            this.cWildsRadar3 = new System.Windows.Forms.ComboBox();
+            this.cWildsRadar1 = new System.Windows.Forms.ComboBox();
             this.txtObjHeight = new DSMap.NumericTextBox();
             this.txtObjLength = new DSMap.NumericTextBox();
             this.txtObjWidth = new DSMap.NumericTextBox();
@@ -96,6 +162,19 @@
             this.txtObjX = new DSMap.SignedNumericTextBox();
             this.txtObjXFlag = new DSMap.NumericTextBox();
             this.txtObjModel = new DSMap.NumericTextBox();
+            this.txtWildsWalking11 = new DSMap.SignedNumericTextBox();
+            this.txtWildsWalking10 = new DSMap.SignedNumericTextBox();
+            this.txtWildsWalking9 = new DSMap.SignedNumericTextBox();
+            this.txtWildsWalking8 = new DSMap.SignedNumericTextBox();
+            this.txtWildsWalking7 = new DSMap.SignedNumericTextBox();
+            this.txtWildsWalking6 = new DSMap.SignedNumericTextBox();
+            this.txtWildsWalking5 = new DSMap.SignedNumericTextBox();
+            this.txtWildsWalking4 = new DSMap.SignedNumericTextBox();
+            this.txtWildsWalking3 = new DSMap.SignedNumericTextBox();
+            this.txtWildsWalking2 = new DSMap.SignedNumericTextBox();
+            this.txtWildsWalking1 = new DSMap.SignedNumericTextBox();
+            this.txtWildsWalking0 = new DSMap.SignedNumericTextBox();
+            this.txtWildsWalkingRate = new DSMap.SignedNumericTextBox();
             this.txtHObjectTextures = new DSMap.NumericTextBox();
             this.txtHMapTextures = new DSMap.NumericTextBox();
             this.menuStrip1.SuspendLayout();
@@ -114,9 +193,24 @@
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pObjMap)).BeginInit();
+            this.tabPage1.SuspendLayout();
             this.tabHeader.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBanner)).BeginInit();
+            this.tabControlWilds.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            this.groupBox9.SuspendLayout();
+            this.groupBox10.SuspendLayout();
+            this.groupBox11.SuspendLayout();
+            this.groupBox12.SuspendLayout();
+            this.groupBox13.SuspendLayout();
+            this.groupBox14.SuspendLayout();
+            this.groupBox15.SuspendLayout();
+            this.groupBox16.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -174,6 +268,29 @@
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // patchingToolStripMenuItem
+            // 
+            this.patchingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.createPatchToolStripMenuItem,
+            this.applyPatchToolStripMenuItem});
+            this.patchingToolStripMenuItem.Name = "patchingToolStripMenuItem";
+            this.patchingToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
+            this.patchingToolStripMenuItem.Text = "Patching";
+            // 
+            // createPatchToolStripMenuItem
+            // 
+            this.createPatchToolStripMenuItem.Name = "createPatchToolStripMenuItem";
+            this.createPatchToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.createPatchToolStripMenuItem.Text = "Create Patch";
+            this.createPatchToolStripMenuItem.Click += new System.EventHandler(this.createPatchToolStripMenuItem_Click);
+            // 
+            // applyPatchToolStripMenuItem
+            // 
+            this.applyPatchToolStripMenuItem.Name = "applyPatchToolStripMenuItem";
+            this.applyPatchToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.applyPatchToolStripMenuItem.Text = "Apply Patch";
+            this.applyPatchToolStripMenuItem.Click += new System.EventHandler(this.applyPatchToolStripMenuItem_Click);
             // 
             // toolStrip1
             // 
@@ -611,6 +728,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.tabControlWilds);
+            this.tabPage1.Controls.Add(this.lblNoWilds);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Size = new System.Drawing.Size(590, 540);
@@ -678,28 +797,650 @@
             this.pBanner.TabIndex = 7;
             this.pBanner.TabStop = false;
             // 
-            // patchingToolStripMenuItem
+            // lblNoWilds
             // 
-            this.patchingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.createPatchToolStripMenuItem,
-            this.applyPatchToolStripMenuItem});
-            this.patchingToolStripMenuItem.Name = "patchingToolStripMenuItem";
-            this.patchingToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
-            this.patchingToolStripMenuItem.Text = "Patching";
+            this.lblNoWilds.AutoSize = true;
+            this.lblNoWilds.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNoWilds.Location = new System.Drawing.Point(3, 0);
+            this.lblNoWilds.Name = "lblNoWilds";
+            this.lblNoWilds.Size = new System.Drawing.Size(309, 39);
+            this.lblNoWilds.TabIndex = 0;
+            this.lblNoWilds.Text = "There are no Wild Pokémon on this map!\r\n\r\nNote: Expect being able to add them in " +
+    "the future! :D";
             // 
-            // createPatchToolStripMenuItem
+            // tabControlWilds
             // 
-            this.createPatchToolStripMenuItem.Name = "createPatchToolStripMenuItem";
-            this.createPatchToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.createPatchToolStripMenuItem.Text = "Create Patch";
-            this.createPatchToolStripMenuItem.Click += new System.EventHandler(this.createPatchToolStripMenuItem_Click);
+            this.tabControlWilds.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlWilds.Controls.Add(this.tabPage2);
+            this.tabControlWilds.Controls.Add(this.tabPage3);
+            this.tabControlWilds.Location = new System.Drawing.Point(6, 3);
+            this.tabControlWilds.Name = "tabControlWilds";
+            this.tabControlWilds.SelectedIndex = 0;
+            this.tabControlWilds.Size = new System.Drawing.Size(581, 534);
+            this.tabControlWilds.TabIndex = 1;
             // 
-            // applyPatchToolStripMenuItem
+            // tabPage2
             // 
-            this.applyPatchToolStripMenuItem.Name = "applyPatchToolStripMenuItem";
-            this.applyPatchToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.applyPatchToolStripMenuItem.Text = "Apply Patch";
-            this.applyPatchToolStripMenuItem.Click += new System.EventHandler(this.applyPatchToolStripMenuItem_Click);
+            this.tabPage2.AutoScroll = true;
+            this.tabPage2.Controls.Add(this.groupBox16);
+            this.tabPage2.Controls.Add(this.groupBox7);
+            this.tabPage2.Controls.Add(this.groupBox6);
+            this.tabPage2.Controls.Add(this.groupBox5);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(573, 508);
+            this.tabPage2.TabIndex = 0;
+            this.tabPage2.Text = "Tall Grass/Cave";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(573, 508);
+            this.tabPage3.TabIndex = 1;
+            this.tabPage3.Text = "Water";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.label25);
+            this.groupBox5.Controls.Add(this.txtWildsWalking11);
+            this.groupBox5.Controls.Add(this.cWildsWalking11);
+            this.groupBox5.Controls.Add(this.label24);
+            this.groupBox5.Controls.Add(this.txtWildsWalking10);
+            this.groupBox5.Controls.Add(this.cWildsWalking10);
+            this.groupBox5.Controls.Add(this.label23);
+            this.groupBox5.Controls.Add(this.txtWildsWalking9);
+            this.groupBox5.Controls.Add(this.cWildsWalking9);
+            this.groupBox5.Controls.Add(this.label22);
+            this.groupBox5.Controls.Add(this.txtWildsWalking8);
+            this.groupBox5.Controls.Add(this.cWildsWalking8);
+            this.groupBox5.Controls.Add(this.label21);
+            this.groupBox5.Controls.Add(this.txtWildsWalking7);
+            this.groupBox5.Controls.Add(this.cWildsWalking7);
+            this.groupBox5.Controls.Add(this.label20);
+            this.groupBox5.Controls.Add(this.txtWildsWalking6);
+            this.groupBox5.Controls.Add(this.cWildsWalking6);
+            this.groupBox5.Controls.Add(this.label19);
+            this.groupBox5.Controls.Add(this.txtWildsWalking5);
+            this.groupBox5.Controls.Add(this.cWildsWalking5);
+            this.groupBox5.Controls.Add(this.label18);
+            this.groupBox5.Controls.Add(this.txtWildsWalking4);
+            this.groupBox5.Controls.Add(this.cWildsWalking4);
+            this.groupBox5.Controls.Add(this.label17);
+            this.groupBox5.Controls.Add(this.txtWildsWalking3);
+            this.groupBox5.Controls.Add(this.cWildsWalking3);
+            this.groupBox5.Controls.Add(this.label16);
+            this.groupBox5.Controls.Add(this.txtWildsWalking2);
+            this.groupBox5.Controls.Add(this.cWildsWalking2);
+            this.groupBox5.Controls.Add(this.label15);
+            this.groupBox5.Controls.Add(this.txtWildsWalking1);
+            this.groupBox5.Controls.Add(this.cWildsWalking1);
+            this.groupBox5.Controls.Add(this.panel4);
+            this.groupBox5.Controls.Add(this.label14);
+            this.groupBox5.Controls.Add(this.label13);
+            this.groupBox5.Controls.Add(this.txtWildsWalking0);
+            this.groupBox5.Controls.Add(this.cWildsWalking0);
+            this.groupBox5.Controls.Add(this.label12);
+            this.groupBox5.Controls.Add(this.label11);
+            this.groupBox5.Controls.Add(this.txtWildsWalkingRate);
+            this.groupBox5.Controls.Add(this.lblWalkingEncounterRate);
+            this.groupBox5.Controls.Add(this.label10);
+            this.groupBox5.Location = new System.Drawing.Point(6, 6);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(207, 389);
+            this.groupBox5.TabIndex = 0;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Walking";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 22);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(85, 13);
+            this.label10.TabIndex = 1;
+            this.label10.Text = "Encounter Rate:";
+            // 
+            // lblWalkingEncounterRate
+            // 
+            this.lblWalkingEncounterRate.AutoSize = true;
+            this.lblWalkingEncounterRate.Location = new System.Drawing.Point(168, 22);
+            this.lblWalkingEncounterRate.Name = "lblWalkingEncounterRate";
+            this.lblWalkingEncounterRate.Size = new System.Drawing.Size(33, 13);
+            this.lblWalkingEncounterRate.TabIndex = 2;
+            this.lblWalkingEncounterRate.Text = "100%";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(36, 49);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(55, 13);
+            this.label11.TabIndex = 4;
+            this.label11.Text = "Pokémon:";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(163, 49);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(36, 13);
+            this.label12.TabIndex = 5;
+            this.label12.Text = "Level:";
+            // 
+            // cWildsWalking0
+            // 
+            this.cWildsWalking0.FormattingEnabled = true;
+            this.cWildsWalking0.Location = new System.Drawing.Point(39, 65);
+            this.cWildsWalking0.Name = "cWildsWalking0";
+            this.cWildsWalking0.Size = new System.Drawing.Size(121, 21);
+            this.cWildsWalking0.TabIndex = 6;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(6, 68);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(27, 13);
+            this.label13.TabIndex = 8;
+            this.label13.Text = "20%";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 49);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(18, 13);
+            this.label14.TabIndex = 9;
+            this.label14.Text = "%:";
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panel4.Location = new System.Drawing.Point(6, 45);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(195, 1);
+            this.panel4.TabIndex = 10;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(6, 95);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(27, 13);
+            this.label15.TabIndex = 13;
+            this.label15.Text = "20%";
+            // 
+            // cWildsWalking1
+            // 
+            this.cWildsWalking1.FormattingEnabled = true;
+            this.cWildsWalking1.Location = new System.Drawing.Point(39, 92);
+            this.cWildsWalking1.Name = "cWildsWalking1";
+            this.cWildsWalking1.Size = new System.Drawing.Size(121, 21);
+            this.cWildsWalking1.TabIndex = 11;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(6, 122);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(27, 13);
+            this.label16.TabIndex = 16;
+            this.label16.Text = "10%";
+            // 
+            // cWildsWalking2
+            // 
+            this.cWildsWalking2.FormattingEnabled = true;
+            this.cWildsWalking2.Location = new System.Drawing.Point(39, 119);
+            this.cWildsWalking2.Name = "cWildsWalking2";
+            this.cWildsWalking2.Size = new System.Drawing.Size(121, 21);
+            this.cWildsWalking2.TabIndex = 14;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(6, 149);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(27, 13);
+            this.label17.TabIndex = 19;
+            this.label17.Text = "10%";
+            // 
+            // cWildsWalking3
+            // 
+            this.cWildsWalking3.FormattingEnabled = true;
+            this.cWildsWalking3.Location = new System.Drawing.Point(39, 146);
+            this.cWildsWalking3.Name = "cWildsWalking3";
+            this.cWildsWalking3.Size = new System.Drawing.Size(121, 21);
+            this.cWildsWalking3.TabIndex = 17;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(6, 176);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(27, 13);
+            this.label18.TabIndex = 22;
+            this.label18.Text = "10%";
+            // 
+            // cWildsWalking4
+            // 
+            this.cWildsWalking4.FormattingEnabled = true;
+            this.cWildsWalking4.Location = new System.Drawing.Point(39, 173);
+            this.cWildsWalking4.Name = "cWildsWalking4";
+            this.cWildsWalking4.Size = new System.Drawing.Size(121, 21);
+            this.cWildsWalking4.TabIndex = 20;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(6, 203);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(27, 13);
+            this.label19.TabIndex = 25;
+            this.label19.Text = "10%";
+            // 
+            // cWildsWalking5
+            // 
+            this.cWildsWalking5.FormattingEnabled = true;
+            this.cWildsWalking5.Location = new System.Drawing.Point(39, 200);
+            this.cWildsWalking5.Name = "cWildsWalking5";
+            this.cWildsWalking5.Size = new System.Drawing.Size(121, 21);
+            this.cWildsWalking5.TabIndex = 23;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(6, 230);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(21, 13);
+            this.label20.TabIndex = 28;
+            this.label20.Text = "5%";
+            // 
+            // cWildsWalking6
+            // 
+            this.cWildsWalking6.FormattingEnabled = true;
+            this.cWildsWalking6.Location = new System.Drawing.Point(39, 227);
+            this.cWildsWalking6.Name = "cWildsWalking6";
+            this.cWildsWalking6.Size = new System.Drawing.Size(121, 21);
+            this.cWildsWalking6.TabIndex = 26;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(6, 257);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(21, 13);
+            this.label21.TabIndex = 31;
+            this.label21.Text = "5%";
+            // 
+            // cWildsWalking7
+            // 
+            this.cWildsWalking7.FormattingEnabled = true;
+            this.cWildsWalking7.Location = new System.Drawing.Point(39, 254);
+            this.cWildsWalking7.Name = "cWildsWalking7";
+            this.cWildsWalking7.Size = new System.Drawing.Size(121, 21);
+            this.cWildsWalking7.TabIndex = 29;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(6, 284);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(21, 13);
+            this.label22.TabIndex = 34;
+            this.label22.Text = "4%";
+            // 
+            // cWildsWalking8
+            // 
+            this.cWildsWalking8.FormattingEnabled = true;
+            this.cWildsWalking8.Location = new System.Drawing.Point(39, 281);
+            this.cWildsWalking8.Name = "cWildsWalking8";
+            this.cWildsWalking8.Size = new System.Drawing.Size(121, 21);
+            this.cWildsWalking8.TabIndex = 32;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(6, 311);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(21, 13);
+            this.label23.TabIndex = 37;
+            this.label23.Text = "4%";
+            // 
+            // cWildsWalking9
+            // 
+            this.cWildsWalking9.FormattingEnabled = true;
+            this.cWildsWalking9.Location = new System.Drawing.Point(39, 308);
+            this.cWildsWalking9.Name = "cWildsWalking9";
+            this.cWildsWalking9.Size = new System.Drawing.Size(121, 21);
+            this.cWildsWalking9.TabIndex = 35;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(6, 338);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(21, 13);
+            this.label24.TabIndex = 40;
+            this.label24.Text = "1%";
+            // 
+            // cWildsWalking10
+            // 
+            this.cWildsWalking10.FormattingEnabled = true;
+            this.cWildsWalking10.Location = new System.Drawing.Point(39, 335);
+            this.cWildsWalking10.Name = "cWildsWalking10";
+            this.cWildsWalking10.Size = new System.Drawing.Size(121, 21);
+            this.cWildsWalking10.TabIndex = 38;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(6, 365);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(21, 13);
+            this.label25.TabIndex = 43;
+            this.label25.Text = "1%";
+            // 
+            // cWildsWalking11
+            // 
+            this.cWildsWalking11.FormattingEnabled = true;
+            this.cWildsWalking11.Location = new System.Drawing.Point(39, 362);
+            this.cWildsWalking11.Name = "cWildsWalking11";
+            this.cWildsWalking11.Size = new System.Drawing.Size(121, 21);
+            this.cWildsWalking11.TabIndex = 41;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.groupBox10);
+            this.groupBox6.Controls.Add(this.groupBox9);
+            this.groupBox6.Controls.Add(this.groupBox8);
+            this.groupBox6.Location = new System.Drawing.Point(219, 6);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(284, 177);
+            this.groupBox6.TabIndex = 1;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Time of Day";
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.groupBox15);
+            this.groupBox7.Controls.Add(this.groupBox14);
+            this.groupBox7.Controls.Add(this.groupBox13);
+            this.groupBox7.Controls.Add(this.groupBox12);
+            this.groupBox7.Controls.Add(this.groupBox11);
+            this.groupBox7.Location = new System.Drawing.Point(509, 6);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(284, 256);
+            this.groupBox7.TabIndex = 2;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Dual-Slot";
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.cWildsMorn1);
+            this.groupBox8.Controls.Add(this.cWildsMorn0);
+            this.groupBox8.Location = new System.Drawing.Point(6, 19);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(133, 73);
+            this.groupBox8.TabIndex = 0;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Morning";
+            // 
+            // cWildsMorn0
+            // 
+            this.cWildsMorn0.FormattingEnabled = true;
+            this.cWildsMorn0.Location = new System.Drawing.Point(6, 19);
+            this.cWildsMorn0.Name = "cWildsMorn0";
+            this.cWildsMorn0.Size = new System.Drawing.Size(121, 21);
+            this.cWildsMorn0.TabIndex = 7;
+            // 
+            // cWildsMorn1
+            // 
+            this.cWildsMorn1.FormattingEnabled = true;
+            this.cWildsMorn1.Location = new System.Drawing.Point(6, 46);
+            this.cWildsMorn1.Name = "cWildsMorn1";
+            this.cWildsMorn1.Size = new System.Drawing.Size(121, 21);
+            this.cWildsMorn1.TabIndex = 8;
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.cWildsDay1);
+            this.groupBox9.Controls.Add(this.cWildsDay0);
+            this.groupBox9.Location = new System.Drawing.Point(145, 19);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(133, 73);
+            this.groupBox9.TabIndex = 1;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Day";
+            // 
+            // cWildsDay1
+            // 
+            this.cWildsDay1.FormattingEnabled = true;
+            this.cWildsDay1.Location = new System.Drawing.Point(6, 46);
+            this.cWildsDay1.Name = "cWildsDay1";
+            this.cWildsDay1.Size = new System.Drawing.Size(121, 21);
+            this.cWildsDay1.TabIndex = 8;
+            // 
+            // cWildsDay0
+            // 
+            this.cWildsDay0.FormattingEnabled = true;
+            this.cWildsDay0.Location = new System.Drawing.Point(6, 19);
+            this.cWildsDay0.Name = "cWildsDay0";
+            this.cWildsDay0.Size = new System.Drawing.Size(121, 21);
+            this.cWildsDay0.TabIndex = 7;
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.cWildsNight1);
+            this.groupBox10.Controls.Add(this.cWildsNight0);
+            this.groupBox10.Location = new System.Drawing.Point(76, 98);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(133, 73);
+            this.groupBox10.TabIndex = 2;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Night";
+            // 
+            // cWildsNight1
+            // 
+            this.cWildsNight1.FormattingEnabled = true;
+            this.cWildsNight1.Location = new System.Drawing.Point(6, 46);
+            this.cWildsNight1.Name = "cWildsNight1";
+            this.cWildsNight1.Size = new System.Drawing.Size(121, 21);
+            this.cWildsNight1.TabIndex = 8;
+            // 
+            // cWildsNight0
+            // 
+            this.cWildsNight0.FormattingEnabled = true;
+            this.cWildsNight0.Location = new System.Drawing.Point(6, 19);
+            this.cWildsNight0.Name = "cWildsNight0";
+            this.cWildsNight0.Size = new System.Drawing.Size(121, 21);
+            this.cWildsNight0.TabIndex = 7;
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.cWildsRuby1);
+            this.groupBox11.Controls.Add(this.cWildsRuby0);
+            this.groupBox11.Location = new System.Drawing.Point(6, 19);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(133, 73);
+            this.groupBox11.TabIndex = 1;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "Ruby";
+            // 
+            // cWildsRuby1
+            // 
+            this.cWildsRuby1.FormattingEnabled = true;
+            this.cWildsRuby1.Location = new System.Drawing.Point(6, 46);
+            this.cWildsRuby1.Name = "cWildsRuby1";
+            this.cWildsRuby1.Size = new System.Drawing.Size(121, 21);
+            this.cWildsRuby1.TabIndex = 8;
+            // 
+            // cWildsRuby0
+            // 
+            this.cWildsRuby0.FormattingEnabled = true;
+            this.cWildsRuby0.Location = new System.Drawing.Point(6, 19);
+            this.cWildsRuby0.Name = "cWildsRuby0";
+            this.cWildsRuby0.Size = new System.Drawing.Size(121, 21);
+            this.cWildsRuby0.TabIndex = 7;
+            // 
+            // groupBox12
+            // 
+            this.groupBox12.Controls.Add(this.cWildsSapp1);
+            this.groupBox12.Controls.Add(this.cWildsSapp0);
+            this.groupBox12.Location = new System.Drawing.Point(145, 19);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(133, 73);
+            this.groupBox12.TabIndex = 2;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "Sapphire";
+            // 
+            // cWildsSapp1
+            // 
+            this.cWildsSapp1.FormattingEnabled = true;
+            this.cWildsSapp1.Location = new System.Drawing.Point(6, 46);
+            this.cWildsSapp1.Name = "cWildsSapp1";
+            this.cWildsSapp1.Size = new System.Drawing.Size(121, 21);
+            this.cWildsSapp1.TabIndex = 8;
+            // 
+            // cWildsSapp0
+            // 
+            this.cWildsSapp0.FormattingEnabled = true;
+            this.cWildsSapp0.Location = new System.Drawing.Point(6, 19);
+            this.cWildsSapp0.Name = "cWildsSapp0";
+            this.cWildsSapp0.Size = new System.Drawing.Size(121, 21);
+            this.cWildsSapp0.TabIndex = 7;
+            // 
+            // groupBox13
+            // 
+            this.groupBox13.Controls.Add(this.cWildsFire1);
+            this.groupBox13.Controls.Add(this.cWildsFire0);
+            this.groupBox13.Location = new System.Drawing.Point(6, 98);
+            this.groupBox13.Name = "groupBox13";
+            this.groupBox13.Size = new System.Drawing.Size(133, 73);
+            this.groupBox13.TabIndex = 3;
+            this.groupBox13.TabStop = false;
+            this.groupBox13.Text = "FireRed";
+            // 
+            // cWildsFire1
+            // 
+            this.cWildsFire1.FormattingEnabled = true;
+            this.cWildsFire1.Location = new System.Drawing.Point(6, 46);
+            this.cWildsFire1.Name = "cWildsFire1";
+            this.cWildsFire1.Size = new System.Drawing.Size(121, 21);
+            this.cWildsFire1.TabIndex = 8;
+            // 
+            // cWildsFire0
+            // 
+            this.cWildsFire0.FormattingEnabled = true;
+            this.cWildsFire0.Location = new System.Drawing.Point(6, 19);
+            this.cWildsFire0.Name = "cWildsFire0";
+            this.cWildsFire0.Size = new System.Drawing.Size(121, 21);
+            this.cWildsFire0.TabIndex = 7;
+            // 
+            // groupBox14
+            // 
+            this.groupBox14.Controls.Add(this.cWildsLeaf1);
+            this.groupBox14.Controls.Add(this.cWildsLeaf0);
+            this.groupBox14.Location = new System.Drawing.Point(145, 98);
+            this.groupBox14.Name = "groupBox14";
+            this.groupBox14.Size = new System.Drawing.Size(133, 73);
+            this.groupBox14.TabIndex = 4;
+            this.groupBox14.TabStop = false;
+            this.groupBox14.Text = "LeafGreen";
+            // 
+            // cWildsLeaf1
+            // 
+            this.cWildsLeaf1.FormattingEnabled = true;
+            this.cWildsLeaf1.Location = new System.Drawing.Point(6, 46);
+            this.cWildsLeaf1.Name = "cWildsLeaf1";
+            this.cWildsLeaf1.Size = new System.Drawing.Size(121, 21);
+            this.cWildsLeaf1.TabIndex = 8;
+            // 
+            // cWildsLeaf0
+            // 
+            this.cWildsLeaf0.FormattingEnabled = true;
+            this.cWildsLeaf0.Location = new System.Drawing.Point(6, 19);
+            this.cWildsLeaf0.Name = "cWildsLeaf0";
+            this.cWildsLeaf0.Size = new System.Drawing.Size(121, 21);
+            this.cWildsLeaf0.TabIndex = 7;
+            // 
+            // groupBox15
+            // 
+            this.groupBox15.Controls.Add(this.cWildsEm1);
+            this.groupBox15.Controls.Add(this.cWildsEm0);
+            this.groupBox15.Location = new System.Drawing.Point(76, 177);
+            this.groupBox15.Name = "groupBox15";
+            this.groupBox15.Size = new System.Drawing.Size(133, 73);
+            this.groupBox15.TabIndex = 5;
+            this.groupBox15.TabStop = false;
+            this.groupBox15.Text = "Emerald";
+            // 
+            // cWildsEm1
+            // 
+            this.cWildsEm1.FormattingEnabled = true;
+            this.cWildsEm1.Location = new System.Drawing.Point(6, 46);
+            this.cWildsEm1.Name = "cWildsEm1";
+            this.cWildsEm1.Size = new System.Drawing.Size(121, 21);
+            this.cWildsEm1.TabIndex = 8;
+            // 
+            // cWildsEm0
+            // 
+            this.cWildsEm0.FormattingEnabled = true;
+            this.cWildsEm0.Location = new System.Drawing.Point(6, 19);
+            this.cWildsEm0.Name = "cWildsEm0";
+            this.cWildsEm0.Size = new System.Drawing.Size(121, 21);
+            this.cWildsEm0.TabIndex = 7;
+            // 
+            // groupBox16
+            // 
+            this.groupBox16.Controls.Add(this.cWildsRadar3);
+            this.groupBox16.Controls.Add(this.cWildsRadar1);
+            this.groupBox16.Controls.Add(this.cWildsRadar2);
+            this.groupBox16.Controls.Add(this.cWildsRadar0);
+            this.groupBox16.Location = new System.Drawing.Point(231, 189);
+            this.groupBox16.Name = "groupBox16";
+            this.groupBox16.Size = new System.Drawing.Size(260, 73);
+            this.groupBox16.TabIndex = 3;
+            this.groupBox16.TabStop = false;
+            this.groupBox16.Text = "Poké Radar";
+            // 
+            // cWildsRadar2
+            // 
+            this.cWildsRadar2.FormattingEnabled = true;
+            this.cWildsRadar2.Location = new System.Drawing.Point(6, 46);
+            this.cWildsRadar2.Name = "cWildsRadar2";
+            this.cWildsRadar2.Size = new System.Drawing.Size(121, 21);
+            this.cWildsRadar2.TabIndex = 8;
+            // 
+            // cWildsRadar0
+            // 
+            this.cWildsRadar0.FormattingEnabled = true;
+            this.cWildsRadar0.Location = new System.Drawing.Point(6, 19);
+            this.cWildsRadar0.Name = "cWildsRadar0";
+            this.cWildsRadar0.Size = new System.Drawing.Size(121, 21);
+            this.cWildsRadar0.TabIndex = 7;
+            // 
+            // cWildsRadar3
+            // 
+            this.cWildsRadar3.FormattingEnabled = true;
+            this.cWildsRadar3.Location = new System.Drawing.Point(133, 46);
+            this.cWildsRadar3.Name = "cWildsRadar3";
+            this.cWildsRadar3.Size = new System.Drawing.Size(121, 21);
+            this.cWildsRadar3.TabIndex = 10;
+            // 
+            // cWildsRadar1
+            // 
+            this.cWildsRadar1.FormattingEnabled = true;
+            this.cWildsRadar1.Location = new System.Drawing.Point(133, 19);
+            this.cWildsRadar1.Name = "cWildsRadar1";
+            this.cWildsRadar1.Size = new System.Drawing.Size(121, 21);
+            this.cWildsRadar1.TabIndex = 9;
             // 
             // txtObjHeight
             // 
@@ -818,6 +1559,149 @@
             this.txtObjModel.Value = ((uint)(0u));
             this.txtObjModel.TextChanged += new System.EventHandler(this.txtObjModel_TextChanged);
             // 
+            // txtWildsWalking11
+            // 
+            this.txtWildsWalking11.Location = new System.Drawing.Point(166, 362);
+            this.txtWildsWalking11.MaxValue = 255;
+            this.txtWildsWalking11.MinValue = 0;
+            this.txtWildsWalking11.Name = "txtWildsWalking11";
+            this.txtWildsWalking11.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsWalking11.TabIndex = 42;
+            this.txtWildsWalking11.Text = "0";
+            this.txtWildsWalking11.Value = 0;
+            // 
+            // txtWildsWalking10
+            // 
+            this.txtWildsWalking10.Location = new System.Drawing.Point(166, 335);
+            this.txtWildsWalking10.MaxValue = 255;
+            this.txtWildsWalking10.MinValue = 0;
+            this.txtWildsWalking10.Name = "txtWildsWalking10";
+            this.txtWildsWalking10.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsWalking10.TabIndex = 39;
+            this.txtWildsWalking10.Text = "0";
+            this.txtWildsWalking10.Value = 0;
+            // 
+            // txtWildsWalking9
+            // 
+            this.txtWildsWalking9.Location = new System.Drawing.Point(166, 308);
+            this.txtWildsWalking9.MaxValue = 255;
+            this.txtWildsWalking9.MinValue = 0;
+            this.txtWildsWalking9.Name = "txtWildsWalking9";
+            this.txtWildsWalking9.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsWalking9.TabIndex = 36;
+            this.txtWildsWalking9.Text = "0";
+            this.txtWildsWalking9.Value = 0;
+            // 
+            // txtWildsWalking8
+            // 
+            this.txtWildsWalking8.Location = new System.Drawing.Point(166, 281);
+            this.txtWildsWalking8.MaxValue = 255;
+            this.txtWildsWalking8.MinValue = 0;
+            this.txtWildsWalking8.Name = "txtWildsWalking8";
+            this.txtWildsWalking8.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsWalking8.TabIndex = 33;
+            this.txtWildsWalking8.Text = "0";
+            this.txtWildsWalking8.Value = 0;
+            // 
+            // txtWildsWalking7
+            // 
+            this.txtWildsWalking7.Location = new System.Drawing.Point(166, 254);
+            this.txtWildsWalking7.MaxValue = 255;
+            this.txtWildsWalking7.MinValue = 0;
+            this.txtWildsWalking7.Name = "txtWildsWalking7";
+            this.txtWildsWalking7.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsWalking7.TabIndex = 30;
+            this.txtWildsWalking7.Text = "0";
+            this.txtWildsWalking7.Value = 0;
+            // 
+            // txtWildsWalking6
+            // 
+            this.txtWildsWalking6.Location = new System.Drawing.Point(166, 227);
+            this.txtWildsWalking6.MaxValue = 255;
+            this.txtWildsWalking6.MinValue = 0;
+            this.txtWildsWalking6.Name = "txtWildsWalking6";
+            this.txtWildsWalking6.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsWalking6.TabIndex = 27;
+            this.txtWildsWalking6.Text = "0";
+            this.txtWildsWalking6.Value = 0;
+            // 
+            // txtWildsWalking5
+            // 
+            this.txtWildsWalking5.Location = new System.Drawing.Point(166, 200);
+            this.txtWildsWalking5.MaxValue = 255;
+            this.txtWildsWalking5.MinValue = 0;
+            this.txtWildsWalking5.Name = "txtWildsWalking5";
+            this.txtWildsWalking5.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsWalking5.TabIndex = 24;
+            this.txtWildsWalking5.Text = "0";
+            this.txtWildsWalking5.Value = 0;
+            // 
+            // txtWildsWalking4
+            // 
+            this.txtWildsWalking4.Location = new System.Drawing.Point(166, 173);
+            this.txtWildsWalking4.MaxValue = 255;
+            this.txtWildsWalking4.MinValue = 0;
+            this.txtWildsWalking4.Name = "txtWildsWalking4";
+            this.txtWildsWalking4.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsWalking4.TabIndex = 21;
+            this.txtWildsWalking4.Text = "0";
+            this.txtWildsWalking4.Value = 0;
+            // 
+            // txtWildsWalking3
+            // 
+            this.txtWildsWalking3.Location = new System.Drawing.Point(166, 146);
+            this.txtWildsWalking3.MaxValue = 255;
+            this.txtWildsWalking3.MinValue = 0;
+            this.txtWildsWalking3.Name = "txtWildsWalking3";
+            this.txtWildsWalking3.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsWalking3.TabIndex = 18;
+            this.txtWildsWalking3.Text = "0";
+            this.txtWildsWalking3.Value = 0;
+            // 
+            // txtWildsWalking2
+            // 
+            this.txtWildsWalking2.Location = new System.Drawing.Point(166, 119);
+            this.txtWildsWalking2.MaxValue = 255;
+            this.txtWildsWalking2.MinValue = 0;
+            this.txtWildsWalking2.Name = "txtWildsWalking2";
+            this.txtWildsWalking2.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsWalking2.TabIndex = 15;
+            this.txtWildsWalking2.Text = "0";
+            this.txtWildsWalking2.Value = 0;
+            // 
+            // txtWildsWalking1
+            // 
+            this.txtWildsWalking1.Location = new System.Drawing.Point(166, 92);
+            this.txtWildsWalking1.MaxValue = 255;
+            this.txtWildsWalking1.MinValue = 0;
+            this.txtWildsWalking1.Name = "txtWildsWalking1";
+            this.txtWildsWalking1.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsWalking1.TabIndex = 12;
+            this.txtWildsWalking1.Text = "0";
+            this.txtWildsWalking1.Value = 0;
+            // 
+            // txtWildsWalking0
+            // 
+            this.txtWildsWalking0.Location = new System.Drawing.Point(166, 65);
+            this.txtWildsWalking0.MaxValue = 255;
+            this.txtWildsWalking0.MinValue = 0;
+            this.txtWildsWalking0.Name = "txtWildsWalking0";
+            this.txtWildsWalking0.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsWalking0.TabIndex = 7;
+            this.txtWildsWalking0.Text = "0";
+            this.txtWildsWalking0.Value = 0;
+            // 
+            // txtWildsWalkingRate
+            // 
+            this.txtWildsWalkingRate.Location = new System.Drawing.Point(97, 19);
+            this.txtWildsWalkingRate.MaxValue = 255;
+            this.txtWildsWalkingRate.MinValue = 0;
+            this.txtWildsWalkingRate.Name = "txtWildsWalkingRate";
+            this.txtWildsWalkingRate.Size = new System.Drawing.Size(65, 20);
+            this.txtWildsWalkingRate.TabIndex = 3;
+            this.txtWildsWalkingRate.Text = "0";
+            this.txtWildsWalkingRate.Value = 0;
+            // 
             // txtHObjectTextures
             // 
             this.txtHObjectTextures.Location = new System.Drawing.Point(58, 45);
@@ -878,10 +1762,27 @@
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pObjMap)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.tabHeader.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBanner)).EndInit();
+            this.tabControlWilds.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox13.ResumeLayout(false);
+            this.groupBox14.ResumeLayout(false);
+            this.groupBox15.ResumeLayout(false);
+            this.groupBox16.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -958,6 +1859,85 @@
         private System.Windows.Forms.ToolStripMenuItem patchingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createPatchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem applyPatchToolStripMenuItem;
+        private System.Windows.Forms.Label lblNoWilds;
+        private System.Windows.Forms.TabControl tabControlWilds;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Label lblWalkingEncounterRate;
+        private System.Windows.Forms.Label label10;
+        private SignedNumericTextBox txtWildsWalkingRate;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label13;
+        private SignedNumericTextBox txtWildsWalking0;
+        private System.Windows.Forms.ComboBox cWildsWalking0;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label16;
+        private SignedNumericTextBox txtWildsWalking2;
+        private System.Windows.Forms.ComboBox cWildsWalking2;
+        private System.Windows.Forms.Label label15;
+        private SignedNumericTextBox txtWildsWalking1;
+        private System.Windows.Forms.ComboBox cWildsWalking1;
+        private System.Windows.Forms.Label label19;
+        private SignedNumericTextBox txtWildsWalking5;
+        private System.Windows.Forms.ComboBox cWildsWalking5;
+        private System.Windows.Forms.Label label18;
+        private SignedNumericTextBox txtWildsWalking4;
+        private System.Windows.Forms.ComboBox cWildsWalking4;
+        private System.Windows.Forms.Label label17;
+        private SignedNumericTextBox txtWildsWalking3;
+        private System.Windows.Forms.ComboBox cWildsWalking3;
+        private System.Windows.Forms.Label label25;
+        private SignedNumericTextBox txtWildsWalking11;
+        private System.Windows.Forms.ComboBox cWildsWalking11;
+        private System.Windows.Forms.Label label24;
+        private SignedNumericTextBox txtWildsWalking10;
+        private System.Windows.Forms.ComboBox cWildsWalking10;
+        private System.Windows.Forms.Label label23;
+        private SignedNumericTextBox txtWildsWalking9;
+        private System.Windows.Forms.ComboBox cWildsWalking9;
+        private System.Windows.Forms.Label label22;
+        private SignedNumericTextBox txtWildsWalking8;
+        private System.Windows.Forms.ComboBox cWildsWalking8;
+        private System.Windows.Forms.Label label21;
+        private SignedNumericTextBox txtWildsWalking7;
+        private System.Windows.Forms.ComboBox cWildsWalking7;
+        private System.Windows.Forms.Label label20;
+        private SignedNumericTextBox txtWildsWalking6;
+        private System.Windows.Forms.ComboBox cWildsWalking6;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.GroupBox groupBox15;
+        private System.Windows.Forms.ComboBox cWildsEm1;
+        private System.Windows.Forms.ComboBox cWildsEm0;
+        private System.Windows.Forms.GroupBox groupBox14;
+        private System.Windows.Forms.ComboBox cWildsLeaf1;
+        private System.Windows.Forms.ComboBox cWildsLeaf0;
+        private System.Windows.Forms.GroupBox groupBox13;
+        private System.Windows.Forms.ComboBox cWildsFire1;
+        private System.Windows.Forms.ComboBox cWildsFire0;
+        private System.Windows.Forms.GroupBox groupBox12;
+        private System.Windows.Forms.ComboBox cWildsSapp1;
+        private System.Windows.Forms.ComboBox cWildsSapp0;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.ComboBox cWildsRuby1;
+        private System.Windows.Forms.ComboBox cWildsRuby0;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.ComboBox cWildsNight1;
+        private System.Windows.Forms.ComboBox cWildsNight0;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.ComboBox cWildsDay1;
+        private System.Windows.Forms.ComboBox cWildsDay0;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.ComboBox cWildsMorn1;
+        private System.Windows.Forms.ComboBox cWildsMorn0;
+        private System.Windows.Forms.GroupBox groupBox16;
+        private System.Windows.Forms.ComboBox cWildsRadar3;
+        private System.Windows.Forms.ComboBox cWildsRadar1;
+        private System.Windows.Forms.ComboBox cWildsRadar2;
+        private System.Windows.Forms.ComboBox cWildsRadar0;
     }
 }
 
