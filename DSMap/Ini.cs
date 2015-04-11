@@ -9,6 +9,18 @@ namespace DSMap
 {
     public class Ini
     {
+        internal class Section
+        {
+            public Dictionary<string, string> entries;
+            public string name;
+
+            public Section(string name)
+            {
+                this.name = name;
+                this.entries = new Dictionary<string, string>();
+            }
+        }
+
         private List<Section> sections;
         private List<string> sectionNames;
 
@@ -188,6 +200,44 @@ namespace DSMap
             }
         }
 
+        #region Get
+
+        public string GetString(string section, string key)
+        {
+            return this[section, key];
+        }
+
+        public int GetInt32(string section, string key, int fromBase = 10)
+        {
+            return Convert.ToInt32(this[section, key], fromBase);
+        }
+
+        public uint GetUInt32(string section, string key, int fromBase = 10)
+        {
+            return Convert.ToUInt32(this[section, key], fromBase);
+        }
+
+        #endregion
+
+        #region Set
+
+        public void SetString(string section, string key, string value)
+        {
+            this[section, key] = value;
+        }
+
+        public void SetInt32(string section, string key, int value, string intFormat = "")
+        {
+            this[section, key] = value.ToString(intFormat);
+        }
+
+        public void SetUInt32(string section, string key, uint value, string intFormat = "")
+        {
+            this[section, key] = value.ToString(intFormat);
+        }
+
+        #endregion
+
         public TreeNode ToTreeNodes(string parent)
         {
             TreeNode root = new TreeNode(parent);
@@ -270,18 +320,6 @@ namespace DSMap
                 if (s.name == section) return true;
             }
             return false;
-        }
-
-        internal class Section
-        {
-            public Dictionary<string, string> entries;
-            public string name;
-
-            public Section(string name)
-            {
-                this.name = name;
-                this.entries = new Dictionary<string, string>();
-            }
         }
     }
 }

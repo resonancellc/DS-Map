@@ -190,6 +190,78 @@ namespace DSMap
             mapData.Save();
         }
 
+
+        private void createPatchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // A ROM doesn't need to be loaded for this
+            // Get the base ROM
+            openDialog.Title = "Select Original (Base) ROM";
+            openDialog.Filter = "NDS ROMs|*.nds";
+            openDialog.FileName = "";
+
+            if (openDialog.ShowDialog() != DialogResult.OK) return;
+            string original = openDialog.FileName;
+
+            // Get the modified ROM
+            openDialog.Title = "Select Modified (Hacked) ROM";
+            openDialog.FileName = "";
+
+            if (openDialog.ShowDialog() != DialogResult.OK) return;
+            string modified = openDialog.FileName;
+
+            // Get the output file
+            saveDialog.Title = "Save Patch To";
+            saveDialog.Filter = "Patch File|*.patch";
+            saveDialog.FileName = "";
+
+            if (saveDialog.ShowDialog() != DialogResult.OK) return;
+            string patch = saveDialog.FileName;
+
+            try
+            {
+                Patching.uCreatePatch(original, modified, patch);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Patch creation failed!\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            MessageBox.Show("Patch created successfully!", "Yay~", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void applyPatchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Get the patch
+            openDialog.FileName = "";
+            openDialog.Filter = "Patch Files|*.patch";
+            openDialog.Title = "Select Patch To Apply";
+
+            if (openDialog.ShowDialog() != DialogResult.OK) return;
+            string patch = openDialog.FileName;
+
+            // Get the ROM
+            openDialog.Title = "Select ROM To Patch";
+            openDialog.Filter = "NDS ROMs|*.nds";
+            openDialog.FileName = "";
+
+            if (openDialog.ShowDialog() != DialogResult.OK) return;
+            string mod = openDialog.FileName;
+
+            try
+            {
+                Patching.ApplyPatch(patch, mod);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Patch application failed!\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            MessageBox.Show("Patch applied successfully!", "Yay~", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+
         private void LoadROMData()
         {
             if (!rom.IsLoaded()) return;
@@ -204,13 +276,14 @@ namespace DSMap
                 mapTextureData = new NARC(GetROMFilePathFromIni("MapTextureData"));
 
                 // Load the map names
-                string[] mapNames = Map.LoadMapNames(mapData);
+                string[] mapModelNames = Map.LoadMapNames(mapData);
 
                 // Load the header names
                 headerNames = Header.LoadHeaderNames(GetROMFilePathFromIni("HeaderNames"));
 
                 // Match the map headers to the maps
-                headerTable = Convert.ToUInt32(ini[rom.Header.Code, "HeaderTable"], 16);
+                //headerTable = Convert.ToUInt32(ini[rom.Header.Code, "HeaderTable"], 16);
+                headerTable = ini.GetUInt32(rom.Header.Code, "HeaderTable", 16);
                 Dictionary<int, int> headerMatrixMatches = Header.LoadHeaderMatrixMatches(rom.GetFullFilePath("arm9.bin"), headerTable, headerNames.Length);
                 Dictionary<int, List<int>> headerMapMatches = Matrix.LoadHeaderMapMatches(matrixData, headerMatrixMatches);
 
@@ -224,7 +297,7 @@ namespace DSMap
                     int[] maps = headerMapMatches[header].ToArray();
                     foreach (int map in maps)
                     {
-                        TreeNode jr = new TreeNode(mapNames[map]);
+                        TreeNode jr = new TreeNode(mapModelNames[map]);
                         jr.Tag = map; // For easy loading
 
                         node.Nodes.Add(jr);
@@ -236,13 +309,14 @@ namespace DSMap
 
                 // Load text that we need
                 NARC textData = new NARC(GetROMFilePathFromIni("MessageData"));
-                int mapNamesFileID = Convert.ToInt32(ini[rom.Header.Code, "Text:MapNames"]);
+                //int mapNamesFileID = Convert.ToInt32(ini[rom.Header.Code, "Text:MapNames"]);
+                int mapNamesFileID = ini.GetInt32(rom.Header.Code, "Text:MapNames");
 
-                PkText ndsMapNames = new PkText(textData.GetFileMemoryStream(mapNamesFileID));
+                PkmnText locationNames = new PkmnText(textData.GetFileMemoryStream(mapNamesFileID));
                 listBox1.Items.Clear();
-                for (int i = 0; i < ndsMapNames.Count; i++)
+                for (int i = 0; i < locationNames.Count; i++)
                 {
-                    listBox1.Items.Add(ndsMapNames[i]);
+                    listBox1.Items.Add(locationNames[i]);
                 }
             }
             catch (Exception ex)
@@ -304,8 +378,13 @@ namespace DSMap
                 mapTexturesSet = true; // This will allow textures to be loaded
             }
 
+            // Load encounters
+            using (MemoryStream ms = null)
+            {
+
+            }
+
             // Display
-            //mapModel = map.Model;
             LoadAllMapTextures();
             glMapModel.Invalidate();
             txtMapModelName.Text = map.Model.Name;
@@ -324,6 +403,9 @@ namespace DSMap
                 listObjects.Items.Add(item);
             }
             selectedObj = -1;
+
+            // Encounters
+            // TODO
 
             // Show header
             txtHMapTextures.Value = header.MapTextures;

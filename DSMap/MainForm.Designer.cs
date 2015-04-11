@@ -75,13 +75,17 @@
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pObjMap = new System.Windows.Forms.PictureBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabHeader = new System.Windows.Forms.TabPage();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pBanner = new System.Windows.Forms.PictureBox();
             this.saveDialog = new System.Windows.Forms.SaveFileDialog();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.patchingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createPatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.applyPatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtObjHeight = new DSMap.NumericTextBox();
             this.txtObjLength = new DSMap.NumericTextBox();
             this.txtObjWidth = new DSMap.NumericTextBox();
@@ -119,7 +123,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rOMToolStripMenuItem,
-            this.mapToolStripMenuItem});
+            this.mapToolStripMenuItem,
+            this.patchingToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -234,6 +239,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabMap);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabHeader);
             this.tabControl1.Location = new System.Drawing.Point(182, 52);
             this.tabControl1.Name = "tabControl1";
@@ -603,6 +609,15 @@
             this.pObjMap.TabStop = false;
             this.pObjMap.Paint += new System.Windows.Forms.PaintEventHandler(this.pObjMap_Paint);
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(590, 540);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "Wild Pokémon";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
             // tabHeader
             // 
             this.tabHeader.Controls.Add(this.listBox1);
@@ -614,6 +629,14 @@
             this.tabHeader.TabIndex = 1;
             this.tabHeader.Text = "Header";
             this.tabHeader.UseVisualStyleBackColor = true;
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(199, 6);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(132, 173);
+            this.listBox1.TabIndex = 1;
             // 
             // groupBox1
             // 
@@ -655,13 +678,28 @@
             this.pBanner.TabIndex = 7;
             this.pBanner.TabStop = false;
             // 
-            // listBox1
+            // patchingToolStripMenuItem
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(199, 6);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(132, 173);
-            this.listBox1.TabIndex = 1;
+            this.patchingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.createPatchToolStripMenuItem,
+            this.applyPatchToolStripMenuItem});
+            this.patchingToolStripMenuItem.Name = "patchingToolStripMenuItem";
+            this.patchingToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
+            this.patchingToolStripMenuItem.Text = "Patching";
+            // 
+            // createPatchToolStripMenuItem
+            // 
+            this.createPatchToolStripMenuItem.Name = "createPatchToolStripMenuItem";
+            this.createPatchToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.createPatchToolStripMenuItem.Text = "Create Patch";
+            this.createPatchToolStripMenuItem.Click += new System.EventHandler(this.createPatchToolStripMenuItem_Click);
+            // 
+            // applyPatchToolStripMenuItem
+            // 
+            this.applyPatchToolStripMenuItem.Name = "applyPatchToolStripMenuItem";
+            this.applyPatchToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.applyPatchToolStripMenuItem.Text = "Apply Patch";
+            this.applyPatchToolStripMenuItem.Click += new System.EventHandler(this.applyPatchToolStripMenuItem_Click);
             // 
             // txtObjHeight
             // 
@@ -916,6 +954,10 @@
         private System.Windows.Forms.SaveFileDialog saveDialog;
         private System.Windows.Forms.TextBox txtMapModelName;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.ToolStripMenuItem patchingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem createPatchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem applyPatchToolStripMenuItem;
     }
 }
 

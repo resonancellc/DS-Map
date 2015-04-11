@@ -7,11 +7,14 @@ using System.IO;
 
 namespace DSMap.Formats
 {
-    public class PkText// : ICollection
+    /// <summary>
+    /// Repeasents a collection of encrypted strings, as found in the NDS Pokémon games.
+    /// </summary>
+    public class PkmnText// : ICollection
     {
         internal struct Message
         {
-            public int Id;
+            //public int Id;
             public int StartOffset;
             public string Text;
             public int Key2;
@@ -19,10 +22,11 @@ namespace DSMap.Formats
             public int Size;
         }
 
+        // TODO: make this a list
         private Message[] messages;
         private ushort originalKey;
 
-        public PkText(MemoryStream ms)
+        public PkmnText(MemoryStream ms)
         {
             using (BinaryReader br = new BinaryReader(ms))
             {
@@ -109,7 +113,8 @@ namespace DSMap.Formats
 
         public byte[] Save()
         {
-            return new byte[] { 0 };
+            // Saving is disabled for now.
+            return null;// new byte[] { 0 };
         }
 
         #region Get Characters
@@ -667,17 +672,28 @@ namespace DSMap.Formats
 
         #region Properties
 
+        /// <summary>
+        /// Gets or sets one of the strings in this PkmnText.
+        /// </summary>
+        /// <param name="index">The index of the string.</param>
+        /// <returns>A string.</returns>
         public string this[int index]
         {
             get { return messages[index].Text; }
             set { messages[index].Text = value; }
         }
 
+        /// <summary>
+        /// Gets the number of strings in this PkmnText.
+        /// </summary>
         public int Count
         {
             get { return messages.Length; }
         }
 
+        /// <summary>
+        /// Gets the encryption key used by this PkmnText.
+        /// </summary>
         public ushort Key
         {
             get { return originalKey; }
