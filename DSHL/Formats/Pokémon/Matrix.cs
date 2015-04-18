@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using DSHL.Formats.General;
+using DSHL.Formats.Nitro;
 
 namespace DSHL.Formats.Pokémon
 {

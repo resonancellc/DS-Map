@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
-using DSHL.Formats.General;
-using DSHL.Formats.General.Models;
+using DSHL.Formats.Nitro;
+using DSHL.Formats.Nitro.Models;
 
 namespace DSHL.Formats.Pokémon
 {

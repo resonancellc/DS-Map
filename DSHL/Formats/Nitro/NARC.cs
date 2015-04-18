@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace DSHL.Formats.General
+namespace DSHL.Formats.Nitro
 {
     public class NARC
     {

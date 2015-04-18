@@ -6,7 +6,7 @@ using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace DSHL.Formats.General.Models
+namespace DSHL.Formats.Nitro.Models
 {
     public class NSBMDLoader
     {

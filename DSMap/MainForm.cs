@@ -10,8 +10,8 @@ using System.IO;
 using System.Diagnostics;
 
 using DSHL;
-using DSHL.Formats.General;
-using DSHL.Formats.General.Models;
+using DSHL.Formats.Nitro;
+using DSHL.Formats.Nitro.Models;
 using DSHL.Formats.Pokémon;
 
 using OpenTK.Graphics.OpenGL;
@@ -142,6 +142,9 @@ namespace DSMap
             // GL
             glMapModel.Context.MakeCurrent(glMapModel.WindowInfo);
             GL.Viewport(0, 0, glMapModel.Width, glMapModel.Height);
+
+            // Console stuff
+            
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -355,6 +358,27 @@ namespace DSMap
                 cWildsDay1.Items.Clear();
                 cWildsNight0.Items.Clear();
                 cWildsNight1.Items.Clear();
+                cWildsSurfing0.Items.Clear();
+                cWildsSurfing1.Items.Clear();
+                cWildsSurfing2.Items.Clear();
+                cWildsSurfing3.Items.Clear();
+                cWildsSurfing4.Items.Clear();
+                cWildsOR0.Items.Clear();
+                cWildsOR1.Items.Clear();
+                cWildsOR2.Items.Clear();
+                cWildsOR3.Items.Clear();
+                cWildsOR4.Items.Clear();
+                cWildsGR0.Items.Clear();
+                cWildsGR1.Items.Clear();
+                cWildsGR2.Items.Clear();
+                cWildsGR3.Items.Clear();
+                cWildsGR4.Items.Clear();
+                cWildsSR0.Items.Clear();
+                cWildsSR1.Items.Clear();
+                cWildsSR2.Items.Clear();
+                cWildsSR3.Items.Clear();
+                cWildsSR4.Items.Clear();
+
                 for (int i = 0; i < pokemonNames.Count; i++)
                 {
                     cWildsWalking0.Items.Add(pokemonNames[i]);
@@ -391,6 +415,30 @@ namespace DSMap
                     cWildsDay1.Items.Add(pokemonNames[i]);
                     cWildsNight0.Items.Add(pokemonNames[i]);
                     cWildsNight1.Items.Add(pokemonNames[i]);
+
+                    cWildsSurfing0.Items.Add(pokemonNames[i]);
+                    cWildsSurfing1.Items.Add(pokemonNames[i]);
+                    cWildsSurfing2.Items.Add(pokemonNames[i]);
+                    cWildsSurfing3.Items.Add(pokemonNames[i]);
+                    cWildsSurfing4.Items.Add(pokemonNames[i]);
+
+                    cWildsOR0.Items.Add(pokemonNames[i]);
+                    cWildsOR1.Items.Add(pokemonNames[i]);
+                    cWildsOR2.Items.Add(pokemonNames[i]);
+                    cWildsOR3.Items.Add(pokemonNames[i]);
+                    cWildsOR4.Items.Add(pokemonNames[i]);
+
+                    cWildsGR0.Items.Add(pokemonNames[i]);
+                    cWildsGR1.Items.Add(pokemonNames[i]);
+                    cWildsGR2.Items.Add(pokemonNames[i]);
+                    cWildsGR3.Items.Add(pokemonNames[i]);
+                    cWildsGR4.Items.Add(pokemonNames[i]);
+
+                    cWildsSR0.Items.Add(pokemonNames[i]);
+                    cWildsSR1.Items.Add(pokemonNames[i]);
+                    cWildsSR2.Items.Add(pokemonNames[i]);
+                    cWildsSR3.Items.Add(pokemonNames[i]);
+                    cWildsSR4.Items.Add(pokemonNames[i]);
                 }
 
                     listBox1.Items.Clear();
@@ -547,6 +595,73 @@ namespace DSMap
                 cWildsRadar2.SelectedIndex = encounters.Radar[0];
                 cWildsRadar3.SelectedIndex = encounters.Radar[1];
 
+                txtWildsSurfingRate.Value = encounters.SurfingRate;
+                cWildsSurfing0.SelectedIndex = encounters.SurfingSpecies[0];
+                cWildsSurfing1.SelectedIndex = encounters.SurfingSpecies[1];
+                cWildsSurfing2.SelectedIndex = encounters.SurfingSpecies[2];
+                cWildsSurfing3.SelectedIndex = encounters.SurfingSpecies[3];
+                cWildsSurfing4.SelectedIndex = encounters.SurfingSpecies[4];
+                txtWildsSurfingMin0.Value = encounters.SurfingMinLevels[0];
+                txtWildsSurfingMin1.Value = encounters.SurfingMinLevels[1];
+                txtWildsSurfingMin2.Value = encounters.SurfingMinLevels[2];
+                txtWildsSurfingMin3.Value = encounters.SurfingMinLevels[3];
+                txtWildsSurfingMin4.Value = encounters.SurfingMinLevels[4];
+                txtWildsSurfingMax0.Value = encounters.SurfingMaxLevels[0];
+                txtWildsSurfingMax1.Value = encounters.SurfingMaxLevels[1];
+                txtWildsSurfingMax2.Value = encounters.SurfingMaxLevels[2];
+                txtWildsSurfingMax3.Value = encounters.SurfingMaxLevels[3];
+                txtWildsSurfingMax4.Value = encounters.SurfingMaxLevels[4];
+
+                txtWildsORRate.Value = encounters.OldRodRate;
+                cWildsOR0.SelectedIndex = encounters.OldRodSpecies[0];
+                cWildsOR1.SelectedIndex = encounters.OldRodSpecies[1];
+                cWildsOR2.SelectedIndex = encounters.OldRodSpecies[2];
+                cWildsOR3.SelectedIndex = encounters.OldRodSpecies[3];
+                cWildsOR4.SelectedIndex = encounters.OldRodSpecies[4];
+                txtWildsORMin0.Value = encounters.OldRodMinLevels[0];
+                txtWildsORMin1.Value = encounters.OldRodMinLevels[1];
+                txtWildsORMin2.Value = encounters.OldRodMinLevels[2];
+                txtWildsORMin3.Value = encounters.OldRodMinLevels[3];
+                txtWildsORMin4.Value = encounters.OldRodMinLevels[4];
+                txtWildsORMax0.Value = encounters.OldRodMaxLevels[0];
+                txtWildsORMax1.Value = encounters.OldRodMaxLevels[1];
+                txtWildsORMax2.Value = encounters.OldRodMaxLevels[2];
+                txtWildsORMax3.Value = encounters.OldRodMaxLevels[3];
+                txtWildsORMax4.Value = encounters.OldRodMaxLevels[4];
+
+                txtWildsGRRate.Value = encounters.GoodRodRate;
+                cWildsGR0.SelectedIndex = encounters.GoodRodSpecies[0];
+                cWildsGR1.SelectedIndex = encounters.GoodRodSpecies[1];
+                cWildsGR2.SelectedIndex = encounters.GoodRodSpecies[2];
+                cWildsGR3.SelectedIndex = encounters.GoodRodSpecies[3];
+                cWildsGR4.SelectedIndex = encounters.GoodRodSpecies[4];
+                txtWildsGRMin0.Value = encounters.GoodRodMinLevels[0];
+                txtWildsGRMin1.Value = encounters.GoodRodMinLevels[1];
+                txtWildsGRMin2.Value = encounters.GoodRodMinLevels[2];
+                txtWildsGRMin3.Value = encounters.GoodRodMinLevels[3];
+                txtWildsGRMin4.Value = encounters.GoodRodMinLevels[4];
+                txtWildsGRMax0.Value = encounters.GoodRodMaxLevels[0];
+                txtWildsGRMax1.Value = encounters.GoodRodMaxLevels[1];
+                txtWildsGRMax2.Value = encounters.GoodRodMaxLevels[2];
+                txtWildsGRMax3.Value = encounters.GoodRodMaxLevels[3];
+                txtWildsGRMax4.Value = encounters.GoodRodMaxLevels[4];
+
+                txtWildsSRRate.Value = encounters.SuperRodRate;
+                cWildsSR0.SelectedIndex = encounters.SuperRodSpecies[0];
+                cWildsSR1.SelectedIndex = encounters.SuperRodSpecies[1];
+                cWildsSR2.SelectedIndex = encounters.SuperRodSpecies[2];
+                cWildsSR3.SelectedIndex = encounters.SuperRodSpecies[3];
+                cWildsSR4.SelectedIndex = encounters.SuperRodSpecies[4];
+                txtWildsSRMin0.Value = encounters.SuperRodMinLevels[0];
+                txtWildsSRMin1.Value = encounters.SuperRodMinLevels[1];
+                txtWildsSRMin2.Value = encounters.SuperRodMinLevels[2];
+                txtWildsSRMin3.Value = encounters.SuperRodMinLevels[3];
+                txtWildsSRMin4.Value = encounters.SuperRodMinLevels[4];
+                txtWildsSRMax0.Value = encounters.SuperRodMaxLevels[0];
+                txtWildsSRMax1.Value = encounters.SuperRodMaxLevels[1];
+                txtWildsSRMax2.Value = encounters.SuperRodMaxLevels[2];
+                txtWildsSRMax3.Value = encounters.SuperRodMaxLevels[3];
+                txtWildsSRMax4.Value = encounters.SuperRodMaxLevels[4];
             }
 
             // Show header

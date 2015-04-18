@@ -6,7 +6,7 @@ using System.IO;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
-using DSHL.Formats.General;
+using DSHL.Formats.Nitro;
 
 namespace DSHL
 {

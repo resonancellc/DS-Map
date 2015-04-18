@@ -6,7 +6,7 @@ using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace DSHL.Formats.General.Models
+namespace DSHL.Formats.Nitro.Models
 {
     //
     // https://github.com/pleonex/tinke/blob/master/Plugins/3DModels/3DModels/BTX0.cs

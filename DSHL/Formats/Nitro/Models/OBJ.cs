@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace DSHL.Formats.General.Models
+namespace DSHL.Formats.Nitro.Models
 {
     // Deals with Wavefront Object files
     public class OBJExporter

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+//using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +12,7 @@ namespace DSHL.Formats.Pokémon
     /// </summary>
     public class PkmnText// : ICollection
     {
-        internal struct Message
+        internal class Message
         {
             //public int Id;
             public int StartOffset;
@@ -20,10 +20,40 @@ namespace DSHL.Formats.Pokémon
             public int Key2;
             public int RealKey;
             public int Size;
+
+            public Message()
+            {
+                StartOffset = -1;
+                Text = "";
+                Key2 = -1;
+                RealKey = 0;
+                Size = 0;
+            }
+
+            /// <summary>
+            /// Calculate the key needed for this string.
+            /// </summary>
+            /// <param name="pos">The position of the string in the collection.</param>
+            /// <param name="originalKey">The key used for the collection.</param>
+            public void CalculateKey(int pos, ushort originalKey)
+            {
+                int key = (originalKey * 0x2FD) & ushort.MaxValue;
+                Key2 = key * (pos + 1) & ushort.MaxValue;
+                RealKey = Key2 | Key2 << 16;
+            }
+
+            /// <summary>
+            /// Gets whether the key for this string has been set.
+            /// Does not (yet) check whether the key itself works.
+            /// </summary>
+            public bool Valid
+            {
+                get { return Key2 > -1; }
+            }
         }
 
         // TODO: make this a list
-        private Message[] messages;
+        private List<Message> messages;
         private ushort originalKey;
 
         public PkmnText(MemoryStream ms, bool trimEnding = false)
@@ -31,13 +61,10 @@ namespace DSHL.Formats.Pokémon
             using (BinaryReader br = new BinaryReader(ms))
             {
                 short count = br.ReadInt16();
-                messages = new Message[count];
+                messages = new List<Message>();
 
                 originalKey = br.ReadUInt16();
                 int key = (originalKey * 0x2FD) & ushort.MaxValue;
-
-                //ArrayList originalOffsets = new ArrayList();
-                //List<int> originalSizes = new List<int>();
 
                 // Decode message headers
                 for (int i = 0; i < count; i++)
@@ -54,8 +81,7 @@ namespace DSHL.Formats.Pokémon
                     msg.Size = size ^ msg.RealKey;
                     //originalSizes.Add(size);
 
-                    //messages.Add(msg);
-                    messages[i] = msg;
+                    messages.Add(msg);
                 }
 
                 // Decode the messages
@@ -106,7 +132,8 @@ namespace DSHL.Formats.Pokémon
                     }
                     msg.Text = sb.ToString();
 
-                    if (trimEnding) msg.Text = msg.Text.Replace("\\0", ""); // ~~~
+                    // ~~~
+                    if (trimEnding) msg.Text = msg.Text.Replace("\\0", "");
 
                     messages[i] = msg;
                 }
@@ -117,6 +144,31 @@ namespace DSHL.Formats.Pokémon
         {
             // Saving is disabled for now.
             return null;// new byte[] { 0 };
+        }
+
+        public void Add(string value)
+        {
+            messages.Add(new Message());
+            int id = messages.Count - 1;
+            
+            // Add the text and calculate the key
+            messages[id].Text = value;
+            messages[id].CalculateKey(id, originalKey);
+        }
+
+        public void Remove(int id)
+        {
+            if (id > 0 && id < messages.Count)
+            {
+                // Remove this mesage
+                messages.RemoveAt(id);
+
+                // Update the key for each string
+                for (int i = 0; i < messages.Count; i++)
+                {
+                    messages[i].CalculateKey(i, originalKey);
+                }
+            }
         }
 
         #region Get Characters
@@ -690,15 +742,26 @@ namespace DSHL.Formats.Pokémon
         /// </summary>
         public int Count
         {
-            get { return messages.Length; }
+            get { return messages.Count; }
         }
 
         /// <summary>
-        /// Gets the encryption key used by this PkmnText.
+        /// Gets or sets the encryption key used by this PkmnText.
         /// </summary>
         public ushort Key
         {
             get { return originalKey; }
+            set
+            {
+                // Set a new key
+                originalKey = value;
+
+                // Update the key for each string
+                for (int i = 0; i < messages.Count; i++)
+                {
+                    messages[i].CalculateKey(i, originalKey);
+                }
+            }
         }
 
         #endregion

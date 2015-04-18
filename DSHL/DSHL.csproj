@@ -41,10 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Formats\General\Models\NSBMD.cs" />
-    <Compile Include="Formats\General\Models\NSBTX.cs" />
-    <Compile Include="Formats\General\Models\OBJ.cs" />
-    <Compile Include="Formats\General\NARC.cs" />
+    <Compile Include="Formats\Nitro\Models\NSBMD.cs" />
+    <Compile Include="Formats\Nitro\Models\NSBTX.cs" />
+    <Compile Include="Formats\Nitro\Models\OBJ.cs" />
+    <Compile Include="Formats\Nitro\NARC.cs" />
     <Compile Include="Formats\Pokémon\Encounter.cs" />
     <Compile Include="Formats\Pokémon\Header.cs" />
     <Compile Include="Formats\Pokémon\Map.cs" />

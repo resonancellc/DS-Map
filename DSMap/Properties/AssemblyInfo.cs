@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("DS Map")]
 [assembly: AssemblyDescription("DS Map")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Hopeless")]
+[assembly: AssemblyCompany("Hopeless/Lost Heart")]
 [assembly: AssemblyProduct("DS Map")]
-[assembly: AssemblyCopyright("Copyright © Hopeless 2015")]
+[assembly: AssemblyCopyright("Copyright © Hopeless/Lost Heart 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
