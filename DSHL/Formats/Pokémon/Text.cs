@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace DSMap.Formats
+namespace DSHL.Formats.Pokémon
 {
     /// <summary>
     /// Repeasents a collection of encrypted strings, as found in the NDS Pokémon games.

@@ -6,13 +6,13 @@ using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
 
-//
-// https://github.com/pleonex/tinke/blob/master/Plugins/3DModels/3DModels/BTX0.cs
-// http://llref.emutalk.net/docs/?file=xml/btx0.xml#xml-doc
-//
-
-namespace DSMap.NDS
+namespace DSHL.Formats.General.Models
 {
+    //
+    // https://github.com/pleonex/tinke/blob/master/Plugins/3DModels/3DModels/BTX0.cs
+    // http://llref.emutalk.net/docs/?file=xml/btx0.xml#xml-doc
+    //
+
     public static class NSBTXLoader
     {
         // Magic stamps

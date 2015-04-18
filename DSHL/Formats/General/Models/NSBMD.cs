@@ -6,7 +6,7 @@ using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace DSMap.NDS
+namespace DSHL.Formats.General.Models
 {
     public class NSBMDLoader
     {
@@ -49,7 +49,7 @@ namespace DSMap.NDS
             // Read MDL0
             if (mdl0Offest != br.BaseStream.Position)
                 throw new Exception("Unexpected error, baby.");
-            
+
             // 
             bmd.MDL0 = LoadMDL0(br);
 
@@ -776,9 +776,9 @@ namespace DSMap.NDS
                 {
                     switch (bone.Command)
                     {
-                            // All the necessary commands
-                            // These three are all the same parameters:
-                            // [material ID] [5] [polygon ID]
+                        // All the necessary commands
+                        // These three are all the same parameters:
+                        // [material ID] [5] [polygon ID]
                         case 0x4:
                         case 0x24:
                         case 0x44:
@@ -1006,7 +1006,7 @@ namespace DSMap.NDS
 
     public struct NSBMD
     {
-        public Model MDL0; 
+        public Model MDL0;
 
         public bool HasTEX0;
         public NSBTX TEX0;
@@ -1119,7 +1119,7 @@ namespace DSMap.NDS
             public ushort[] UnknownBlock;
             public uint DefOffset;
             public string Name;
-            
+
             // Definition
             public uint Unknown1, Unknown2;
             public uint DisplayOffset, DisplaySize;

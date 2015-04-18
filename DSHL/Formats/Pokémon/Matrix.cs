@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using DSHL.Formats.General;
 
-namespace DSMap.Formats
+namespace DSHL.Formats.Pokémon
 {
     public class Matrix
     {
@@ -12,7 +13,7 @@ namespace DSMap.Formats
         private ushort[,] _layer1; // Map Files
         private byte[,] _layer2; // Map Border Heights
         private ushort[,] _layer3; // Map Headers
-        
+
         // Header (in this order)
         private byte _width, _height;
         private bool _hasLayer2, _hasLayer3;
@@ -246,7 +247,7 @@ namespace DSMap.Formats
             return data;
         }
 
-        public static string[] LoadAllMatrixNames(NDS.NARC narc)
+        public static string[] LoadAllMatrixNames(NARC narc)
         {
             string[] names = new string[narc.FileCount];
             for (int i = 0; i < narc.FileCount; i++)
@@ -275,7 +276,7 @@ namespace DSMap.Formats
             return names;
         }
 
-        public static Dictionary<int, List<int>> LoadHeaderMapMatches(NDS.NARC narc, Dictionary<int, int> headerMatrixMatches)
+        public static Dictionary<int, List<int>> LoadHeaderMapMatches(NARC narc, Dictionary<int, int> headerMatrixMatches)
         {
             Dictionary<int, List<int>> headerMapMatches = new Dictionary<int, List<int>>();
             foreach (int header in headerMatrixMatches.Keys)

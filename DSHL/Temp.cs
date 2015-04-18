@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
-//using System.Security.AccessControl;
 
-namespace DSMap
+namespace DSHL
 {
     /// <summary>
     /// Temporary file system for data I/O.

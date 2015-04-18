@@ -9,8 +9,10 @@ using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
 
-using DSMap.NDS;
-using DSMap.Formats;
+using DSHL;
+using DSHL.Formats.General;
+using DSHL.Formats.General.Models;
+using DSHL.Formats.Pokémon;
 
 using OpenTK.Graphics.OpenGL;
 

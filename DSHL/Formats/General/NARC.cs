@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace DSMap.NDS
+namespace DSHL.Formats.General
 {
     public class NARC
     {

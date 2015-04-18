@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
+using DSHL.Formats.General;
+using DSHL.Formats.General.Models;
 
-using DSMap.NDS;
-
-namespace DSMap.Formats
+namespace DSHL.Formats.Pokémon
 {
     public class Map
     {
@@ -160,7 +160,7 @@ namespace DSMap.Formats
 
                 // Write the model name
                 // This will help later
-                
+
                 /*bw.Seek(2048 + (_objects.Count * 48) + 60, SeekOrigin.Current);
                 bw.Write(name);
                 for (int i = 0; i < 16 - name.Length; i++)
@@ -224,7 +224,7 @@ namespace DSMap.Formats
                 BinaryReader br = new BinaryReader(ms);
 
                 var mdl = NSBMDLoader.LoadBMD0(br);
-                
+
                 if (mdl.HasTEX0)
                 {
                     br.BaseStream.Seek(0, SeekOrigin.Begin);

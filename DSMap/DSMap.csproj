@@ -51,12 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Formats\Encounter.cs" />
-    <Compile Include="Formats\Header.cs" />
-    <Compile Include="Formats\Map.cs" />
-    <Compile Include="Formats\Matrix.cs" />
-    <Compile Include="Formats\OBJ.cs" />
-    <Compile Include="Formats\Text.cs" />
     <Compile Include="Ini.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -64,9 +58,6 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="NDS\NARC.cs" />
-    <Compile Include="NDS\NSBMD.cs" />
-    <Compile Include="NDS\NSBTX.cs" />
     <Compile Include="NumericTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -79,8 +70,6 @@
     <Compile Include="Patching.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ROM.cs" />
-    <Compile Include="Temp.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -121,6 +110,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\minus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DSHL\DSHL.csproj">
+      <Project>{b43e725f-2cf5-46c7-96fe-eba16080f239}</Project>
+      <Name>DSHL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

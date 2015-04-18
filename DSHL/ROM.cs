@@ -6,8 +6,9 @@ using System.IO;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
+using DSHL.Formats.General;
 
-namespace DSMap
+namespace DSHL
 {
     public class ROM
     {
@@ -300,12 +301,12 @@ namespace DSMap
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        public NDS.NARC FileOpenNARC(string file)
+        public NARC FileOpenNARC(string file)
         {
             string path = GetFullFilePath(file);
             if (!File.Exists(path)) throw new FileNotFoundException();
 
-            return new NDS.NARC(path);
+            return new NARC(path);
         }
 
         #region Properties

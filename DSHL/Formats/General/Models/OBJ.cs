@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-using DSMap.NDS;
-
-namespace DSMap.Formats
+namespace DSHL.Formats.General.Models
 {
     // Deals with Wavefront Object files
     public class OBJExporter
@@ -14,7 +12,7 @@ namespace DSMap.Formats
         public void ExportModel(string file, NSBMD model)
         {
             if (!model.HasTEX0) throw new Exception("Expected textures with model!");
-            
+
             ExportModel(file, model, model.TEX0);
         }
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace DSMap.Formats
+namespace DSHL.Formats.Pokémon
 {
     public class Header
     {
@@ -86,7 +86,7 @@ namespace DSMap.Formats
                     byte[] buffer = br.ReadBytes(16); // 16 byte name, extra characters 0'd out
 
                     names[i] = "";
-                    foreach(byte b in buffer)
+                    foreach (byte b in buffer)
                     {
                         if (b == 0) break;
                         else names[i] += (char)b;
@@ -104,7 +104,7 @@ namespace DSMap.Formats
                 for (int i = 0; i < names.Length; i++)
                 {
                     byte[] name = Encoding.UTF8.GetBytes(names[i]);
-                    
+
                     bw.Write(name);
                     for (int j = name.Length; j < 16; j++)
                     {
