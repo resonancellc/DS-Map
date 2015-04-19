@@ -1,7 +1,13 @@
 # DS Map
 Copyright (c) 2015 Hopeless (Lost Heart)
 
-A map editor for 4th Generation Pokémon games. WIP.
+An editor suite for 4th Generation Pokémon games. WIP.
+
+## Tools
+The following tools are included so far:
+* DS Map
+* DS Script
+More will likely follow.
 
 ## Supported Games
 Not all of the games are supported yet, although I'd like the to be.
@@ -9,12 +15,17 @@ Not all of the games are supported yet, although I'd like the to be.
 * Pokémon Pearl (English)
 
 ## Features
-Right now, it has a very limited set of features:
+Right now, features are very much in-progress and subject to change.
+
+### DS Map
 * Map loading/saving
   * NSBMD model import/export
 * Map header loading/saving
 * Header-map linking (the program knows which maps go with which headers)
-* Wild Pokémon loading
+* Wild Pokémon loading/saving
 
-As it stands, none of the features above are complete. But, they're getting there.
+### DS Script
+* Script decompilation
+
+Nothing is really ready for release, although they're getting there.
 

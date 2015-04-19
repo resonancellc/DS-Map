@@ -1,0 +1,840 @@
+0 Nop
+1 Nop2
+2 End -e
+3 0003 u16 u16
+4 0004 u16
+5 0005
+6 0006
+7 0007
+8 0008
+9 0009
+10 000A
+11 000B
+12 000C
+13 000D
+14 000E
+15 000F
+16 0010 u16 u16 u16 u16
+17 If u16 u16
+18 If2 u16 u16
+19 0013
+20 Callstd u8 u8
+21 Exitstd
+22 Jump -f
+23 0017 u16 u16 u16 u16
+24 0018
+25 0019
+26 Goto -f
+27 Return -e
+28 CompareLR u8 -f
+29 CompareLR2 u8 -f
+30 Setflag u16
+31 Clearflag u16
+32 Checkflag u16
+33 0021
+34 0022 u16
+35 SetTrainerId u16
+36 0024 u16
+37 ClearTrainerId u16
+38 Setvalue u16 u16
+39 Copyvalue u16 u16
+40 Setvar u16 u16
+41 Copyvar u16 u16
+42 002A
+43 Message2 u8
+44 Message u8
+45 Message3 u16
+46 Message4 u16
+47 Message5 u8
+48 0030
+49 Waitbutton
+50 0032
+51 0033
+52 CloseMsgOnKeyPress
+53 FreezeMsgBox
+54 CallMsgBox u16 u16 u16
+55 ColorMsgBox u8 u16
+56 TypeMsgBox u8
+57 NoMapMsgBox
+58 CallTextMsgBox u8 u16
+59 StoreMenuStatus u16
+60 ShowMenu
+61 003D
+62 Yesnobox u16
+63 Waitfor u16
+64 Multi u8 u8 u8 u8 u16
+65 Multi2 u8 u8 u8 u8 u16
+66 Txtscrpmulti u8 u8
+67 CloseMulti
+68 Multi3 u8 u8 u8 u8 u16
+69 Multi4 u8 u8 u8 u8 u16
+70 Txtmsgscrpmulti u16 u16 u16
+71 CloseMulti4
+72 Multirow u8
+73 Fanfare u16
+74 Fanfare2 u16
+75 WaitFanfare u16
+76 Cryfr u16 u16
+77 WaitCry
+78 Soundfr u16
+79 Fadedef
+80 PlaySound u16
+81 Stop u16
+82 Restart
+83 0053
+84 SwitchMusic u16 u16
+85 StoreSayingLearned u16
+86 0056
+87 PlaySound2 u16
+88 0058 u16 u16
+89 CheckSayingLearned u16
+90 SwithMusic2 u16
+91 ActMicrophone
+92 DeactMicrophone
+93 005D
+94 Applymovement u16 -m
+95 Waitmovement
+96 Lockall
+97 Releaseall
+98 Lock u16
+99 Release u16
+100 Addpeople u16
+101 Removepeople u16
+102 Lockcam u16 u16
+103 Zoomcam?
+104 Faceplayer
+105 CheckHiroPosition u16 u16
+106 CheckIdSpritePosition u16 u16 u16
+107 ChangeHiroCamPosition u16 u16 u16
+108 Continuefollow u8 u16
+109 Followhero u16 u16
+110 StopFollowhero
+111 Givemoney u16
+112 TakeMoney u16 u16
+113 CheckMoney u16 u16 u16
+114 ShowMoney u16 u16
+115 HideMoney
+116 UpdateMoney
+117 ShowCoins u16 u16
+118 HideCoins
+119 UpdateCoins
+120 CompareCoins u16 u16 u16
+121 GiveCoins u16
+122 TakeCoins u16 u16 u16
+123 TakeItem u16 u16 u16
+124 GiveItem u16 u16 u16
+125 CheckStoreItem u16 u16 u16
+126 CheckItem u16 u16 u16
+127 StoreItemTaken u16 u16
+128 StoreItemType u16 u16
+129 0081
+130 0082
+131 SendItemType1 u16 u16 u16
+132 0084
+133 CheckUndPcStatus u16 u16 u16
+134 0086
+135 SendItemType2 u16 u16 u16
+136 0088
+137 0089
+138 008A
+139 008B
+140 008C
+141 008D
+142 008E
+143 SendItemType3 u16 u16 u16
+144 0090
+145 0091
+146 0092
+147 CheckPkmnParty u16 u16
+148 StorePkmnParty u16 u16
+149 SetPknmPartyStored u16 u16
+150 GivePokemon u16 u16 u16 u16
+151 GiveEgg u16 u16
+152 0098
+153 Checkmove u16 u16 u16
+154 CheckPlaceStored u16 u16
+155 009B u16 u16
+156 009C
+157 009D
+158 009E
+159 009F
+160 00A0
+161 Callend
+162 00A2
+163 Wfc
+164 00A4
+165 Interview
+166 DressPokemon u16 u16 u16
+167 DisplayDressedPokemon u16 u16
+168 DisplayContestPokemon u16 u16
+169 OpenBallCapsule
+170 OpenSinnohMaps
+171 OpenPcFunction u8
+172 DrawUnion
+173 TrainerCaseUnion
+174 TradeUnion
+175 RecordMixingUnion
+176 EndGame
+177 HallFameAnm
+178 StoreWfcStatus u16 u16
+179 StartWfc u16
+180 ChooseStarter
+181 BattleStarter
+182 BattleId? u16
+183 SetvarBattle? u16 u16
+184 CheckBattleType? u16
+185 SetvarBattle2? u16 u16
+186 ChoosePlayerName
+187 ChoosePokeNick u16 u16
+188 Fadescreen u16 u16 u16 u16
+189 Resetscreen
+190 Warp u16 u16 u16 u16 u16
+191 RockClimbAnimation u16
+192 SurfAnimation u16
+193 WaterfallAnimation u16
+194 FlyAnimation u16
+195 FlashAnimation
+196 DefogAnimation
+197 PrepHmEffect u16
+198 Tuxedo
+199 Checkbike u16
+200 RideBike u8
+201 RideBike2 u8
+202 CheckGivePokeHiroAnm u16
+203 GivePokeHiroAnm u8 u8
+204 StopGivePokeHiroAnm
+205 Setvarhero u8
+206 Setvarrival u8
+207 Setvaralter u8
+208 Setvarpoke u8 u16
+209 Setvaritem u8 u16
+210 Setvaritemnum u8 u16
+211 Setvaratkitem u8 u16
+212 Setvaratk u8 u16
+213 Setvarnum u8 u16
+214 Setvarpokenick u8 u16
+215 Setvarobj u8 u16
+216 Setvartrainer
+217 SetvarWi-fisprite u8
+218 Setvarpokestored u8 u16 u16 u8
+219 Setvarstrhero u8
+220 Setvarstrrival u8
+221 Setvarstralter u8
+222 StoreStarter u16
+223 00DF u8 u16
+224 SetvarItemStored u8 u16
+225 SetvarItemStored2 u8 u16
+226 SetvarSwarmPoke u8 u16
+227 CheckSwarmPoke u16 u16
+228 StartBattleAnalysis u16
+229 TrainerBattle u16 u16
+230 EndtrainerBattle u16 u16
+231 TrainerBattleStored u16 u16 u16
+232 TrainerBattleStored2 u16 u16 u16
+233 CheckTrainerStatus u16
+234 StoreLeagueTrainer u16
+235 LostGoPc
+236 CheckTrainerLost u16
+237 CheckTrainerStatus2 u16
+238 StorePokePartyDefeated u16
+239 00EF
+240 00F0
+241 00F1
+242 ChsFriend u16 u16 u16 u16
+243 WireBattleWait u16 u16 u16 u16
+244 00F4
+245 00F5
+246 00F6
+247 Pokecontest
+248 StartOvation u16
+249 StopOvation u16
+250 00FA u16 u16 u16 u16
+251 00FB u16
+252 00FC
+253 SetvarOtherEntry u16 u16
+254 00FE u16 u16
+255 SetvatHiroEntry u16 u16
+256 0100
+257 BlackFlashEffect
+258 SetvarTypeContest u8 u8
+259 SetvarRankContest u8 u8
+260 0104 u16
+261 0105
+262 0106 u16
+263 0107 u16
+264 StorePeopleIdContest u16
+265 0109 u16
+266 010A u16 u16
+267 ActPeopleContest u16 u16
+268 010C u16
+269 010D
+270 010E
+271 010F u16
+272 0110 u16 u16 u16 u16
+273 FlashContest u16
+274 EndFlash
+275 CarpetAnm
+276 0114
+277 0115 u16 u16
+278 ShowLnkCntRecord
+279 0117
+280 0118 u16 u16
+281 StorePokerus u16
+282 011A
+283 WarpMapElevator u16 u16 u16 u16 u16
+284 CheckFloor u16
+285 StartLift u16 u16 u16
+286 StoreSinPokemonSeen u16
+287 011F
+288 StoreTotPokemonSeen u16
+289 StoreNatPokemonSeen u16
+290 0122
+291 SetVarTextPokedex u8 u16
+292 Wildbattle u16 u16
+293 Starterbattle u16 u16 u16 u16
+294 Explanationbattle
+295 HoneyTreeBattle u16 u16 u16
+296 CheckIfHoneySlathered u16
+297 RandomBattle
+298 StopRandomBattle
+299 WriteAutograph
+300 StoreSaveData u16
+301 CheckSaveData u16 u16
+302 CheckDress u16 u16
+303 CheckContestWin u16 u16
+304 StorePhotoName u16
+305 GivePoketch
+306 CheckPtchAppl u16
+307 ActPktchAppl u16
+308 StorePktchAppl u16 u16
+309 FriendBT u16
+310 FriendBT2
+311 0137
+312 0138 u16
+313 OpenUnionFunction2? u16
+314 StartUnion?
+315 LinkClosed
+316 SetUnionFunctionId? u16
+317 CloseUnionFunction?
+318 CloseUnionFunction2?
+319 SetvarUnionMessage u16 u16
+320 StoreYourDecisionUnion u16
+321 StoreOtherDecisionUnion u16
+322 0142 u16
+323 CheckOtherDecisionUnion u16 u16
+324 StoreYourDecisionUnion2 u16
+325 StoreOtherDecisionUnion2 u16
+326 CheckOtherDecisionUnion2 u16 u16
+327 Pokemart u16
+328 Pokemart2 u16
+329 Pokemart3 u16
+330 Pokemart4 u16
+331 Defeatgopc
+332 ActBike? u16
+333 Checkgender u16
+334 HealPkmn
+335 DeactWireless
+336 DeleteEntry
+337 0151
+338 UndergroundId? u16
+339 UnionRoom
+340 OpenWi-fiSprite
+341 StoreWi-fiSprite u16 u16
+342 ActWi-fiSprite u16
+343 0157
+344 ActPokedex
+345 0159
+346 GiveRShoes
+347 Checkbadge u16 u16
+348 Setbdgtrue u16
+349 Setbdgfalse u16
+350 015E
+351 015F
+352 CheckFollow u16
+353 StartFollow
+354 StopFollow
+355 0163
+356 0164
+357 0165
+358 0166 u16
+359 0167
+360 PrpDoorAnm u16 u16 u16 u16 u8
+361 Waitaction u8
+362 Waitclose u8
+363 Opendoor u8
+364 Closedoor u8
+365 ActDcareFunction
+366 StorePDCareNum u16
+367 PastoriaCityFunction
+368 PastoriaCityFunction2
+369 HearthromeGymFunction
+370 HearthromeGymFunction2
+371 CanalaveGymFunction
+372 VeilstoneGymFunction
+373 SunishoreGymFunction u8 u16
+374 SunishoreGymFunction2 u8 u16
+375 Checkpartynumber u16
+376 OpnBerry u8
+377 0179 u16
+378 017A u16 u16
+379 017B u8 u16 u16
+380 SetNaturePokemon u8 u16
+381 017D u16
+382 017E u16
+383 017F u16
+384 0180
+385 0181 u16
+386 CheckDeoxis u16
+387 0183 u16
+388 0184 u16
+389 0185
+390 ChangeOwPosition u16 u16 u16
+391 SetOwPosition u16 u16 u16 u16 u16
+392 ChangeOwMovement u16 u16
+393 ReleaseOw u16 u16
+394 SetTilePassable u16 u16 u16
+395 SetTileLocked u16 u16 u16
+396 SetOwsFollow u16 u16
+397 Showclocksave
+398 Hideclocksave
+399 018F u16
+400 SetSaveData u16
+401 ChsPokemenu
+402 ChsPokeMenu2
+403 StorePokeMenu2 u16
+404 ChsPokeContest u16 u16 u16 u16
+405 StorePokeContest u16 u16
+406 ShowPokeInfo u16
+407 StorePokeMove u16
+408 CheckPokeEgg u16 u16
+409 ComparePokeNick u16 u16
+410 CheckPartyNumberUnion u16
+411 CheckPokePartyHealth u16 u16
+412 CheckPokePartyNumDCare u16
+413 CheckEggUnion u16
+414 UndergroundFunction u16 u16
+415 UndergroundFunction2 u16
+416 UndergroundStart
+417 01A1
+418 01A2
+419 TakeMoneyDCare u16
+420 TakePokemonDCare u16 u16
+421 01A5
+422 01A6
+423 01A7
+424 ActEggDayCMan
+425 DeactEggDayCMan
+426 SetVarPokeAndMoneyDCare u16 u16
+427 CheckMoneyDCare u16 u16
+428 EggAnm
+429 01AD
+430 SetVarPokeAndLevelDCare u16 u16
+431 SetVarPokeChosenDCare u16 u16 u16
+432 GivePokeDCare u16
+433 AddPeople2 u16
+434 RemovePeople2 u16
+435 MailBox
+436 CheckMail u16
+437 ShowRecordList u16
+438 CheckTime u16
+439 CheckIdPlayer u16 u16
+440 RandomTextStored u16 u16
+441 StoreHappyPoke u16 u16
+442 StoreHappyStatus u16 u16
+443 01BB
+444 SetVarDataDayCare? u16 u16 u16 u16
+445 CheckFacePosition u16
+446 StorePokeDCareLove u16
+447 CheckStatusSolaceonEvent? u16
+448 CheckPokeParty u16 u16
+449 CopyPokeHeight u16 u16
+450 SetvarPokeHeight u16
+451 ComparePokeHeight u16 u16 u16
+452 CheckPokeHeight u16 u16 u16
+453 ShowMoveInfo u16 u16
+454 StorePokeDelete u16
+455 StoreMoveDelete u16
+456 CheckMoveNumDelete u16 u16
+457 StoreDeleteMove u16 u16
+458 CheckDeleteMove u16 u16 u16
+459 SetvarMoveDelete u8 u16 u16
+460 01CC
+461 DeActivateLeader u16 u16 u16 u16 u16
+462 01CE
+463 HmFunctions
+464 FlashDuration u8
+465 DefogDuration u8
+466 GiveAccessories u16 u16
+467 CheckAccessories u16 u16 u16
+468 01D4
+469 GiveAccessories2 u16
+470 CheckAccessories2 u16 u16
+471 Berrypoffin
+472 SetvarBTowerChs? u16
+473 BattleRmResult u16 u16
+474 ActivateBTower
+475 StoreBTowerData u16 u16
+476 CloseBTower
+477 CallBTowerFunctions u16 u16 u16
+478 RandomTeamBTower u16 u16 u16 u16
+479 StorePrizeNumBTower u16
+480 StorePeopleIdBTower u16
+481 CallBTowerWireFunction u16 u16 u16
+482 StorePChosenWireBTower u16 u16
+483 StoreRankDataWireBTower u16 u16
+484 01E4 u16
+485 RandomEvent? u16
+486 01E6
+487 01E7 u16
+488 CheckSinPokedex u16
+489 CheckNatPokedex u16
+490 ShowSinSheet u16
+491 ShowNatSheet u16
+492 01EC
+493 StoreTrophyPokemon u16
+494 01EE
+495 01EF
+496 01F0
+497 CheckActFossil u16
+498 01F2
+499 01F3 u16
+500 CheckItemChosen u16 u16
+501 CompareItemPokeFossil? u16 u16 u16
+502 CheckPokeLevel u16 u16
+503 CheckPokemonPoisoned u16 u16
+504 PreWfc?
+505 StoreFurniture u16
+506 01FA
+507 CopyFurniture u16 u16
+508 01FC
+509 01FD
+510 SetBCastleFunctionId? u8
+511 BCastleFunctReturn u8 u8 u16 u16
+512 0200
+513 CheckEffectHm? u16
+514 GreatMarshFunction? u8
+515 BattlePokeColosseum? u16 u16 u16 u16 u16
+516 WarpLastElevator
+517 OpenGeoNet
+518 Gmbynocule
+519 StorePokeColosseumLost u16
+520 Pokepic u16 u16
+521 Hidepic
+522 020A u16
+523 020B
+524 020C
+525 SetvarMtCoronet? u8 u16
+526 020E
+527 CheckQuicTrineCoordinates u16 u16
+528 SetvarQuickTrainCoordinates u16 u16
+529 MoveTrainAnm u8
+530 StorePokeNature u16 u16
+531 CheckPokeNature u16 u16
+532 RandomHallowes u16
+533 StartAmity?
+534 0216 u16
+535 0217 u16 u16
+536 ChsRSPoke u16
+537 SetSPoke u16
+538 CheckSPoke u16
+539 021B
+540 ActSwarmPoke u8
+541 021D
+542 021E
+543 CheckMoveRemember u16 u16
+544 0220
+545 StorePokeRemember u16
+546 0222
+547 StoreRememberMove u16
+548 CopyMoveRemember u16 u16
+549 StoreMoveRemember u16
+550 SetTradeId u8
+551 0227
+552 CheckPokeTrade u16
+553 TradeChsPoke u16
+554 StopTrade
+555 022B
+556 CloseOakAssistantEvent?
+557 CheckNatPokedexStatus u8 u16
+558 022E
+559 CheckRiboonNumber u16
+560 CheckRibbon u16 u16 u16
+561 GiveRibbon u16 u16
+562 SetvarRibbon u8 u16
+563 CheckHappyRibbon u16 u16
+564 CheckPokemart u16
+565 CheckFurniture
+566 0236 u16
+567 CheckPhraseBoxImput u16 u16 u16 u16
+568 CheckStatusPhraseBox? u16 u16
+569 Deciderules u16
+570 CheckFootStep u16 u16 u16
+571 HealpcAnm u16
+572 StoreElevatorDirection u16 u16
+573 ShipAnm u16 u16 u16 u16
+574 023E
+575 023F
+576 0240
+577 0241
+578 0242
+579 StorePhraseBox1W u16 u16 u16
+580 StorePhraseBox2W u16 u16 u16 u16
+581 SetvarPhraseBox1W u16 u16
+582 StoreMtCoronet? u16
+583 CheckFirstPokeParty u16
+584 CheckPokeType u16 u16 u16
+585 CheckPhraseBoxImput2 u16 u16 u16 u16 u16
+586 StoreUndTime? u16
+587 PrpPcAnm u8
+588 PcOpnAnm u8
+589 PcClsAnm u8
+590 CheckLotoNumber u16
+591 CompareLotoNumber u16 u16 u16 u16
+592 0250 u16 u16
+593 SetvarIdPokeBoxes u8 u16
+594 CheckBoxesNumber u16
+595 StopGreatMarsh u16
+596 CheckPokeCatchingShow u16
+597 CloseCatchingShow
+598 CheckCatchingShowRecords u16 u16
+599 SprtSave
+600 RetSprtSave u16 u16 u16
+601 ElevLgAnm
+602 CheckElevLgAnm u16
+603 ElevIrAnm
+604 StopElevAnm
+605 CheckElevPosition u16
+606 GalactAnm
+607 GalactAnm2
+608 MainEvent u16
+609 SetvarAccessories u8 u16
+610 ActDeoxisFormChange
+611 ChangeFormDeoxis u16
+612 CheckCoombeEvent u16
+613 ActContestMap?
+614 0266
+615 Pokecasino u16
+616 CheckTime2 u16
+617 RegigigasAnm u16 u16
+618 CresseliaAnm u16 u16 u16
+619 CheckRegi u16
+620 CheckMassage u16
+621 Unownmsgbox u16
+622 CheckPCatchingShow u16
+623 026F
+624 ShayminAnm u16 u8
+625 Thanknameins u16
+626 SetvarShaymin u8
+627 SetvarAccessories2 u8 u16
+628 0274 u16
+629 CheckRecordCasino u16
+630 CheckCoinsCasino u16 u16 u16
+631 SrtRandomNum u16
+632 CheckPokeLevel2 u16 u16
+633 0279
+634 LgCstlView
+635 027B u16
+636 SetvarAmityPokemon u16 u16
+637 027D u16 u16
+638 CheckFirstTimeVShop u16
+639 027F u16
+640 SetvarIdNumber u8 u16 u8 u8
+641 0281 u16 u16 u16
+642 SetvarUnk? u16
+643 0283 u16
+644 CheckRuinManiac u16
+645 CheckTurnBack u16 u16
+646 CheckUgPeopleNum u16
+647 CheckUgFossilNum u16
+648 CheckUgTrapsNum u16
+649 CheckPoffinItem u16 u16 u16 u16 u16 u16
+650 CheckPoffinCaseStatus u16
+651 UnkFunct2 u8 u16
+652 Pokepartypic u16
+653 ActLearning
+654 SetSoundLearning u16
+655 CheckFirstTimeChampion u16
+656 ChoosePokeDCare u16
+657 StorePokeDCare u16 u16
+658 0292 u8 u16
+659 CheckMasterRank u16
+660 ShowBPntsbox u16
+661 HideBPointsbox
+662 UpdateBPointsbox
+663 0297
+664 0298
+665 TakeBPoints u16
+666 CheckBPoints u16 u16
+667 029B u16 u16 u16 u16
+668 029C u16 u16
+669 ChoiceMulti u16 u16
+670 HmEffect u16 u16
+671 CmrBmpEffect u16
+672 DoubleBattle u16 u16 u16
+673 Applymovement2
+674 02A2 u16
+675 StoreActHeroFriendCode u16
+676 StoreActOtherFriendCode u16
+677 TradeChosenPoke
+678 ChsPrizeCasino u16 u16 u16
+679 CheckPlate? u16 u16
+680 TakeCoinsCasino u16 u16
+681 CheckCoinsCasino2 u16 u16
+682 ComparePhraseBoxImput u16 u16 u16 u16 u16
+683 StoreSealNum u16
+684 ActMisteryGift
+685 CheckFollowBattle? u16 u16
+686 02AE
+687 02AF u16
+688 02B0
+689 02B1
+690 02B2
+691 SetvarSealRandom u8 u16
+692 02B4
+693 DarkraiFunction u16 u16 u16
+694 02B6 u16 u8
+695 StorePokeNumParty u16
+696 StorePokeNickname u16
+697 CloseMultiUnion
+698 CheckBattleUnion u16
+699 02BB
+700 CheckWildBattle2 u16
+701 WildBattle2 u16 u16 u16 u16
+702 StoreTrainerCardStar u16
+703 Bikeride
+704 02C0 u16
+705 ShowSavebox
+706 HideSavebox
+707 02C3
+708 ShowBTowerSome? u8
+709 DeleteSavesBFactory u16 u16
+710 SpinTradeUnion
+711 CheckVersionGame u16
+712 ShowBArcadeRecors u16 u16 u16
+713 EternaGymAnm
+714 FlorarClckAnm
+715 CheckPokeParty2 u16 u16
+716 CheckPokeCastle u16 u16 u16
+717 ActTeamGalacticEvents
+718 02CE u8
+719 ChooseWirePokeBCastle u16 u16
+720 SetBCastle u16 u16 u16
+721 DeleteBCastle u16
+722 CheckBArcade u16 u16 u16
+723 CheckWBArcade u16 u16 u16
+724 SetBArcade u16 u16 u16
+725 DeleteBArcade u16
+726 StopSaveData2
+727 CheckSaveData2 u16
+728 OpenBPExchangePrize u8
+729 CheckPokeHall u16 u16 u16
+730 CheckWPokeHall u16 u16 u16
+731 SetPokeHall u16 u16 u16
+732 DeletePokeHall u16
+733 StorePokeNumber u16 u16
+734 ShowPokeCastleBox? u16 u16 u16 u16 u16
+735 02DF u16
+736 CheckAmityPokemon? u16 u16
+737 CheckAmityItem? u16 u16
+738 OpenScratchCard
+739 CloseScratchCard
+740 StoreScratchCardChosen u16 u16 u16
+741 CheckMoveSnowGuy u16 u16 u16
+742 CheckMoveShards u16 u16 u16
+743 StorePokeSnowGuy u16 u16
+744 StoreMoveSnowGuy u16
+745 StoreShard u16 u16 u16
+746 CheckShard u16 u16
+747 CheckPokeSnowGuy u16
+748 02EC
+749 02ED
+750 CheckEggPotential u16 u16 u16 u16
+751 02EF
+752 02F0
+753 02F1
+754 StartDistortion?
+755 SetvarTurn u8 u16
+756 02F4 u16 u16 u16 u16
+757 TrainerBattleResort u16 u16 u16 u8
+758 CheckWfcData? u16 u16 u16
+759 02F7 u16
+760 StartForniture?
+761 ToggleForniture? u16 u16
+762 PutForniture? u16
+763 MtCoronetAnm2
+764 CheckFurnitureNumber? u16
+765 SetvarPokeHiddenPower u8 u16
+766 StoreStarPiece u16 u16
+767 StorePokeHiddenPower u16 u16
+768 0300
+769 0301
+770 CheckRotomForm u16 u16 u16 u16 u16
+771 CheckRotomParty u16 u16
+772 ChangeRotomForm u16 u16 u16 u16
+773 StoreRotomForm u16 u16
+774 ClosePrizeCasino? u16 u16
+775 CheckPoffinCaseStatus2 u16
+776 DawnFunction
+777 DawnFunction2
+778 030A u16
+779 CloseBox
+780 030C
+781 StoreLeaderResort? u16
+782 CheckPhraseInput u16
+783 CheckLeaderResort? u16 u16
+784 LakeVerityVideoAnm
+785 AddPeopleDistortion u16
+786 RemovePeopleDistortion u16
+787 ContinueAfterPauseBT u16
+788 StoreGiratinaStatus? u16
+789 ValleyWindWorksFunction? u16
+790 ActPhoto
+791 CheckSpritePositionDistortion u16 u16 u16
+792 LegendBattle2 u16 u16
+793 LegendBattle3 u16 u16
+794 StoreUnknown u16
+795 CheckPokeGreatMarsh u16
+796 CheckShamyn u16 u16
+797 RegisterFriendCode? u16
+798 StoreElegiblePokemon u16 u16
+799 031F
+800 MtCoronetAnm
+801 GiratinaAnm1 u16
+802 GiratinaAnm2
+803 StoreifCanActWi-fiPlaza? u16
+804 StoreManyVictoryBTower u16 u16 u16 u16
+805 StorekHappyBTower u16
+806 StoreShardsBTower u16
+807 StoreStatusFBattleBT u16
+808 PortalEffect u16
+809 CheckOw3dCoordinates u16 u16 u16 u16
+810 CheckEventBCastle? u16
+811 CheckPassable u16
+812 RegigigasFunction u16 u16 u16 u16
+813 AmityFunction
+814 AmityFunction2
+815 CheckItemUsed u16 u16
+816 StartBTowerWireless?
+817 GalaxyFunction
+818 GalaxyFunncion2
+819 ShayminFuncion? u16
+820 CloseSellPeople
+821 UpdateMoneySellPeople u16 u16 u16
+822 CheckHallFameData u16
+823 ManaphyEvent
+824 AmityFunction3
+825 AmityFunction4
+826 TextBoxVariable u8
+827 033B
+828 SetvarItemStored3 u8 u16
+829 SetvarItemStored4 u8 u16
+830 SetvarItemStored5 u8 u16
+831 033F
+832 0340
+833 SetvarTeamStored u8 u16 u16 u8
+834 SetvarStarterAlterStored u8
+835 SetvarStarterHiroStored u8 u16
+836 CopyvarWi-fiSprite u8 u16
+837 SetvarSealStored2 u8 u16
+838 SetvarWi-fiSprite2 u8
+839 DisplayFloor u16

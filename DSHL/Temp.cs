@@ -49,6 +49,15 @@ namespace DSHL
         /// <returns></returns>
         public static string GetTemporaryFileName()
         {
+            // First, ensure the temporary directory still exists
+            if (!Directory.Exists("temp"))
+            {
+                // Create
+                DirectoryInfo di = Directory.CreateDirectory("temp");
+                di.Attributes |= FileAttributes.Hidden;
+            }
+
+            // Generate a random file name
             string path = "temp\\temp";
             int id = 0;
             while (File.Exists(path + id + ".bin"))

@@ -207,7 +207,6 @@ namespace DSMap
             encounterData.Save();
         }
 
-
         private void createPatchToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // A ROM doesn't need to be loaded for this
@@ -310,13 +309,13 @@ namespace DSMap
 
                 // Load text that we need
                 NARC textData = new NARC(GetROMFilePathFromIni("MessageData"));
-                //int mapNamesFileID = Convert.ToInt32(ini[rom.Header.Code, "Text:MapNames"]);
                 int mapNamesFileID = ini.GetInt32(rom.Header.Code, "Text~MapNames");
                 int pkmnNamesFileID = ini.GetInt32(rom.Header.Code, "Text~PokemonNames");
 
                 locationNames = new PkmnText(textData.GetFileMemoryStream(mapNamesFileID), true);
                 PkmnText pokemonNames = new PkmnText(textData.GetFileMemoryStream(pkmnNamesFileID), true);
 
+                // Add the pokemon names to every combobox that needs it
                 cWildsWalking0.Items.Clear();
                 cWildsWalking1.Items.Clear();
                 cWildsWalking2.Items.Clear();
@@ -431,12 +430,6 @@ namespace DSMap
                     cWildsSR3.Items.Add(pokemonNames[i]);
                     cWildsSR4.Items.Add(pokemonNames[i]);
                 }
-
-                //listBox1.Items.Clear();
-                //for (int i = 0; i < locationNames.Count; i++)
-                //{
-                //    listBox1.Items.Add(locationNames[i]);
-                //}
 
                 cHeaderName.Items.Clear();
                 for (int i = 0; i < locationNames.Count; i++)
