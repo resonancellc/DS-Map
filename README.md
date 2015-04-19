@@ -7,10 +7,9 @@ An editor suite for 4th Generation Pokémon games. WIP.
 The following tools are included so far:
 * DS Map
 * DS Script
-More will likely follow.
 
 ## Supported Games
-Not all of the games are supported yet, although I'd like the to be.
+Not all of the games are supported yet, although I'd like them to be.
 * Pokémon Diamond (English)
 * Pokémon Pearl (English)
 
