@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSMap", "DSMap\DSMap.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSHL", "DSHL\DSHL.csproj", "{B43E725F-2CF5-46C7-96FE-EBA16080F239}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSScript", "DSScript\DSScript.csproj", "{BDAECC9A-629A-4495-891D-7797E6F66A34}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{B43E725F-2CF5-46C7-96FE-EBA16080F239}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B43E725F-2CF5-46C7-96FE-EBA16080F239}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B43E725F-2CF5-46C7-96FE-EBA16080F239}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BDAECC9A-629A-4495-891D-7797E6F66A34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BDAECC9A-629A-4495-891D-7797E6F66A34}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BDAECC9A-629A-4495-891D-7797E6F66A34}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BDAECC9A-629A-4495-891D-7797E6F66A34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
