@@ -39,6 +39,8 @@
             this.patchingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createPatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.applyPatchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.bLoadROM = new System.Windows.Forms.ToolStripButton();
             this.bBuildROM = new System.Windows.Forms.ToolStripButton();
@@ -77,12 +79,30 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.txtObjHeight = new DSMap.NumericTextBox();
+            this.txtObjLength = new DSMap.NumericTextBox();
+            this.txtObjWidth = new DSMap.NumericTextBox();
+            this.txtObjZ = new DSMap.SignedNumericTextBox();
+            this.txtObjZFlag = new DSMap.NumericTextBox();
+            this.txtObjY = new DSMap.SignedNumericTextBox();
+            this.txtObjYFlag = new DSMap.NumericTextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.txtObjX = new DSMap.SignedNumericTextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.txtObjXFlag = new DSMap.NumericTextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.txtObjModel = new DSMap.NumericTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pObjMap = new System.Windows.Forms.PictureBox();
+            this.tabScripts = new System.Windows.Forms.TabPage();
+            this.tabControlScripts = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txtScripts = new System.Windows.Forms.RichTextBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.txtFunctions = new System.Windows.Forms.RichTextBox();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.txtTokens = new System.Windows.Forms.RichTextBox();
+            this.tabWilds = new System.Windows.Forms.TabPage();
             this.tabControlWilds = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
@@ -118,214 +138,205 @@
             this.cWildsMorn0 = new System.Windows.Forms.ComboBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label25 = new System.Windows.Forms.Label();
+            this.txtWildsWalking11 = new DSMap.SignedNumericTextBox();
             this.cWildsWalking11 = new System.Windows.Forms.ComboBox();
             this.label24 = new System.Windows.Forms.Label();
+            this.txtWildsWalking10 = new DSMap.SignedNumericTextBox();
             this.cWildsWalking10 = new System.Windows.Forms.ComboBox();
             this.label23 = new System.Windows.Forms.Label();
+            this.txtWildsWalking9 = new DSMap.SignedNumericTextBox();
             this.cWildsWalking9 = new System.Windows.Forms.ComboBox();
             this.label22 = new System.Windows.Forms.Label();
+            this.txtWildsWalking8 = new DSMap.SignedNumericTextBox();
             this.cWildsWalking8 = new System.Windows.Forms.ComboBox();
             this.label21 = new System.Windows.Forms.Label();
+            this.txtWildsWalking7 = new DSMap.SignedNumericTextBox();
             this.cWildsWalking7 = new System.Windows.Forms.ComboBox();
             this.label20 = new System.Windows.Forms.Label();
+            this.txtWildsWalking6 = new DSMap.SignedNumericTextBox();
             this.cWildsWalking6 = new System.Windows.Forms.ComboBox();
             this.label19 = new System.Windows.Forms.Label();
+            this.txtWildsWalking5 = new DSMap.SignedNumericTextBox();
             this.cWildsWalking5 = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
+            this.txtWildsWalking4 = new DSMap.SignedNumericTextBox();
             this.cWildsWalking4 = new System.Windows.Forms.ComboBox();
             this.label17 = new System.Windows.Forms.Label();
+            this.txtWildsWalking3 = new DSMap.SignedNumericTextBox();
             this.cWildsWalking3 = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
+            this.txtWildsWalking2 = new DSMap.SignedNumericTextBox();
             this.cWildsWalking2 = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
+            this.txtWildsWalking1 = new DSMap.SignedNumericTextBox();
             this.cWildsWalking1 = new System.Windows.Forms.ComboBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
+            this.txtWildsWalking0 = new DSMap.SignedNumericTextBox();
             this.cWildsWalking0 = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.txtWildsWalkingRate = new DSMap.SignedNumericTextBox();
             this.lblWildsWalkingRate = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox20 = new System.Windows.Forms.GroupBox();
-            this.label56 = new System.Windows.Forms.Label();
-            this.cWildsSR4 = new System.Windows.Forms.ComboBox();
-            this.label57 = new System.Windows.Forms.Label();
-            this.cWildsSR3 = new System.Windows.Forms.ComboBox();
-            this.label58 = new System.Windows.Forms.Label();
-            this.cWildsSR2 = new System.Windows.Forms.ComboBox();
-            this.label59 = new System.Windows.Forms.Label();
-            this.cWildsSR1 = new System.Windows.Forms.ComboBox();
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.label60 = new System.Windows.Forms.Label();
-            this.label61 = new System.Windows.Forms.Label();
-            this.cWildsSR0 = new System.Windows.Forms.ComboBox();
-            this.label62 = new System.Windows.Forms.Label();
-            this.label63 = new System.Windows.Forms.Label();
-            this.lblWildsSRRate = new System.Windows.Forms.Label();
-            this.label65 = new System.Windows.Forms.Label();
-            this.groupBox19 = new System.Windows.Forms.GroupBox();
-            this.label46 = new System.Windows.Forms.Label();
-            this.cWildsGR4 = new System.Windows.Forms.ComboBox();
-            this.label47 = new System.Windows.Forms.Label();
-            this.cWildsGR3 = new System.Windows.Forms.ComboBox();
-            this.label48 = new System.Windows.Forms.Label();
-            this.cWildsGR2 = new System.Windows.Forms.ComboBox();
-            this.label49 = new System.Windows.Forms.Label();
-            this.cWildsGR1 = new System.Windows.Forms.ComboBox();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.label50 = new System.Windows.Forms.Label();
-            this.label51 = new System.Windows.Forms.Label();
-            this.cWildsGR0 = new System.Windows.Forms.ComboBox();
-            this.label52 = new System.Windows.Forms.Label();
-            this.label53 = new System.Windows.Forms.Label();
-            this.lblWildsGRRate = new System.Windows.Forms.Label();
-            this.label55 = new System.Windows.Forms.Label();
-            this.groupBox18 = new System.Windows.Forms.GroupBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.cWildsOR4 = new System.Windows.Forms.ComboBox();
-            this.label27 = new System.Windows.Forms.Label();
-            this.cWildsOR3 = new System.Windows.Forms.ComboBox();
-            this.label28 = new System.Windows.Forms.Label();
-            this.cWildsOR2 = new System.Windows.Forms.ComboBox();
-            this.label29 = new System.Windows.Forms.Label();
-            this.cWildsOR1 = new System.Windows.Forms.ComboBox();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
-            this.cWildsOR0 = new System.Windows.Forms.ComboBox();
-            this.label32 = new System.Windows.Forms.Label();
-            this.label43 = new System.Windows.Forms.Label();
-            this.lblWildsORRate = new System.Windows.Forms.Label();
-            this.label45 = new System.Windows.Forms.Label();
-            this.groupBox17 = new System.Windows.Forms.GroupBox();
-            this.label33 = new System.Windows.Forms.Label();
-            this.cWildsSurfing4 = new System.Windows.Forms.ComboBox();
-            this.label34 = new System.Windows.Forms.Label();
-            this.cWildsSurfing3 = new System.Windows.Forms.ComboBox();
-            this.label35 = new System.Windows.Forms.Label();
-            this.cWildsSurfing2 = new System.Windows.Forms.ComboBox();
-            this.label36 = new System.Windows.Forms.Label();
-            this.cWildsSurfing1 = new System.Windows.Forms.ComboBox();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.label37 = new System.Windows.Forms.Label();
-            this.label38 = new System.Windows.Forms.Label();
-            this.cWildsSurfing0 = new System.Windows.Forms.ComboBox();
-            this.label39 = new System.Windows.Forms.Label();
-            this.label40 = new System.Windows.Forms.Label();
-            this.lblWildsSurfingRate = new System.Windows.Forms.Label();
-            this.label42 = new System.Windows.Forms.Label();
-            this.lblNoWilds = new System.Windows.Forms.Label();
-            this.tabHeader = new System.Windows.Forms.TabPage();
-            this.groupBox23 = new System.Windows.Forms.GroupBox();
-            this.label73 = new System.Windows.Forms.Label();
-            this.label72 = new System.Windows.Forms.Label();
-            this.label71 = new System.Windows.Forms.Label();
-            this.label70 = new System.Windows.Forms.Label();
-            this.label69 = new System.Windows.Forms.Label();
-            this.label68 = new System.Windows.Forms.Label();
-            this.groupBox22 = new System.Windows.Forms.GroupBox();
-            this.label74 = new System.Windows.Forms.Label();
-            this.label67 = new System.Windows.Forms.Label();
-            this.label66 = new System.Windows.Forms.Label();
-            this.label64 = new System.Windows.Forms.Label();
-            this.label54 = new System.Windows.Forms.Label();
-            this.groupBox21 = new System.Windows.Forms.GroupBox();
-            this.bHeaderName = new System.Windows.Forms.Button();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.txtHeaderName = new System.Windows.Forms.TextBox();
-            this.label44 = new System.Windows.Forms.Label();
-            this.label41 = new System.Windows.Forms.Label();
-            this.cHeaderName = new System.Windows.Forms.ComboBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.bHeaderTex = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.pBanner = new System.Windows.Forms.PictureBox();
-            this.saveDialog = new System.Windows.Forms.SaveFileDialog();
-            this.txtObjHeight = new DSMap.NumericTextBox();
-            this.txtObjLength = new DSMap.NumericTextBox();
-            this.txtObjWidth = new DSMap.NumericTextBox();
-            this.txtObjZ = new DSMap.SignedNumericTextBox();
-            this.txtObjZFlag = new DSMap.NumericTextBox();
-            this.txtObjY = new DSMap.SignedNumericTextBox();
-            this.txtObjYFlag = new DSMap.NumericTextBox();
-            this.txtObjX = new DSMap.SignedNumericTextBox();
-            this.txtObjXFlag = new DSMap.NumericTextBox();
-            this.txtObjModel = new DSMap.NumericTextBox();
-            this.txtWildsWalking11 = new DSMap.SignedNumericTextBox();
-            this.txtWildsWalking10 = new DSMap.SignedNumericTextBox();
-            this.txtWildsWalking9 = new DSMap.SignedNumericTextBox();
-            this.txtWildsWalking8 = new DSMap.SignedNumericTextBox();
-            this.txtWildsWalking7 = new DSMap.SignedNumericTextBox();
-            this.txtWildsWalking6 = new DSMap.SignedNumericTextBox();
-            this.txtWildsWalking5 = new DSMap.SignedNumericTextBox();
-            this.txtWildsWalking4 = new DSMap.SignedNumericTextBox();
-            this.txtWildsWalking3 = new DSMap.SignedNumericTextBox();
-            this.txtWildsWalking2 = new DSMap.SignedNumericTextBox();
-            this.txtWildsWalking1 = new DSMap.SignedNumericTextBox();
-            this.txtWildsWalking0 = new DSMap.SignedNumericTextBox();
-            this.txtWildsWalkingRate = new DSMap.SignedNumericTextBox();
             this.txtWildsSRMax4 = new DSMap.SignedNumericTextBox();
             this.txtWildsSRMax3 = new DSMap.SignedNumericTextBox();
             this.txtWildsSRMax2 = new DSMap.SignedNumericTextBox();
             this.txtWildsSRMax1 = new DSMap.SignedNumericTextBox();
             this.txtWildsSRMax0 = new DSMap.SignedNumericTextBox();
+            this.label56 = new System.Windows.Forms.Label();
             this.txtWildsSRMin4 = new DSMap.SignedNumericTextBox();
+            this.cWildsSR4 = new System.Windows.Forms.ComboBox();
+            this.label57 = new System.Windows.Forms.Label();
             this.txtWildsSRMin3 = new DSMap.SignedNumericTextBox();
+            this.cWildsSR3 = new System.Windows.Forms.ComboBox();
+            this.label58 = new System.Windows.Forms.Label();
             this.txtWildsSRMin2 = new DSMap.SignedNumericTextBox();
+            this.cWildsSR2 = new System.Windows.Forms.ComboBox();
+            this.label59 = new System.Windows.Forms.Label();
             this.txtWildsSRMin1 = new DSMap.SignedNumericTextBox();
+            this.cWildsSR1 = new System.Windows.Forms.ComboBox();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.label60 = new System.Windows.Forms.Label();
+            this.label61 = new System.Windows.Forms.Label();
             this.txtWildsSRMin0 = new DSMap.SignedNumericTextBox();
+            this.cWildsSR0 = new System.Windows.Forms.ComboBox();
+            this.label62 = new System.Windows.Forms.Label();
+            this.label63 = new System.Windows.Forms.Label();
             this.txtWildsSRRate = new DSMap.SignedNumericTextBox();
+            this.lblWildsSRRate = new System.Windows.Forms.Label();
+            this.label65 = new System.Windows.Forms.Label();
+            this.groupBox19 = new System.Windows.Forms.GroupBox();
             this.txtWildsGRMax4 = new DSMap.SignedNumericTextBox();
             this.txtWildsGRMax3 = new DSMap.SignedNumericTextBox();
             this.txtWildsGRMax2 = new DSMap.SignedNumericTextBox();
             this.txtWildsGRMax1 = new DSMap.SignedNumericTextBox();
             this.txtWildsGRMax0 = new DSMap.SignedNumericTextBox();
+            this.label46 = new System.Windows.Forms.Label();
             this.txtWildsGRMin4 = new DSMap.SignedNumericTextBox();
+            this.cWildsGR4 = new System.Windows.Forms.ComboBox();
+            this.label47 = new System.Windows.Forms.Label();
             this.txtWildsGRMin3 = new DSMap.SignedNumericTextBox();
+            this.cWildsGR3 = new System.Windows.Forms.ComboBox();
+            this.label48 = new System.Windows.Forms.Label();
             this.txtWildsGRMin2 = new DSMap.SignedNumericTextBox();
+            this.cWildsGR2 = new System.Windows.Forms.ComboBox();
+            this.label49 = new System.Windows.Forms.Label();
             this.txtWildsGRMin1 = new DSMap.SignedNumericTextBox();
+            this.cWildsGR1 = new System.Windows.Forms.ComboBox();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.label50 = new System.Windows.Forms.Label();
+            this.label51 = new System.Windows.Forms.Label();
             this.txtWildsGRMin0 = new DSMap.SignedNumericTextBox();
+            this.cWildsGR0 = new System.Windows.Forms.ComboBox();
+            this.label52 = new System.Windows.Forms.Label();
+            this.label53 = new System.Windows.Forms.Label();
             this.txtWildsGRRate = new DSMap.SignedNumericTextBox();
+            this.lblWildsGRRate = new System.Windows.Forms.Label();
+            this.label55 = new System.Windows.Forms.Label();
+            this.groupBox18 = new System.Windows.Forms.GroupBox();
             this.txtWildsORMax4 = new DSMap.SignedNumericTextBox();
             this.txtWildsORMax3 = new DSMap.SignedNumericTextBox();
             this.txtWildsORMax2 = new DSMap.SignedNumericTextBox();
             this.txtWildsORMax1 = new DSMap.SignedNumericTextBox();
             this.txtWildsORMax0 = new DSMap.SignedNumericTextBox();
+            this.label26 = new System.Windows.Forms.Label();
             this.txtWildsORMin4 = new DSMap.SignedNumericTextBox();
+            this.cWildsOR4 = new System.Windows.Forms.ComboBox();
+            this.label27 = new System.Windows.Forms.Label();
             this.txtWildsORMin3 = new DSMap.SignedNumericTextBox();
+            this.cWildsOR3 = new System.Windows.Forms.ComboBox();
+            this.label28 = new System.Windows.Forms.Label();
             this.txtWildsORMin2 = new DSMap.SignedNumericTextBox();
+            this.cWildsOR2 = new System.Windows.Forms.ComboBox();
+            this.label29 = new System.Windows.Forms.Label();
             this.txtWildsORMin1 = new DSMap.SignedNumericTextBox();
+            this.cWildsOR1 = new System.Windows.Forms.ComboBox();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
             this.txtWildsORMin0 = new DSMap.SignedNumericTextBox();
+            this.cWildsOR0 = new System.Windows.Forms.ComboBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label43 = new System.Windows.Forms.Label();
             this.txtWildsORRate = new DSMap.SignedNumericTextBox();
+            this.lblWildsORRate = new System.Windows.Forms.Label();
+            this.label45 = new System.Windows.Forms.Label();
+            this.groupBox17 = new System.Windows.Forms.GroupBox();
             this.txtWildsSurfingMax4 = new DSMap.SignedNumericTextBox();
             this.txtWildsSurfingMax3 = new DSMap.SignedNumericTextBox();
             this.txtWildsSurfingMax2 = new DSMap.SignedNumericTextBox();
             this.txtWildsSurfingMax1 = new DSMap.SignedNumericTextBox();
             this.txtWildsSurfingMax0 = new DSMap.SignedNumericTextBox();
+            this.label33 = new System.Windows.Forms.Label();
             this.txtWildsSurfingMin4 = new DSMap.SignedNumericTextBox();
+            this.cWildsSurfing4 = new System.Windows.Forms.ComboBox();
+            this.label34 = new System.Windows.Forms.Label();
             this.txtWildsSurfingMin3 = new DSMap.SignedNumericTextBox();
+            this.cWildsSurfing3 = new System.Windows.Forms.ComboBox();
+            this.label35 = new System.Windows.Forms.Label();
             this.txtWildsSurfingMin2 = new DSMap.SignedNumericTextBox();
+            this.cWildsSurfing2 = new System.Windows.Forms.ComboBox();
+            this.label36 = new System.Windows.Forms.Label();
             this.txtWildsSurfingMin1 = new DSMap.SignedNumericTextBox();
+            this.cWildsSurfing1 = new System.Windows.Forms.ComboBox();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label38 = new System.Windows.Forms.Label();
             this.txtWildsSurfingMin0 = new DSMap.SignedNumericTextBox();
+            this.cWildsSurfing0 = new System.Windows.Forms.ComboBox();
+            this.label39 = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
             this.txtWildsSurfingRate = new DSMap.SignedNumericTextBox();
+            this.lblWildsSurfingRate = new System.Windows.Forms.Label();
+            this.label42 = new System.Windows.Forms.Label();
+            this.lblNoWilds = new System.Windows.Forms.Label();
+            this.tabHeader = new System.Windows.Forms.TabPage();
+            this.groupBox23 = new System.Windows.Forms.GroupBox();
             this.txtHeaderLvlScripts = new DSMap.NumericTextBox();
+            this.label73 = new System.Windows.Forms.Label();
             this.txtHeaderWildPokemon = new DSMap.NumericTextBox();
+            this.label72 = new System.Windows.Forms.Label();
             this.txtHeaderMatrix = new DSMap.NumericTextBox();
+            this.label71 = new System.Windows.Forms.Label();
             this.txtHeaderText = new DSMap.NumericTextBox();
+            this.label70 = new System.Windows.Forms.Label();
             this.txtHeaderScripts = new DSMap.NumericTextBox();
+            this.label69 = new System.Windows.Forms.Label();
             this.txtHeaderEvents = new DSMap.NumericTextBox();
+            this.label68 = new System.Windows.Forms.Label();
+            this.groupBox22 = new System.Windows.Forms.GroupBox();
             this.txtHeaderFlags = new DSMap.NumericTextBox();
+            this.label74 = new System.Windows.Forms.Label();
             this.txtHeaderCamera = new DSMap.NumericTextBox();
+            this.label67 = new System.Windows.Forms.Label();
             this.txtHeaderWeather = new DSMap.NumericTextBox();
+            this.label66 = new System.Windows.Forms.Label();
             this.txtHeaderMusicNight = new DSMap.NumericTextBox();
+            this.label64 = new System.Windows.Forms.Label();
             this.txtHeaderMusicDay = new DSMap.NumericTextBox();
+            this.label54 = new System.Windows.Forms.Label();
+            this.groupBox21 = new System.Windows.Forms.GroupBox();
+            this.bHeaderName = new System.Windows.Forms.Button();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.txtHeaderName = new System.Windows.Forms.TextBox();
             this.txtHeaderNameFrame = new DSMap.NumericTextBox();
+            this.label44 = new System.Windows.Forms.Label();
             this.txtHeaderNameStyle = new DSMap.NumericTextBox();
+            this.label41 = new System.Windows.Forms.Label();
+            this.cHeaderName = new System.Windows.Forms.ComboBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.bHeaderTex = new System.Windows.Forms.Button();
             this.txtHeaderObjectTextures = new DSMap.NumericTextBox();
             this.txtHeaderMapTextures = new DSMap.NumericTextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.saveDialog = new System.Windows.Forms.SaveFileDialog();
+            this.pBanner = new System.Windows.Forms.PictureBox();
+            this.bTokenize = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -342,7 +353,12 @@
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pObjMap)).BeginInit();
+            this.tabScripts.SuspendLayout();
+            this.tabControlScripts.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.tabWilds.SuspendLayout();
             this.tabControlWilds.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox16.SuspendLayout();
@@ -375,7 +391,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rOMToolStripMenuItem,
             this.mapToolStripMenuItem,
-            this.patchingToolStripMenuItem});
+            this.patchingToolStripMenuItem,
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -423,7 +440,7 @@
             this.saveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripMenuItem.Image")));
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -449,6 +466,21 @@
             this.applyPatchToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.applyPatchToolStripMenuItem.Text = "Apply Patch";
             this.applyPatchToolStripMenuItem.Click += new System.EventHandler(this.applyPatchToolStripMenuItem_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Image = global::DSMap.Properties.Resources.information;
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Text = "About";
             // 
             // toolStrip1
             // 
@@ -541,7 +573,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabMap);
-            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabScripts);
+            this.tabControl1.Controls.Add(this.tabWilds);
             this.tabControl1.Controls.Add(this.tabHeader);
             this.tabControl1.Location = new System.Drawing.Point(182, 52);
             this.tabControl1.Name = "tabControl1";
@@ -865,6 +898,88 @@
             this.label7.TabIndex = 13;
             this.label7.Text = "Width:";
             // 
+            // txtObjHeight
+            // 
+            this.txtObjHeight.Location = new System.Drawing.Point(6, 240);
+            this.txtObjHeight.MaximumValue = ((uint)(4294967294u));
+            this.txtObjHeight.MinimumValue = ((uint)(0u));
+            this.txtObjHeight.Name = "txtObjHeight";
+            this.txtObjHeight.Size = new System.Drawing.Size(114, 20);
+            this.txtObjHeight.TabIndex = 12;
+            this.txtObjHeight.Text = "0";
+            this.txtObjHeight.Value = ((uint)(0u));
+            this.txtObjHeight.TextChanged += new System.EventHandler(this.txtObjWHL_TextChanged);
+            // 
+            // txtObjLength
+            // 
+            this.txtObjLength.Location = new System.Drawing.Point(6, 201);
+            this.txtObjLength.MaximumValue = ((uint)(4294967294u));
+            this.txtObjLength.MinimumValue = ((uint)(0u));
+            this.txtObjLength.Name = "txtObjLength";
+            this.txtObjLength.Size = new System.Drawing.Size(114, 20);
+            this.txtObjLength.TabIndex = 11;
+            this.txtObjLength.Text = "0";
+            this.txtObjLength.Value = ((uint)(0u));
+            this.txtObjLength.TextChanged += new System.EventHandler(this.txtObjWHL_TextChanged);
+            // 
+            // txtObjWidth
+            // 
+            this.txtObjWidth.Location = new System.Drawing.Point(6, 162);
+            this.txtObjWidth.MaximumValue = ((uint)(4294967294u));
+            this.txtObjWidth.MinimumValue = ((uint)(0u));
+            this.txtObjWidth.Name = "txtObjWidth";
+            this.txtObjWidth.Size = new System.Drawing.Size(114, 20);
+            this.txtObjWidth.TabIndex = 10;
+            this.txtObjWidth.Text = "0";
+            this.txtObjWidth.Value = ((uint)(0u));
+            this.txtObjWidth.TextChanged += new System.EventHandler(this.txtObjWHL_TextChanged);
+            // 
+            // txtObjZ
+            // 
+            this.txtObjZ.Location = new System.Drawing.Point(6, 123);
+            this.txtObjZ.Name = "txtObjZ";
+            this.txtObjZ.Size = new System.Drawing.Size(54, 20);
+            this.txtObjZ.TabIndex = 9;
+            this.txtObjZ.Text = "0";
+            this.txtObjZ.Value = 0;
+            this.txtObjZ.TextChanged += new System.EventHandler(this.txtObjXYZ_TextChanged);
+            // 
+            // txtObjZFlag
+            // 
+            this.txtObjZFlag.Location = new System.Drawing.Point(66, 123);
+            this.txtObjZFlag.MaximumValue = ((uint)(4294967294u));
+            this.txtObjZFlag.MinimumValue = ((uint)(0u));
+            this.txtObjZFlag.Name = "txtObjZFlag";
+            this.txtObjZFlag.NumberStyle = DSMap.NumericTextBox.NumberStyles.Hexadecimal;
+            this.txtObjZFlag.Size = new System.Drawing.Size(54, 20);
+            this.txtObjZFlag.TabIndex = 8;
+            this.txtObjZFlag.Text = "0x0";
+            this.txtObjZFlag.Value = ((uint)(0u));
+            this.txtObjZFlag.TextChanged += new System.EventHandler(this.txtObjXYZFlags_TextChanged);
+            // 
+            // txtObjY
+            // 
+            this.txtObjY.Location = new System.Drawing.Point(6, 97);
+            this.txtObjY.Name = "txtObjY";
+            this.txtObjY.Size = new System.Drawing.Size(54, 20);
+            this.txtObjY.TabIndex = 7;
+            this.txtObjY.Text = "0";
+            this.txtObjY.Value = 0;
+            this.txtObjY.TextChanged += new System.EventHandler(this.txtObjXYZ_TextChanged);
+            // 
+            // txtObjYFlag
+            // 
+            this.txtObjYFlag.Location = new System.Drawing.Point(66, 97);
+            this.txtObjYFlag.MaximumValue = ((uint)(4294967294u));
+            this.txtObjYFlag.MinimumValue = ((uint)(0u));
+            this.txtObjYFlag.Name = "txtObjYFlag";
+            this.txtObjYFlag.NumberStyle = DSMap.NumericTextBox.NumberStyles.Hexadecimal;
+            this.txtObjYFlag.Size = new System.Drawing.Size(54, 20);
+            this.txtObjYFlag.TabIndex = 6;
+            this.txtObjYFlag.Text = "0x0";
+            this.txtObjYFlag.Value = ((uint)(0u));
+            this.txtObjYFlag.TextChanged += new System.EventHandler(this.txtObjXYZFlags_TextChanged);
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -873,6 +988,16 @@
             this.label6.Size = new System.Drawing.Size(35, 13);
             this.label6.TabIndex = 5;
             this.label6.Text = "Flags:";
+            // 
+            // txtObjX
+            // 
+            this.txtObjX.Location = new System.Drawing.Point(6, 71);
+            this.txtObjX.Name = "txtObjX";
+            this.txtObjX.Size = new System.Drawing.Size(54, 20);
+            this.txtObjX.TabIndex = 4;
+            this.txtObjX.Text = "0";
+            this.txtObjX.Value = 0;
+            this.txtObjX.TextChanged += new System.EventHandler(this.txtObjXYZ_TextChanged);
             // 
             // label5
             // 
@@ -883,6 +1008,19 @@
             this.label5.TabIndex = 3;
             this.label5.Text = "X, Y, Z:";
             // 
+            // txtObjXFlag
+            // 
+            this.txtObjXFlag.Location = new System.Drawing.Point(66, 71);
+            this.txtObjXFlag.MaximumValue = ((uint)(4294967294u));
+            this.txtObjXFlag.MinimumValue = ((uint)(0u));
+            this.txtObjXFlag.Name = "txtObjXFlag";
+            this.txtObjXFlag.NumberStyle = DSMap.NumericTextBox.NumberStyles.Hexadecimal;
+            this.txtObjXFlag.Size = new System.Drawing.Size(54, 20);
+            this.txtObjXFlag.TabIndex = 2;
+            this.txtObjXFlag.Text = "0x0";
+            this.txtObjXFlag.Value = ((uint)(0u));
+            this.txtObjXFlag.TextChanged += new System.EventHandler(this.txtObjXYZFlags_TextChanged);
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -891,6 +1029,18 @@
             this.label4.Size = new System.Drawing.Size(39, 13);
             this.label4.TabIndex = 1;
             this.label4.Text = "Model:";
+            // 
+            // txtObjModel
+            // 
+            this.txtObjModel.Location = new System.Drawing.Point(6, 32);
+            this.txtObjModel.MaximumValue = ((uint)(4294967294u));
+            this.txtObjModel.MinimumValue = ((uint)(0u));
+            this.txtObjModel.Name = "txtObjModel";
+            this.txtObjModel.Size = new System.Drawing.Size(114, 20);
+            this.txtObjModel.TabIndex = 0;
+            this.txtObjModel.Text = "0";
+            this.txtObjModel.Value = ((uint)(0u));
+            this.txtObjModel.TextChanged += new System.EventHandler(this.txtObjModel_TextChanged);
             // 
             // groupBox2
             // 
@@ -911,16 +1061,109 @@
             this.pObjMap.TabStop = false;
             this.pObjMap.Paint += new System.Windows.Forms.PaintEventHandler(this.pObjMap_Paint);
             // 
+            // tabScripts
+            // 
+            this.tabScripts.Controls.Add(this.tabControlScripts);
+            this.tabScripts.Location = new System.Drawing.Point(4, 22);
+            this.tabScripts.Name = "tabScripts";
+            this.tabScripts.Size = new System.Drawing.Size(590, 571);
+            this.tabScripts.TabIndex = 3;
+            this.tabScripts.Text = "Scripts";
+            this.tabScripts.UseVisualStyleBackColor = true;
+            // 
+            // tabControlScripts
+            // 
+            this.tabControlScripts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlScripts.Controls.Add(this.tabPage1);
+            this.tabControlScripts.Controls.Add(this.tabPage4);
+            this.tabControlScripts.Controls.Add(this.tabPage5);
+            this.tabControlScripts.Location = new System.Drawing.Point(3, 3);
+            this.tabControlScripts.Name = "tabControlScripts";
+            this.tabControlScripts.SelectedIndex = 0;
+            this.tabControlScripts.Size = new System.Drawing.Size(584, 565);
+            this.tabControlScripts.TabIndex = 0;
+            // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.tabControlWilds);
-            this.tabPage1.Controls.Add(this.lblNoWilds);
+            this.tabPage1.Controls.Add(this.txtScripts);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(590, 571);
-            this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "Wild Pokémon";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(576, 539);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Scripts";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // txtScripts
+            // 
+            this.txtScripts.AcceptsTab = true;
+            this.txtScripts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtScripts.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtScripts.Location = new System.Drawing.Point(3, 3);
+            this.txtScripts.Name = "txtScripts";
+            this.txtScripts.Size = new System.Drawing.Size(570, 533);
+            this.txtScripts.TabIndex = 0;
+            this.txtScripts.Text = "";
+            this.txtScripts.WordWrap = false;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.txtFunctions);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(576, 539);
+            this.tabPage4.TabIndex = 1;
+            this.tabPage4.Text = "Functions";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // txtFunctions
+            // 
+            this.txtFunctions.AcceptsTab = true;
+            this.txtFunctions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtFunctions.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFunctions.Location = new System.Drawing.Point(3, 3);
+            this.txtFunctions.Name = "txtFunctions";
+            this.txtFunctions.Size = new System.Drawing.Size(570, 533);
+            this.txtFunctions.TabIndex = 1;
+            this.txtFunctions.Text = "";
+            this.txtFunctions.WordWrap = false;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.bTokenize);
+            this.tabPage5.Controls.Add(this.txtTokens);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(576, 539);
+            this.tabPage5.TabIndex = 2;
+            this.tabPage5.Text = "Tokens";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // txtTokens
+            // 
+            this.txtTokens.AcceptsTab = true;
+            this.txtTokens.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTokens.Location = new System.Drawing.Point(6, 6);
+            this.txtTokens.Name = "txtTokens";
+            this.txtTokens.Size = new System.Drawing.Size(333, 325);
+            this.txtTokens.TabIndex = 2;
+            this.txtTokens.Text = "";
+            this.txtTokens.WordWrap = false;
+            // 
+            // tabWilds
+            // 
+            this.tabWilds.Controls.Add(this.tabControlWilds);
+            this.tabWilds.Controls.Add(this.lblNoWilds);
+            this.tabWilds.Location = new System.Drawing.Point(4, 22);
+            this.tabWilds.Name = "tabWilds";
+            this.tabWilds.Size = new System.Drawing.Size(590, 571);
+            this.tabWilds.TabIndex = 2;
+            this.tabWilds.Text = "Wild Pokémon";
+            this.tabWilds.UseVisualStyleBackColor = true;
             // 
             // tabControlWilds
             // 
@@ -1354,6 +1597,18 @@
             this.label25.TabIndex = 43;
             this.label25.Text = "1%";
             // 
+            // txtWildsWalking11
+            // 
+            this.txtWildsWalking11.Location = new System.Drawing.Point(166, 362);
+            this.txtWildsWalking11.MaxValue = 255;
+            this.txtWildsWalking11.MinValue = 0;
+            this.txtWildsWalking11.Name = "txtWildsWalking11";
+            this.txtWildsWalking11.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsWalking11.TabIndex = 42;
+            this.txtWildsWalking11.Text = "0";
+            this.txtWildsWalking11.Value = 0;
+            this.txtWildsWalking11.TextChanged += new System.EventHandler(this.txtWildsWalking_TextChanged);
+            // 
             // cWildsWalking11
             // 
             this.cWildsWalking11.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -1373,6 +1628,18 @@
             this.label24.Size = new System.Drawing.Size(21, 13);
             this.label24.TabIndex = 40;
             this.label24.Text = "1%";
+            // 
+            // txtWildsWalking10
+            // 
+            this.txtWildsWalking10.Location = new System.Drawing.Point(166, 335);
+            this.txtWildsWalking10.MaxValue = 255;
+            this.txtWildsWalking10.MinValue = 0;
+            this.txtWildsWalking10.Name = "txtWildsWalking10";
+            this.txtWildsWalking10.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsWalking10.TabIndex = 39;
+            this.txtWildsWalking10.Text = "0";
+            this.txtWildsWalking10.Value = 0;
+            this.txtWildsWalking10.TextChanged += new System.EventHandler(this.txtWildsWalking_TextChanged);
             // 
             // cWildsWalking10
             // 
@@ -1394,6 +1661,18 @@
             this.label23.TabIndex = 37;
             this.label23.Text = "4%";
             // 
+            // txtWildsWalking9
+            // 
+            this.txtWildsWalking9.Location = new System.Drawing.Point(166, 308);
+            this.txtWildsWalking9.MaxValue = 255;
+            this.txtWildsWalking9.MinValue = 0;
+            this.txtWildsWalking9.Name = "txtWildsWalking9";
+            this.txtWildsWalking9.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsWalking9.TabIndex = 36;
+            this.txtWildsWalking9.Text = "0";
+            this.txtWildsWalking9.Value = 0;
+            this.txtWildsWalking9.TextChanged += new System.EventHandler(this.txtWildsWalking_TextChanged);
+            // 
             // cWildsWalking9
             // 
             this.cWildsWalking9.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -1413,6 +1692,18 @@
             this.label22.Size = new System.Drawing.Size(21, 13);
             this.label22.TabIndex = 34;
             this.label22.Text = "4%";
+            // 
+            // txtWildsWalking8
+            // 
+            this.txtWildsWalking8.Location = new System.Drawing.Point(166, 281);
+            this.txtWildsWalking8.MaxValue = 255;
+            this.txtWildsWalking8.MinValue = 0;
+            this.txtWildsWalking8.Name = "txtWildsWalking8";
+            this.txtWildsWalking8.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsWalking8.TabIndex = 33;
+            this.txtWildsWalking8.Text = "0";
+            this.txtWildsWalking8.Value = 0;
+            this.txtWildsWalking8.TextChanged += new System.EventHandler(this.txtWildsWalking_TextChanged);
             // 
             // cWildsWalking8
             // 
@@ -1434,6 +1725,18 @@
             this.label21.TabIndex = 31;
             this.label21.Text = "5%";
             // 
+            // txtWildsWalking7
+            // 
+            this.txtWildsWalking7.Location = new System.Drawing.Point(166, 254);
+            this.txtWildsWalking7.MaxValue = 255;
+            this.txtWildsWalking7.MinValue = 0;
+            this.txtWildsWalking7.Name = "txtWildsWalking7";
+            this.txtWildsWalking7.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsWalking7.TabIndex = 30;
+            this.txtWildsWalking7.Text = "0";
+            this.txtWildsWalking7.Value = 0;
+            this.txtWildsWalking7.TextChanged += new System.EventHandler(this.txtWildsWalking_TextChanged);
+            // 
             // cWildsWalking7
             // 
             this.cWildsWalking7.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -1453,6 +1756,18 @@
             this.label20.Size = new System.Drawing.Size(21, 13);
             this.label20.TabIndex = 28;
             this.label20.Text = "5%";
+            // 
+            // txtWildsWalking6
+            // 
+            this.txtWildsWalking6.Location = new System.Drawing.Point(166, 227);
+            this.txtWildsWalking6.MaxValue = 255;
+            this.txtWildsWalking6.MinValue = 0;
+            this.txtWildsWalking6.Name = "txtWildsWalking6";
+            this.txtWildsWalking6.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsWalking6.TabIndex = 27;
+            this.txtWildsWalking6.Text = "0";
+            this.txtWildsWalking6.Value = 0;
+            this.txtWildsWalking6.TextChanged += new System.EventHandler(this.txtWildsWalking_TextChanged);
             // 
             // cWildsWalking6
             // 
@@ -1474,6 +1789,18 @@
             this.label19.TabIndex = 25;
             this.label19.Text = "10%";
             // 
+            // txtWildsWalking5
+            // 
+            this.txtWildsWalking5.Location = new System.Drawing.Point(166, 200);
+            this.txtWildsWalking5.MaxValue = 255;
+            this.txtWildsWalking5.MinValue = 0;
+            this.txtWildsWalking5.Name = "txtWildsWalking5";
+            this.txtWildsWalking5.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsWalking5.TabIndex = 24;
+            this.txtWildsWalking5.Text = "0";
+            this.txtWildsWalking5.Value = 0;
+            this.txtWildsWalking5.TextChanged += new System.EventHandler(this.txtWildsWalking_TextChanged);
+            // 
             // cWildsWalking5
             // 
             this.cWildsWalking5.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -1493,6 +1820,18 @@
             this.label18.Size = new System.Drawing.Size(27, 13);
             this.label18.TabIndex = 22;
             this.label18.Text = "10%";
+            // 
+            // txtWildsWalking4
+            // 
+            this.txtWildsWalking4.Location = new System.Drawing.Point(166, 173);
+            this.txtWildsWalking4.MaxValue = 255;
+            this.txtWildsWalking4.MinValue = 0;
+            this.txtWildsWalking4.Name = "txtWildsWalking4";
+            this.txtWildsWalking4.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsWalking4.TabIndex = 21;
+            this.txtWildsWalking4.Text = "0";
+            this.txtWildsWalking4.Value = 0;
+            this.txtWildsWalking4.TextChanged += new System.EventHandler(this.txtWildsWalking_TextChanged);
             // 
             // cWildsWalking4
             // 
@@ -1514,6 +1853,18 @@
             this.label17.TabIndex = 19;
             this.label17.Text = "10%";
             // 
+            // txtWildsWalking3
+            // 
+            this.txtWildsWalking3.Location = new System.Drawing.Point(166, 146);
+            this.txtWildsWalking3.MaxValue = 255;
+            this.txtWildsWalking3.MinValue = 0;
+            this.txtWildsWalking3.Name = "txtWildsWalking3";
+            this.txtWildsWalking3.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsWalking3.TabIndex = 18;
+            this.txtWildsWalking3.Text = "0";
+            this.txtWildsWalking3.Value = 0;
+            this.txtWildsWalking3.TextChanged += new System.EventHandler(this.txtWildsWalking_TextChanged);
+            // 
             // cWildsWalking3
             // 
             this.cWildsWalking3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -1534,6 +1885,18 @@
             this.label16.TabIndex = 16;
             this.label16.Text = "10%";
             // 
+            // txtWildsWalking2
+            // 
+            this.txtWildsWalking2.Location = new System.Drawing.Point(166, 119);
+            this.txtWildsWalking2.MaxValue = 255;
+            this.txtWildsWalking2.MinValue = 0;
+            this.txtWildsWalking2.Name = "txtWildsWalking2";
+            this.txtWildsWalking2.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsWalking2.TabIndex = 15;
+            this.txtWildsWalking2.Text = "0";
+            this.txtWildsWalking2.Value = 0;
+            this.txtWildsWalking2.TextChanged += new System.EventHandler(this.txtWildsWalking_TextChanged);
+            // 
             // cWildsWalking2
             // 
             this.cWildsWalking2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -1553,6 +1916,18 @@
             this.label15.Size = new System.Drawing.Size(27, 13);
             this.label15.TabIndex = 13;
             this.label15.Text = "20%";
+            // 
+            // txtWildsWalking1
+            // 
+            this.txtWildsWalking1.Location = new System.Drawing.Point(166, 92);
+            this.txtWildsWalking1.MaxValue = 255;
+            this.txtWildsWalking1.MinValue = 0;
+            this.txtWildsWalking1.Name = "txtWildsWalking1";
+            this.txtWildsWalking1.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsWalking1.TabIndex = 12;
+            this.txtWildsWalking1.Text = "0";
+            this.txtWildsWalking1.Value = 0;
+            this.txtWildsWalking1.TextChanged += new System.EventHandler(this.txtWildsWalking_TextChanged);
             // 
             // cWildsWalking1
             // 
@@ -1591,6 +1966,18 @@
             this.label13.TabIndex = 8;
             this.label13.Text = "20%";
             // 
+            // txtWildsWalking0
+            // 
+            this.txtWildsWalking0.Location = new System.Drawing.Point(166, 65);
+            this.txtWildsWalking0.MaxValue = 255;
+            this.txtWildsWalking0.MinValue = 0;
+            this.txtWildsWalking0.Name = "txtWildsWalking0";
+            this.txtWildsWalking0.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsWalking0.TabIndex = 7;
+            this.txtWildsWalking0.Text = "0";
+            this.txtWildsWalking0.Value = 0;
+            this.txtWildsWalking0.TextChanged += new System.EventHandler(this.txtWildsWalking_TextChanged);
+            // 
             // cWildsWalking0
             // 
             this.cWildsWalking0.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -1619,6 +2006,18 @@
             this.label11.Size = new System.Drawing.Size(55, 13);
             this.label11.TabIndex = 4;
             this.label11.Text = "Pokémon:";
+            // 
+            // txtWildsWalkingRate
+            // 
+            this.txtWildsWalkingRate.Location = new System.Drawing.Point(97, 19);
+            this.txtWildsWalkingRate.MaxValue = 255;
+            this.txtWildsWalkingRate.MinValue = 0;
+            this.txtWildsWalkingRate.Name = "txtWildsWalkingRate";
+            this.txtWildsWalkingRate.Size = new System.Drawing.Size(65, 20);
+            this.txtWildsWalkingRate.TabIndex = 3;
+            this.txtWildsWalkingRate.Text = "0";
+            this.txtWildsWalkingRate.Value = 0;
+            this.txtWildsWalkingRate.TextChanged += new System.EventHandler(this.txtWildsWalkingRate_TextChanged);
             // 
             // lblWildsWalkingRate
             // 
@@ -1688,6 +2087,66 @@
             this.groupBox20.TabStop = false;
             this.groupBox20.Text = "Super Rod";
             // 
+            // txtWildsSRMax4
+            // 
+            this.txtWildsSRMax4.Location = new System.Drawing.Point(207, 173);
+            this.txtWildsSRMax4.MaxValue = 255;
+            this.txtWildsSRMax4.MinValue = 0;
+            this.txtWildsSRMax4.Name = "txtWildsSRMax4";
+            this.txtWildsSRMax4.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsSRMax4.TabIndex = 27;
+            this.txtWildsSRMax4.Text = "0";
+            this.txtWildsSRMax4.Value = 0;
+            this.txtWildsSRMax4.TextChanged += new System.EventHandler(this.txtWildsSR_TextChanged);
+            // 
+            // txtWildsSRMax3
+            // 
+            this.txtWildsSRMax3.Location = new System.Drawing.Point(207, 146);
+            this.txtWildsSRMax3.MaxValue = 255;
+            this.txtWildsSRMax3.MinValue = 0;
+            this.txtWildsSRMax3.Name = "txtWildsSRMax3";
+            this.txtWildsSRMax3.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsSRMax3.TabIndex = 26;
+            this.txtWildsSRMax3.Text = "0";
+            this.txtWildsSRMax3.Value = 0;
+            this.txtWildsSRMax3.TextChanged += new System.EventHandler(this.txtWildsSR_TextChanged);
+            // 
+            // txtWildsSRMax2
+            // 
+            this.txtWildsSRMax2.Location = new System.Drawing.Point(207, 119);
+            this.txtWildsSRMax2.MaxValue = 255;
+            this.txtWildsSRMax2.MinValue = 0;
+            this.txtWildsSRMax2.Name = "txtWildsSRMax2";
+            this.txtWildsSRMax2.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsSRMax2.TabIndex = 25;
+            this.txtWildsSRMax2.Text = "0";
+            this.txtWildsSRMax2.Value = 0;
+            this.txtWildsSRMax2.TextChanged += new System.EventHandler(this.txtWildsSR_TextChanged);
+            // 
+            // txtWildsSRMax1
+            // 
+            this.txtWildsSRMax1.Location = new System.Drawing.Point(207, 92);
+            this.txtWildsSRMax1.MaxValue = 255;
+            this.txtWildsSRMax1.MinValue = 0;
+            this.txtWildsSRMax1.Name = "txtWildsSRMax1";
+            this.txtWildsSRMax1.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsSRMax1.TabIndex = 24;
+            this.txtWildsSRMax1.Text = "0";
+            this.txtWildsSRMax1.Value = 0;
+            this.txtWildsSRMax1.TextChanged += new System.EventHandler(this.txtWildsSR_TextChanged);
+            // 
+            // txtWildsSRMax0
+            // 
+            this.txtWildsSRMax0.Location = new System.Drawing.Point(207, 65);
+            this.txtWildsSRMax0.MaxValue = 255;
+            this.txtWildsSRMax0.MinValue = 0;
+            this.txtWildsSRMax0.Name = "txtWildsSRMax0";
+            this.txtWildsSRMax0.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsSRMax0.TabIndex = 23;
+            this.txtWildsSRMax0.Text = "0";
+            this.txtWildsSRMax0.Value = 0;
+            this.txtWildsSRMax0.TextChanged += new System.EventHandler(this.txtWildsSR_TextChanged);
+            // 
             // label56
             // 
             this.label56.AutoSize = true;
@@ -1696,6 +2155,18 @@
             this.label56.Size = new System.Drawing.Size(21, 13);
             this.label56.TabIndex = 22;
             this.label56.Text = "1%";
+            // 
+            // txtWildsSRMin4
+            // 
+            this.txtWildsSRMin4.Location = new System.Drawing.Point(166, 173);
+            this.txtWildsSRMin4.MaxValue = 255;
+            this.txtWildsSRMin4.MinValue = 0;
+            this.txtWildsSRMin4.Name = "txtWildsSRMin4";
+            this.txtWildsSRMin4.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsSRMin4.TabIndex = 21;
+            this.txtWildsSRMin4.Text = "0";
+            this.txtWildsSRMin4.Value = 0;
+            this.txtWildsSRMin4.TextChanged += new System.EventHandler(this.txtWildsSR_TextChanged);
             // 
             // cWildsSR4
             // 
@@ -1717,6 +2188,18 @@
             this.label57.TabIndex = 19;
             this.label57.Text = "4%";
             // 
+            // txtWildsSRMin3
+            // 
+            this.txtWildsSRMin3.Location = new System.Drawing.Point(166, 146);
+            this.txtWildsSRMin3.MaxValue = 255;
+            this.txtWildsSRMin3.MinValue = 0;
+            this.txtWildsSRMin3.Name = "txtWildsSRMin3";
+            this.txtWildsSRMin3.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsSRMin3.TabIndex = 18;
+            this.txtWildsSRMin3.Text = "0";
+            this.txtWildsSRMin3.Value = 0;
+            this.txtWildsSRMin3.TextChanged += new System.EventHandler(this.txtWildsSR_TextChanged);
+            // 
             // cWildsSR3
             // 
             this.cWildsSR3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -1737,6 +2220,18 @@
             this.label58.TabIndex = 16;
             this.label58.Text = "5%";
             // 
+            // txtWildsSRMin2
+            // 
+            this.txtWildsSRMin2.Location = new System.Drawing.Point(166, 119);
+            this.txtWildsSRMin2.MaxValue = 255;
+            this.txtWildsSRMin2.MinValue = 0;
+            this.txtWildsSRMin2.Name = "txtWildsSRMin2";
+            this.txtWildsSRMin2.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsSRMin2.TabIndex = 15;
+            this.txtWildsSRMin2.Text = "0";
+            this.txtWildsSRMin2.Value = 0;
+            this.txtWildsSRMin2.TextChanged += new System.EventHandler(this.txtWildsSR_TextChanged);
+            // 
             // cWildsSR2
             // 
             this.cWildsSR2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -1756,6 +2251,18 @@
             this.label59.Size = new System.Drawing.Size(27, 13);
             this.label59.TabIndex = 13;
             this.label59.Text = "30%";
+            // 
+            // txtWildsSRMin1
+            // 
+            this.txtWildsSRMin1.Location = new System.Drawing.Point(166, 92);
+            this.txtWildsSRMin1.MaxValue = 255;
+            this.txtWildsSRMin1.MinValue = 0;
+            this.txtWildsSRMin1.Name = "txtWildsSRMin1";
+            this.txtWildsSRMin1.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsSRMin1.TabIndex = 12;
+            this.txtWildsSRMin1.Text = "0";
+            this.txtWildsSRMin1.Value = 0;
+            this.txtWildsSRMin1.TextChanged += new System.EventHandler(this.txtWildsSR_TextChanged);
             // 
             // cWildsSR1
             // 
@@ -1794,6 +2301,18 @@
             this.label61.TabIndex = 8;
             this.label61.Text = "60%";
             // 
+            // txtWildsSRMin0
+            // 
+            this.txtWildsSRMin0.Location = new System.Drawing.Point(166, 65);
+            this.txtWildsSRMin0.MaxValue = 255;
+            this.txtWildsSRMin0.MinValue = 0;
+            this.txtWildsSRMin0.Name = "txtWildsSRMin0";
+            this.txtWildsSRMin0.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsSRMin0.TabIndex = 7;
+            this.txtWildsSRMin0.Text = "0";
+            this.txtWildsSRMin0.Value = 0;
+            this.txtWildsSRMin0.TextChanged += new System.EventHandler(this.txtWildsSR_TextChanged);
+            // 
             // cWildsSR0
             // 
             this.cWildsSR0.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -1822,6 +2341,18 @@
             this.label63.Size = new System.Drawing.Size(55, 13);
             this.label63.TabIndex = 4;
             this.label63.Text = "Pokémon:";
+            // 
+            // txtWildsSRRate
+            // 
+            this.txtWildsSRRate.Location = new System.Drawing.Point(97, 19);
+            this.txtWildsSRRate.MaxValue = 255;
+            this.txtWildsSRRate.MinValue = 0;
+            this.txtWildsSRRate.Name = "txtWildsSRRate";
+            this.txtWildsSRRate.Size = new System.Drawing.Size(104, 20);
+            this.txtWildsSRRate.TabIndex = 3;
+            this.txtWildsSRRate.Text = "0";
+            this.txtWildsSRRate.Value = 0;
+            this.txtWildsSRRate.TextChanged += new System.EventHandler(this.txtWildsSRRate_TextChanged);
             // 
             // lblWildsSRRate
             // 
@@ -1877,6 +2408,66 @@
             this.groupBox19.TabStop = false;
             this.groupBox19.Text = "Good Rod";
             // 
+            // txtWildsGRMax4
+            // 
+            this.txtWildsGRMax4.Location = new System.Drawing.Point(207, 173);
+            this.txtWildsGRMax4.MaxValue = 255;
+            this.txtWildsGRMax4.MinValue = 0;
+            this.txtWildsGRMax4.Name = "txtWildsGRMax4";
+            this.txtWildsGRMax4.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsGRMax4.TabIndex = 27;
+            this.txtWildsGRMax4.Text = "0";
+            this.txtWildsGRMax4.Value = 0;
+            this.txtWildsGRMax4.TextChanged += new System.EventHandler(this.txtWildsGR_TextChanged);
+            // 
+            // txtWildsGRMax3
+            // 
+            this.txtWildsGRMax3.Location = new System.Drawing.Point(207, 146);
+            this.txtWildsGRMax3.MaxValue = 255;
+            this.txtWildsGRMax3.MinValue = 0;
+            this.txtWildsGRMax3.Name = "txtWildsGRMax3";
+            this.txtWildsGRMax3.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsGRMax3.TabIndex = 26;
+            this.txtWildsGRMax3.Text = "0";
+            this.txtWildsGRMax3.Value = 0;
+            this.txtWildsGRMax3.TextChanged += new System.EventHandler(this.txtWildsGR_TextChanged);
+            // 
+            // txtWildsGRMax2
+            // 
+            this.txtWildsGRMax2.Location = new System.Drawing.Point(207, 119);
+            this.txtWildsGRMax2.MaxValue = 255;
+            this.txtWildsGRMax2.MinValue = 0;
+            this.txtWildsGRMax2.Name = "txtWildsGRMax2";
+            this.txtWildsGRMax2.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsGRMax2.TabIndex = 25;
+            this.txtWildsGRMax2.Text = "0";
+            this.txtWildsGRMax2.Value = 0;
+            this.txtWildsGRMax2.TextChanged += new System.EventHandler(this.txtWildsGR_TextChanged);
+            // 
+            // txtWildsGRMax1
+            // 
+            this.txtWildsGRMax1.Location = new System.Drawing.Point(207, 92);
+            this.txtWildsGRMax1.MaxValue = 255;
+            this.txtWildsGRMax1.MinValue = 0;
+            this.txtWildsGRMax1.Name = "txtWildsGRMax1";
+            this.txtWildsGRMax1.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsGRMax1.TabIndex = 24;
+            this.txtWildsGRMax1.Text = "0";
+            this.txtWildsGRMax1.Value = 0;
+            this.txtWildsGRMax1.TextChanged += new System.EventHandler(this.txtWildsGR_TextChanged);
+            // 
+            // txtWildsGRMax0
+            // 
+            this.txtWildsGRMax0.Location = new System.Drawing.Point(207, 65);
+            this.txtWildsGRMax0.MaxValue = 255;
+            this.txtWildsGRMax0.MinValue = 0;
+            this.txtWildsGRMax0.Name = "txtWildsGRMax0";
+            this.txtWildsGRMax0.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsGRMax0.TabIndex = 23;
+            this.txtWildsGRMax0.Text = "0";
+            this.txtWildsGRMax0.Value = 0;
+            this.txtWildsGRMax0.TextChanged += new System.EventHandler(this.txtWildsGR_TextChanged);
+            // 
             // label46
             // 
             this.label46.AutoSize = true;
@@ -1885,6 +2476,18 @@
             this.label46.Size = new System.Drawing.Size(21, 13);
             this.label46.TabIndex = 22;
             this.label46.Text = "1%";
+            // 
+            // txtWildsGRMin4
+            // 
+            this.txtWildsGRMin4.Location = new System.Drawing.Point(166, 173);
+            this.txtWildsGRMin4.MaxValue = 255;
+            this.txtWildsGRMin4.MinValue = 0;
+            this.txtWildsGRMin4.Name = "txtWildsGRMin4";
+            this.txtWildsGRMin4.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsGRMin4.TabIndex = 21;
+            this.txtWildsGRMin4.Text = "0";
+            this.txtWildsGRMin4.Value = 0;
+            this.txtWildsGRMin4.TextChanged += new System.EventHandler(this.txtWildsGR_TextChanged);
             // 
             // cWildsGR4
             // 
@@ -1906,6 +2509,18 @@
             this.label47.TabIndex = 19;
             this.label47.Text = "4%";
             // 
+            // txtWildsGRMin3
+            // 
+            this.txtWildsGRMin3.Location = new System.Drawing.Point(166, 146);
+            this.txtWildsGRMin3.MaxValue = 255;
+            this.txtWildsGRMin3.MinValue = 0;
+            this.txtWildsGRMin3.Name = "txtWildsGRMin3";
+            this.txtWildsGRMin3.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsGRMin3.TabIndex = 18;
+            this.txtWildsGRMin3.Text = "0";
+            this.txtWildsGRMin3.Value = 0;
+            this.txtWildsGRMin3.TextChanged += new System.EventHandler(this.txtWildsGR_TextChanged);
+            // 
             // cWildsGR3
             // 
             this.cWildsGR3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -1926,6 +2541,18 @@
             this.label48.TabIndex = 16;
             this.label48.Text = "5%";
             // 
+            // txtWildsGRMin2
+            // 
+            this.txtWildsGRMin2.Location = new System.Drawing.Point(166, 119);
+            this.txtWildsGRMin2.MaxValue = 255;
+            this.txtWildsGRMin2.MinValue = 0;
+            this.txtWildsGRMin2.Name = "txtWildsGRMin2";
+            this.txtWildsGRMin2.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsGRMin2.TabIndex = 15;
+            this.txtWildsGRMin2.Text = "0";
+            this.txtWildsGRMin2.Value = 0;
+            this.txtWildsGRMin2.TextChanged += new System.EventHandler(this.txtWildsGR_TextChanged);
+            // 
             // cWildsGR2
             // 
             this.cWildsGR2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -1945,6 +2572,18 @@
             this.label49.Size = new System.Drawing.Size(27, 13);
             this.label49.TabIndex = 13;
             this.label49.Text = "30%";
+            // 
+            // txtWildsGRMin1
+            // 
+            this.txtWildsGRMin1.Location = new System.Drawing.Point(166, 92);
+            this.txtWildsGRMin1.MaxValue = 255;
+            this.txtWildsGRMin1.MinValue = 0;
+            this.txtWildsGRMin1.Name = "txtWildsGRMin1";
+            this.txtWildsGRMin1.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsGRMin1.TabIndex = 12;
+            this.txtWildsGRMin1.Text = "0";
+            this.txtWildsGRMin1.Value = 0;
+            this.txtWildsGRMin1.TextChanged += new System.EventHandler(this.txtWildsGR_TextChanged);
             // 
             // cWildsGR1
             // 
@@ -1983,6 +2622,18 @@
             this.label51.TabIndex = 8;
             this.label51.Text = "60%";
             // 
+            // txtWildsGRMin0
+            // 
+            this.txtWildsGRMin0.Location = new System.Drawing.Point(166, 65);
+            this.txtWildsGRMin0.MaxValue = 255;
+            this.txtWildsGRMin0.MinValue = 0;
+            this.txtWildsGRMin0.Name = "txtWildsGRMin0";
+            this.txtWildsGRMin0.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsGRMin0.TabIndex = 7;
+            this.txtWildsGRMin0.Text = "0";
+            this.txtWildsGRMin0.Value = 0;
+            this.txtWildsGRMin0.TextChanged += new System.EventHandler(this.txtWildsGR_TextChanged);
+            // 
             // cWildsGR0
             // 
             this.cWildsGR0.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -2011,6 +2662,18 @@
             this.label53.Size = new System.Drawing.Size(55, 13);
             this.label53.TabIndex = 4;
             this.label53.Text = "Pokémon:";
+            // 
+            // txtWildsGRRate
+            // 
+            this.txtWildsGRRate.Location = new System.Drawing.Point(97, 19);
+            this.txtWildsGRRate.MaxValue = 255;
+            this.txtWildsGRRate.MinValue = 0;
+            this.txtWildsGRRate.Name = "txtWildsGRRate";
+            this.txtWildsGRRate.Size = new System.Drawing.Size(104, 20);
+            this.txtWildsGRRate.TabIndex = 3;
+            this.txtWildsGRRate.Text = "0";
+            this.txtWildsGRRate.Value = 0;
+            this.txtWildsGRRate.TextChanged += new System.EventHandler(this.txtWildsGRRate_TextChanged);
             // 
             // lblWildsGRRate
             // 
@@ -2066,6 +2729,66 @@
             this.groupBox18.TabStop = false;
             this.groupBox18.Text = "Old Rod";
             // 
+            // txtWildsORMax4
+            // 
+            this.txtWildsORMax4.Location = new System.Drawing.Point(207, 173);
+            this.txtWildsORMax4.MaxValue = 255;
+            this.txtWildsORMax4.MinValue = 0;
+            this.txtWildsORMax4.Name = "txtWildsORMax4";
+            this.txtWildsORMax4.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsORMax4.TabIndex = 27;
+            this.txtWildsORMax4.Text = "0";
+            this.txtWildsORMax4.Value = 0;
+            this.txtWildsORMax4.TextChanged += new System.EventHandler(this.txtWildsOR_TextChanged);
+            // 
+            // txtWildsORMax3
+            // 
+            this.txtWildsORMax3.Location = new System.Drawing.Point(207, 146);
+            this.txtWildsORMax3.MaxValue = 255;
+            this.txtWildsORMax3.MinValue = 0;
+            this.txtWildsORMax3.Name = "txtWildsORMax3";
+            this.txtWildsORMax3.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsORMax3.TabIndex = 26;
+            this.txtWildsORMax3.Text = "0";
+            this.txtWildsORMax3.Value = 0;
+            this.txtWildsORMax3.TextChanged += new System.EventHandler(this.txtWildsOR_TextChanged);
+            // 
+            // txtWildsORMax2
+            // 
+            this.txtWildsORMax2.Location = new System.Drawing.Point(207, 119);
+            this.txtWildsORMax2.MaxValue = 255;
+            this.txtWildsORMax2.MinValue = 0;
+            this.txtWildsORMax2.Name = "txtWildsORMax2";
+            this.txtWildsORMax2.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsORMax2.TabIndex = 25;
+            this.txtWildsORMax2.Text = "0";
+            this.txtWildsORMax2.Value = 0;
+            this.txtWildsORMax2.TextChanged += new System.EventHandler(this.txtWildsOR_TextChanged);
+            // 
+            // txtWildsORMax1
+            // 
+            this.txtWildsORMax1.Location = new System.Drawing.Point(207, 92);
+            this.txtWildsORMax1.MaxValue = 255;
+            this.txtWildsORMax1.MinValue = 0;
+            this.txtWildsORMax1.Name = "txtWildsORMax1";
+            this.txtWildsORMax1.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsORMax1.TabIndex = 24;
+            this.txtWildsORMax1.Text = "0";
+            this.txtWildsORMax1.Value = 0;
+            this.txtWildsORMax1.TextChanged += new System.EventHandler(this.txtWildsOR_TextChanged);
+            // 
+            // txtWildsORMax0
+            // 
+            this.txtWildsORMax0.Location = new System.Drawing.Point(207, 65);
+            this.txtWildsORMax0.MaxValue = 255;
+            this.txtWildsORMax0.MinValue = 0;
+            this.txtWildsORMax0.Name = "txtWildsORMax0";
+            this.txtWildsORMax0.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsORMax0.TabIndex = 23;
+            this.txtWildsORMax0.Text = "0";
+            this.txtWildsORMax0.Value = 0;
+            this.txtWildsORMax0.TextChanged += new System.EventHandler(this.txtWildsOR_TextChanged);
+            // 
             // label26
             // 
             this.label26.AutoSize = true;
@@ -2074,6 +2797,18 @@
             this.label26.Size = new System.Drawing.Size(21, 13);
             this.label26.TabIndex = 22;
             this.label26.Text = "1%";
+            // 
+            // txtWildsORMin4
+            // 
+            this.txtWildsORMin4.Location = new System.Drawing.Point(166, 173);
+            this.txtWildsORMin4.MaxValue = 255;
+            this.txtWildsORMin4.MinValue = 0;
+            this.txtWildsORMin4.Name = "txtWildsORMin4";
+            this.txtWildsORMin4.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsORMin4.TabIndex = 21;
+            this.txtWildsORMin4.Text = "0";
+            this.txtWildsORMin4.Value = 0;
+            this.txtWildsORMin4.TextChanged += new System.EventHandler(this.txtWildsOR_TextChanged);
             // 
             // cWildsOR4
             // 
@@ -2095,6 +2830,18 @@
             this.label27.TabIndex = 19;
             this.label27.Text = "4%";
             // 
+            // txtWildsORMin3
+            // 
+            this.txtWildsORMin3.Location = new System.Drawing.Point(166, 146);
+            this.txtWildsORMin3.MaxValue = 255;
+            this.txtWildsORMin3.MinValue = 0;
+            this.txtWildsORMin3.Name = "txtWildsORMin3";
+            this.txtWildsORMin3.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsORMin3.TabIndex = 18;
+            this.txtWildsORMin3.Text = "0";
+            this.txtWildsORMin3.Value = 0;
+            this.txtWildsORMin3.TextChanged += new System.EventHandler(this.txtWildsOR_TextChanged);
+            // 
             // cWildsOR3
             // 
             this.cWildsOR3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -2115,6 +2862,18 @@
             this.label28.TabIndex = 16;
             this.label28.Text = "5%";
             // 
+            // txtWildsORMin2
+            // 
+            this.txtWildsORMin2.Location = new System.Drawing.Point(166, 119);
+            this.txtWildsORMin2.MaxValue = 255;
+            this.txtWildsORMin2.MinValue = 0;
+            this.txtWildsORMin2.Name = "txtWildsORMin2";
+            this.txtWildsORMin2.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsORMin2.TabIndex = 15;
+            this.txtWildsORMin2.Text = "0";
+            this.txtWildsORMin2.Value = 0;
+            this.txtWildsORMin2.TextChanged += new System.EventHandler(this.txtWildsOR_TextChanged);
+            // 
             // cWildsOR2
             // 
             this.cWildsOR2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -2134,6 +2893,18 @@
             this.label29.Size = new System.Drawing.Size(27, 13);
             this.label29.TabIndex = 13;
             this.label29.Text = "30%";
+            // 
+            // txtWildsORMin1
+            // 
+            this.txtWildsORMin1.Location = new System.Drawing.Point(166, 92);
+            this.txtWildsORMin1.MaxValue = 255;
+            this.txtWildsORMin1.MinValue = 0;
+            this.txtWildsORMin1.Name = "txtWildsORMin1";
+            this.txtWildsORMin1.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsORMin1.TabIndex = 12;
+            this.txtWildsORMin1.Text = "0";
+            this.txtWildsORMin1.Value = 0;
+            this.txtWildsORMin1.TextChanged += new System.EventHandler(this.txtWildsOR_TextChanged);
             // 
             // cWildsOR1
             // 
@@ -2172,6 +2943,18 @@
             this.label31.TabIndex = 8;
             this.label31.Text = "60%";
             // 
+            // txtWildsORMin0
+            // 
+            this.txtWildsORMin0.Location = new System.Drawing.Point(166, 65);
+            this.txtWildsORMin0.MaxValue = 255;
+            this.txtWildsORMin0.MinValue = 0;
+            this.txtWildsORMin0.Name = "txtWildsORMin0";
+            this.txtWildsORMin0.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsORMin0.TabIndex = 7;
+            this.txtWildsORMin0.Text = "0";
+            this.txtWildsORMin0.Value = 0;
+            this.txtWildsORMin0.TextChanged += new System.EventHandler(this.txtWildsOR_TextChanged);
+            // 
             // cWildsOR0
             // 
             this.cWildsOR0.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -2200,6 +2983,18 @@
             this.label43.Size = new System.Drawing.Size(55, 13);
             this.label43.TabIndex = 4;
             this.label43.Text = "Pokémon:";
+            // 
+            // txtWildsORRate
+            // 
+            this.txtWildsORRate.Location = new System.Drawing.Point(97, 19);
+            this.txtWildsORRate.MaxValue = 255;
+            this.txtWildsORRate.MinValue = 0;
+            this.txtWildsORRate.Name = "txtWildsORRate";
+            this.txtWildsORRate.Size = new System.Drawing.Size(104, 20);
+            this.txtWildsORRate.TabIndex = 3;
+            this.txtWildsORRate.Text = "0";
+            this.txtWildsORRate.Value = 0;
+            this.txtWildsORRate.TextChanged += new System.EventHandler(this.txtWildsORRate_TextChanged);
             // 
             // lblWildsORRate
             // 
@@ -2255,6 +3050,66 @@
             this.groupBox17.TabStop = false;
             this.groupBox17.Text = "Surfing";
             // 
+            // txtWildsSurfingMax4
+            // 
+            this.txtWildsSurfingMax4.Location = new System.Drawing.Point(207, 173);
+            this.txtWildsSurfingMax4.MaxValue = 255;
+            this.txtWildsSurfingMax4.MinValue = 0;
+            this.txtWildsSurfingMax4.Name = "txtWildsSurfingMax4";
+            this.txtWildsSurfingMax4.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsSurfingMax4.TabIndex = 27;
+            this.txtWildsSurfingMax4.Text = "0";
+            this.txtWildsSurfingMax4.Value = 0;
+            this.txtWildsSurfingMax4.TextChanged += new System.EventHandler(this.txtWildsSurfing_TextChanged);
+            // 
+            // txtWildsSurfingMax3
+            // 
+            this.txtWildsSurfingMax3.Location = new System.Drawing.Point(207, 146);
+            this.txtWildsSurfingMax3.MaxValue = 255;
+            this.txtWildsSurfingMax3.MinValue = 0;
+            this.txtWildsSurfingMax3.Name = "txtWildsSurfingMax3";
+            this.txtWildsSurfingMax3.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsSurfingMax3.TabIndex = 26;
+            this.txtWildsSurfingMax3.Text = "0";
+            this.txtWildsSurfingMax3.Value = 0;
+            this.txtWildsSurfingMax3.TextChanged += new System.EventHandler(this.txtWildsSurfing_TextChanged);
+            // 
+            // txtWildsSurfingMax2
+            // 
+            this.txtWildsSurfingMax2.Location = new System.Drawing.Point(207, 119);
+            this.txtWildsSurfingMax2.MaxValue = 255;
+            this.txtWildsSurfingMax2.MinValue = 0;
+            this.txtWildsSurfingMax2.Name = "txtWildsSurfingMax2";
+            this.txtWildsSurfingMax2.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsSurfingMax2.TabIndex = 25;
+            this.txtWildsSurfingMax2.Text = "0";
+            this.txtWildsSurfingMax2.Value = 0;
+            this.txtWildsSurfingMax2.TextChanged += new System.EventHandler(this.txtWildsSurfing_TextChanged);
+            // 
+            // txtWildsSurfingMax1
+            // 
+            this.txtWildsSurfingMax1.Location = new System.Drawing.Point(207, 92);
+            this.txtWildsSurfingMax1.MaxValue = 255;
+            this.txtWildsSurfingMax1.MinValue = 0;
+            this.txtWildsSurfingMax1.Name = "txtWildsSurfingMax1";
+            this.txtWildsSurfingMax1.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsSurfingMax1.TabIndex = 24;
+            this.txtWildsSurfingMax1.Text = "0";
+            this.txtWildsSurfingMax1.Value = 0;
+            this.txtWildsSurfingMax1.TextChanged += new System.EventHandler(this.txtWildsSurfing_TextChanged);
+            // 
+            // txtWildsSurfingMax0
+            // 
+            this.txtWildsSurfingMax0.Location = new System.Drawing.Point(207, 65);
+            this.txtWildsSurfingMax0.MaxValue = 255;
+            this.txtWildsSurfingMax0.MinValue = 0;
+            this.txtWildsSurfingMax0.Name = "txtWildsSurfingMax0";
+            this.txtWildsSurfingMax0.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsSurfingMax0.TabIndex = 23;
+            this.txtWildsSurfingMax0.Text = "0";
+            this.txtWildsSurfingMax0.Value = 0;
+            this.txtWildsSurfingMax0.TextChanged += new System.EventHandler(this.txtWildsSurfing_TextChanged);
+            // 
             // label33
             // 
             this.label33.AutoSize = true;
@@ -2263,6 +3118,18 @@
             this.label33.Size = new System.Drawing.Size(21, 13);
             this.label33.TabIndex = 22;
             this.label33.Text = "1%";
+            // 
+            // txtWildsSurfingMin4
+            // 
+            this.txtWildsSurfingMin4.Location = new System.Drawing.Point(166, 173);
+            this.txtWildsSurfingMin4.MaxValue = 255;
+            this.txtWildsSurfingMin4.MinValue = 0;
+            this.txtWildsSurfingMin4.Name = "txtWildsSurfingMin4";
+            this.txtWildsSurfingMin4.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsSurfingMin4.TabIndex = 21;
+            this.txtWildsSurfingMin4.Text = "0";
+            this.txtWildsSurfingMin4.Value = 0;
+            this.txtWildsSurfingMin4.TextChanged += new System.EventHandler(this.txtWildsSurfing_TextChanged);
             // 
             // cWildsSurfing4
             // 
@@ -2284,6 +3151,18 @@
             this.label34.TabIndex = 19;
             this.label34.Text = "4%";
             // 
+            // txtWildsSurfingMin3
+            // 
+            this.txtWildsSurfingMin3.Location = new System.Drawing.Point(166, 146);
+            this.txtWildsSurfingMin3.MaxValue = 255;
+            this.txtWildsSurfingMin3.MinValue = 0;
+            this.txtWildsSurfingMin3.Name = "txtWildsSurfingMin3";
+            this.txtWildsSurfingMin3.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsSurfingMin3.TabIndex = 18;
+            this.txtWildsSurfingMin3.Text = "0";
+            this.txtWildsSurfingMin3.Value = 0;
+            this.txtWildsSurfingMin3.TextChanged += new System.EventHandler(this.txtWildsSurfing_TextChanged);
+            // 
             // cWildsSurfing3
             // 
             this.cWildsSurfing3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -2304,6 +3183,18 @@
             this.label35.TabIndex = 16;
             this.label35.Text = "5%";
             // 
+            // txtWildsSurfingMin2
+            // 
+            this.txtWildsSurfingMin2.Location = new System.Drawing.Point(166, 119);
+            this.txtWildsSurfingMin2.MaxValue = 255;
+            this.txtWildsSurfingMin2.MinValue = 0;
+            this.txtWildsSurfingMin2.Name = "txtWildsSurfingMin2";
+            this.txtWildsSurfingMin2.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsSurfingMin2.TabIndex = 15;
+            this.txtWildsSurfingMin2.Text = "0";
+            this.txtWildsSurfingMin2.Value = 0;
+            this.txtWildsSurfingMin2.TextChanged += new System.EventHandler(this.txtWildsSurfing_TextChanged);
+            // 
             // cWildsSurfing2
             // 
             this.cWildsSurfing2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -2323,6 +3214,18 @@
             this.label36.Size = new System.Drawing.Size(27, 13);
             this.label36.TabIndex = 13;
             this.label36.Text = "30%";
+            // 
+            // txtWildsSurfingMin1
+            // 
+            this.txtWildsSurfingMin1.Location = new System.Drawing.Point(166, 92);
+            this.txtWildsSurfingMin1.MaxValue = 255;
+            this.txtWildsSurfingMin1.MinValue = 0;
+            this.txtWildsSurfingMin1.Name = "txtWildsSurfingMin1";
+            this.txtWildsSurfingMin1.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsSurfingMin1.TabIndex = 12;
+            this.txtWildsSurfingMin1.Text = "0";
+            this.txtWildsSurfingMin1.Value = 0;
+            this.txtWildsSurfingMin1.TextChanged += new System.EventHandler(this.txtWildsSurfing_TextChanged);
             // 
             // cWildsSurfing1
             // 
@@ -2361,6 +3264,18 @@
             this.label38.TabIndex = 8;
             this.label38.Text = "60%";
             // 
+            // txtWildsSurfingMin0
+            // 
+            this.txtWildsSurfingMin0.Location = new System.Drawing.Point(166, 65);
+            this.txtWildsSurfingMin0.MaxValue = 255;
+            this.txtWildsSurfingMin0.MinValue = 0;
+            this.txtWildsSurfingMin0.Name = "txtWildsSurfingMin0";
+            this.txtWildsSurfingMin0.Size = new System.Drawing.Size(35, 20);
+            this.txtWildsSurfingMin0.TabIndex = 7;
+            this.txtWildsSurfingMin0.Text = "0";
+            this.txtWildsSurfingMin0.Value = 0;
+            this.txtWildsSurfingMin0.TextChanged += new System.EventHandler(this.txtWildsSurfing_TextChanged);
+            // 
             // cWildsSurfing0
             // 
             this.cWildsSurfing0.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -2389,6 +3304,18 @@
             this.label40.Size = new System.Drawing.Size(55, 13);
             this.label40.TabIndex = 4;
             this.label40.Text = "Pokémon:";
+            // 
+            // txtWildsSurfingRate
+            // 
+            this.txtWildsSurfingRate.Location = new System.Drawing.Point(97, 19);
+            this.txtWildsSurfingRate.MaxValue = 255;
+            this.txtWildsSurfingRate.MinValue = 0;
+            this.txtWildsSurfingRate.Name = "txtWildsSurfingRate";
+            this.txtWildsSurfingRate.Size = new System.Drawing.Size(104, 20);
+            this.txtWildsSurfingRate.TabIndex = 3;
+            this.txtWildsSurfingRate.Text = "0";
+            this.txtWildsSurfingRate.Value = 0;
+            this.txtWildsSurfingRate.TextChanged += new System.EventHandler(this.txtWildsSurfingRate_TextChanged);
             // 
             // lblWildsSurfingRate
             // 
@@ -2455,6 +3382,18 @@
             this.groupBox23.TabStop = false;
             this.groupBox23.Text = "Files";
             // 
+            // txtHeaderLvlScripts
+            // 
+            this.txtHeaderLvlScripts.Location = new System.Drawing.Point(6, 110);
+            this.txtHeaderLvlScripts.MaximumValue = ((uint)(65535u));
+            this.txtHeaderLvlScripts.MinimumValue = ((uint)(0u));
+            this.txtHeaderLvlScripts.Name = "txtHeaderLvlScripts";
+            this.txtHeaderLvlScripts.Size = new System.Drawing.Size(188, 20);
+            this.txtHeaderLvlScripts.TabIndex = 18;
+            this.txtHeaderLvlScripts.Text = "0";
+            this.txtHeaderLvlScripts.Value = ((uint)(0u));
+            this.txtHeaderLvlScripts.TextChanged += new System.EventHandler(this.txtHeaderFiles_TextChanged);
+            // 
             // label73
             // 
             this.label73.AutoSize = true;
@@ -2463,6 +3402,18 @@
             this.label73.Size = new System.Drawing.Size(71, 13);
             this.label73.TabIndex = 17;
             this.label73.Text = "Level Scripts:";
+            // 
+            // txtHeaderWildPokemon
+            // 
+            this.txtHeaderWildPokemon.Location = new System.Drawing.Point(207, 71);
+            this.txtHeaderWildPokemon.MaximumValue = ((uint)(65535u));
+            this.txtHeaderWildPokemon.MinimumValue = ((uint)(0u));
+            this.txtHeaderWildPokemon.Name = "txtHeaderWildPokemon";
+            this.txtHeaderWildPokemon.ReadOnly = true;
+            this.txtHeaderWildPokemon.Size = new System.Drawing.Size(188, 20);
+            this.txtHeaderWildPokemon.TabIndex = 16;
+            this.txtHeaderWildPokemon.Text = "0";
+            this.txtHeaderWildPokemon.Value = ((uint)(0u));
             // 
             // label72
             // 
@@ -2473,6 +3424,18 @@
             this.label72.TabIndex = 15;
             this.label72.Text = "Wild Pokémon:";
             // 
+            // txtHeaderMatrix
+            // 
+            this.txtHeaderMatrix.Location = new System.Drawing.Point(207, 32);
+            this.txtHeaderMatrix.MaximumValue = ((uint)(65535u));
+            this.txtHeaderMatrix.MinimumValue = ((uint)(0u));
+            this.txtHeaderMatrix.Name = "txtHeaderMatrix";
+            this.txtHeaderMatrix.ReadOnly = true;
+            this.txtHeaderMatrix.Size = new System.Drawing.Size(188, 20);
+            this.txtHeaderMatrix.TabIndex = 14;
+            this.txtHeaderMatrix.Text = "0";
+            this.txtHeaderMatrix.Value = ((uint)(0u));
+            // 
             // label71
             // 
             this.label71.AutoSize = true;
@@ -2481,6 +3444,18 @@
             this.label71.Size = new System.Drawing.Size(38, 13);
             this.label71.TabIndex = 13;
             this.label71.Text = "Matrix:";
+            // 
+            // txtHeaderText
+            // 
+            this.txtHeaderText.Location = new System.Drawing.Point(6, 149);
+            this.txtHeaderText.MaximumValue = ((uint)(65535u));
+            this.txtHeaderText.MinimumValue = ((uint)(0u));
+            this.txtHeaderText.Name = "txtHeaderText";
+            this.txtHeaderText.Size = new System.Drawing.Size(188, 20);
+            this.txtHeaderText.TabIndex = 12;
+            this.txtHeaderText.Text = "0";
+            this.txtHeaderText.Value = ((uint)(0u));
+            this.txtHeaderText.TextChanged += new System.EventHandler(this.txtHeaderFiles_TextChanged);
             // 
             // label70
             // 
@@ -2491,6 +3466,19 @@
             this.label70.TabIndex = 11;
             this.label70.Text = "Text:";
             // 
+            // txtHeaderScripts
+            // 
+            this.txtHeaderScripts.Location = new System.Drawing.Point(6, 71);
+            this.txtHeaderScripts.MaximumValue = ((uint)(65535u));
+            this.txtHeaderScripts.MinimumValue = ((uint)(0u));
+            this.txtHeaderScripts.Name = "txtHeaderScripts";
+            this.txtHeaderScripts.ReadOnly = true;
+            this.txtHeaderScripts.Size = new System.Drawing.Size(188, 20);
+            this.txtHeaderScripts.TabIndex = 10;
+            this.txtHeaderScripts.Text = "0";
+            this.txtHeaderScripts.Value = ((uint)(0u));
+            this.txtHeaderScripts.TextChanged += new System.EventHandler(this.txtHeaderFiles_TextChanged);
+            // 
             // label69
             // 
             this.label69.AutoSize = true;
@@ -2499,6 +3487,18 @@
             this.label69.Size = new System.Drawing.Size(39, 13);
             this.label69.TabIndex = 9;
             this.label69.Text = "Scripts";
+            // 
+            // txtHeaderEvents
+            // 
+            this.txtHeaderEvents.Location = new System.Drawing.Point(6, 32);
+            this.txtHeaderEvents.MaximumValue = ((uint)(65535u));
+            this.txtHeaderEvents.MinimumValue = ((uint)(0u));
+            this.txtHeaderEvents.Name = "txtHeaderEvents";
+            this.txtHeaderEvents.Size = new System.Drawing.Size(188, 20);
+            this.txtHeaderEvents.TabIndex = 8;
+            this.txtHeaderEvents.Text = "0";
+            this.txtHeaderEvents.Value = ((uint)(0u));
+            this.txtHeaderEvents.TextChanged += new System.EventHandler(this.txtHeaderFiles_TextChanged);
             // 
             // label68
             // 
@@ -2528,6 +3528,18 @@
             this.groupBox22.TabStop = false;
             this.groupBox22.Text = "Options";
             // 
+            // txtHeaderFlags
+            // 
+            this.txtHeaderFlags.Location = new System.Drawing.Point(6, 110);
+            this.txtHeaderFlags.MaximumValue = ((uint)(255u));
+            this.txtHeaderFlags.MinimumValue = ((uint)(0u));
+            this.txtHeaderFlags.Name = "txtHeaderFlags";
+            this.txtHeaderFlags.Size = new System.Drawing.Size(188, 20);
+            this.txtHeaderFlags.TabIndex = 16;
+            this.txtHeaderFlags.Text = "0";
+            this.txtHeaderFlags.Value = ((uint)(0u));
+            this.txtHeaderFlags.TextChanged += new System.EventHandler(this.txtHeaderOptions_TextChanged);
+            // 
             // label74
             // 
             this.label74.AutoSize = true;
@@ -2536,6 +3548,19 @@
             this.label74.Size = new System.Drawing.Size(35, 13);
             this.label74.TabIndex = 15;
             this.label74.Text = "Flags:";
+            // 
+            // txtHeaderCamera
+            // 
+            this.txtHeaderCamera.Location = new System.Drawing.Point(6, 71);
+            this.txtHeaderCamera.MaximumValue = ((uint)(255u));
+            this.txtHeaderCamera.MinimumValue = ((uint)(0u));
+            this.txtHeaderCamera.Name = "txtHeaderCamera";
+            this.txtHeaderCamera.NumberStyle = DSMap.NumericTextBox.NumberStyles.Hexadecimal;
+            this.txtHeaderCamera.Size = new System.Drawing.Size(188, 20);
+            this.txtHeaderCamera.TabIndex = 12;
+            this.txtHeaderCamera.Text = "0x0";
+            this.txtHeaderCamera.Value = ((uint)(0u));
+            this.txtHeaderCamera.TextChanged += new System.EventHandler(this.txtHeaderOptions_TextChanged);
             // 
             // label67
             // 
@@ -2546,6 +3571,18 @@
             this.label67.TabIndex = 11;
             this.label67.Text = "Camera:";
             // 
+            // txtHeaderWeather
+            // 
+            this.txtHeaderWeather.Location = new System.Drawing.Point(207, 71);
+            this.txtHeaderWeather.MaximumValue = ((uint)(255u));
+            this.txtHeaderWeather.MinimumValue = ((uint)(0u));
+            this.txtHeaderWeather.Name = "txtHeaderWeather";
+            this.txtHeaderWeather.Size = new System.Drawing.Size(188, 20);
+            this.txtHeaderWeather.TabIndex = 10;
+            this.txtHeaderWeather.Text = "0";
+            this.txtHeaderWeather.Value = ((uint)(0u));
+            this.txtHeaderWeather.TextChanged += new System.EventHandler(this.txtHeaderOptions_TextChanged);
+            // 
             // label66
             // 
             this.label66.AutoSize = true;
@@ -2555,6 +3592,18 @@
             this.label66.TabIndex = 9;
             this.label66.Text = "Weather:";
             // 
+            // txtHeaderMusicNight
+            // 
+            this.txtHeaderMusicNight.Location = new System.Drawing.Point(207, 32);
+            this.txtHeaderMusicNight.MaximumValue = ((uint)(65535u));
+            this.txtHeaderMusicNight.MinimumValue = ((uint)(0u));
+            this.txtHeaderMusicNight.Name = "txtHeaderMusicNight";
+            this.txtHeaderMusicNight.Size = new System.Drawing.Size(188, 20);
+            this.txtHeaderMusicNight.TabIndex = 8;
+            this.txtHeaderMusicNight.Text = "0";
+            this.txtHeaderMusicNight.Value = ((uint)(0u));
+            this.txtHeaderMusicNight.TextChanged += new System.EventHandler(this.txtHeaderOptions_TextChanged);
+            // 
             // label64
             // 
             this.label64.AutoSize = true;
@@ -2563,6 +3612,18 @@
             this.label64.Size = new System.Drawing.Size(72, 13);
             this.label64.TabIndex = 7;
             this.label64.Text = "Music (Night):";
+            // 
+            // txtHeaderMusicDay
+            // 
+            this.txtHeaderMusicDay.Location = new System.Drawing.Point(6, 32);
+            this.txtHeaderMusicDay.MaximumValue = ((uint)(65535u));
+            this.txtHeaderMusicDay.MinimumValue = ((uint)(0u));
+            this.txtHeaderMusicDay.Name = "txtHeaderMusicDay";
+            this.txtHeaderMusicDay.Size = new System.Drawing.Size(188, 20);
+            this.txtHeaderMusicDay.TabIndex = 6;
+            this.txtHeaderMusicDay.Text = "0";
+            this.txtHeaderMusicDay.Value = ((uint)(0u));
+            this.txtHeaderMusicDay.TextChanged += new System.EventHandler(this.txtHeaderOptions_TextChanged);
             // 
             // label54
             // 
@@ -2615,6 +3676,18 @@
             this.txtHeaderName.Size = new System.Drawing.Size(188, 20);
             this.txtHeaderName.TabIndex = 5;
             // 
+            // txtHeaderNameFrame
+            // 
+            this.txtHeaderNameFrame.Location = new System.Drawing.Point(6, 98);
+            this.txtHeaderNameFrame.MaximumValue = ((uint)(255u));
+            this.txtHeaderNameFrame.MinimumValue = ((uint)(0u));
+            this.txtHeaderNameFrame.Name = "txtHeaderNameFrame";
+            this.txtHeaderNameFrame.Size = new System.Drawing.Size(188, 20);
+            this.txtHeaderNameFrame.TabIndex = 4;
+            this.txtHeaderNameFrame.Text = "0";
+            this.txtHeaderNameFrame.Value = ((uint)(0u));
+            this.txtHeaderNameFrame.TextChanged += new System.EventHandler(this.txtHeaderNameFrame_TextChanged);
+            // 
             // label44
             // 
             this.label44.AutoSize = true;
@@ -2623,6 +3696,18 @@
             this.label44.Size = new System.Drawing.Size(39, 13);
             this.label44.TabIndex = 3;
             this.label44.Text = "Frame:";
+            // 
+            // txtHeaderNameStyle
+            // 
+            this.txtHeaderNameStyle.Location = new System.Drawing.Point(6, 59);
+            this.txtHeaderNameStyle.MaximumValue = ((uint)(255u));
+            this.txtHeaderNameStyle.MinimumValue = ((uint)(0u));
+            this.txtHeaderNameStyle.Name = "txtHeaderNameStyle";
+            this.txtHeaderNameStyle.Size = new System.Drawing.Size(188, 20);
+            this.txtHeaderNameStyle.TabIndex = 2;
+            this.txtHeaderNameStyle.Text = "0";
+            this.txtHeaderNameStyle.Value = ((uint)(0u));
+            this.txtHeaderNameStyle.TextChanged += new System.EventHandler(this.txtHeaderNameStyle_TextChanged);
             // 
             // label41
             // 
@@ -2666,6 +3751,28 @@
             this.bHeaderTex.UseVisualStyleBackColor = true;
             this.bHeaderTex.Click += new System.EventHandler(this.bHeaderTex_Click);
             // 
+            // txtHeaderObjectTextures
+            // 
+            this.txtHeaderObjectTextures.Location = new System.Drawing.Point(207, 32);
+            this.txtHeaderObjectTextures.MaximumValue = ((uint)(255u));
+            this.txtHeaderObjectTextures.MinimumValue = ((uint)(0u));
+            this.txtHeaderObjectTextures.Name = "txtHeaderObjectTextures";
+            this.txtHeaderObjectTextures.Size = new System.Drawing.Size(188, 20);
+            this.txtHeaderObjectTextures.TabIndex = 3;
+            this.txtHeaderObjectTextures.Text = "0";
+            this.txtHeaderObjectTextures.Value = ((uint)(0u));
+            // 
+            // txtHeaderMapTextures
+            // 
+            this.txtHeaderMapTextures.Location = new System.Drawing.Point(6, 32);
+            this.txtHeaderMapTextures.MaximumValue = ((uint)(255u));
+            this.txtHeaderMapTextures.MinimumValue = ((uint)(0u));
+            this.txtHeaderMapTextures.Name = "txtHeaderMapTextures";
+            this.txtHeaderMapTextures.Size = new System.Drawing.Size(188, 20);
+            this.txtHeaderMapTextures.TabIndex = 2;
+            this.txtHeaderMapTextures.Text = "0";
+            this.txtHeaderMapTextures.Value = ((uint)(0u));
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -2693,985 +3800,15 @@
             this.pBanner.TabIndex = 7;
             this.pBanner.TabStop = false;
             // 
-            // txtObjHeight
-            // 
-            this.txtObjHeight.Location = new System.Drawing.Point(6, 240);
-            this.txtObjHeight.MaximumValue = ((uint)(4294967294u));
-            this.txtObjHeight.MinimumValue = ((uint)(0u));
-            this.txtObjHeight.Name = "txtObjHeight";
-            this.txtObjHeight.Size = new System.Drawing.Size(114, 20);
-            this.txtObjHeight.TabIndex = 12;
-            this.txtObjHeight.Text = "0";
-            this.txtObjHeight.Value = ((uint)(0u));
-            this.txtObjHeight.TextChanged += new System.EventHandler(this.txtObjWHL_TextChanged);
-            // 
-            // txtObjLength
-            // 
-            this.txtObjLength.Location = new System.Drawing.Point(6, 201);
-            this.txtObjLength.MaximumValue = ((uint)(4294967294u));
-            this.txtObjLength.MinimumValue = ((uint)(0u));
-            this.txtObjLength.Name = "txtObjLength";
-            this.txtObjLength.Size = new System.Drawing.Size(114, 20);
-            this.txtObjLength.TabIndex = 11;
-            this.txtObjLength.Text = "0";
-            this.txtObjLength.Value = ((uint)(0u));
-            this.txtObjLength.TextChanged += new System.EventHandler(this.txtObjWHL_TextChanged);
-            // 
-            // txtObjWidth
-            // 
-            this.txtObjWidth.Location = new System.Drawing.Point(6, 162);
-            this.txtObjWidth.MaximumValue = ((uint)(4294967294u));
-            this.txtObjWidth.MinimumValue = ((uint)(0u));
-            this.txtObjWidth.Name = "txtObjWidth";
-            this.txtObjWidth.Size = new System.Drawing.Size(114, 20);
-            this.txtObjWidth.TabIndex = 10;
-            this.txtObjWidth.Text = "0";
-            this.txtObjWidth.Value = ((uint)(0u));
-            this.txtObjWidth.TextChanged += new System.EventHandler(this.txtObjWHL_TextChanged);
-            // 
-            // txtObjZ
-            // 
-            this.txtObjZ.Location = new System.Drawing.Point(6, 123);
-            this.txtObjZ.Name = "txtObjZ";
-            this.txtObjZ.Size = new System.Drawing.Size(54, 20);
-            this.txtObjZ.TabIndex = 9;
-            this.txtObjZ.Text = "0";
-            this.txtObjZ.Value = 0;
-            this.txtObjZ.TextChanged += new System.EventHandler(this.txtObjXYZ_TextChanged);
-            // 
-            // txtObjZFlag
-            // 
-            this.txtObjZFlag.Location = new System.Drawing.Point(66, 123);
-            this.txtObjZFlag.MaximumValue = ((uint)(4294967294u));
-            this.txtObjZFlag.MinimumValue = ((uint)(0u));
-            this.txtObjZFlag.Name = "txtObjZFlag";
-            this.txtObjZFlag.NumberStyle = DSMap.NumericTextBox.NumberStyles.Hexadecimal;
-            this.txtObjZFlag.Size = new System.Drawing.Size(54, 20);
-            this.txtObjZFlag.TabIndex = 8;
-            this.txtObjZFlag.Text = "0x0";
-            this.txtObjZFlag.Value = ((uint)(0u));
-            this.txtObjZFlag.TextChanged += new System.EventHandler(this.txtObjXYZFlags_TextChanged);
-            // 
-            // txtObjY
-            // 
-            this.txtObjY.Location = new System.Drawing.Point(6, 97);
-            this.txtObjY.Name = "txtObjY";
-            this.txtObjY.Size = new System.Drawing.Size(54, 20);
-            this.txtObjY.TabIndex = 7;
-            this.txtObjY.Text = "0";
-            this.txtObjY.Value = 0;
-            this.txtObjY.TextChanged += new System.EventHandler(this.txtObjXYZ_TextChanged);
-            // 
-            // txtObjYFlag
-            // 
-            this.txtObjYFlag.Location = new System.Drawing.Point(66, 97);
-            this.txtObjYFlag.MaximumValue = ((uint)(4294967294u));
-            this.txtObjYFlag.MinimumValue = ((uint)(0u));
-            this.txtObjYFlag.Name = "txtObjYFlag";
-            this.txtObjYFlag.NumberStyle = DSMap.NumericTextBox.NumberStyles.Hexadecimal;
-            this.txtObjYFlag.Size = new System.Drawing.Size(54, 20);
-            this.txtObjYFlag.TabIndex = 6;
-            this.txtObjYFlag.Text = "0x0";
-            this.txtObjYFlag.Value = ((uint)(0u));
-            this.txtObjYFlag.TextChanged += new System.EventHandler(this.txtObjXYZFlags_TextChanged);
-            // 
-            // txtObjX
-            // 
-            this.txtObjX.Location = new System.Drawing.Point(6, 71);
-            this.txtObjX.Name = "txtObjX";
-            this.txtObjX.Size = new System.Drawing.Size(54, 20);
-            this.txtObjX.TabIndex = 4;
-            this.txtObjX.Text = "0";
-            this.txtObjX.Value = 0;
-            this.txtObjX.TextChanged += new System.EventHandler(this.txtObjXYZ_TextChanged);
-            // 
-            // txtObjXFlag
-            // 
-            this.txtObjXFlag.Location = new System.Drawing.Point(66, 71);
-            this.txtObjXFlag.MaximumValue = ((uint)(4294967294u));
-            this.txtObjXFlag.MinimumValue = ((uint)(0u));
-            this.txtObjXFlag.Name = "txtObjXFlag";
-            this.txtObjXFlag.NumberStyle = DSMap.NumericTextBox.NumberStyles.Hexadecimal;
-            this.txtObjXFlag.Size = new System.Drawing.Size(54, 20);
-            this.txtObjXFlag.TabIndex = 2;
-            this.txtObjXFlag.Text = "0x0";
-            this.txtObjXFlag.Value = ((uint)(0u));
-            this.txtObjXFlag.TextChanged += new System.EventHandler(this.txtObjXYZFlags_TextChanged);
-            // 
-            // txtObjModel
-            // 
-            this.txtObjModel.Location = new System.Drawing.Point(6, 32);
-            this.txtObjModel.MaximumValue = ((uint)(4294967294u));
-            this.txtObjModel.MinimumValue = ((uint)(0u));
-            this.txtObjModel.Name = "txtObjModel";
-            this.txtObjModel.Size = new System.Drawing.Size(114, 20);
-            this.txtObjModel.TabIndex = 0;
-            this.txtObjModel.Text = "0";
-            this.txtObjModel.Value = ((uint)(0u));
-            this.txtObjModel.TextChanged += new System.EventHandler(this.txtObjModel_TextChanged);
-            // 
-            // txtWildsWalking11
-            // 
-            this.txtWildsWalking11.Location = new System.Drawing.Point(166, 362);
-            this.txtWildsWalking11.MaxValue = 255;
-            this.txtWildsWalking11.MinValue = 0;
-            this.txtWildsWalking11.Name = "txtWildsWalking11";
-            this.txtWildsWalking11.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsWalking11.TabIndex = 42;
-            this.txtWildsWalking11.Text = "0";
-            this.txtWildsWalking11.Value = 0;
-            this.txtWildsWalking11.TextChanged += new System.EventHandler(this.txtWildsWalking_TextChanged);
-            // 
-            // txtWildsWalking10
-            // 
-            this.txtWildsWalking10.Location = new System.Drawing.Point(166, 335);
-            this.txtWildsWalking10.MaxValue = 255;
-            this.txtWildsWalking10.MinValue = 0;
-            this.txtWildsWalking10.Name = "txtWildsWalking10";
-            this.txtWildsWalking10.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsWalking10.TabIndex = 39;
-            this.txtWildsWalking10.Text = "0";
-            this.txtWildsWalking10.Value = 0;
-            this.txtWildsWalking10.TextChanged += new System.EventHandler(this.txtWildsWalking_TextChanged);
-            // 
-            // txtWildsWalking9
-            // 
-            this.txtWildsWalking9.Location = new System.Drawing.Point(166, 308);
-            this.txtWildsWalking9.MaxValue = 255;
-            this.txtWildsWalking9.MinValue = 0;
-            this.txtWildsWalking9.Name = "txtWildsWalking9";
-            this.txtWildsWalking9.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsWalking9.TabIndex = 36;
-            this.txtWildsWalking9.Text = "0";
-            this.txtWildsWalking9.Value = 0;
-            this.txtWildsWalking9.TextChanged += new System.EventHandler(this.txtWildsWalking_TextChanged);
-            // 
-            // txtWildsWalking8
-            // 
-            this.txtWildsWalking8.Location = new System.Drawing.Point(166, 281);
-            this.txtWildsWalking8.MaxValue = 255;
-            this.txtWildsWalking8.MinValue = 0;
-            this.txtWildsWalking8.Name = "txtWildsWalking8";
-            this.txtWildsWalking8.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsWalking8.TabIndex = 33;
-            this.txtWildsWalking8.Text = "0";
-            this.txtWildsWalking8.Value = 0;
-            this.txtWildsWalking8.TextChanged += new System.EventHandler(this.txtWildsWalking_TextChanged);
-            // 
-            // txtWildsWalking7
-            // 
-            this.txtWildsWalking7.Location = new System.Drawing.Point(166, 254);
-            this.txtWildsWalking7.MaxValue = 255;
-            this.txtWildsWalking7.MinValue = 0;
-            this.txtWildsWalking7.Name = "txtWildsWalking7";
-            this.txtWildsWalking7.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsWalking7.TabIndex = 30;
-            this.txtWildsWalking7.Text = "0";
-            this.txtWildsWalking7.Value = 0;
-            this.txtWildsWalking7.TextChanged += new System.EventHandler(this.txtWildsWalking_TextChanged);
-            // 
-            // txtWildsWalking6
-            // 
-            this.txtWildsWalking6.Location = new System.Drawing.Point(166, 227);
-            this.txtWildsWalking6.MaxValue = 255;
-            this.txtWildsWalking6.MinValue = 0;
-            this.txtWildsWalking6.Name = "txtWildsWalking6";
-            this.txtWildsWalking6.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsWalking6.TabIndex = 27;
-            this.txtWildsWalking6.Text = "0";
-            this.txtWildsWalking6.Value = 0;
-            this.txtWildsWalking6.TextChanged += new System.EventHandler(this.txtWildsWalking_TextChanged);
-            // 
-            // txtWildsWalking5
-            // 
-            this.txtWildsWalking5.Location = new System.Drawing.Point(166, 200);
-            this.txtWildsWalking5.MaxValue = 255;
-            this.txtWildsWalking5.MinValue = 0;
-            this.txtWildsWalking5.Name = "txtWildsWalking5";
-            this.txtWildsWalking5.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsWalking5.TabIndex = 24;
-            this.txtWildsWalking5.Text = "0";
-            this.txtWildsWalking5.Value = 0;
-            this.txtWildsWalking5.TextChanged += new System.EventHandler(this.txtWildsWalking_TextChanged);
-            // 
-            // txtWildsWalking4
-            // 
-            this.txtWildsWalking4.Location = new System.Drawing.Point(166, 173);
-            this.txtWildsWalking4.MaxValue = 255;
-            this.txtWildsWalking4.MinValue = 0;
-            this.txtWildsWalking4.Name = "txtWildsWalking4";
-            this.txtWildsWalking4.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsWalking4.TabIndex = 21;
-            this.txtWildsWalking4.Text = "0";
-            this.txtWildsWalking4.Value = 0;
-            this.txtWildsWalking4.TextChanged += new System.EventHandler(this.txtWildsWalking_TextChanged);
-            // 
-            // txtWildsWalking3
-            // 
-            this.txtWildsWalking3.Location = new System.Drawing.Point(166, 146);
-            this.txtWildsWalking3.MaxValue = 255;
-            this.txtWildsWalking3.MinValue = 0;
-            this.txtWildsWalking3.Name = "txtWildsWalking3";
-            this.txtWildsWalking3.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsWalking3.TabIndex = 18;
-            this.txtWildsWalking3.Text = "0";
-            this.txtWildsWalking3.Value = 0;
-            this.txtWildsWalking3.TextChanged += new System.EventHandler(this.txtWildsWalking_TextChanged);
-            // 
-            // txtWildsWalking2
-            // 
-            this.txtWildsWalking2.Location = new System.Drawing.Point(166, 119);
-            this.txtWildsWalking2.MaxValue = 255;
-            this.txtWildsWalking2.MinValue = 0;
-            this.txtWildsWalking2.Name = "txtWildsWalking2";
-            this.txtWildsWalking2.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsWalking2.TabIndex = 15;
-            this.txtWildsWalking2.Text = "0";
-            this.txtWildsWalking2.Value = 0;
-            this.txtWildsWalking2.TextChanged += new System.EventHandler(this.txtWildsWalking_TextChanged);
-            // 
-            // txtWildsWalking1
-            // 
-            this.txtWildsWalking1.Location = new System.Drawing.Point(166, 92);
-            this.txtWildsWalking1.MaxValue = 255;
-            this.txtWildsWalking1.MinValue = 0;
-            this.txtWildsWalking1.Name = "txtWildsWalking1";
-            this.txtWildsWalking1.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsWalking1.TabIndex = 12;
-            this.txtWildsWalking1.Text = "0";
-            this.txtWildsWalking1.Value = 0;
-            this.txtWildsWalking1.TextChanged += new System.EventHandler(this.txtWildsWalking_TextChanged);
-            // 
-            // txtWildsWalking0
-            // 
-            this.txtWildsWalking0.Location = new System.Drawing.Point(166, 65);
-            this.txtWildsWalking0.MaxValue = 255;
-            this.txtWildsWalking0.MinValue = 0;
-            this.txtWildsWalking0.Name = "txtWildsWalking0";
-            this.txtWildsWalking0.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsWalking0.TabIndex = 7;
-            this.txtWildsWalking0.Text = "0";
-            this.txtWildsWalking0.Value = 0;
-            this.txtWildsWalking0.TextChanged += new System.EventHandler(this.txtWildsWalking_TextChanged);
-            // 
-            // txtWildsWalkingRate
-            // 
-            this.txtWildsWalkingRate.Location = new System.Drawing.Point(97, 19);
-            this.txtWildsWalkingRate.MaxValue = 255;
-            this.txtWildsWalkingRate.MinValue = 0;
-            this.txtWildsWalkingRate.Name = "txtWildsWalkingRate";
-            this.txtWildsWalkingRate.Size = new System.Drawing.Size(65, 20);
-            this.txtWildsWalkingRate.TabIndex = 3;
-            this.txtWildsWalkingRate.Text = "0";
-            this.txtWildsWalkingRate.Value = 0;
-            this.txtWildsWalkingRate.TextChanged += new System.EventHandler(this.txtWildsWalkingRate_TextChanged);
-            // 
-            // txtWildsSRMax4
-            // 
-            this.txtWildsSRMax4.Location = new System.Drawing.Point(207, 173);
-            this.txtWildsSRMax4.MaxValue = 255;
-            this.txtWildsSRMax4.MinValue = 0;
-            this.txtWildsSRMax4.Name = "txtWildsSRMax4";
-            this.txtWildsSRMax4.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsSRMax4.TabIndex = 27;
-            this.txtWildsSRMax4.Text = "0";
-            this.txtWildsSRMax4.Value = 0;
-            this.txtWildsSRMax4.TextChanged += new System.EventHandler(this.txtWildsSR_TextChanged);
-            // 
-            // txtWildsSRMax3
-            // 
-            this.txtWildsSRMax3.Location = new System.Drawing.Point(207, 146);
-            this.txtWildsSRMax3.MaxValue = 255;
-            this.txtWildsSRMax3.MinValue = 0;
-            this.txtWildsSRMax3.Name = "txtWildsSRMax3";
-            this.txtWildsSRMax3.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsSRMax3.TabIndex = 26;
-            this.txtWildsSRMax3.Text = "0";
-            this.txtWildsSRMax3.Value = 0;
-            this.txtWildsSRMax3.TextChanged += new System.EventHandler(this.txtWildsSR_TextChanged);
-            // 
-            // txtWildsSRMax2
-            // 
-            this.txtWildsSRMax2.Location = new System.Drawing.Point(207, 119);
-            this.txtWildsSRMax2.MaxValue = 255;
-            this.txtWildsSRMax2.MinValue = 0;
-            this.txtWildsSRMax2.Name = "txtWildsSRMax2";
-            this.txtWildsSRMax2.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsSRMax2.TabIndex = 25;
-            this.txtWildsSRMax2.Text = "0";
-            this.txtWildsSRMax2.Value = 0;
-            this.txtWildsSRMax2.TextChanged += new System.EventHandler(this.txtWildsSR_TextChanged);
-            // 
-            // txtWildsSRMax1
-            // 
-            this.txtWildsSRMax1.Location = new System.Drawing.Point(207, 92);
-            this.txtWildsSRMax1.MaxValue = 255;
-            this.txtWildsSRMax1.MinValue = 0;
-            this.txtWildsSRMax1.Name = "txtWildsSRMax1";
-            this.txtWildsSRMax1.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsSRMax1.TabIndex = 24;
-            this.txtWildsSRMax1.Text = "0";
-            this.txtWildsSRMax1.Value = 0;
-            this.txtWildsSRMax1.TextChanged += new System.EventHandler(this.txtWildsSR_TextChanged);
-            // 
-            // txtWildsSRMax0
-            // 
-            this.txtWildsSRMax0.Location = new System.Drawing.Point(207, 65);
-            this.txtWildsSRMax0.MaxValue = 255;
-            this.txtWildsSRMax0.MinValue = 0;
-            this.txtWildsSRMax0.Name = "txtWildsSRMax0";
-            this.txtWildsSRMax0.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsSRMax0.TabIndex = 23;
-            this.txtWildsSRMax0.Text = "0";
-            this.txtWildsSRMax0.Value = 0;
-            this.txtWildsSRMax0.TextChanged += new System.EventHandler(this.txtWildsSR_TextChanged);
-            // 
-            // txtWildsSRMin4
-            // 
-            this.txtWildsSRMin4.Location = new System.Drawing.Point(166, 173);
-            this.txtWildsSRMin4.MaxValue = 255;
-            this.txtWildsSRMin4.MinValue = 0;
-            this.txtWildsSRMin4.Name = "txtWildsSRMin4";
-            this.txtWildsSRMin4.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsSRMin4.TabIndex = 21;
-            this.txtWildsSRMin4.Text = "0";
-            this.txtWildsSRMin4.Value = 0;
-            this.txtWildsSRMin4.TextChanged += new System.EventHandler(this.txtWildsSR_TextChanged);
-            // 
-            // txtWildsSRMin3
-            // 
-            this.txtWildsSRMin3.Location = new System.Drawing.Point(166, 146);
-            this.txtWildsSRMin3.MaxValue = 255;
-            this.txtWildsSRMin3.MinValue = 0;
-            this.txtWildsSRMin3.Name = "txtWildsSRMin3";
-            this.txtWildsSRMin3.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsSRMin3.TabIndex = 18;
-            this.txtWildsSRMin3.Text = "0";
-            this.txtWildsSRMin3.Value = 0;
-            this.txtWildsSRMin3.TextChanged += new System.EventHandler(this.txtWildsSR_TextChanged);
-            // 
-            // txtWildsSRMin2
-            // 
-            this.txtWildsSRMin2.Location = new System.Drawing.Point(166, 119);
-            this.txtWildsSRMin2.MaxValue = 255;
-            this.txtWildsSRMin2.MinValue = 0;
-            this.txtWildsSRMin2.Name = "txtWildsSRMin2";
-            this.txtWildsSRMin2.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsSRMin2.TabIndex = 15;
-            this.txtWildsSRMin2.Text = "0";
-            this.txtWildsSRMin2.Value = 0;
-            this.txtWildsSRMin2.TextChanged += new System.EventHandler(this.txtWildsSR_TextChanged);
-            // 
-            // txtWildsSRMin1
-            // 
-            this.txtWildsSRMin1.Location = new System.Drawing.Point(166, 92);
-            this.txtWildsSRMin1.MaxValue = 255;
-            this.txtWildsSRMin1.MinValue = 0;
-            this.txtWildsSRMin1.Name = "txtWildsSRMin1";
-            this.txtWildsSRMin1.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsSRMin1.TabIndex = 12;
-            this.txtWildsSRMin1.Text = "0";
-            this.txtWildsSRMin1.Value = 0;
-            this.txtWildsSRMin1.TextChanged += new System.EventHandler(this.txtWildsSR_TextChanged);
-            // 
-            // txtWildsSRMin0
-            // 
-            this.txtWildsSRMin0.Location = new System.Drawing.Point(166, 65);
-            this.txtWildsSRMin0.MaxValue = 255;
-            this.txtWildsSRMin0.MinValue = 0;
-            this.txtWildsSRMin0.Name = "txtWildsSRMin0";
-            this.txtWildsSRMin0.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsSRMin0.TabIndex = 7;
-            this.txtWildsSRMin0.Text = "0";
-            this.txtWildsSRMin0.Value = 0;
-            this.txtWildsSRMin0.TextChanged += new System.EventHandler(this.txtWildsSR_TextChanged);
-            // 
-            // txtWildsSRRate
-            // 
-            this.txtWildsSRRate.Location = new System.Drawing.Point(97, 19);
-            this.txtWildsSRRate.MaxValue = 255;
-            this.txtWildsSRRate.MinValue = 0;
-            this.txtWildsSRRate.Name = "txtWildsSRRate";
-            this.txtWildsSRRate.Size = new System.Drawing.Size(104, 20);
-            this.txtWildsSRRate.TabIndex = 3;
-            this.txtWildsSRRate.Text = "0";
-            this.txtWildsSRRate.Value = 0;
-            this.txtWildsSRRate.TextChanged += new System.EventHandler(this.txtWildsSRRate_TextChanged);
-            // 
-            // txtWildsGRMax4
-            // 
-            this.txtWildsGRMax4.Location = new System.Drawing.Point(207, 173);
-            this.txtWildsGRMax4.MaxValue = 255;
-            this.txtWildsGRMax4.MinValue = 0;
-            this.txtWildsGRMax4.Name = "txtWildsGRMax4";
-            this.txtWildsGRMax4.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsGRMax4.TabIndex = 27;
-            this.txtWildsGRMax4.Text = "0";
-            this.txtWildsGRMax4.Value = 0;
-            this.txtWildsGRMax4.TextChanged += new System.EventHandler(this.txtWildsGR_TextChanged);
-            // 
-            // txtWildsGRMax3
-            // 
-            this.txtWildsGRMax3.Location = new System.Drawing.Point(207, 146);
-            this.txtWildsGRMax3.MaxValue = 255;
-            this.txtWildsGRMax3.MinValue = 0;
-            this.txtWildsGRMax3.Name = "txtWildsGRMax3";
-            this.txtWildsGRMax3.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsGRMax3.TabIndex = 26;
-            this.txtWildsGRMax3.Text = "0";
-            this.txtWildsGRMax3.Value = 0;
-            this.txtWildsGRMax3.TextChanged += new System.EventHandler(this.txtWildsGR_TextChanged);
-            // 
-            // txtWildsGRMax2
-            // 
-            this.txtWildsGRMax2.Location = new System.Drawing.Point(207, 119);
-            this.txtWildsGRMax2.MaxValue = 255;
-            this.txtWildsGRMax2.MinValue = 0;
-            this.txtWildsGRMax2.Name = "txtWildsGRMax2";
-            this.txtWildsGRMax2.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsGRMax2.TabIndex = 25;
-            this.txtWildsGRMax2.Text = "0";
-            this.txtWildsGRMax2.Value = 0;
-            this.txtWildsGRMax2.TextChanged += new System.EventHandler(this.txtWildsGR_TextChanged);
-            // 
-            // txtWildsGRMax1
-            // 
-            this.txtWildsGRMax1.Location = new System.Drawing.Point(207, 92);
-            this.txtWildsGRMax1.MaxValue = 255;
-            this.txtWildsGRMax1.MinValue = 0;
-            this.txtWildsGRMax1.Name = "txtWildsGRMax1";
-            this.txtWildsGRMax1.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsGRMax1.TabIndex = 24;
-            this.txtWildsGRMax1.Text = "0";
-            this.txtWildsGRMax1.Value = 0;
-            this.txtWildsGRMax1.TextChanged += new System.EventHandler(this.txtWildsGR_TextChanged);
-            // 
-            // txtWildsGRMax0
-            // 
-            this.txtWildsGRMax0.Location = new System.Drawing.Point(207, 65);
-            this.txtWildsGRMax0.MaxValue = 255;
-            this.txtWildsGRMax0.MinValue = 0;
-            this.txtWildsGRMax0.Name = "txtWildsGRMax0";
-            this.txtWildsGRMax0.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsGRMax0.TabIndex = 23;
-            this.txtWildsGRMax0.Text = "0";
-            this.txtWildsGRMax0.Value = 0;
-            this.txtWildsGRMax0.TextChanged += new System.EventHandler(this.txtWildsGR_TextChanged);
-            // 
-            // txtWildsGRMin4
-            // 
-            this.txtWildsGRMin4.Location = new System.Drawing.Point(166, 173);
-            this.txtWildsGRMin4.MaxValue = 255;
-            this.txtWildsGRMin4.MinValue = 0;
-            this.txtWildsGRMin4.Name = "txtWildsGRMin4";
-            this.txtWildsGRMin4.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsGRMin4.TabIndex = 21;
-            this.txtWildsGRMin4.Text = "0";
-            this.txtWildsGRMin4.Value = 0;
-            this.txtWildsGRMin4.TextChanged += new System.EventHandler(this.txtWildsGR_TextChanged);
-            // 
-            // txtWildsGRMin3
-            // 
-            this.txtWildsGRMin3.Location = new System.Drawing.Point(166, 146);
-            this.txtWildsGRMin3.MaxValue = 255;
-            this.txtWildsGRMin3.MinValue = 0;
-            this.txtWildsGRMin3.Name = "txtWildsGRMin3";
-            this.txtWildsGRMin3.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsGRMin3.TabIndex = 18;
-            this.txtWildsGRMin3.Text = "0";
-            this.txtWildsGRMin3.Value = 0;
-            this.txtWildsGRMin3.TextChanged += new System.EventHandler(this.txtWildsGR_TextChanged);
-            // 
-            // txtWildsGRMin2
-            // 
-            this.txtWildsGRMin2.Location = new System.Drawing.Point(166, 119);
-            this.txtWildsGRMin2.MaxValue = 255;
-            this.txtWildsGRMin2.MinValue = 0;
-            this.txtWildsGRMin2.Name = "txtWildsGRMin2";
-            this.txtWildsGRMin2.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsGRMin2.TabIndex = 15;
-            this.txtWildsGRMin2.Text = "0";
-            this.txtWildsGRMin2.Value = 0;
-            this.txtWildsGRMin2.TextChanged += new System.EventHandler(this.txtWildsGR_TextChanged);
-            // 
-            // txtWildsGRMin1
-            // 
-            this.txtWildsGRMin1.Location = new System.Drawing.Point(166, 92);
-            this.txtWildsGRMin1.MaxValue = 255;
-            this.txtWildsGRMin1.MinValue = 0;
-            this.txtWildsGRMin1.Name = "txtWildsGRMin1";
-            this.txtWildsGRMin1.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsGRMin1.TabIndex = 12;
-            this.txtWildsGRMin1.Text = "0";
-            this.txtWildsGRMin1.Value = 0;
-            this.txtWildsGRMin1.TextChanged += new System.EventHandler(this.txtWildsGR_TextChanged);
-            // 
-            // txtWildsGRMin0
-            // 
-            this.txtWildsGRMin0.Location = new System.Drawing.Point(166, 65);
-            this.txtWildsGRMin0.MaxValue = 255;
-            this.txtWildsGRMin0.MinValue = 0;
-            this.txtWildsGRMin0.Name = "txtWildsGRMin0";
-            this.txtWildsGRMin0.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsGRMin0.TabIndex = 7;
-            this.txtWildsGRMin0.Text = "0";
-            this.txtWildsGRMin0.Value = 0;
-            this.txtWildsGRMin0.TextChanged += new System.EventHandler(this.txtWildsGR_TextChanged);
-            // 
-            // txtWildsGRRate
-            // 
-            this.txtWildsGRRate.Location = new System.Drawing.Point(97, 19);
-            this.txtWildsGRRate.MaxValue = 255;
-            this.txtWildsGRRate.MinValue = 0;
-            this.txtWildsGRRate.Name = "txtWildsGRRate";
-            this.txtWildsGRRate.Size = new System.Drawing.Size(104, 20);
-            this.txtWildsGRRate.TabIndex = 3;
-            this.txtWildsGRRate.Text = "0";
-            this.txtWildsGRRate.Value = 0;
-            this.txtWildsGRRate.TextChanged += new System.EventHandler(this.txtWildsGRRate_TextChanged);
-            // 
-            // txtWildsORMax4
-            // 
-            this.txtWildsORMax4.Location = new System.Drawing.Point(207, 173);
-            this.txtWildsORMax4.MaxValue = 255;
-            this.txtWildsORMax4.MinValue = 0;
-            this.txtWildsORMax4.Name = "txtWildsORMax4";
-            this.txtWildsORMax4.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsORMax4.TabIndex = 27;
-            this.txtWildsORMax4.Text = "0";
-            this.txtWildsORMax4.Value = 0;
-            this.txtWildsORMax4.TextChanged += new System.EventHandler(this.txtWildsOR_TextChanged);
-            // 
-            // txtWildsORMax3
-            // 
-            this.txtWildsORMax3.Location = new System.Drawing.Point(207, 146);
-            this.txtWildsORMax3.MaxValue = 255;
-            this.txtWildsORMax3.MinValue = 0;
-            this.txtWildsORMax3.Name = "txtWildsORMax3";
-            this.txtWildsORMax3.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsORMax3.TabIndex = 26;
-            this.txtWildsORMax3.Text = "0";
-            this.txtWildsORMax3.Value = 0;
-            this.txtWildsORMax3.TextChanged += new System.EventHandler(this.txtWildsOR_TextChanged);
-            // 
-            // txtWildsORMax2
-            // 
-            this.txtWildsORMax2.Location = new System.Drawing.Point(207, 119);
-            this.txtWildsORMax2.MaxValue = 255;
-            this.txtWildsORMax2.MinValue = 0;
-            this.txtWildsORMax2.Name = "txtWildsORMax2";
-            this.txtWildsORMax2.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsORMax2.TabIndex = 25;
-            this.txtWildsORMax2.Text = "0";
-            this.txtWildsORMax2.Value = 0;
-            this.txtWildsORMax2.TextChanged += new System.EventHandler(this.txtWildsOR_TextChanged);
-            // 
-            // txtWildsORMax1
-            // 
-            this.txtWildsORMax1.Location = new System.Drawing.Point(207, 92);
-            this.txtWildsORMax1.MaxValue = 255;
-            this.txtWildsORMax1.MinValue = 0;
-            this.txtWildsORMax1.Name = "txtWildsORMax1";
-            this.txtWildsORMax1.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsORMax1.TabIndex = 24;
-            this.txtWildsORMax1.Text = "0";
-            this.txtWildsORMax1.Value = 0;
-            this.txtWildsORMax1.TextChanged += new System.EventHandler(this.txtWildsOR_TextChanged);
-            // 
-            // txtWildsORMax0
-            // 
-            this.txtWildsORMax0.Location = new System.Drawing.Point(207, 65);
-            this.txtWildsORMax0.MaxValue = 255;
-            this.txtWildsORMax0.MinValue = 0;
-            this.txtWildsORMax0.Name = "txtWildsORMax0";
-            this.txtWildsORMax0.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsORMax0.TabIndex = 23;
-            this.txtWildsORMax0.Text = "0";
-            this.txtWildsORMax0.Value = 0;
-            this.txtWildsORMax0.TextChanged += new System.EventHandler(this.txtWildsOR_TextChanged);
-            // 
-            // txtWildsORMin4
-            // 
-            this.txtWildsORMin4.Location = new System.Drawing.Point(166, 173);
-            this.txtWildsORMin4.MaxValue = 255;
-            this.txtWildsORMin4.MinValue = 0;
-            this.txtWildsORMin4.Name = "txtWildsORMin4";
-            this.txtWildsORMin4.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsORMin4.TabIndex = 21;
-            this.txtWildsORMin4.Text = "0";
-            this.txtWildsORMin4.Value = 0;
-            this.txtWildsORMin4.TextChanged += new System.EventHandler(this.txtWildsOR_TextChanged);
-            // 
-            // txtWildsORMin3
-            // 
-            this.txtWildsORMin3.Location = new System.Drawing.Point(166, 146);
-            this.txtWildsORMin3.MaxValue = 255;
-            this.txtWildsORMin3.MinValue = 0;
-            this.txtWildsORMin3.Name = "txtWildsORMin3";
-            this.txtWildsORMin3.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsORMin3.TabIndex = 18;
-            this.txtWildsORMin3.Text = "0";
-            this.txtWildsORMin3.Value = 0;
-            this.txtWildsORMin3.TextChanged += new System.EventHandler(this.txtWildsOR_TextChanged);
-            // 
-            // txtWildsORMin2
-            // 
-            this.txtWildsORMin2.Location = new System.Drawing.Point(166, 119);
-            this.txtWildsORMin2.MaxValue = 255;
-            this.txtWildsORMin2.MinValue = 0;
-            this.txtWildsORMin2.Name = "txtWildsORMin2";
-            this.txtWildsORMin2.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsORMin2.TabIndex = 15;
-            this.txtWildsORMin2.Text = "0";
-            this.txtWildsORMin2.Value = 0;
-            this.txtWildsORMin2.TextChanged += new System.EventHandler(this.txtWildsOR_TextChanged);
-            // 
-            // txtWildsORMin1
-            // 
-            this.txtWildsORMin1.Location = new System.Drawing.Point(166, 92);
-            this.txtWildsORMin1.MaxValue = 255;
-            this.txtWildsORMin1.MinValue = 0;
-            this.txtWildsORMin1.Name = "txtWildsORMin1";
-            this.txtWildsORMin1.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsORMin1.TabIndex = 12;
-            this.txtWildsORMin1.Text = "0";
-            this.txtWildsORMin1.Value = 0;
-            this.txtWildsORMin1.TextChanged += new System.EventHandler(this.txtWildsOR_TextChanged);
-            // 
-            // txtWildsORMin0
-            // 
-            this.txtWildsORMin0.Location = new System.Drawing.Point(166, 65);
-            this.txtWildsORMin0.MaxValue = 255;
-            this.txtWildsORMin0.MinValue = 0;
-            this.txtWildsORMin0.Name = "txtWildsORMin0";
-            this.txtWildsORMin0.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsORMin0.TabIndex = 7;
-            this.txtWildsORMin0.Text = "0";
-            this.txtWildsORMin0.Value = 0;
-            this.txtWildsORMin0.TextChanged += new System.EventHandler(this.txtWildsOR_TextChanged);
-            // 
-            // txtWildsORRate
-            // 
-            this.txtWildsORRate.Location = new System.Drawing.Point(97, 19);
-            this.txtWildsORRate.MaxValue = 255;
-            this.txtWildsORRate.MinValue = 0;
-            this.txtWildsORRate.Name = "txtWildsORRate";
-            this.txtWildsORRate.Size = new System.Drawing.Size(104, 20);
-            this.txtWildsORRate.TabIndex = 3;
-            this.txtWildsORRate.Text = "0";
-            this.txtWildsORRate.Value = 0;
-            this.txtWildsORRate.TextChanged += new System.EventHandler(this.txtWildsORRate_TextChanged);
-            // 
-            // txtWildsSurfingMax4
-            // 
-            this.txtWildsSurfingMax4.Location = new System.Drawing.Point(207, 173);
-            this.txtWildsSurfingMax4.MaxValue = 255;
-            this.txtWildsSurfingMax4.MinValue = 0;
-            this.txtWildsSurfingMax4.Name = "txtWildsSurfingMax4";
-            this.txtWildsSurfingMax4.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsSurfingMax4.TabIndex = 27;
-            this.txtWildsSurfingMax4.Text = "0";
-            this.txtWildsSurfingMax4.Value = 0;
-            this.txtWildsSurfingMax4.TextChanged += new System.EventHandler(this.txtWildsSurfing_TextChanged);
-            // 
-            // txtWildsSurfingMax3
-            // 
-            this.txtWildsSurfingMax3.Location = new System.Drawing.Point(207, 146);
-            this.txtWildsSurfingMax3.MaxValue = 255;
-            this.txtWildsSurfingMax3.MinValue = 0;
-            this.txtWildsSurfingMax3.Name = "txtWildsSurfingMax3";
-            this.txtWildsSurfingMax3.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsSurfingMax3.TabIndex = 26;
-            this.txtWildsSurfingMax3.Text = "0";
-            this.txtWildsSurfingMax3.Value = 0;
-            this.txtWildsSurfingMax3.TextChanged += new System.EventHandler(this.txtWildsSurfing_TextChanged);
-            // 
-            // txtWildsSurfingMax2
-            // 
-            this.txtWildsSurfingMax2.Location = new System.Drawing.Point(207, 119);
-            this.txtWildsSurfingMax2.MaxValue = 255;
-            this.txtWildsSurfingMax2.MinValue = 0;
-            this.txtWildsSurfingMax2.Name = "txtWildsSurfingMax2";
-            this.txtWildsSurfingMax2.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsSurfingMax2.TabIndex = 25;
-            this.txtWildsSurfingMax2.Text = "0";
-            this.txtWildsSurfingMax2.Value = 0;
-            this.txtWildsSurfingMax2.TextChanged += new System.EventHandler(this.txtWildsSurfing_TextChanged);
-            // 
-            // txtWildsSurfingMax1
-            // 
-            this.txtWildsSurfingMax1.Location = new System.Drawing.Point(207, 92);
-            this.txtWildsSurfingMax1.MaxValue = 255;
-            this.txtWildsSurfingMax1.MinValue = 0;
-            this.txtWildsSurfingMax1.Name = "txtWildsSurfingMax1";
-            this.txtWildsSurfingMax1.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsSurfingMax1.TabIndex = 24;
-            this.txtWildsSurfingMax1.Text = "0";
-            this.txtWildsSurfingMax1.Value = 0;
-            this.txtWildsSurfingMax1.TextChanged += new System.EventHandler(this.txtWildsSurfing_TextChanged);
-            // 
-            // txtWildsSurfingMax0
-            // 
-            this.txtWildsSurfingMax0.Location = new System.Drawing.Point(207, 65);
-            this.txtWildsSurfingMax0.MaxValue = 255;
-            this.txtWildsSurfingMax0.MinValue = 0;
-            this.txtWildsSurfingMax0.Name = "txtWildsSurfingMax0";
-            this.txtWildsSurfingMax0.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsSurfingMax0.TabIndex = 23;
-            this.txtWildsSurfingMax0.Text = "0";
-            this.txtWildsSurfingMax0.Value = 0;
-            this.txtWildsSurfingMax0.TextChanged += new System.EventHandler(this.txtWildsSurfing_TextChanged);
-            // 
-            // txtWildsSurfingMin4
-            // 
-            this.txtWildsSurfingMin4.Location = new System.Drawing.Point(166, 173);
-            this.txtWildsSurfingMin4.MaxValue = 255;
-            this.txtWildsSurfingMin4.MinValue = 0;
-            this.txtWildsSurfingMin4.Name = "txtWildsSurfingMin4";
-            this.txtWildsSurfingMin4.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsSurfingMin4.TabIndex = 21;
-            this.txtWildsSurfingMin4.Text = "0";
-            this.txtWildsSurfingMin4.Value = 0;
-            this.txtWildsSurfingMin4.TextChanged += new System.EventHandler(this.txtWildsSurfing_TextChanged);
-            // 
-            // txtWildsSurfingMin3
-            // 
-            this.txtWildsSurfingMin3.Location = new System.Drawing.Point(166, 146);
-            this.txtWildsSurfingMin3.MaxValue = 255;
-            this.txtWildsSurfingMin3.MinValue = 0;
-            this.txtWildsSurfingMin3.Name = "txtWildsSurfingMin3";
-            this.txtWildsSurfingMin3.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsSurfingMin3.TabIndex = 18;
-            this.txtWildsSurfingMin3.Text = "0";
-            this.txtWildsSurfingMin3.Value = 0;
-            this.txtWildsSurfingMin3.TextChanged += new System.EventHandler(this.txtWildsSurfing_TextChanged);
-            // 
-            // txtWildsSurfingMin2
-            // 
-            this.txtWildsSurfingMin2.Location = new System.Drawing.Point(166, 119);
-            this.txtWildsSurfingMin2.MaxValue = 255;
-            this.txtWildsSurfingMin2.MinValue = 0;
-            this.txtWildsSurfingMin2.Name = "txtWildsSurfingMin2";
-            this.txtWildsSurfingMin2.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsSurfingMin2.TabIndex = 15;
-            this.txtWildsSurfingMin2.Text = "0";
-            this.txtWildsSurfingMin2.Value = 0;
-            this.txtWildsSurfingMin2.TextChanged += new System.EventHandler(this.txtWildsSurfing_TextChanged);
-            // 
-            // txtWildsSurfingMin1
-            // 
-            this.txtWildsSurfingMin1.Location = new System.Drawing.Point(166, 92);
-            this.txtWildsSurfingMin1.MaxValue = 255;
-            this.txtWildsSurfingMin1.MinValue = 0;
-            this.txtWildsSurfingMin1.Name = "txtWildsSurfingMin1";
-            this.txtWildsSurfingMin1.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsSurfingMin1.TabIndex = 12;
-            this.txtWildsSurfingMin1.Text = "0";
-            this.txtWildsSurfingMin1.Value = 0;
-            this.txtWildsSurfingMin1.TextChanged += new System.EventHandler(this.txtWildsSurfing_TextChanged);
-            // 
-            // txtWildsSurfingMin0
-            // 
-            this.txtWildsSurfingMin0.Location = new System.Drawing.Point(166, 65);
-            this.txtWildsSurfingMin0.MaxValue = 255;
-            this.txtWildsSurfingMin0.MinValue = 0;
-            this.txtWildsSurfingMin0.Name = "txtWildsSurfingMin0";
-            this.txtWildsSurfingMin0.Size = new System.Drawing.Size(35, 20);
-            this.txtWildsSurfingMin0.TabIndex = 7;
-            this.txtWildsSurfingMin0.Text = "0";
-            this.txtWildsSurfingMin0.Value = 0;
-            this.txtWildsSurfingMin0.TextChanged += new System.EventHandler(this.txtWildsSurfing_TextChanged);
-            // 
-            // txtWildsSurfingRate
-            // 
-            this.txtWildsSurfingRate.Location = new System.Drawing.Point(97, 19);
-            this.txtWildsSurfingRate.MaxValue = 255;
-            this.txtWildsSurfingRate.MinValue = 0;
-            this.txtWildsSurfingRate.Name = "txtWildsSurfingRate";
-            this.txtWildsSurfingRate.Size = new System.Drawing.Size(104, 20);
-            this.txtWildsSurfingRate.TabIndex = 3;
-            this.txtWildsSurfingRate.Text = "0";
-            this.txtWildsSurfingRate.Value = 0;
-            this.txtWildsSurfingRate.TextChanged += new System.EventHandler(this.txtWildsSurfingRate_TextChanged);
-            // 
-            // txtHeaderLvlScripts
-            // 
-            this.txtHeaderLvlScripts.Location = new System.Drawing.Point(6, 110);
-            this.txtHeaderLvlScripts.MaximumValue = ((uint)(65535u));
-            this.txtHeaderLvlScripts.MinimumValue = ((uint)(0u));
-            this.txtHeaderLvlScripts.Name = "txtHeaderLvlScripts";
-            this.txtHeaderLvlScripts.Size = new System.Drawing.Size(188, 20);
-            this.txtHeaderLvlScripts.TabIndex = 18;
-            this.txtHeaderLvlScripts.Text = "0";
-            this.txtHeaderLvlScripts.Value = ((uint)(0u));
-            this.txtHeaderLvlScripts.TextChanged += new System.EventHandler(this.txtHeaderFiles_TextChanged);
-            // 
-            // txtHeaderWildPokemon
-            // 
-            this.txtHeaderWildPokemon.Location = new System.Drawing.Point(207, 71);
-            this.txtHeaderWildPokemon.MaximumValue = ((uint)(65535u));
-            this.txtHeaderWildPokemon.MinimumValue = ((uint)(0u));
-            this.txtHeaderWildPokemon.Name = "txtHeaderWildPokemon";
-            this.txtHeaderWildPokemon.ReadOnly = true;
-            this.txtHeaderWildPokemon.Size = new System.Drawing.Size(188, 20);
-            this.txtHeaderWildPokemon.TabIndex = 16;
-            this.txtHeaderWildPokemon.Text = "0";
-            this.txtHeaderWildPokemon.Value = ((uint)(0u));
-            // 
-            // txtHeaderMatrix
-            // 
-            this.txtHeaderMatrix.Location = new System.Drawing.Point(207, 32);
-            this.txtHeaderMatrix.MaximumValue = ((uint)(65535u));
-            this.txtHeaderMatrix.MinimumValue = ((uint)(0u));
-            this.txtHeaderMatrix.Name = "txtHeaderMatrix";
-            this.txtHeaderMatrix.ReadOnly = true;
-            this.txtHeaderMatrix.Size = new System.Drawing.Size(188, 20);
-            this.txtHeaderMatrix.TabIndex = 14;
-            this.txtHeaderMatrix.Text = "0";
-            this.txtHeaderMatrix.Value = ((uint)(0u));
-            // 
-            // txtHeaderText
-            // 
-            this.txtHeaderText.Location = new System.Drawing.Point(6, 149);
-            this.txtHeaderText.MaximumValue = ((uint)(65535u));
-            this.txtHeaderText.MinimumValue = ((uint)(0u));
-            this.txtHeaderText.Name = "txtHeaderText";
-            this.txtHeaderText.Size = new System.Drawing.Size(188, 20);
-            this.txtHeaderText.TabIndex = 12;
-            this.txtHeaderText.Text = "0";
-            this.txtHeaderText.Value = ((uint)(0u));
-            this.txtHeaderText.TextChanged += new System.EventHandler(this.txtHeaderFiles_TextChanged);
-            // 
-            // txtHeaderScripts
-            // 
-            this.txtHeaderScripts.Location = new System.Drawing.Point(6, 71);
-            this.txtHeaderScripts.MaximumValue = ((uint)(65535u));
-            this.txtHeaderScripts.MinimumValue = ((uint)(0u));
-            this.txtHeaderScripts.Name = "txtHeaderScripts";
-            this.txtHeaderScripts.Size = new System.Drawing.Size(188, 20);
-            this.txtHeaderScripts.TabIndex = 10;
-            this.txtHeaderScripts.Text = "0";
-            this.txtHeaderScripts.Value = ((uint)(0u));
-            this.txtHeaderScripts.TextChanged += new System.EventHandler(this.txtHeaderFiles_TextChanged);
-            // 
-            // txtHeaderEvents
-            // 
-            this.txtHeaderEvents.Location = new System.Drawing.Point(6, 32);
-            this.txtHeaderEvents.MaximumValue = ((uint)(65535u));
-            this.txtHeaderEvents.MinimumValue = ((uint)(0u));
-            this.txtHeaderEvents.Name = "txtHeaderEvents";
-            this.txtHeaderEvents.Size = new System.Drawing.Size(188, 20);
-            this.txtHeaderEvents.TabIndex = 8;
-            this.txtHeaderEvents.Text = "0";
-            this.txtHeaderEvents.Value = ((uint)(0u));
-            this.txtHeaderEvents.TextChanged += new System.EventHandler(this.txtHeaderFiles_TextChanged);
-            // 
-            // txtHeaderFlags
-            // 
-            this.txtHeaderFlags.Location = new System.Drawing.Point(6, 110);
-            this.txtHeaderFlags.MaximumValue = ((uint)(255u));
-            this.txtHeaderFlags.MinimumValue = ((uint)(0u));
-            this.txtHeaderFlags.Name = "txtHeaderFlags";
-            this.txtHeaderFlags.Size = new System.Drawing.Size(188, 20);
-            this.txtHeaderFlags.TabIndex = 16;
-            this.txtHeaderFlags.Text = "0";
-            this.txtHeaderFlags.Value = ((uint)(0u));
-            this.txtHeaderFlags.TextChanged += new System.EventHandler(this.txtHeaderOptions_TextChanged);
-            // 
-            // txtHeaderCamera
-            // 
-            this.txtHeaderCamera.Location = new System.Drawing.Point(6, 71);
-            this.txtHeaderCamera.MaximumValue = ((uint)(255u));
-            this.txtHeaderCamera.MinimumValue = ((uint)(0u));
-            this.txtHeaderCamera.Name = "txtHeaderCamera";
-            this.txtHeaderCamera.NumberStyle = DSMap.NumericTextBox.NumberStyles.Hexadecimal;
-            this.txtHeaderCamera.Size = new System.Drawing.Size(188, 20);
-            this.txtHeaderCamera.TabIndex = 12;
-            this.txtHeaderCamera.Text = "0x0";
-            this.txtHeaderCamera.Value = ((uint)(0u));
-            this.txtHeaderCamera.TextChanged += new System.EventHandler(this.txtHeaderOptions_TextChanged);
-            // 
-            // txtHeaderWeather
-            // 
-            this.txtHeaderWeather.Location = new System.Drawing.Point(207, 71);
-            this.txtHeaderWeather.MaximumValue = ((uint)(255u));
-            this.txtHeaderWeather.MinimumValue = ((uint)(0u));
-            this.txtHeaderWeather.Name = "txtHeaderWeather";
-            this.txtHeaderWeather.Size = new System.Drawing.Size(188, 20);
-            this.txtHeaderWeather.TabIndex = 10;
-            this.txtHeaderWeather.Text = "0";
-            this.txtHeaderWeather.Value = ((uint)(0u));
-            this.txtHeaderWeather.TextChanged += new System.EventHandler(this.txtHeaderOptions_TextChanged);
-            // 
-            // txtHeaderMusicNight
-            // 
-            this.txtHeaderMusicNight.Location = new System.Drawing.Point(207, 32);
-            this.txtHeaderMusicNight.MaximumValue = ((uint)(65535u));
-            this.txtHeaderMusicNight.MinimumValue = ((uint)(0u));
-            this.txtHeaderMusicNight.Name = "txtHeaderMusicNight";
-            this.txtHeaderMusicNight.Size = new System.Drawing.Size(188, 20);
-            this.txtHeaderMusicNight.TabIndex = 8;
-            this.txtHeaderMusicNight.Text = "0";
-            this.txtHeaderMusicNight.Value = ((uint)(0u));
-            this.txtHeaderMusicNight.TextChanged += new System.EventHandler(this.txtHeaderOptions_TextChanged);
-            // 
-            // txtHeaderMusicDay
-            // 
-            this.txtHeaderMusicDay.Location = new System.Drawing.Point(6, 32);
-            this.txtHeaderMusicDay.MaximumValue = ((uint)(65535u));
-            this.txtHeaderMusicDay.MinimumValue = ((uint)(0u));
-            this.txtHeaderMusicDay.Name = "txtHeaderMusicDay";
-            this.txtHeaderMusicDay.Size = new System.Drawing.Size(188, 20);
-            this.txtHeaderMusicDay.TabIndex = 6;
-            this.txtHeaderMusicDay.Text = "0";
-            this.txtHeaderMusicDay.Value = ((uint)(0u));
-            this.txtHeaderMusicDay.TextChanged += new System.EventHandler(this.txtHeaderOptions_TextChanged);
-            // 
-            // txtHeaderNameFrame
-            // 
-            this.txtHeaderNameFrame.Location = new System.Drawing.Point(6, 98);
-            this.txtHeaderNameFrame.MaximumValue = ((uint)(255u));
-            this.txtHeaderNameFrame.MinimumValue = ((uint)(0u));
-            this.txtHeaderNameFrame.Name = "txtHeaderNameFrame";
-            this.txtHeaderNameFrame.Size = new System.Drawing.Size(188, 20);
-            this.txtHeaderNameFrame.TabIndex = 4;
-            this.txtHeaderNameFrame.Text = "0";
-            this.txtHeaderNameFrame.Value = ((uint)(0u));
-            this.txtHeaderNameFrame.TextChanged += new System.EventHandler(this.txtHeaderNameFrame_TextChanged);
-            // 
-            // txtHeaderNameStyle
-            // 
-            this.txtHeaderNameStyle.Location = new System.Drawing.Point(6, 59);
-            this.txtHeaderNameStyle.MaximumValue = ((uint)(255u));
-            this.txtHeaderNameStyle.MinimumValue = ((uint)(0u));
-            this.txtHeaderNameStyle.Name = "txtHeaderNameStyle";
-            this.txtHeaderNameStyle.Size = new System.Drawing.Size(188, 20);
-            this.txtHeaderNameStyle.TabIndex = 2;
-            this.txtHeaderNameStyle.Text = "0";
-            this.txtHeaderNameStyle.Value = ((uint)(0u));
-            this.txtHeaderNameStyle.TextChanged += new System.EventHandler(this.txtHeaderNameStyle_TextChanged);
-            // 
-            // txtHeaderObjectTextures
-            // 
-            this.txtHeaderObjectTextures.Location = new System.Drawing.Point(207, 32);
-            this.txtHeaderObjectTextures.MaximumValue = ((uint)(255u));
-            this.txtHeaderObjectTextures.MinimumValue = ((uint)(0u));
-            this.txtHeaderObjectTextures.Name = "txtHeaderObjectTextures";
-            this.txtHeaderObjectTextures.Size = new System.Drawing.Size(188, 20);
-            this.txtHeaderObjectTextures.TabIndex = 3;
-            this.txtHeaderObjectTextures.Text = "0";
-            this.txtHeaderObjectTextures.Value = ((uint)(0u));
-            // 
-            // txtHeaderMapTextures
-            // 
-            this.txtHeaderMapTextures.Location = new System.Drawing.Point(6, 32);
-            this.txtHeaderMapTextures.MaximumValue = ((uint)(255u));
-            this.txtHeaderMapTextures.MinimumValue = ((uint)(0u));
-            this.txtHeaderMapTextures.Name = "txtHeaderMapTextures";
-            this.txtHeaderMapTextures.Size = new System.Drawing.Size(188, 20);
-            this.txtHeaderMapTextures.TabIndex = 2;
-            this.txtHeaderMapTextures.Text = "0";
-            this.txtHeaderMapTextures.Value = ((uint)(0u));
+            // bTokenize
+            // 
+            this.bTokenize.Location = new System.Drawing.Point(345, 7);
+            this.bTokenize.Name = "bTokenize";
+            this.bTokenize.Size = new System.Drawing.Size(75, 23);
+            this.bTokenize.TabIndex = 3;
+            this.bTokenize.Text = "Tokenize";
+            this.bTokenize.UseVisualStyleBackColor = true;
+            this.bTokenize.Click += new System.EventHandler(this.bTokenize_Click);
             // 
             // MainForm
             // 
@@ -3711,8 +3848,13 @@
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pObjMap)).EndInit();
+            this.tabScripts.ResumeLayout(false);
+            this.tabControlScripts.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            this.tabWilds.ResumeLayout(false);
+            this.tabWilds.PerformLayout();
             this.tabControlWilds.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.groupBox16.ResumeLayout(false);
@@ -3818,7 +3960,7 @@
         private System.Windows.Forms.Button bModelExport;
         private System.Windows.Forms.SaveFileDialog saveDialog;
         private System.Windows.Forms.TextBox txtMapModelName;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabWilds;
         private System.Windows.Forms.ToolStripMenuItem patchingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createPatchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem applyPatchToolStripMenuItem;
@@ -4050,6 +4192,17 @@
         private NumericTextBox txtHeaderLvlScripts;
         private System.Windows.Forms.Label label73;
         private System.Windows.Forms.Button bHeaderTex;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabScripts;
+        private System.Windows.Forms.TabControl tabControlScripts;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.RichTextBox txtScripts;
+        private System.Windows.Forms.RichTextBox txtFunctions;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.RichTextBox txtTokens;
+        private System.Windows.Forms.Button bTokenize;
     }
 }
 

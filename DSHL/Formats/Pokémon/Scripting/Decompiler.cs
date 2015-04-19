@@ -8,15 +8,15 @@ namespace DSHL.Formats.Pokémon.Scripting
 {
     public class Decompiler
     {
-        private CommandDataBase commandDB;
+        private CommandDatabase commandDB;
         public List<Script> Scripts;
         public List<Script> Functions;
         private Queue<uint> ScriptOffsets;
         private Queue<uint> FunctionOffsets;
 
-        public Decompiler(CommandDataBase commandDatabase)
+        public Decompiler(CommandDatabase cdb)
         {
-            commandDB = commandDatabase;
+            commandDB = cdb;
 
             Scripts = new List<Script>();
             Functions = new List<Script>();
@@ -25,11 +25,29 @@ namespace DSHL.Formats.Pokémon.Scripting
             FunctionOffsets = new Queue<uint>();
         }
 
-        public void Decompile(BinaryReader br)
+        public void Reset()
         {
-            // Setup
             Scripts.Clear();
             Functions.Clear();
+
+            ScriptOffsets.Clear();
+            FunctionOffsets.Clear();
+        }
+
+        public void Decompile(byte[] buffer)
+        {
+            using (MemoryStream ms = new MemoryStream(buffer))
+            {
+                BinaryReader br = new BinaryReader(ms);
+                Decompile(br);
+                br.Dispose();
+            }
+        }
+
+        public void Decompile(BinaryReader br)
+        {
+            // Reset
+            Reset();
 
             // Read header
             ScriptOffsets.Clear();
@@ -43,6 +61,7 @@ namespace DSHL.Formats.Pokémon.Scripting
 
             // Read the scripts
             #region Scripts
+            int scrL = 1;
             if (ScriptOffsets.Count == 0) return;
             while (ScriptOffsets.Count > 0)
             {
@@ -52,7 +71,7 @@ namespace DSHL.Formats.Pokémon.Scripting
 
                 // Goto
                 br.BaseStream.Seek(scriptOffset, SeekOrigin.Begin);
-                Script script = new Script();
+                Script script = new Script("script" + scrL); scrL++;
                 script.Offset = scriptOffset;
 
                 // Read commands
@@ -64,13 +83,13 @@ namespace DSHL.Formats.Pokémon.Scripting
                     if (cmd.IsJump)
                     {
                         // Get offset of function
-                        uint fOffset = cmd.Arguments.Last() + (uint)br.BaseStream.Position;
-                        cmd.JumpOffset = fOffset;
+                        //uint fOffset = cmd.Arguments.Last() + (uint)br.BaseStream.Position;
+                        //cmd.JumpOffset = fOffset;
 
                         // Check if it's a new jump
-                        if (!FunctionOffsets.Contains(fOffset) && !ScriptOffsets.Contains(fOffset))
+                        if (!FunctionOffsets.Contains(cmd.JumpOffset) && !ScriptOffsets.Contains(cmd.JumpOffset))
                         {
-                            FunctionOffsets.Enqueue(fOffset);
+                            FunctionOffsets.Enqueue(cmd.JumpOffset);
                         }
                     }
 
@@ -85,6 +104,7 @@ namespace DSHL.Formats.Pokémon.Scripting
 
             // Read the functions
             #region Functions
+            scrL = 1;
             List<uint> doneFunctions = new List<uint>();
             while (FunctionOffsets.Count > 0)
             {
@@ -96,7 +116,7 @@ namespace DSHL.Formats.Pokémon.Scripting
 
                 // Goto
                 br.BaseStream.Seek(functionOffset, SeekOrigin.Begin);
-                Script func = new Script();
+                Script func = new Script("func" + scrL); scrL++;
                 func.Offset = functionOffset;
 
                 // Read commands
@@ -108,13 +128,13 @@ namespace DSHL.Formats.Pokémon.Scripting
                     if (cmd.IsJump)
                     {
                         // Get offset of function
-                        uint fOffset = cmd.Arguments.Last() + (uint)br.BaseStream.Position;
-                        cmd.JumpOffset = fOffset;
+                        //uint fOffset = cmd.Arguments.Last() + (uint)br.BaseStream.Position;
+                        //cmd.JumpOffset = fOffset;
 
                         // Check if it's a new jump
-                        if (!FunctionOffsets.Contains(fOffset) && !doneFunctions.Contains(fOffset))
+                        if (!FunctionOffsets.Contains(cmd.JumpOffset) && !doneFunctions.Contains(cmd.JumpOffset))
                         {
-                            FunctionOffsets.Enqueue(fOffset);
+                            FunctionOffsets.Enqueue(cmd.JumpOffset);
                         }
                     }
 
@@ -184,7 +204,11 @@ namespace DSHL.Formats.Pokémon.Scripting
                             break;
                         case "-f": // Jump to Func (32)
                             cmd.IsJump = true;
-                            cmd.Arguments.Add(br.ReadUInt32());
+                            {
+                                uint offset = (uint)br.BaseStream.Position + br.ReadUInt32();
+                                cmd.Arguments.Add(offset);
+                                cmd.JumpOffset = offset;
+                            }
                             break;
                         case "-m": // Jump to Move (32)
                             cmd.IsMoveJump = true;
@@ -201,15 +225,146 @@ namespace DSHL.Formats.Pokémon.Scripting
             return cmd;
         }
 
+        public string ScriptsToString()
+        {
+            string r = "# There are " + Scripts.Count + " scripts.\n\n";
+            foreach (var script in Scripts)
+            {
+                r += "@ " + script.Name + " { # 0x" + script.Offset.ToString("X") + "\n";
+                //r += ScriptToString(script);
+                foreach (var cmd in script.Commands)
+                {
+                    r += "\t" + cmd.Name;
+                    string[] args = commandDB.GetCommandArguments(cmd.Value);
+                    for (int i = 0; i < cmd.Arguments.Count; i++)
+                    {
+                        if (args[i] == "-e") break; // Just in case, break
+
+                        r += " ";
+                        if (cmd.IsJump && args[i] == "-f") // For when we want a script name
+                        {
+                            string n = GetScriptNameAtOffset(cmd.Arguments[i]);
+                            if (n != string.Empty)
+                            {
+                                r += n;
+                                continue;
+                            }
+
+                            n = GetFunctionNameAtOffset(cmd.Arguments[i]);
+                            if (n != string.Empty)
+                            {
+                                r += n;
+                                continue;
+                            }
+
+                            r += "0x" + cmd.Arguments[i].ToString("X") + " # This should point to a script!";
+                            throw new Exception("Could not find a function/script to jump to!");
+                            //r += GetScriptNameAtOffset(cmd.Arguments[i]);
+                            //r += "UnknownScript/Function!!! // 0x" + cmd.Arguments[i].ToString("X");
+                        }
+                        else if (cmd.IsMoveJump && args[i] == "-m") // For when we want a movement name
+                        {
+                            r += "move" + cmd.Arguments[i].ToString("X");
+                        }
+                        else
+                        {
+                            r += "0x" + cmd.Arguments[i].ToString("X");
+                        }
+                    }
+                    r += ";\n";
+                }
+                r += "}\n\n";
+            }
+            return r;
+        }
+
+        public string FunctionsToString()
+        {
+            string r = "# There are " + Functions.Count + " functions.\n\n";
+            foreach (var func in Functions)
+            {
+                r += "@ " + func.Name + " { # 0x" + func.Offset.ToString("X") + "\n";
+                //r += ScriptToString(script);
+                foreach (var cmd in func.Commands)
+                {
+                    r += "\t" + cmd.Name;
+                    string[] args = commandDB.GetCommandArguments(cmd.Value);
+                    for (int i = 0; i < cmd.Arguments.Count; i++)
+                    {
+                        if (args[i] == "-e") break; // Just in case, break
+
+                        r += " ";
+                        if (cmd.IsJump && args[i] == "-f") // For when we want a script name
+                        {
+                            string n = GetScriptNameAtOffset(cmd.Arguments[i]);
+                            if (n != string.Empty)
+                            {
+                                r += n;
+                                continue;
+                            }
+
+                            n = GetFunctionNameAtOffset(cmd.Arguments[i]);
+                            if (n != string.Empty)
+                            {
+                                r += n;
+                                continue;
+                            }
+
+                            r += "0x" +  cmd.Arguments[i].ToString("X") + " # This should point to a script!";
+                            throw new Exception("Could not find a function/script to jump to!");
+                            //r += GetScriptNameAtOffset(cmd.Arguments[i]);
+                            //r += "UnknownScript/Function!!! // 0x" + cmd.Arguments[i].ToString("X");
+                        }
+                        else if (cmd.IsMoveJump && args[i] == "-m") // For when we want a movement name
+                        {
+                            r += "move" + cmd.Arguments[i].ToString("X");
+                        }
+                        else
+                        {
+                            r += "0x" + cmd.Arguments[i].ToString("X");
+                        }
+                    }
+                    r += ";\n";
+                }
+                r += "}\n\n";
+            }
+            return r;
+        }
+
+        public string MovementsToString()
+        {
+            return "~Not yet~";
+        }
+
+        public string GetScriptNameAtOffset(uint offset)
+        {
+            for (int i = 0; i < Scripts.Count; i++)
+            {
+                if (Scripts[i].Offset == offset) return Scripts[i].Name;
+            }
+            return string.Empty;
+        }
+
+        public string GetFunctionNameAtOffset(uint offset)
+        {
+            for (int i = 0; i < Functions.Count; i++)
+            {
+                if (Functions[i].Offset == offset) return Functions[i].Name;
+            }
+            return string.Empty;
+        }
+
         public class Script
         {
             public uint Offset;
             public List<Command> Commands;
+            public string Name;
 
-            public Script()
+            public Script(string name)
             {
                 Offset = 0;
                 Commands = new List<Command>();
+                Name = name;
             }
         }
 

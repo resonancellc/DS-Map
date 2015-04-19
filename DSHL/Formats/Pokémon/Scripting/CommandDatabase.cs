@@ -8,15 +8,21 @@ using System.Globalization;
 namespace DSHL.Formats.Pokémon.Scripting
 {
 
-    public class CommandDataBase
+    public class CommandDatabase
     {
         private Dictionary<ushort, Command> commandsByValue;
         private Dictionary<string, Command> commandsByName;
 
-        public CommandDataBase()
+        public CommandDatabase()
         {
             commandsByValue = new Dictionary<ushort, Command>();
             commandsByName = new Dictionary<string, Command>();
+        }
+
+        ~CommandDatabase()
+        {
+            //commandsByName.Clear();
+            //commandsByValue.Clear();
         }
 
         public void Load(string file)

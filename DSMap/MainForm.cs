@@ -13,6 +13,7 @@ using DSHL;
 using DSHL.Formats.Nitro;
 using DSHL.Formats.Nitro.Models;
 using DSHL.Formats.Pokémon;
+using DSHL.Formats.Pokémon.Scripting;
 
 using OpenTK.Graphics.OpenGL;
 
@@ -32,6 +33,10 @@ namespace DSMap
         private NARC mapTextureData;
         private NARC encounterData;
         private PkmnText locationNames;
+        private NARC scriptData;
+
+        private CommandDatabase scriptCommands = new CommandDatabase();
+        private Decompiler scriptDecompiler = null;// = new Decompiler();
 
         // editing
         private int selectedMap = -1;
@@ -157,6 +162,8 @@ namespace DSMap
             Temporary.Dispose();
         }
 
+        #region Menu
+
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             openDialog.FileName = "";
@@ -276,6 +283,7 @@ namespace DSMap
             MessageBox.Show("Patch applied successfully!", "Yay~", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        #endregion
 
         private void LoadROMData()
         {
@@ -305,6 +313,11 @@ namespace DSMap
                 headerTable = ini.GetUInt32(rom.Header.Code, "HeaderTable", 16);
                 Dictionary<int, int> headerMatrixMatches = Header.LoadHeaderMatrixMatches(rom.GetFullFilePath("arm9.bin"), headerTable, headerNames.Length);
                 Dictionary<int, List<int>> headerMapMatches = Matrix.LoadHeaderMapMatches(matrixData, headerMatrixMatches);
+
+                // Load scipt data
+                scriptData = new NARC(GetROMFilePathFromIni("ScriptData"));
+                scriptCommands.Load("assets\\" + ini[rom.Header.Code, "ScriptCommands"]);
+                scriptDecompiler = new Decompiler(scriptCommands);
 
                 // Load text that we need
                 NARC textData = new NARC(GetROMFilePathFromIni("MessageData"));
@@ -516,8 +529,18 @@ namespace DSMap
                 mapTexturesSet = true; // This will allow textures to be loaded
             }
 
+            // Load scripts
+            if (header.Scripts < 0xFFFF)
+            {
+                scriptDecompiler.Decompile(scriptData.GetFile(header.Scripts));
+            }
+            else
+            {
+                // todo
+            }
+
             // Load encounters
-            if (header.WildPokemon != 0xFFFF)
+            if (header.WildPokemon < 0xFFFF)
             {
                 using (MemoryStream ms = encounterData.GetFileMemoryStream(header.WildPokemon))
                 {
@@ -555,6 +578,21 @@ namespace DSMap
                 listObjects.Items.Add(item);
             }
             selectedObj = -1;
+            #endregion
+
+            #region Scripts
+
+            if (header.Scripts < 0xFFFF)
+            {
+                tabControlScripts.Visible = true;
+                txtScripts.Text = scriptDecompiler.ScriptsToString();
+                txtFunctions.Text = scriptDecompiler.FunctionsToString();
+            }
+            else
+            {
+                tabControlScripts.Visible = false;
+            }
+
             #endregion
 
             #region Wild Pokemon
@@ -710,6 +748,8 @@ namespace DSMap
 
             mc = false;
         }
+
+        #region Map
 
         #region Movements
 
@@ -1303,6 +1343,8 @@ namespace DSMap
 
         #endregion
 
+        #endregion
+
         #region Wild Pokémon
 
         #region Grass
@@ -1646,5 +1688,16 @@ namespace DSMap
         }
 
         #endregion
+
+        private void bTokenize_Click(object sender, EventArgs e)
+        {
+            Tokenizer.Token[] tokens = Tokenizer.Tokenize(txtScripts.Text);
+
+            txtTokens.Text = "";
+            foreach (var t in tokens)
+            {
+                txtTokens.Text += t.ToString() + " ";
+            }
+        }
     }
 }
