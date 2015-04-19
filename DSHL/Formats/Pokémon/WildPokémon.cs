@@ -6,7 +6,7 @@ using System.IO;
 
 namespace DSHL.Formats.Pokémon
 {
-    public class Encounters
+    public class WildPokémon
     {
         public int WalkingRate;
         public int[] WalkingSpecies;
@@ -36,7 +36,7 @@ namespace DSHL.Formats.Pokémon
         // ushort[] padding
         public int[] SuperRodSpecies;
 
-        public Encounters(MemoryStream file)
+        public WildPokémon(MemoryStream file)
         {
             // Initialize a ton of arrays
             WalkingSpecies = new int[12];

@@ -37,7 +37,7 @@ namespace DSMap
         private Map map = null;
         private Header header = null;
         private Dictionary<int, int> mapHeaders = new Dictionary<int, int>();
-        private Encounters encounters = null;
+        private WildPokémon encounters = null;
 
         private int selectedObj = -1;
 
@@ -144,7 +144,11 @@ namespace DSMap
             GL.Viewport(0, 0, glMapModel.Width, glMapModel.Height);
 
             // Console stuff
-            
+            // TODO
+
+            // Hide wild Pokémon editor
+            tabControlWilds.Visible = false;
+            lblNoWilds.Visible = false;
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -192,9 +196,15 @@ namespace DSMap
 
             // Save data
             mapData.ReplaceFile(selectedMap, map.Save());
+            if (encounters != null && header.WildPokemon < 0xFFFF)
+            {
+                encounterData.ReplaceFile(header.WildPokemon, encounters.Save());
+            }
+            header.Save(rom.GetFullFilePath("arm9.bin"), headerTable, mapHeaders[selectedMap]);
 
             // Save NARCs
             mapData.Save();
+            encounterData.Save();
         }
 
 
@@ -273,6 +283,7 @@ namespace DSMap
         {
             if (!rom.IsLoaded()) return;
 
+            mc = true;
             try
             {
                 // Load the map and matrix NARCs
@@ -451,6 +462,7 @@ namespace DSMap
             {
                 MessageBox.Show(ex.Message + "\n\n" + ex.StackTrace);
             }
+            mc = false;
         }
 
         private string GetROMFilePathFromIni(string iniSection)
@@ -485,6 +497,8 @@ namespace DSMap
 
         private void LoadAll()
         {
+            mc = true;
+
             // Load the map
             using (MemoryStream ms = mapData.GetFileMemoryStream(selectedMap))
             {
@@ -511,8 +525,12 @@ namespace DSMap
             {
                 using (MemoryStream ms = encounterData.GetFileMemoryStream(header.WildPokemon))
                 {
-                    encounters = new Encounters(ms);
+                    encounters = new WildPokémon(ms);
                 }
+            }
+            else
+            {
+                encounters = null;
             }
 
             // Display
@@ -667,6 +685,8 @@ namespace DSMap
             // Show header
             txtHMapTextures.Value = header.MapTextures;
             txtHObjectTextures.Value = header.ObjectTexutres;
+
+            mc = false;
         }
 
         #region Movements
@@ -1261,8 +1281,272 @@ namespace DSMap
 
         #endregion
 
+        #region Wild Pokémon
 
+        #region Grass
 
+        private void txtWildsWalkingRate_TextChanged(object sender, EventArgs e)
+        {
+            // Label
+            lblWildsWalkingRate.Text = Math.Round(((double)txtWildsWalkingRate.Value / 255d) * 100d, 1) + "%";
 
+            // Set data
+            if (!mc)
+            {
+                encounters.WalkingRate = txtWildsWalkingRate.Value;
+            }
+        }
+
+        private void cWildsWalking_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (mc || encounters == null) return;
+
+            // Set walking Pokémon species
+            encounters.WalkingSpecies[0] = cWildsWalking0.SelectedIndex;
+            encounters.WalkingSpecies[1] = cWildsWalking1.SelectedIndex;
+            encounters.WalkingSpecies[2] = cWildsWalking2.SelectedIndex;
+            encounters.WalkingSpecies[3] = cWildsWalking3.SelectedIndex;
+            encounters.WalkingSpecies[4] = cWildsWalking4.SelectedIndex;
+            encounters.WalkingSpecies[5] = cWildsWalking5.SelectedIndex;
+            encounters.WalkingSpecies[6] = cWildsWalking6.SelectedIndex;
+            encounters.WalkingSpecies[7] = cWildsWalking7.SelectedIndex;
+            encounters.WalkingSpecies[8] = cWildsWalking8.SelectedIndex;
+            encounters.WalkingSpecies[9] = cWildsWalking9.SelectedIndex;
+            encounters.WalkingSpecies[10] = cWildsWalking10.SelectedIndex;
+            encounters.WalkingSpecies[11] = cWildsWalking11.SelectedIndex;//*/
+        }
+
+        private void txtWildsWalking_TextChanged(object sender, EventArgs e)
+        {
+            if (mc || encounters == null) return;
+
+            // Set walking Pokémon levels
+            encounters.WalkingLevels[0] = txtWildsWalking0.Value;
+            encounters.WalkingLevels[1] = txtWildsWalking1.Value;
+            encounters.WalkingLevels[2] = txtWildsWalking2.Value;
+            encounters.WalkingLevels[3] = txtWildsWalking3.Value;
+            encounters.WalkingLevels[4] = txtWildsWalking4.Value;
+            encounters.WalkingLevels[5] = txtWildsWalking5.Value;
+            encounters.WalkingLevels[6] = txtWildsWalking6.Value;
+            encounters.WalkingLevels[7] = txtWildsWalking7.Value;
+            encounters.WalkingLevels[8] = txtWildsWalking8.Value;
+            encounters.WalkingLevels[9] = txtWildsWalking9.Value;
+            encounters.WalkingLevels[10] = txtWildsWalking10.Value;
+            encounters.WalkingLevels[11] = txtWildsWalking11.Value;
+        }
+
+        private void cWildsTime_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (mc || encounters == null) return;
+
+            encounters.Morning[0] = cWildsMorn0.SelectedIndex;
+            encounters.Morning[1] = cWildsMorn1.SelectedIndex;
+            encounters.Day[0] = cWildsDay0.SelectedIndex;
+            encounters.Day[1] = cWildsDay1.SelectedIndex;
+            encounters.Night[0] = cWildsNight0.SelectedIndex;
+            encounters.Night[1] = cWildsNight1.SelectedIndex;
+        }
+
+        private void cWildsRadar_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (mc || encounters == null) return;
+
+            encounters.Radar[0] = cWildsRadar0.SelectedIndex;
+            encounters.Radar[1] = cWildsRadar1.SelectedIndex;
+            encounters.Radar[2] = cWildsRadar2.SelectedIndex;
+            encounters.Radar[3] = cWildsRadar3.SelectedIndex;
+        }
+
+        private void cWildsDual_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (mc || encounters == null) return;
+
+            encounters.Ruby[0] = cWildsRuby0.SelectedIndex;
+            encounters.Ruby[1] = cWildsRuby1.SelectedIndex;
+            encounters.Sapphire[0] = cWildsSapp0.SelectedIndex;
+            encounters.Sapphire[1] = cWildsSapp1.SelectedIndex;
+            encounters.FireRed[0] = cWildsFire0.SelectedIndex;
+            encounters.FireRed[1] = cWildsFire1.SelectedIndex;
+            encounters.LeafGreen[0] = cWildsLeaf0.SelectedIndex;
+            encounters.LeafGreen[1] = cWildsLeaf1.SelectedIndex;
+            encounters.Emerald[0] = cWildsEm0.SelectedIndex;
+            encounters.Emerald[1] = cWildsEm1.SelectedIndex;
+        }
+
+        #endregion
+
+        #region Water
+
+        private void txtWildsSurfingRate_TextChanged(object sender, EventArgs e)
+        {
+            // Label
+            lblWildsSurfingRate.Text = Math.Round(((double)txtWildsSurfingRate.Value / 255d) * 100d, 1) + "%";
+
+            // Set data
+            if (!mc && encounters != null)
+            {
+                encounters.SurfingRate = txtWildsSurfingRate.Value;
+            }
+        }
+
+        private void txtWildsORRate_TextChanged(object sender, EventArgs e)
+        {
+            // Label
+            lblWildsORRate.Text = Math.Round(((double)txtWildsORRate.Value / 255d) * 100d, 1) + "%";
+
+            // Set data
+            if (!mc && encounters != null)
+            {
+                encounters.OldRodRate = txtWildsORRate.Value;
+            }
+        }
+
+        private void txtWildsGRRate_TextChanged(object sender, EventArgs e)
+        {
+            // Label
+            lblWildsGRRate.Text = Math.Round(((double)txtWildsGRRate.Value / 255d) * 100d, 1) + "%";
+
+            // Set data
+            if (!mc && encounters != null)
+            {
+                encounters.GoodRodRate = txtWildsGRRate.Value;
+            }
+        }
+
+        private void txtWildsSRRate_TextChanged(object sender, EventArgs e)
+        {
+            // Label
+            lblWildsSRRate.Text = Math.Round(((double)txtWildsSRRate.Value / 255d) * 100d, 1) + "%";
+
+            // Set data
+            if (!mc && encounters != null)
+            {
+                encounters.SuperRodRate = txtWildsSRRate.Value;
+            }
+        }
+
+        private void cWildsSurfing_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (mc || encounters == null) return;
+
+            // Set surfing Pokémon species
+            encounters.SurfingSpecies[0] = cWildsSurfing0.SelectedIndex;
+            encounters.SurfingSpecies[1] = cWildsSurfing1.SelectedIndex;
+            encounters.SurfingSpecies[2] = cWildsSurfing2.SelectedIndex;
+            encounters.SurfingSpecies[3] = cWildsSurfing3.SelectedIndex;
+            encounters.SurfingSpecies[4] = cWildsSurfing4.SelectedIndex;
+        }
+
+        private void txtWildsSurfing_TextChanged(object sender, EventArgs e)
+        {
+            if (mc || encounters == null) return;
+
+            // Set surfing Pokémon levels
+            encounters.SurfingMinLevels[0] = (byte)txtWildsSurfingMin0.Value;
+            encounters.SurfingMinLevels[1] = (byte)txtWildsSurfingMin1.Value;
+            encounters.SurfingMinLevels[2] = (byte)txtWildsSurfingMin2.Value;
+            encounters.SurfingMinLevels[3] = (byte)txtWildsSurfingMin3.Value;
+            encounters.SurfingMinLevels[4] = (byte)txtWildsSurfingMin4.Value;
+
+            encounters.SurfingMaxLevels[0] = (byte)txtWildsSurfingMax0.Value;
+            encounters.SurfingMaxLevels[1] = (byte)txtWildsSurfingMax1.Value;
+            encounters.SurfingMaxLevels[2] = (byte)txtWildsSurfingMax2.Value;
+            encounters.SurfingMaxLevels[3] = (byte)txtWildsSurfingMax3.Value;
+            encounters.SurfingMaxLevels[4] = (byte)txtWildsSurfingMax4.Value;
+        }
+
+        private void cWildsOR_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (mc || encounters == null) return;
+
+            // Set Old Rod Pokémon species
+            encounters.OldRodSpecies[0] = cWildsOR0.SelectedIndex;
+            encounters.OldRodSpecies[1] = cWildsOR1.SelectedIndex;
+            encounters.OldRodSpecies[2] = cWildsOR2.SelectedIndex;
+            encounters.OldRodSpecies[3] = cWildsOR3.SelectedIndex;
+            encounters.OldRodSpecies[4] = cWildsOR4.SelectedIndex;
+        }
+
+        private void txtWildsOR_TextChanged(object sender, EventArgs e)
+        {
+            if (mc || encounters == null) return;
+
+            // Set Old Rod Pokémon levels
+            encounters.OldRodMinLevels[0] = (byte)txtWildsORMin0.Value;
+            encounters.OldRodMinLevels[1] = (byte)txtWildsORMin1.Value;
+            encounters.OldRodMinLevels[2] = (byte)txtWildsORMin2.Value;
+            encounters.OldRodMinLevels[3] = (byte)txtWildsORMin3.Value;
+            encounters.OldRodMinLevels[4] = (byte)txtWildsORMin4.Value;
+
+            encounters.OldRodMaxLevels[0] = (byte)txtWildsORMax0.Value;
+            encounters.OldRodMaxLevels[1] = (byte)txtWildsORMax1.Value;
+            encounters.OldRodMaxLevels[2] = (byte)txtWildsORMax2.Value;
+            encounters.OldRodMaxLevels[3] = (byte)txtWildsORMax3.Value;
+            encounters.OldRodMaxLevels[4] = (byte)txtWildsORMax4.Value;
+        }
+
+        private void cWildsGR_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (mc || encounters == null) return;
+
+            // Set Good Rod Pokémon species
+            encounters.GoodRodSpecies[0] = cWildsGR0.SelectedIndex;
+            encounters.GoodRodSpecies[1] = cWildsGR1.SelectedIndex;
+            encounters.GoodRodSpecies[2] = cWildsGR2.SelectedIndex;
+            encounters.GoodRodSpecies[3] = cWildsGR3.SelectedIndex;
+            encounters.GoodRodSpecies[4] = cWildsGR4.SelectedIndex;
+        }
+
+        private void txtWildsGR_TextChanged(object sender, EventArgs e)
+        {
+            if (mc || encounters == null) return;
+
+            // Set Good Rod Pokémon levels
+            encounters.GoodRodMinLevels[0] = (byte)txtWildsGRMin0.Value;
+            encounters.GoodRodMinLevels[1] = (byte)txtWildsGRMin1.Value;
+            encounters.GoodRodMinLevels[2] = (byte)txtWildsGRMin2.Value;
+            encounters.GoodRodMinLevels[3] = (byte)txtWildsGRMin3.Value;
+            encounters.GoodRodMinLevels[4] = (byte)txtWildsGRMin4.Value;
+
+            encounters.GoodRodMaxLevels[0] = (byte)txtWildsGRMax0.Value;
+            encounters.GoodRodMaxLevels[1] = (byte)txtWildsGRMax1.Value;
+            encounters.GoodRodMaxLevels[2] = (byte)txtWildsGRMax2.Value;
+            encounters.GoodRodMaxLevels[3] = (byte)txtWildsGRMax3.Value;
+            encounters.GoodRodMaxLevels[4] = (byte)txtWildsGRMax4.Value;
+        }
+
+        private void cWildsSR_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (mc || encounters == null) return;
+
+            // Set Old Rod Pokémon species
+            encounters.SuperRodSpecies[0] = cWildsSR0.SelectedIndex;
+            encounters.SuperRodSpecies[1] = cWildsSR1.SelectedIndex;
+            encounters.SuperRodSpecies[2] = cWildsSR2.SelectedIndex;
+            encounters.SuperRodSpecies[3] = cWildsSR3.SelectedIndex;
+            encounters.SuperRodSpecies[4] = cWildsSR4.SelectedIndex;
+        }
+
+        private void txtWildsSR_TextChanged(object sender, EventArgs e)
+        {
+            if (mc || encounters == null) return;
+
+            // Set Old Rod Pokémon levels
+            encounters.SuperRodMinLevels[0] = (byte)txtWildsSRMin0.Value;
+            encounters.SuperRodMinLevels[1] = (byte)txtWildsSRMin1.Value;
+            encounters.SuperRodMinLevels[2] = (byte)txtWildsSRMin2.Value;
+            encounters.SuperRodMinLevels[3] = (byte)txtWildsSRMin3.Value;
+            encounters.SuperRodMinLevels[4] = (byte)txtWildsSRMin4.Value;
+
+            encounters.SuperRodMaxLevels[0] = (byte)txtWildsSRMax0.Value;
+            encounters.SuperRodMaxLevels[1] = (byte)txtWildsSRMax1.Value;
+            encounters.SuperRodMaxLevels[2] = (byte)txtWildsSRMax2.Value;
+            encounters.SuperRodMaxLevels[3] = (byte)txtWildsSRMax3.Value;
+            encounters.SuperRodMaxLevels[4] = (byte)txtWildsSRMax4.Value;
+        }
+
+        #endregion
+
+        #endregion
     }
 }

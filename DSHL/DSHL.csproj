@@ -45,7 +45,7 @@
     <Compile Include="Formats\Nitro\Models\NSBTX.cs" />
     <Compile Include="Formats\Nitro\Models\OBJ.cs" />
     <Compile Include="Formats\Nitro\NARC.cs" />
-    <Compile Include="Formats\Pokémon\Encounter.cs" />
+    <Compile Include="Formats\Pokémon\WildPokémon.cs" />
     <Compile Include="Formats\Pokémon\Header.cs" />
     <Compile Include="Formats\Pokémon\Map.cs" />
     <Compile Include="Formats\Pokémon\Matrix.cs" />
