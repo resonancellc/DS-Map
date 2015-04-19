@@ -239,6 +239,7 @@
             this.label41 = new System.Windows.Forms.Label();
             this.cHeaderName = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.bHeaderTex = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pBanner = new System.Windows.Forms.PictureBox();
@@ -325,7 +326,6 @@
             this.txtHeaderNameStyle = new DSMap.NumericTextBox();
             this.txtHeaderObjectTextures = new DSMap.NumericTextBox();
             this.txtHeaderMapTextures = new DSMap.NumericTextBox();
-            this.bHeaderTex = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -2656,6 +2656,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Textures";
             // 
+            // bHeaderTex
+            // 
+            this.bHeaderTex.Location = new System.Drawing.Point(6, 58);
+            this.bHeaderTex.Name = "bHeaderTex";
+            this.bHeaderTex.Size = new System.Drawing.Size(188, 23);
+            this.bHeaderTex.TabIndex = 8;
+            this.bHeaderTex.Text = "Modify and Reload Map";
+            this.bHeaderTex.UseVisualStyleBackColor = true;
+            this.bHeaderTex.Click += new System.EventHandler(this.bHeaderTex_Click);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -3662,16 +3672,6 @@
             this.txtHeaderMapTextures.TabIndex = 2;
             this.txtHeaderMapTextures.Text = "0";
             this.txtHeaderMapTextures.Value = ((uint)(0u));
-            // 
-            // bHeaderTex
-            // 
-            this.bHeaderTex.Location = new System.Drawing.Point(6, 58);
-            this.bHeaderTex.Name = "bHeaderTex";
-            this.bHeaderTex.Size = new System.Drawing.Size(188, 23);
-            this.bHeaderTex.TabIndex = 8;
-            this.bHeaderTex.Text = "Modify and Reload Map";
-            this.bHeaderTex.UseVisualStyleBackColor = true;
-            this.bHeaderTex.Click += new System.EventHandler(this.bHeaderTex_Click);
             // 
             // MainForm
             // 

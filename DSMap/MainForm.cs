@@ -83,20 +83,20 @@ namespace DSMap
             }
 
             // Load Games.ini
-            if (!File.Exists("Games.ini"))
+            if (!File.Exists("assets\\games.ini"))
             {
-                MessageBox.Show("Could not find Games.ini!\nPlease place a copy in this tool's directory before use.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Could not find games.ini!\nPlease place a copy in the assets directory before use.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
             }
             else
             {
-                ini.Load("Games.ini");
+                ini.Load("assets\\games.ini");
             }
 
             // Load movements palette
-            if (File.Exists("Movements.act"))
+            if (File.Exists("assets\\movements.act"))
             {
-                using (FileStream fs = File.OpenRead("Movements.act"))
+                using (FileStream fs = File.OpenRead("assets\\movements.act"))
                 {
                     movementsPalette = new Color[256];
                     for (int i = 0; i < 256; i++)
@@ -111,15 +111,15 @@ namespace DSMap
             }
             else
             {
-                MessageBox.Show("Could not find Movements.act!\nPlease place a copy in this tool's directory before use.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Could not find movements.act!\nPlease place a copy in the assets directory before use.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
             }
 
             // Finally, load behaviours
             // TODO: Other text (for language?)
-            if (File.Exists("Text.ini"))
+            if (File.Exists("assets\\text.ini"))
             {
-                Ini text = new Ini("Text.ini");
+                Ini text = new Ini("assets\\text.ini");
 
                 // Fill movement permissions
                 cMovePermission.Items.Clear();
@@ -132,7 +132,7 @@ namespace DSMap
             }
             else
             {
-                MessageBox.Show("Could not find Games.ini!\nPlease place a copy in this tool's directory before use.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Could not find text.ini!\nPlease place a copy in the assets directory before use.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
             }
 
@@ -178,7 +178,6 @@ namespace DSMap
                 watch.Stop();
 
                 MessageBox.Show("Done!\nYour ROM was loaded in " + watch.Elapsed.TotalSeconds + " s!");
-                //MessageBox.Show("Code: '" + rom.Header.Code + "'");
             }
         }
 
@@ -818,7 +817,7 @@ namespace DSMap
             pMovements.Invalidate();
 
             // Save the palette
-            using (FileStream fs = File.OpenWrite("Movements.act"))
+            using (FileStream fs = File.OpenWrite("assets\\movements.act"))
             {
                 for (int i = 0; i < 256; i++)
                 {
@@ -951,7 +950,7 @@ namespace DSMap
 
         private void glMapModel_Paint(object sender, PaintEventArgs e)
         {
-            GL.ClearColor(0f, 0f, 0f, 1f); // That cool looking gray
+            GL.ClearColor(0.1f, 0.1f, 0.1f, 1f); // That cool looking gray
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             GL.PushMatrix();    // For translation and scale
