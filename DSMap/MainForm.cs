@@ -31,6 +31,7 @@ namespace DSMap
         private string[] headerNames;
         private NARC mapTextureData;
         private NARC encounterData;
+        private PkmnText locationNames;
 
         // editing
         private int selectedMap = -1;
@@ -41,7 +42,6 @@ namespace DSMap
 
         private int selectedObj = -1;
 
-        //private Model mapModel;
         private NSBTX mapTextures;
         private bool mapTexturesSet = false;
         private Dictionary<int, int> mapTextureAssoc = new Dictionary<int, int>();
@@ -308,33 +308,13 @@ namespace DSMap
                 Dictionary<int, int> headerMatrixMatches = Header.LoadHeaderMatrixMatches(rom.GetFullFilePath("arm9.bin"), headerTable, headerNames.Length);
                 Dictionary<int, List<int>> headerMapMatches = Matrix.LoadHeaderMapMatches(matrixData, headerMatrixMatches);
 
-                // Fill the treeview with headers and associated maps
-                treeMaps.Nodes.Clear(); mapHeaders.Clear();
-                for (int header = 0; header < headerNames.Length; header++)
-                {
-                    TreeNode node = new TreeNode(headerNames[header]);
-                    node.Tag = -1; // All headers will be -1
-
-                    int[] maps = headerMapMatches[header].ToArray();
-                    foreach (int map in maps)
-                    {
-                        TreeNode jr = new TreeNode(mapModelNames[map]);
-                        jr.Tag = map; // For easy loading
-
-                        node.Nodes.Add(jr);
-                        mapHeaders[map] = header;
-                    }
-
-                    treeMaps.Nodes.Add(node);
-                }
-
                 // Load text that we need
                 NARC textData = new NARC(GetROMFilePathFromIni("MessageData"));
                 //int mapNamesFileID = Convert.ToInt32(ini[rom.Header.Code, "Text:MapNames"]);
                 int mapNamesFileID = ini.GetInt32(rom.Header.Code, "Text~MapNames");
                 int pkmnNamesFileID = ini.GetInt32(rom.Header.Code, "Text~PokemonNames");
 
-                PkmnText locationNames = new PkmnText(textData.GetFileMemoryStream(mapNamesFileID));
+                locationNames = new PkmnText(textData.GetFileMemoryStream(mapNamesFileID), true);
                 PkmnText pokemonNames = new PkmnText(textData.GetFileMemoryStream(pkmnNamesFileID), true);
 
                 cWildsWalking0.Items.Clear();
@@ -452,10 +432,40 @@ namespace DSMap
                     cWildsSR4.Items.Add(pokemonNames[i]);
                 }
 
-                    listBox1.Items.Clear();
+                //listBox1.Items.Clear();
+                //for (int i = 0; i < locationNames.Count; i++)
+                //{
+                //    listBox1.Items.Add(locationNames[i]);
+                //}
+
+                cHeaderName.Items.Clear();
                 for (int i = 0; i < locationNames.Count; i++)
                 {
-                    listBox1.Items.Add(locationNames[i]);
+                    cHeaderName.Items.Add(locationNames[i]);
+                }
+
+                // Fill the treeview with headers and associated maps
+                treeMaps.Nodes.Clear(); mapHeaders.Clear();
+                for (int header = 0; header < headerNames.Length; header++)
+                {
+                    TreeNode node = new TreeNode(headerNames[header]);
+                    node.Tag = -1; // All headers will be -1
+                    node.ImageIndex = 0;
+                    node.SelectedImageIndex = 0;
+
+                    int[] maps = headerMapMatches[header].ToArray();
+                    foreach (int map in maps)
+                    {
+                        TreeNode jr = new TreeNode(mapModelNames[map]);
+                        jr.Tag = map; // For easy loading
+                        jr.ImageIndex = 1;
+                        jr.SelectedImageIndex = 1;
+
+                        node.Nodes.Add(jr);
+                        mapHeaders[map] = header;
+                    }
+
+                    treeMaps.Nodes.Add(node);
                 }
             }
             catch (Exception ex)
@@ -685,6 +695,24 @@ namespace DSMap
             // Show header
             txtHMapTextures.Value = header.MapTextures;
             txtHObjectTextures.Value = header.ObjectTexutres;
+            
+            cHeaderName.SelectedIndex = header.Name;
+            txtHeaderName.Text = locationNames[header.Name];
+            txtHeaderNameStyle.Value = header.NameStyle;
+            txtHeaderNameFrame.Value = header.NameFrame;
+            txtHeaderMusicDay.Value = header.MusicDay;
+            txtHeaderMusicNight.Value = header.MusicNight;
+            txtHeaderCamera.Value = header.Camera;
+            txtHeaderWeather.Value = header.Weather;
+            txtHeaderLvlScripts.Value = header.LevelScripts;
+            txtHeaderFlags.Value = header.Flags;
+            txtHeaderEvents.Value = header.Events;
+            txtHeaderScripts.Value = header.Scripts;
+            txtHeaderText.Value = header.Texts;
+            txtHeaderMatrix.Value = header.Matrix;
+            txtHeaderWildPokemon.Value = header.WildPokemon;
+
+            this.Text = "DS Map ~ " + headerNames[mapHeaders[selectedMap]] + " > " + locationNames[header.Name] + " > " + map.Name;
 
             mc = false;
         }

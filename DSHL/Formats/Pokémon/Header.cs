@@ -11,7 +11,7 @@ namespace DSHL.Formats.Pokémon
         // I'm not bothering with properties for this
         // It would take too long to type :p
         public byte MapTextures, ObjectTexutres;
-        public ushort Matrix, Scripts, Unknown1, Texts;
+        public ushort Matrix, Scripts, LevelScripts, Texts;
         public ushort MusicDay, MusicNight;
         public ushort WildPokemon;
         public ushort Events, Name;
@@ -32,7 +32,7 @@ namespace DSHL.Formats.Pokémon
 
                 Matrix = br.ReadUInt16();
                 Scripts = br.ReadUInt16();
-                Unknown1 = br.ReadUInt16();
+                LevelScripts = br.ReadUInt16();
                 Texts = br.ReadUInt16();
                 MusicDay = br.ReadUInt16();
                 MusicNight = br.ReadUInt16();
@@ -58,7 +58,7 @@ namespace DSHL.Formats.Pokémon
 
                 bs.Write(Matrix);
                 bs.Write(Scripts);
-                bs.Write(Unknown1);
+                bs.Write(LevelScripts);
                 bs.Write(Texts);
                 bs.Write(MusicDay);
                 bs.Write(MusicNight);
