@@ -5,7 +5,7 @@ using System.Text;
 using System.IO;
 using System.Windows.Forms;
 
-namespace DSMap
+namespace DSHL
 {
     public class Ini
     {
@@ -49,45 +49,35 @@ namespace DSMap
                     string line = sr.ReadLine().Trim();
                     lineNo += 1;
 
-                    // comment
+                    // Remove comments
                     if (line.Contains("#"))
                     {
                         int index = line.IndexOf("#");
                         line = line.Remove(index).TrimEnd();
                     }
 
-                    // check if it's empty
+                    // Check if line is empty
                     if (string.IsNullOrEmpty(line) || string.IsNullOrWhiteSpace(line)) continue;
 
-                    // parse
+                    // Parse line
                     if (line.StartsWith("[") && line.EndsWith("]"))
                     {
-                        // add current section to collection so we can start anew
+                        // Add current section to collection so we can start anew
                         if (section != null)
                         {
                             sections.Add(section);
                             sectionNames.Add(section.name);
                         }
 
-                        // get section name
+                        // Get section name
                         section = new Section(line.Substring(1, line.Length - 2));
                     }
                     else if (line.Contains("="))
                     {
-                        /*string[] parts = line.Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
-
-                        if (parts.Length != 2) throw new Exception("Line " + lineNo + ": Bad section entry format!");
-
-                        if (section == null) throw new Exception("Line " + lineNo + ": Cannot declare an entry without being in a section!");
-
-                        // add or replace this entry
-                        if (section.entries.ContainsKey(parts[0])) section.entries[parts[0]] = parts[1];
-                        else section.entries.Add(parts[0], parts[1]);*/
-
-                        // new method:
+                        // Get the index of the first '=' and then split the stuff
                         int index1 = line.IndexOf('=');
-                        string key = line.Substring(0, index1);
-                        string value = line.Substring(index1 + 1);
+                        string key = line.Substring(0, index1).TrimEnd();
+                        string value = line.Substring(index1 + 1).TrimStart();
 
                         if (section.entries.ContainsKey(key)) section.entries[key] = value;
                         else section.entries.Add(key, value);
@@ -98,7 +88,7 @@ namespace DSMap
                     }
                 }
 
-                // add final section
+                // Add final section (if there are any)
                 if (section != null)
                 {
                     sections.Add(section);
@@ -113,16 +103,16 @@ namespace DSMap
             {
                 sw.Flush();
 
-                // if there's nothing, it will be a blank file...
+                // If there's nothing, it will be a blank file...
                 if (sections.Count > 0)
                 {
-                    // write each section
+                    // Write each section
                     foreach (Section section in sections)
                     {
-                        // write section name
+                        // Write section name
                         sw.WriteLine("[" + section.name + "]");
 
-                        // write keys
+                        // Write keys
                         if (section.entries.Count > 0)
                         {
                             foreach (string key in section.entries.Keys)
@@ -131,7 +121,7 @@ namespace DSMap
                             }
                         }
 
-                        // add some buffer space
+                        // Add some blank space between each section
                         sw.WriteLine();
                     }
                 }
@@ -149,16 +139,6 @@ namespace DSMap
                     else return string.Empty;
                 }
                 else return string.Empty;
-
-                /*for (int i = 0; i < sections.Count; i++)
-                {
-                    if (sections[i].name == section)
-                    {
-                        return sections[i].entries[key];
-                    }
-                }*/
-
-                //return string.Empty;
             }
             set
             {
@@ -180,23 +160,6 @@ namespace DSMap
                     sections.Add(s);
                     sectionNames.Add(s.name);
                 }
-
-                /*for (int i = 0; i < sections.Count; i++)
-                {
-                    if (sections[i].name == section)
-                    {
-                        sectionExists = true;
-                        if (sections[i].entries.ContainsKey(key))
-                            sections[i].entries[key] = value;
-                        else
-                            sections[i].entries.Add(key, value);
-                    }
-                }
-
-                if (!sectionExists)
-                {
-                    
-                }*/
             }
         }
 
@@ -257,52 +220,11 @@ namespace DSMap
 
         public string[] GetSectionNames()
         {
-            /*string[] sectionNames = new string[sections.Count];
-            for (int i = 0; i < sectionNames.Length; i++)
-            {
-                sectionNames[i] = sections[i].name;
-            }
-            return sectionNames;*/
             return sectionNames.ToArray();
         }
 
-        /*public string[] GetAllKeys(string section)
-        {
-            // This is terrible code, and needs to be redone.
-            if (ContainsSection(section))
-            {
-                foreach (Section s in sections)
-                {
-                    if (s.name == section)
-                    {
-                        List<string> ss = new List<string>();
-                        foreach (var key in s.entries.Keys)
-                        {
-                            ss.Add(key);
-                        }
-                        return ss.ToArray();
-                    }
-                }
-                return null;
-            }
-            else return null;
-        }*/
-
         public bool CopySectionTo(string section, Ini destination)
         {
-            /*for (int i = 0; i < sections.Count; i++)
-            {
-                if (sections[i].name == section)
-                {
-                    /*foreach (var x in sections[i].entries)
-                    {
-                        destination[section, x.Key] = x.Value;
-                    }*
-                    destination.sections.Add(sections[i]);
-                    
-                    return true;
-                }
-            }*/
             if (sectionNames.Contains(section)) // There
             {
                 int index = sectionNames.IndexOf(section);

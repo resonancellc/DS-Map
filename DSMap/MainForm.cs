@@ -493,11 +493,12 @@ namespace DSMap
             int tag = (int)selectedNode.Tag;
             if (tag == -1) return;
 
-            // Load the map
+            // Load and display the map
             try
             {
                 selectedMap = tag;
                 LoadAll();
+                DisplayAll();
             }
             catch (Exception ex)
             {
@@ -507,8 +508,6 @@ namespace DSMap
 
         private void LoadAll()
         {
-            mc = true;
-
             // Load the map
             using (MemoryStream ms = mapData.GetFileMemoryStream(selectedMap))
             {
@@ -517,11 +516,6 @@ namespace DSMap
 
             // Load the header;
             header = new Header(rom.GetFullFilePath("arm9.bin"), headerTable, mapHeaders[selectedMap]);
-
-            // Reset angle settings
-            //mapModelSettings.AngleX = -180f;
-            //mapModelSettings.AngleY = 0f;
-            //mapModelSettings.AngleZ = 45f;
             
             // Load map textures
             using (MemoryStream ms = mapTextureData.GetFileMemoryStream(header.MapTextures))
@@ -542,7 +536,14 @@ namespace DSMap
             {
                 encounters = null;
             }
+        }
 
+        private void DisplayAll()
+        {
+            mc = true;
+            this.Text = "DS Map ~ " + headerNames[mapHeaders[selectedMap]] + " > " + locationNames[header.Name] + " > " + map.Name;
+
+            #region Map
             // Display
             LoadAllMapTextures();
             glMapModel.Invalidate();
@@ -562,8 +563,9 @@ namespace DSMap
                 listObjects.Items.Add(item);
             }
             selectedObj = -1;
+            #endregion
 
-            // Encounters
+            #region Wild Pokemon
             if (header.WildPokemon == 0xFFFF)
             {
                 lblNoWilds.Visible = true;
@@ -691,11 +693,12 @@ namespace DSMap
                 txtWildsSRMax3.Value = encounters.SuperRodMaxLevels[3];
                 txtWildsSRMax4.Value = encounters.SuperRodMaxLevels[4];
             }
+            #endregion
 
-            // Show header
-            txtHMapTextures.Value = header.MapTextures;
-            txtHObjectTextures.Value = header.ObjectTexutres;
-            
+            #region Header
+            txtHeaderMapTextures.Value = header.MapTextures;
+            txtHeaderObjectTextures.Value = header.ObjectTexutres;
+
             cHeaderName.SelectedIndex = header.Name;
             txtHeaderName.Text = locationNames[header.Name];
             txtHeaderNameStyle.Value = header.NameStyle;
@@ -711,8 +714,7 @@ namespace DSMap
             txtHeaderText.Value = header.Texts;
             txtHeaderMatrix.Value = header.Matrix;
             txtHeaderWildPokemon.Value = header.WildPokemon;
-
-            this.Text = "DS Map ~ " + headerNames[mapHeaders[selectedMap]] + " > " + locationNames[header.Name] + " > " + map.Name;
+            #endregion
 
             mc = false;
         }
@@ -1574,6 +1576,82 @@ namespace DSMap
         }
 
         #endregion
+
+        #endregion
+
+        #region Header
+
+        private void cHeaderName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!mc && selectedMap > -1)
+            {
+                // Set the data
+                header.Name = (ushort)cHeaderName.SelectedIndex;
+
+                // Update display
+                mc = true;
+                txtHeaderName.Text = locationNames[header.Name];
+                this.Text = "DS Map ~ " + headerNames[mapHeaders[selectedMap]] + " > " + locationNames[header.Name] + " > " + map.Name;
+                mc = false;
+            }
+        }
+
+        private void txtHeaderNameStyle_TextChanged(object sender, EventArgs e)
+        {
+            if (mc || selectedMap == -1) return;
+
+            header.NameStyle = (byte)txtHeaderNameStyle.Value;
+        }
+
+        private void txtHeaderNameFrame_TextChanged(object sender, EventArgs e)
+        {
+            if (mc || selectedMap == -1) return;
+
+            header.NameFrame = (byte)txtHeaderNameFrame.Value;
+        }
+
+        private void bHeaderName_Click(object sender, EventArgs e)
+        {
+            if (mc || selectedMap == -1) return;
+
+            if (txtHeaderName.TextLength > 0)
+            {
+                // TODO: Save the name
+                locationNames[header.Name] = txtHeaderName.Text;
+                
+                // Update display
+                mc = true;
+                cHeaderName.Items[header.Name] = txtHeaderName.Text;
+                this.Text = "DS Map ~ " + headerNames[mapHeaders[selectedMap]] + " > " + locationNames[header.Name] + " > " + map.Name;
+                mc = false;
+            }
+        }
+
+        private void txtHeaderOptions_TextChanged(object sender, EventArgs e)
+        {
+            if (mc || selectedMap == -1) return;
+
+            header.MusicDay = (ushort)txtHeaderMusicDay.Value;
+            header.MusicNight = (ushort)txtHeaderMusicNight.Value;
+            header.Camera = (byte)txtHeaderCamera.Value;
+            header.Weather = (byte)txtHeaderWeather.Value;
+            header.Flags = (byte)txtHeaderFlags.Value;
+        }
+
+        private void txtHeaderFiles_TextChanged(object sender, EventArgs e)
+        {
+            if (mc || selectedMap == -1) return;
+
+            header.Events = (ushort)txtHeaderEvents.Value;
+            header.Scripts = (ushort)txtHeaderScripts.Value;
+            header.LevelScripts = (ushort)txtHeaderLvlScripts.Value;
+            header.Texts = (ushort)txtHeaderText.Value;
+        }
+
+        private void bHeaderTex_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Not yet~! :P");
+        }
 
         #endregion
     }

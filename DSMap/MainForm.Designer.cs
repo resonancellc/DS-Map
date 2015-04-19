@@ -42,8 +42,11 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.bLoadROM = new System.Windows.Forms.ToolStripButton();
             this.bBuildROM = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.bSave = new System.Windows.Forms.ToolStripButton();
             this.openDialog = new System.Windows.Forms.OpenFileDialog();
             this.treeMaps = new System.Windows.Forms.TreeView();
+            this.imageListMaps = new System.Windows.Forms.ImageList(this.components);
             this.lblROM = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabMap = new System.Windows.Forms.TabPage();
@@ -215,33 +218,31 @@
             this.label42 = new System.Windows.Forms.Label();
             this.lblNoWilds = new System.Windows.Forms.Label();
             this.tabHeader = new System.Windows.Forms.TabPage();
+            this.groupBox23 = new System.Windows.Forms.GroupBox();
+            this.label73 = new System.Windows.Forms.Label();
+            this.label72 = new System.Windows.Forms.Label();
+            this.label71 = new System.Windows.Forms.Label();
+            this.label70 = new System.Windows.Forms.Label();
+            this.label69 = new System.Windows.Forms.Label();
+            this.label68 = new System.Windows.Forms.Label();
+            this.groupBox22 = new System.Windows.Forms.GroupBox();
+            this.label74 = new System.Windows.Forms.Label();
+            this.label67 = new System.Windows.Forms.Label();
+            this.label66 = new System.Windows.Forms.Label();
+            this.label64 = new System.Windows.Forms.Label();
+            this.label54 = new System.Windows.Forms.Label();
+            this.groupBox21 = new System.Windows.Forms.GroupBox();
+            this.bHeaderName = new System.Windows.Forms.Button();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.txtHeaderName = new System.Windows.Forms.TextBox();
+            this.label44 = new System.Windows.Forms.Label();
+            this.label41 = new System.Windows.Forms.Label();
+            this.cHeaderName = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pBanner = new System.Windows.Forms.PictureBox();
             this.saveDialog = new System.Windows.Forms.SaveFileDialog();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.bSave = new System.Windows.Forms.ToolStripButton();
-            this.imageListMaps = new System.Windows.Forms.ImageList(this.components);
-            this.groupBox21 = new System.Windows.Forms.GroupBox();
-            this.cHeaderName = new System.Windows.Forms.ComboBox();
-            this.label41 = new System.Windows.Forms.Label();
-            this.label44 = new System.Windows.Forms.Label();
-            this.txtHeaderName = new System.Windows.Forms.TextBox();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.bHeaderName = new System.Windows.Forms.Button();
-            this.groupBox22 = new System.Windows.Forms.GroupBox();
-            this.groupBox23 = new System.Windows.Forms.GroupBox();
-            this.label54 = new System.Windows.Forms.Label();
-            this.label64 = new System.Windows.Forms.Label();
-            this.label66 = new System.Windows.Forms.Label();
-            this.label67 = new System.Windows.Forms.Label();
-            this.label68 = new System.Windows.Forms.Label();
-            this.label69 = new System.Windows.Forms.Label();
-            this.label70 = new System.Windows.Forms.Label();
-            this.label71 = new System.Windows.Forms.Label();
-            this.label72 = new System.Windows.Forms.Label();
-            this.label74 = new System.Windows.Forms.Label();
             this.txtObjHeight = new DSMap.NumericTextBox();
             this.txtObjLength = new DSMap.NumericTextBox();
             this.txtObjWidth = new DSMap.NumericTextBox();
@@ -309,6 +310,7 @@
             this.txtWildsSurfingMin1 = new DSMap.SignedNumericTextBox();
             this.txtWildsSurfingMin0 = new DSMap.SignedNumericTextBox();
             this.txtWildsSurfingRate = new DSMap.SignedNumericTextBox();
+            this.txtHeaderLvlScripts = new DSMap.NumericTextBox();
             this.txtHeaderWildPokemon = new DSMap.NumericTextBox();
             this.txtHeaderMatrix = new DSMap.NumericTextBox();
             this.txtHeaderText = new DSMap.NumericTextBox();
@@ -321,10 +323,9 @@
             this.txtHeaderMusicDay = new DSMap.NumericTextBox();
             this.txtHeaderNameFrame = new DSMap.NumericTextBox();
             this.txtHeaderNameStyle = new DSMap.NumericTextBox();
-            this.txtHObjectTextures = new DSMap.NumericTextBox();
-            this.txtHMapTextures = new DSMap.NumericTextBox();
-            this.txtHeaderLvlScripts = new DSMap.NumericTextBox();
-            this.label73 = new System.Windows.Forms.Label();
+            this.txtHeaderObjectTextures = new DSMap.NumericTextBox();
+            this.txtHeaderMapTextures = new DSMap.NumericTextBox();
+            this.bHeaderTex = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -362,11 +363,11 @@
             this.groupBox18.SuspendLayout();
             this.groupBox17.SuspendLayout();
             this.tabHeader.SuspendLayout();
+            this.groupBox23.SuspendLayout();
+            this.groupBox22.SuspendLayout();
+            this.groupBox21.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBanner)).BeginInit();
-            this.groupBox21.SuspendLayout();
-            this.groupBox22.SuspendLayout();
-            this.groupBox23.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -484,6 +485,21 @@
             this.bBuildROM.Text = "Build ROM";
             this.bBuildROM.Click += new System.EventHandler(this.buildToolStripMenuItem_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // bSave
+            // 
+            this.bSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bSave.Image = global::DSMap.Properties.Resources.disk_black;
+            this.bSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bSave.Name = "bSave";
+            this.bSave.Size = new System.Drawing.Size(23, 22);
+            this.bSave.Text = "Save Map";
+            this.bSave.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
             // openDialog
             // 
             this.openDialog.FileName = "openFileDialog1";
@@ -501,6 +517,13 @@
             this.treeMaps.Size = new System.Drawing.Size(164, 559);
             this.treeMaps.TabIndex = 6;
             this.treeMaps.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeMaps_NodeMouseDoubleClick);
+            // 
+            // imageListMaps
+            // 
+            this.imageListMaps.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListMaps.ImageStream")));
+            this.imageListMaps.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListMaps.Images.SetKeyName(0, "sitemap.png");
+            this.imageListMaps.Images.SetKeyName(1, "map.png");
             // 
             // lblROM
             // 
@@ -2411,15 +2434,224 @@
             this.tabHeader.Text = "Header";
             this.tabHeader.UseVisualStyleBackColor = true;
             // 
+            // groupBox23
+            // 
+            this.groupBox23.Controls.Add(this.txtHeaderLvlScripts);
+            this.groupBox23.Controls.Add(this.label73);
+            this.groupBox23.Controls.Add(this.txtHeaderWildPokemon);
+            this.groupBox23.Controls.Add(this.label72);
+            this.groupBox23.Controls.Add(this.txtHeaderMatrix);
+            this.groupBox23.Controls.Add(this.label71);
+            this.groupBox23.Controls.Add(this.txtHeaderText);
+            this.groupBox23.Controls.Add(this.label70);
+            this.groupBox23.Controls.Add(this.txtHeaderScripts);
+            this.groupBox23.Controls.Add(this.label69);
+            this.groupBox23.Controls.Add(this.txtHeaderEvents);
+            this.groupBox23.Controls.Add(this.label68);
+            this.groupBox23.Location = new System.Drawing.Point(6, 278);
+            this.groupBox23.Name = "groupBox23";
+            this.groupBox23.Size = new System.Drawing.Size(401, 175);
+            this.groupBox23.TabIndex = 3;
+            this.groupBox23.TabStop = false;
+            this.groupBox23.Text = "Files";
+            // 
+            // label73
+            // 
+            this.label73.AutoSize = true;
+            this.label73.Location = new System.Drawing.Point(3, 94);
+            this.label73.Name = "label73";
+            this.label73.Size = new System.Drawing.Size(71, 13);
+            this.label73.TabIndex = 17;
+            this.label73.Text = "Level Scripts:";
+            // 
+            // label72
+            // 
+            this.label72.AutoSize = true;
+            this.label72.Location = new System.Drawing.Point(204, 55);
+            this.label72.Name = "label72";
+            this.label72.Size = new System.Drawing.Size(79, 13);
+            this.label72.TabIndex = 15;
+            this.label72.Text = "Wild Pokémon:";
+            // 
+            // label71
+            // 
+            this.label71.AutoSize = true;
+            this.label71.Location = new System.Drawing.Point(204, 16);
+            this.label71.Name = "label71";
+            this.label71.Size = new System.Drawing.Size(38, 13);
+            this.label71.TabIndex = 13;
+            this.label71.Text = "Matrix:";
+            // 
+            // label70
+            // 
+            this.label70.AutoSize = true;
+            this.label70.Location = new System.Drawing.Point(3, 133);
+            this.label70.Name = "label70";
+            this.label70.Size = new System.Drawing.Size(31, 13);
+            this.label70.TabIndex = 11;
+            this.label70.Text = "Text:";
+            // 
+            // label69
+            // 
+            this.label69.AutoSize = true;
+            this.label69.Location = new System.Drawing.Point(3, 55);
+            this.label69.Name = "label69";
+            this.label69.Size = new System.Drawing.Size(39, 13);
+            this.label69.TabIndex = 9;
+            this.label69.Text = "Scripts";
+            // 
+            // label68
+            // 
+            this.label68.AutoSize = true;
+            this.label68.Location = new System.Drawing.Point(3, 16);
+            this.label68.Name = "label68";
+            this.label68.Size = new System.Drawing.Size(43, 13);
+            this.label68.TabIndex = 7;
+            this.label68.Text = "Events:";
+            // 
+            // groupBox22
+            // 
+            this.groupBox22.Controls.Add(this.txtHeaderFlags);
+            this.groupBox22.Controls.Add(this.label74);
+            this.groupBox22.Controls.Add(this.txtHeaderCamera);
+            this.groupBox22.Controls.Add(this.label67);
+            this.groupBox22.Controls.Add(this.txtHeaderWeather);
+            this.groupBox22.Controls.Add(this.label66);
+            this.groupBox22.Controls.Add(this.txtHeaderMusicNight);
+            this.groupBox22.Controls.Add(this.label64);
+            this.groupBox22.Controls.Add(this.txtHeaderMusicDay);
+            this.groupBox22.Controls.Add(this.label54);
+            this.groupBox22.Location = new System.Drawing.Point(6, 136);
+            this.groupBox22.Name = "groupBox22";
+            this.groupBox22.Size = new System.Drawing.Size(401, 136);
+            this.groupBox22.TabIndex = 2;
+            this.groupBox22.TabStop = false;
+            this.groupBox22.Text = "Options";
+            // 
+            // label74
+            // 
+            this.label74.AutoSize = true;
+            this.label74.Location = new System.Drawing.Point(3, 94);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(35, 13);
+            this.label74.TabIndex = 15;
+            this.label74.Text = "Flags:";
+            // 
+            // label67
+            // 
+            this.label67.AutoSize = true;
+            this.label67.Location = new System.Drawing.Point(3, 55);
+            this.label67.Name = "label67";
+            this.label67.Size = new System.Drawing.Size(46, 13);
+            this.label67.TabIndex = 11;
+            this.label67.Text = "Camera:";
+            // 
+            // label66
+            // 
+            this.label66.AutoSize = true;
+            this.label66.Location = new System.Drawing.Point(204, 55);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(51, 13);
+            this.label66.TabIndex = 9;
+            this.label66.Text = "Weather:";
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Location = new System.Drawing.Point(204, 16);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(72, 13);
+            this.label64.TabIndex = 7;
+            this.label64.Text = "Music (Night):";
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(3, 16);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(66, 13);
+            this.label54.TabIndex = 5;
+            this.label54.Text = "Music (Day):";
+            // 
+            // groupBox21
+            // 
+            this.groupBox21.Controls.Add(this.bHeaderName);
+            this.groupBox21.Controls.Add(this.panel9);
+            this.groupBox21.Controls.Add(this.txtHeaderName);
+            this.groupBox21.Controls.Add(this.txtHeaderNameFrame);
+            this.groupBox21.Controls.Add(this.label44);
+            this.groupBox21.Controls.Add(this.txtHeaderNameStyle);
+            this.groupBox21.Controls.Add(this.label41);
+            this.groupBox21.Controls.Add(this.cHeaderName);
+            this.groupBox21.Location = new System.Drawing.Point(6, 6);
+            this.groupBox21.Name = "groupBox21";
+            this.groupBox21.Size = new System.Drawing.Size(401, 124);
+            this.groupBox21.TabIndex = 1;
+            this.groupBox21.TabStop = false;
+            this.groupBox21.Text = "Name";
+            // 
+            // bHeaderName
+            // 
+            this.bHeaderName.Location = new System.Drawing.Point(207, 45);
+            this.bHeaderName.Name = "bHeaderName";
+            this.bHeaderName.Size = new System.Drawing.Size(188, 23);
+            this.bHeaderName.TabIndex = 7;
+            this.bHeaderName.Text = "Modify Name";
+            this.bHeaderName.UseVisualStyleBackColor = true;
+            this.bHeaderName.Click += new System.EventHandler(this.bHeaderName_Click);
+            // 
+            // panel9
+            // 
+            this.panel9.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panel9.Location = new System.Drawing.Point(200, 19);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(1, 99);
+            this.panel9.TabIndex = 6;
+            // 
+            // txtHeaderName
+            // 
+            this.txtHeaderName.Location = new System.Drawing.Point(207, 19);
+            this.txtHeaderName.Name = "txtHeaderName";
+            this.txtHeaderName.Size = new System.Drawing.Size(188, 20);
+            this.txtHeaderName.TabIndex = 5;
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Location = new System.Drawing.Point(3, 82);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(39, 13);
+            this.label44.TabIndex = 3;
+            this.label44.Text = "Frame:";
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(3, 43);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(33, 13);
+            this.label41.TabIndex = 1;
+            this.label41.Text = "Style:";
+            // 
+            // cHeaderName
+            // 
+            this.cHeaderName.FormattingEnabled = true;
+            this.cHeaderName.Location = new System.Drawing.Point(6, 19);
+            this.cHeaderName.Name = "cHeaderName";
+            this.cHeaderName.Size = new System.Drawing.Size(188, 21);
+            this.cHeaderName.TabIndex = 0;
+            this.cHeaderName.SelectedIndexChanged += new System.EventHandler(this.cHeaderName_SelectedIndexChanged);
+            // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.txtHObjectTextures);
-            this.groupBox1.Controls.Add(this.txtHMapTextures);
+            this.groupBox1.Controls.Add(this.bHeaderTex);
+            this.groupBox1.Controls.Add(this.txtHeaderObjectTextures);
+            this.groupBox1.Controls.Add(this.txtHeaderMapTextures);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(6, 459);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 97);
+            this.groupBox1.Size = new System.Drawing.Size(401, 87);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Textures";
@@ -2427,7 +2659,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 55);
+            this.label2.Location = new System.Drawing.Point(204, 16);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 1;
@@ -2450,225 +2682,6 @@
             this.pBanner.Size = new System.Drawing.Size(32, 32);
             this.pBanner.TabIndex = 7;
             this.pBanner.TabStop = false;
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // bSave
-            // 
-            this.bSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bSave.Image = global::DSMap.Properties.Resources.disk_black;
-            this.bSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bSave.Name = "bSave";
-            this.bSave.Size = new System.Drawing.Size(23, 22);
-            this.bSave.Text = "Save Map";
-            this.bSave.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
-            // 
-            // imageListMaps
-            // 
-            this.imageListMaps.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListMaps.ImageStream")));
-            this.imageListMaps.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageListMaps.Images.SetKeyName(0, "sitemap.png");
-            this.imageListMaps.Images.SetKeyName(1, "map.png");
-            // 
-            // groupBox21
-            // 
-            this.groupBox21.Controls.Add(this.bHeaderName);
-            this.groupBox21.Controls.Add(this.panel9);
-            this.groupBox21.Controls.Add(this.txtHeaderName);
-            this.groupBox21.Controls.Add(this.txtHeaderNameFrame);
-            this.groupBox21.Controls.Add(this.label44);
-            this.groupBox21.Controls.Add(this.txtHeaderNameStyle);
-            this.groupBox21.Controls.Add(this.label41);
-            this.groupBox21.Controls.Add(this.cHeaderName);
-            this.groupBox21.Location = new System.Drawing.Point(6, 6);
-            this.groupBox21.Name = "groupBox21";
-            this.groupBox21.Size = new System.Drawing.Size(401, 124);
-            this.groupBox21.TabIndex = 1;
-            this.groupBox21.TabStop = false;
-            this.groupBox21.Text = "Name";
-            // 
-            // cHeaderName
-            // 
-            this.cHeaderName.FormattingEnabled = true;
-            this.cHeaderName.Location = new System.Drawing.Point(6, 19);
-            this.cHeaderName.Name = "cHeaderName";
-            this.cHeaderName.Size = new System.Drawing.Size(188, 21);
-            this.cHeaderName.TabIndex = 0;
-            // 
-            // label41
-            // 
-            this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(3, 43);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(33, 13);
-            this.label41.TabIndex = 1;
-            this.label41.Text = "Style:";
-            // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(3, 82);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(39, 13);
-            this.label44.TabIndex = 3;
-            this.label44.Text = "Frame:";
-            // 
-            // txtHeaderName
-            // 
-            this.txtHeaderName.Location = new System.Drawing.Point(207, 19);
-            this.txtHeaderName.Name = "txtHeaderName";
-            this.txtHeaderName.Size = new System.Drawing.Size(188, 20);
-            this.txtHeaderName.TabIndex = 5;
-            // 
-            // panel9
-            // 
-            this.panel9.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.panel9.Location = new System.Drawing.Point(200, 19);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(1, 99);
-            this.panel9.TabIndex = 6;
-            // 
-            // bHeaderName
-            // 
-            this.bHeaderName.Location = new System.Drawing.Point(207, 45);
-            this.bHeaderName.Name = "bHeaderName";
-            this.bHeaderName.Size = new System.Drawing.Size(188, 23);
-            this.bHeaderName.TabIndex = 7;
-            this.bHeaderName.Text = "Modify Name";
-            this.bHeaderName.UseVisualStyleBackColor = true;
-            // 
-            // groupBox22
-            // 
-            this.groupBox22.Controls.Add(this.txtHeaderFlags);
-            this.groupBox22.Controls.Add(this.label74);
-            this.groupBox22.Controls.Add(this.txtHeaderCamera);
-            this.groupBox22.Controls.Add(this.label67);
-            this.groupBox22.Controls.Add(this.txtHeaderWeather);
-            this.groupBox22.Controls.Add(this.label66);
-            this.groupBox22.Controls.Add(this.txtHeaderMusicNight);
-            this.groupBox22.Controls.Add(this.label64);
-            this.groupBox22.Controls.Add(this.txtHeaderMusicDay);
-            this.groupBox22.Controls.Add(this.label54);
-            this.groupBox22.Location = new System.Drawing.Point(6, 136);
-            this.groupBox22.Name = "groupBox22";
-            this.groupBox22.Size = new System.Drawing.Size(401, 136);
-            this.groupBox22.TabIndex = 2;
-            this.groupBox22.TabStop = false;
-            this.groupBox22.Text = "Options";
-            // 
-            // groupBox23
-            // 
-            this.groupBox23.Controls.Add(this.txtHeaderLvlScripts);
-            this.groupBox23.Controls.Add(this.label73);
-            this.groupBox23.Controls.Add(this.txtHeaderWildPokemon);
-            this.groupBox23.Controls.Add(this.label72);
-            this.groupBox23.Controls.Add(this.txtHeaderMatrix);
-            this.groupBox23.Controls.Add(this.label71);
-            this.groupBox23.Controls.Add(this.txtHeaderText);
-            this.groupBox23.Controls.Add(this.label70);
-            this.groupBox23.Controls.Add(this.txtHeaderScripts);
-            this.groupBox23.Controls.Add(this.label69);
-            this.groupBox23.Controls.Add(this.txtHeaderEvents);
-            this.groupBox23.Controls.Add(this.label68);
-            this.groupBox23.Location = new System.Drawing.Point(6, 278);
-            this.groupBox23.Name = "groupBox23";
-            this.groupBox23.Size = new System.Drawing.Size(401, 175);
-            this.groupBox23.TabIndex = 3;
-            this.groupBox23.TabStop = false;
-            this.groupBox23.Text = "Files";
-            // 
-            // label54
-            // 
-            this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(3, 16);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(66, 13);
-            this.label54.TabIndex = 5;
-            this.label54.Text = "Music (Day):";
-            // 
-            // label64
-            // 
-            this.label64.AutoSize = true;
-            this.label64.Location = new System.Drawing.Point(204, 16);
-            this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(72, 13);
-            this.label64.TabIndex = 7;
-            this.label64.Text = "Music (Night):";
-            // 
-            // label66
-            // 
-            this.label66.AutoSize = true;
-            this.label66.Location = new System.Drawing.Point(204, 55);
-            this.label66.Name = "label66";
-            this.label66.Size = new System.Drawing.Size(51, 13);
-            this.label66.TabIndex = 9;
-            this.label66.Text = "Weather:";
-            // 
-            // label67
-            // 
-            this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(3, 55);
-            this.label67.Name = "label67";
-            this.label67.Size = new System.Drawing.Size(46, 13);
-            this.label67.TabIndex = 11;
-            this.label67.Text = "Camera:";
-            // 
-            // label68
-            // 
-            this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(3, 16);
-            this.label68.Name = "label68";
-            this.label68.Size = new System.Drawing.Size(43, 13);
-            this.label68.TabIndex = 7;
-            this.label68.Text = "Events:";
-            // 
-            // label69
-            // 
-            this.label69.AutoSize = true;
-            this.label69.Location = new System.Drawing.Point(3, 55);
-            this.label69.Name = "label69";
-            this.label69.Size = new System.Drawing.Size(39, 13);
-            this.label69.TabIndex = 9;
-            this.label69.Text = "Scripts";
-            // 
-            // label70
-            // 
-            this.label70.AutoSize = true;
-            this.label70.Location = new System.Drawing.Point(3, 133);
-            this.label70.Name = "label70";
-            this.label70.Size = new System.Drawing.Size(31, 13);
-            this.label70.TabIndex = 11;
-            this.label70.Text = "Text:";
-            // 
-            // label71
-            // 
-            this.label71.AutoSize = true;
-            this.label71.Location = new System.Drawing.Point(204, 16);
-            this.label71.Name = "label71";
-            this.label71.Size = new System.Drawing.Size(38, 13);
-            this.label71.TabIndex = 13;
-            this.label71.Text = "Matrix:";
-            // 
-            // label72
-            // 
-            this.label72.AutoSize = true;
-            this.label72.Location = new System.Drawing.Point(204, 55);
-            this.label72.Name = "label72";
-            this.label72.Size = new System.Drawing.Size(79, 13);
-            this.label72.TabIndex = 15;
-            this.label72.Text = "Wild Pokémon:";
-            // 
-            // label74
-            // 
-            this.label74.AutoSize = true;
-            this.label74.Location = new System.Drawing.Point(3, 94);
-            this.label74.Name = "label74";
-            this.label74.Size = new System.Drawing.Size(35, 13);
-            this.label74.TabIndex = 15;
-            this.label74.Text = "Flags:";
             // 
             // txtObjHeight
             // 
@@ -3471,6 +3484,18 @@
             this.txtWildsSurfingRate.Value = 0;
             this.txtWildsSurfingRate.TextChanged += new System.EventHandler(this.txtWildsSurfingRate_TextChanged);
             // 
+            // txtHeaderLvlScripts
+            // 
+            this.txtHeaderLvlScripts.Location = new System.Drawing.Point(6, 110);
+            this.txtHeaderLvlScripts.MaximumValue = ((uint)(65535u));
+            this.txtHeaderLvlScripts.MinimumValue = ((uint)(0u));
+            this.txtHeaderLvlScripts.Name = "txtHeaderLvlScripts";
+            this.txtHeaderLvlScripts.Size = new System.Drawing.Size(188, 20);
+            this.txtHeaderLvlScripts.TabIndex = 18;
+            this.txtHeaderLvlScripts.Text = "0";
+            this.txtHeaderLvlScripts.Value = ((uint)(0u));
+            this.txtHeaderLvlScripts.TextChanged += new System.EventHandler(this.txtHeaderFiles_TextChanged);
+            // 
             // txtHeaderWildPokemon
             // 
             this.txtHeaderWildPokemon.Location = new System.Drawing.Point(207, 71);
@@ -3505,6 +3530,7 @@
             this.txtHeaderText.TabIndex = 12;
             this.txtHeaderText.Text = "0";
             this.txtHeaderText.Value = ((uint)(0u));
+            this.txtHeaderText.TextChanged += new System.EventHandler(this.txtHeaderFiles_TextChanged);
             // 
             // txtHeaderScripts
             // 
@@ -3516,6 +3542,7 @@
             this.txtHeaderScripts.TabIndex = 10;
             this.txtHeaderScripts.Text = "0";
             this.txtHeaderScripts.Value = ((uint)(0u));
+            this.txtHeaderScripts.TextChanged += new System.EventHandler(this.txtHeaderFiles_TextChanged);
             // 
             // txtHeaderEvents
             // 
@@ -3527,6 +3554,7 @@
             this.txtHeaderEvents.TabIndex = 8;
             this.txtHeaderEvents.Text = "0";
             this.txtHeaderEvents.Value = ((uint)(0u));
+            this.txtHeaderEvents.TextChanged += new System.EventHandler(this.txtHeaderFiles_TextChanged);
             // 
             // txtHeaderFlags
             // 
@@ -3538,6 +3566,7 @@
             this.txtHeaderFlags.TabIndex = 16;
             this.txtHeaderFlags.Text = "0";
             this.txtHeaderFlags.Value = ((uint)(0u));
+            this.txtHeaderFlags.TextChanged += new System.EventHandler(this.txtHeaderOptions_TextChanged);
             // 
             // txtHeaderCamera
             // 
@@ -3550,6 +3579,7 @@
             this.txtHeaderCamera.TabIndex = 12;
             this.txtHeaderCamera.Text = "0x0";
             this.txtHeaderCamera.Value = ((uint)(0u));
+            this.txtHeaderCamera.TextChanged += new System.EventHandler(this.txtHeaderOptions_TextChanged);
             // 
             // txtHeaderWeather
             // 
@@ -3561,6 +3591,7 @@
             this.txtHeaderWeather.TabIndex = 10;
             this.txtHeaderWeather.Text = "0";
             this.txtHeaderWeather.Value = ((uint)(0u));
+            this.txtHeaderWeather.TextChanged += new System.EventHandler(this.txtHeaderOptions_TextChanged);
             // 
             // txtHeaderMusicNight
             // 
@@ -3572,6 +3603,7 @@
             this.txtHeaderMusicNight.TabIndex = 8;
             this.txtHeaderMusicNight.Text = "0";
             this.txtHeaderMusicNight.Value = ((uint)(0u));
+            this.txtHeaderMusicNight.TextChanged += new System.EventHandler(this.txtHeaderOptions_TextChanged);
             // 
             // txtHeaderMusicDay
             // 
@@ -3583,6 +3615,7 @@
             this.txtHeaderMusicDay.TabIndex = 6;
             this.txtHeaderMusicDay.Text = "0";
             this.txtHeaderMusicDay.Value = ((uint)(0u));
+            this.txtHeaderMusicDay.TextChanged += new System.EventHandler(this.txtHeaderOptions_TextChanged);
             // 
             // txtHeaderNameFrame
             // 
@@ -3594,6 +3627,7 @@
             this.txtHeaderNameFrame.TabIndex = 4;
             this.txtHeaderNameFrame.Text = "0";
             this.txtHeaderNameFrame.Value = ((uint)(0u));
+            this.txtHeaderNameFrame.TextChanged += new System.EventHandler(this.txtHeaderNameFrame_TextChanged);
             // 
             // txtHeaderNameStyle
             // 
@@ -3605,48 +3639,39 @@
             this.txtHeaderNameStyle.TabIndex = 2;
             this.txtHeaderNameStyle.Text = "0";
             this.txtHeaderNameStyle.Value = ((uint)(0u));
+            this.txtHeaderNameStyle.TextChanged += new System.EventHandler(this.txtHeaderNameStyle_TextChanged);
             // 
-            // txtHObjectTextures
+            // txtHeaderObjectTextures
             // 
-            this.txtHObjectTextures.Location = new System.Drawing.Point(6, 71);
-            this.txtHObjectTextures.MaximumValue = ((uint)(255u));
-            this.txtHObjectTextures.MinimumValue = ((uint)(0u));
-            this.txtHObjectTextures.Name = "txtHObjectTextures";
-            this.txtHObjectTextures.Size = new System.Drawing.Size(188, 20);
-            this.txtHObjectTextures.TabIndex = 3;
-            this.txtHObjectTextures.Text = "0";
-            this.txtHObjectTextures.Value = ((uint)(0u));
+            this.txtHeaderObjectTextures.Location = new System.Drawing.Point(207, 32);
+            this.txtHeaderObjectTextures.MaximumValue = ((uint)(255u));
+            this.txtHeaderObjectTextures.MinimumValue = ((uint)(0u));
+            this.txtHeaderObjectTextures.Name = "txtHeaderObjectTextures";
+            this.txtHeaderObjectTextures.Size = new System.Drawing.Size(188, 20);
+            this.txtHeaderObjectTextures.TabIndex = 3;
+            this.txtHeaderObjectTextures.Text = "0";
+            this.txtHeaderObjectTextures.Value = ((uint)(0u));
             // 
-            // txtHMapTextures
+            // txtHeaderMapTextures
             // 
-            this.txtHMapTextures.Location = new System.Drawing.Point(6, 32);
-            this.txtHMapTextures.MaximumValue = ((uint)(255u));
-            this.txtHMapTextures.MinimumValue = ((uint)(0u));
-            this.txtHMapTextures.Name = "txtHMapTextures";
-            this.txtHMapTextures.Size = new System.Drawing.Size(188, 20);
-            this.txtHMapTextures.TabIndex = 2;
-            this.txtHMapTextures.Text = "0";
-            this.txtHMapTextures.Value = ((uint)(0u));
+            this.txtHeaderMapTextures.Location = new System.Drawing.Point(6, 32);
+            this.txtHeaderMapTextures.MaximumValue = ((uint)(255u));
+            this.txtHeaderMapTextures.MinimumValue = ((uint)(0u));
+            this.txtHeaderMapTextures.Name = "txtHeaderMapTextures";
+            this.txtHeaderMapTextures.Size = new System.Drawing.Size(188, 20);
+            this.txtHeaderMapTextures.TabIndex = 2;
+            this.txtHeaderMapTextures.Text = "0";
+            this.txtHeaderMapTextures.Value = ((uint)(0u));
             // 
-            // txtHeaderLvlScripts
+            // bHeaderTex
             // 
-            this.txtHeaderLvlScripts.Location = new System.Drawing.Point(6, 110);
-            this.txtHeaderLvlScripts.MaximumValue = ((uint)(65535u));
-            this.txtHeaderLvlScripts.MinimumValue = ((uint)(0u));
-            this.txtHeaderLvlScripts.Name = "txtHeaderLvlScripts";
-            this.txtHeaderLvlScripts.Size = new System.Drawing.Size(188, 20);
-            this.txtHeaderLvlScripts.TabIndex = 18;
-            this.txtHeaderLvlScripts.Text = "0";
-            this.txtHeaderLvlScripts.Value = ((uint)(0u));
-            // 
-            // label73
-            // 
-            this.label73.AutoSize = true;
-            this.label73.Location = new System.Drawing.Point(3, 94);
-            this.label73.Name = "label73";
-            this.label73.Size = new System.Drawing.Size(71, 13);
-            this.label73.TabIndex = 17;
-            this.label73.Text = "Level Scripts:";
+            this.bHeaderTex.Location = new System.Drawing.Point(6, 58);
+            this.bHeaderTex.Name = "bHeaderTex";
+            this.bHeaderTex.Size = new System.Drawing.Size(188, 23);
+            this.bHeaderTex.TabIndex = 8;
+            this.bHeaderTex.Text = "Modify and Reload Map";
+            this.bHeaderTex.UseVisualStyleBackColor = true;
+            this.bHeaderTex.Click += new System.EventHandler(this.bHeaderTex_Click);
             // 
             // MainForm
             // 
@@ -3713,15 +3738,15 @@
             this.groupBox17.ResumeLayout(false);
             this.groupBox17.PerformLayout();
             this.tabHeader.ResumeLayout(false);
+            this.groupBox23.ResumeLayout(false);
+            this.groupBox23.PerformLayout();
+            this.groupBox22.ResumeLayout(false);
+            this.groupBox22.PerformLayout();
+            this.groupBox21.ResumeLayout(false);
+            this.groupBox21.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBanner)).EndInit();
-            this.groupBox21.ResumeLayout(false);
-            this.groupBox21.PerformLayout();
-            this.groupBox22.ResumeLayout(false);
-            this.groupBox22.PerformLayout();
-            this.groupBox23.ResumeLayout(false);
-            this.groupBox23.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3746,8 +3771,8 @@
         private System.Windows.Forms.TabPage tabMap;
         private System.Windows.Forms.TabPage tabHeader;
         private System.Windows.Forms.GroupBox groupBox1;
-        private NumericTextBox txtHObjectTextures;
-        private NumericTextBox txtHMapTextures;
+        private NumericTextBox txtHeaderObjectTextures;
+        private NumericTextBox txtHeaderMapTextures;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabControl tabControl2;
@@ -4024,6 +4049,7 @@
         private System.Windows.Forms.Label label74;
         private NumericTextBox txtHeaderLvlScripts;
         private System.Windows.Forms.Label label73;
+        private System.Windows.Forms.Button bHeaderTex;
     }
 }
 
