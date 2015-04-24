@@ -481,6 +481,8 @@ namespace DSHL.Formats.Pokémon.Scripting
             return string.Empty;
         }
 
+        #region Parts
+
         public class Script
         {
             public uint Offset;
@@ -537,5 +539,7 @@ namespace DSHL.Formats.Pokémon.Scripting
             public ushort Type;
             public ushort Steps;
         }
+
+        #endregion
     }
 }

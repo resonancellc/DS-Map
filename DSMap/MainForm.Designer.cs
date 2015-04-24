@@ -256,6 +256,7 @@
             this.saveDialog = new System.Windows.Forms.SaveFileDialog();
             this.pBanner = new System.Windows.Forms.PictureBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.txtMovements = new System.Windows.Forms.RichTextBox();
             this.txtObjHeight = new DSMap.NumericTextBox();
             this.txtObjLength = new DSMap.NumericTextBox();
             this.txtObjWidth = new DSMap.NumericTextBox();
@@ -338,7 +339,6 @@
             this.txtHeaderNameStyle = new DSMap.NumericTextBox();
             this.txtHeaderObjectTextures = new DSMap.NumericTextBox();
             this.txtHeaderMapTextures = new DSMap.NumericTextBox();
-            this.txtMovements = new System.Windows.Forms.RichTextBox();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -1027,7 +1027,7 @@
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage5.Size = new System.Drawing.Size(576, 539);
             this.tabPage5.TabIndex = 2;
-            this.tabPage5.Text = "Tokens";
+            this.tabPage5.Text = "Compiler Output";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // bTokenize
@@ -1043,7 +1043,9 @@
             // txtTokens
             // 
             this.txtTokens.AcceptsTab = true;
+            this.txtTokens.BackColor = System.Drawing.SystemColors.MenuText;
             this.txtTokens.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTokens.ForeColor = System.Drawing.SystemColors.Window;
             this.txtTokens.Location = new System.Drawing.Point(6, 6);
             this.txtTokens.Name = "txtTokens";
             this.txtTokens.Size = new System.Drawing.Size(333, 325);
@@ -2843,6 +2845,18 @@
             this.tabPage6.Text = "Movements";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
+            // txtMovements
+            // 
+            this.txtMovements.AcceptsTab = true;
+            this.txtMovements.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtMovements.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMovements.Location = new System.Drawing.Point(0, 0);
+            this.txtMovements.Name = "txtMovements";
+            this.txtMovements.Size = new System.Drawing.Size(576, 539);
+            this.txtMovements.TabIndex = 2;
+            this.txtMovements.Text = "";
+            this.txtMovements.WordWrap = false;
+            // 
             // txtObjHeight
             // 
             this.txtObjHeight.Location = new System.Drawing.Point(6, 240);
@@ -3823,18 +3837,6 @@
             this.txtHeaderMapTextures.TabIndex = 2;
             this.txtHeaderMapTextures.Text = "0";
             this.txtHeaderMapTextures.Value = ((uint)(0u));
-            // 
-            // txtMovements
-            // 
-            this.txtMovements.AcceptsTab = true;
-            this.txtMovements.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtMovements.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMovements.Location = new System.Drawing.Point(0, 0);
-            this.txtMovements.Name = "txtMovements";
-            this.txtMovements.Size = new System.Drawing.Size(576, 539);
-            this.txtMovements.TabIndex = 2;
-            this.txtMovements.Text = "";
-            this.txtMovements.WordWrap = false;
             // 
             // MainForm
             // 

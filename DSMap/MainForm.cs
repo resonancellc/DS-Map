@@ -1693,26 +1693,26 @@ namespace DSMap
 
         private void bTokenize_Click(object sender, EventArgs e)
         {
-            Tokenizer.Token[] scripts = Tokenizer.Tokenize(txtScripts.Text);
-            Tokenizer.Token[] functions = Tokenizer.Tokenize(txtFunctions.Text);
-            Tokenizer.Token[] moves = Tokenizer.Tokenize(txtMovements.Text);
+            TokenReader scripts = Tokenizer.Tokenize(txtScripts.Text);
+            TokenReader functions = Tokenizer.Tokenize(txtFunctions.Text);
+            TokenReader moves = Tokenizer.Tokenize(txtMovements.Text);
 
-            txtTokens.Text = "Scripts:\n";
+            string ss = "Scripts:\n";
             foreach (var t in scripts)
             {
-                txtTokens.Text += t.ToString() + " ";
+                ss += t.ToString() + " ";
             }
 
-            txtTokens.Text += "\n\nFunctions:\n";
+            ss += "\n\nFunctions:\n";
             foreach (var t in functions)
             {
-                txtTokens.Text += t.ToString() + " ";
+                ss += t.ToString() + " ";
             }
 
-            txtTokens.Text += "\n\nMovements:\n";
+            ss += "\n\nMovements:\n";
             foreach (var t in moves)
             {
-                txtTokens.Text += t.ToString() + " ";
+                ss += t.ToString() + " ";
             }
         }
     }
