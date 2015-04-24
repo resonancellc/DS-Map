@@ -32,12 +32,17 @@ namespace DSHL.Formats.Pokémon.Scripting
                         sr.Read();
                     }
                 }
-                else if (c == ';' || c == '@') // New commnad/script start
+                else if (c == ';' || c == '@' || c == '$') // New commnad/script start
                 {
                     sr.Read();
                     tokens.Add(new Token(c));
                 }
                 else if (c == '{' || c == '}') // Block Open/Close
+                {
+                    sr.Read(); // Control characters
+                    tokens.Add(new Token(c));
+                }
+                else if (c == '[' || c == ']')
                 {
                     sr.Read(); // Control characters
                     tokens.Add(new Token(c));

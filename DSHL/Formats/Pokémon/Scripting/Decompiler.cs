@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Windows.Forms;
 
 namespace DSHL.Formats.Pokémon.Scripting
 {
@@ -11,8 +12,10 @@ namespace DSHL.Formats.Pokémon.Scripting
         private CommandDatabase commandDB;
         public List<Script> Scripts;
         public List<Script> Functions;
+        public List<Movement> Movements;
         private Queue<uint> ScriptOffsets;
         private Queue<uint> FunctionOffsets;
+        private Queue<uint> MovementOffsets;
 
         public Decompiler(CommandDatabase cdb)
         {
@@ -20,18 +23,22 @@ namespace DSHL.Formats.Pokémon.Scripting
 
             Scripts = new List<Script>();
             Functions = new List<Script>();
+            Movements = new List<Movement>();
 
             ScriptOffsets = new Queue<uint>();
             FunctionOffsets = new Queue<uint>();
+            MovementOffsets = new Queue<uint>();
         }
 
         public void Reset()
         {
             Scripts.Clear();
             Functions.Clear();
+            Movements.Clear();
 
             ScriptOffsets.Clear();
             FunctionOffsets.Clear();
+            MovementOffsets.Clear();
         }
 
         public void Decompile(byte[] buffer)
@@ -92,6 +99,13 @@ namespace DSHL.Formats.Pokémon.Scripting
                             FunctionOffsets.Enqueue(cmd.JumpOffset);
                         }
                     }
+                    else if (cmd.IsMoveJump)
+                    {
+                        if (!MovementOffsets.Contains(cmd.JumpOffset))
+                        {
+                            MovementOffsets.Enqueue(cmd.JumpOffset);
+                        }
+                    }
 
                     script.Commands.Add(cmd);
                 }
@@ -106,10 +120,11 @@ namespace DSHL.Formats.Pokémon.Scripting
             #region Functions
             scrL = 1;
             List<uint> doneFunctions = new List<uint>();
+            //FunctionOffsets.OrderByDescending(x => x);
             while (FunctionOffsets.Count > 0)
             {
                 // Sort it out, lowest to highest
-                FunctionOffsets.OrderByDescending(x => x); // 
+                //FunctionOffsets.OrderByDescending(x => x); // 
                 uint functionOffset = FunctionOffsets.Dequeue(); // Get first (smallest) offset
                 if (functionOffset >= br.BaseStream.Length - 2) continue;
                 else if (doneFunctions.Contains(functionOffset)) continue;
@@ -135,6 +150,13 @@ namespace DSHL.Formats.Pokémon.Scripting
                         if (!FunctionOffsets.Contains(cmd.JumpOffset) && !doneFunctions.Contains(cmd.JumpOffset))
                         {
                             FunctionOffsets.Enqueue(cmd.JumpOffset);
+                        }
+                    }
+                    else if (cmd.IsMoveJump)
+                    {
+                        if (!MovementOffsets.Contains(cmd.JumpOffset))
+                        {
+                            MovementOffsets.Enqueue(cmd.JumpOffset);
                         }
                     }
 
@@ -168,7 +190,49 @@ namespace DSHL.Formats.Pokémon.Scripting
             }
             #endregion
 
-            // TODO: Movements
+            // Read the movements
+            #region Movements
+            scrL = 1;
+            //MovementOffsets.OrderByDescending(x => x);
+            while (MovementOffsets.Count > 0)
+            {
+                uint offset = MovementOffsets.Dequeue();
+                if (offset >= br.BaseStream.Length - 4) continue; // TODO: Error
+                //MessageBox.Show("Movement offset: " + offset.ToString("X"));
+
+                // Check start of movement
+                /*if (br.ReadUInt32() != 0x000000FE)
+                {
+                    throw new Exception("Invalid movement!");
+                }*/
+
+                // Read movements
+                // This format is a bit more obscure
+                // I had to guess a bit here
+                br.BaseStream.Seek(offset, SeekOrigin.Begin);
+                Movement mov = new Movement("mov" + scrL); scrL++;
+                mov.Offset = offset;
+
+                while (br.BaseStream.Position < br.BaseStream.Length - 4)
+                {
+                    Move m = new Move();
+                    m.Type = br.ReadUInt16();
+                    m.Steps = br.ReadUInt16();
+
+                    if (m.Type == 0xFE) // End of movement?
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        mov.Commands.Add(m);
+                    }
+                }
+
+                Movements.Add(mov);
+            }
+
+            #endregion
         }
 
         private Command DecompileCommand(BinaryReader br)
@@ -212,7 +276,12 @@ namespace DSHL.Formats.Pokémon.Scripting
                             break;
                         case "-m": // Jump to Move (32)
                             cmd.IsMoveJump = true;
-                            cmd.Arguments.Add(br.ReadUInt32());
+                            {
+                                uint offset = (uint)br.BaseStream.Position + br.ReadUInt32() + 4;
+                                //cmd.Arguments.Add(br.ReadUInt32());
+                                cmd.Arguments.Add(offset);
+                                cmd.JumpOffset = offset;
+                            }
                             break;
 
                         // Failure
@@ -225,12 +294,23 @@ namespace DSHL.Formats.Pokémon.Scripting
             return cmd;
         }
 
+        /*private Move DecompileMove(BinaryReader br)
+        {
+            // This is actually quite simple.
+            // It doesn't even need a function.
+            Move m = new Move();
+            m.Type = br.ReadUInt16();
+            m.Steps = br.ReadUInt16();
+            return m;
+        }*/
+
         public string ScriptsToString()
         {
             string r = "# There are " + Scripts.Count + " scripts.\n\n";
             foreach (var script in Scripts)
             {
-                r += "@ " + script.Name + " { # 0x" + script.Offset.ToString("X") + "\n";
+                r += "# 0x" + script.Offset.ToString("X") + "\n";
+                r += "@ " + script.Name + " {\n";
                 //r += ScriptToString(script);
                 foreach (var cmd in script.Commands)
                 {
@@ -264,7 +344,17 @@ namespace DSHL.Formats.Pokémon.Scripting
                         }
                         else if (cmd.IsMoveJump && args[i] == "-m") // For when we want a movement name
                         {
-                            r += "move" + cmd.Arguments[i].ToString("X");
+                            //r += "move" + cmd.Arguments[i].ToString("X");
+                            string n = GetMovementNameAtOffset(cmd.Arguments[i]);
+                            if (n != string.Empty)
+                            {
+                                r += n;
+                            }
+                            else
+                            {
+                                r += "0x" + cmd.Arguments[i].ToString("X") + " # This should point to a movement!";
+                                throw new Exception("Could not find a movement to call!");
+                            }
                         }
                         else
                         {
@@ -283,7 +373,8 @@ namespace DSHL.Formats.Pokémon.Scripting
             string r = "# There are " + Functions.Count + " functions.\n\n";
             foreach (var func in Functions)
             {
-                r += "@ " + func.Name + " { # 0x" + func.Offset.ToString("X") + "\n";
+                r += "# 0x" + func.Offset.ToString("X") + "\n";
+                r += "@ " + func.Name + " {\n";
                 //r += ScriptToString(script);
                 foreach (var cmd in func.Commands)
                 {
@@ -317,7 +408,17 @@ namespace DSHL.Formats.Pokémon.Scripting
                         }
                         else if (cmd.IsMoveJump && args[i] == "-m") // For when we want a movement name
                         {
-                            r += "move" + cmd.Arguments[i].ToString("X");
+                            //r += "move" + cmd.Arguments[i].ToString("X");
+                            string n = GetMovementNameAtOffset(cmd.Arguments[i]);
+                            if (n != string.Empty)
+                            {
+                                r += n;
+                            }
+                            else
+                            {
+                                r += "0x" + cmd.Arguments[i].ToString("X") + " # This should point to a movement!";
+                                throw new Exception("Could not find a movement to call!");
+                            }
                         }
                         else
                         {
@@ -333,7 +434,24 @@ namespace DSHL.Formats.Pokémon.Scripting
 
         public string MovementsToString()
         {
-            return "~Not yet~";
+            string r = "# There are " + Movements.Count + " movements.\n\n";
+            foreach (var moves in Movements)
+            {
+                r += "# 0x" + moves.Offset.ToString("X") + "\n";
+                r += "$ " + moves.Name + " [\n";
+                foreach (var move in moves.Commands)
+                {
+                    r += "\t";
+                    // MOVE NAME
+                    r += "0x" + move.Type.ToString("X4");
+                    r += " ";
+                    r += "0x" + move.Steps.ToString("X4");
+                    r += ";\n";
+                }
+                r += "]\n\n";
+            }
+            return r;
+            //return "~Not yet~";
         }
 
         public string GetScriptNameAtOffset(uint offset)
@@ -350,6 +468,15 @@ namespace DSHL.Formats.Pokémon.Scripting
             for (int i = 0; i < Functions.Count; i++)
             {
                 if (Functions[i].Offset == offset) return Functions[i].Name;
+            }
+            return string.Empty;
+        }
+
+        public string GetMovementNameAtOffset(uint offset)
+        {
+            for (int i = 0; i < Movements.Count; i++)
+            {
+                if (Movements[i].Offset == offset) return Movements[i].Name;
             }
             return string.Empty;
         }
@@ -389,6 +516,26 @@ namespace DSHL.Formats.Pokémon.Scripting
 
             public bool IsEnd, IsJump, IsMoveJump;
             public uint JumpOffset;
+        }
+
+        public class Movement
+        {
+            public string Name;
+            public uint Offset;
+            public List<Move> Commands;
+
+            public Movement(string name)
+            {
+                Name = name;
+                Offset = 0;
+                Commands = new List<Move>();
+            }
+        }
+
+        public class Move
+        {
+            public ushort Type;
+            public ushort Steps;
         }
     }
 }

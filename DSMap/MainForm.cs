@@ -532,6 +532,7 @@ namespace DSMap
             // Load scripts
             if (header.Scripts < 0xFFFF)
             {
+                File.WriteAllBytes("script.bin", scriptData.GetFile(header.Scripts));
                 scriptDecompiler.Decompile(scriptData.GetFile(header.Scripts));
             }
             else
@@ -587,6 +588,7 @@ namespace DSMap
                 tabControlScripts.Visible = true;
                 txtScripts.Text = scriptDecompiler.ScriptsToString();
                 txtFunctions.Text = scriptDecompiler.FunctionsToString();
+                txtMovements.Text = scriptDecompiler.MovementsToString();
             }
             else
             {
@@ -1691,10 +1693,24 @@ namespace DSMap
 
         private void bTokenize_Click(object sender, EventArgs e)
         {
-            Tokenizer.Token[] tokens = Tokenizer.Tokenize(txtScripts.Text);
+            Tokenizer.Token[] scripts = Tokenizer.Tokenize(txtScripts.Text);
+            Tokenizer.Token[] functions = Tokenizer.Tokenize(txtFunctions.Text);
+            Tokenizer.Token[] moves = Tokenizer.Tokenize(txtMovements.Text);
 
-            txtTokens.Text = "";
-            foreach (var t in tokens)
+            txtTokens.Text = "Scripts:\n";
+            foreach (var t in scripts)
+            {
+                txtTokens.Text += t.ToString() + " ";
+            }
+
+            txtTokens.Text += "\n\nFunctions:\n";
+            foreach (var t in functions)
+            {
+                txtTokens.Text += t.ToString() + " ";
+            }
+
+            txtTokens.Text += "\n\nMovements:\n";
+            foreach (var t in moves)
             {
                 txtTokens.Text += t.ToString() + " ";
             }
