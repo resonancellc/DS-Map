@@ -87,9 +87,11 @@
             this.tabScripts = new System.Windows.Forms.TabPage();
             this.tabControlScripts = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.txtScripts = new System.Windows.Forms.RichTextBox();
+            this.txtScripts = new ScintillaNET.Scintilla();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.txtFunctions = new System.Windows.Forms.RichTextBox();
+            this.txtFunctions = new ScintillaNET.Scintilla();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.txtMovements = new ScintillaNET.Scintilla();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.bTokenize = new System.Windows.Forms.Button();
             this.txtTokens = new System.Windows.Forms.RichTextBox();
@@ -255,8 +257,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.saveDialog = new System.Windows.Forms.SaveFileDialog();
             this.pBanner = new System.Windows.Forms.PictureBox();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.txtMovements = new System.Windows.Forms.RichTextBox();
+            this.tabText = new System.Windows.Forms.TabPage();
+            this.txtText = new ScintillaNET.Scintilla();
             this.txtObjHeight = new DSMap.NumericTextBox();
             this.txtObjLength = new DSMap.NumericTextBox();
             this.txtObjWidth = new DSMap.NumericTextBox();
@@ -359,6 +361,7 @@
             this.tabControlScripts.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tabWilds.SuspendLayout();
             this.tabControlWilds.SuspendLayout();
@@ -386,7 +389,7 @@
             this.groupBox21.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBanner)).BeginInit();
-            this.tabPage6.SuspendLayout();
+            this.tabText.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -577,6 +580,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabMap);
             this.tabControl1.Controls.Add(this.tabScripts);
+            this.tabControl1.Controls.Add(this.tabText);
             this.tabControl1.Controls.Add(this.tabWilds);
             this.tabControl1.Controls.Add(this.tabHeader);
             this.tabControl1.Location = new System.Drawing.Point(182, 52);
@@ -985,15 +989,19 @@
             // 
             // txtScripts
             // 
-            this.txtScripts.AcceptsTab = true;
             this.txtScripts.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtScripts.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtScripts.HighlightGuide = 0;
+            this.txtScripts.Lexer = ScintillaNET.Lexer.Cpp;
             this.txtScripts.Location = new System.Drawing.Point(3, 3);
             this.txtScripts.Name = "txtScripts";
+            this.txtScripts.RectangularSelectionAnchor = 0;
+            this.txtScripts.RectangularSelectionAnchorVirtualSpace = 0;
+            this.txtScripts.RectangularSelectionCaret = 0;
+            this.txtScripts.RectangularSelectionCaretVirtualSpace = 0;
             this.txtScripts.Size = new System.Drawing.Size(570, 533);
             this.txtScripts.TabIndex = 0;
-            this.txtScripts.Text = "";
-            this.txtScripts.WordWrap = false;
+            this.txtScripts.Text = "// Load a Map...";
+            this.txtScripts.TextChanged += new System.EventHandler(this.txtScripts_TextChanged);
             // 
             // tabPage4
             // 
@@ -1008,15 +1016,46 @@
             // 
             // txtFunctions
             // 
-            this.txtFunctions.AcceptsTab = true;
             this.txtFunctions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtFunctions.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFunctions.HighlightGuide = 0;
+            this.txtFunctions.Lexer = ScintillaNET.Lexer.Cpp;
             this.txtFunctions.Location = new System.Drawing.Point(3, 3);
             this.txtFunctions.Name = "txtFunctions";
+            this.txtFunctions.RectangularSelectionAnchor = 0;
+            this.txtFunctions.RectangularSelectionAnchorVirtualSpace = 0;
+            this.txtFunctions.RectangularSelectionCaret = 0;
+            this.txtFunctions.RectangularSelectionCaretVirtualSpace = 0;
             this.txtFunctions.Size = new System.Drawing.Size(570, 533);
             this.txtFunctions.TabIndex = 1;
-            this.txtFunctions.Text = "";
-            this.txtFunctions.WordWrap = false;
+            this.txtFunctions.Text = "// Load a Map...";
+            this.txtFunctions.TextChanged += new System.EventHandler(this.txtFunctions_TextChanged);
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.txtMovements);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(576, 539);
+            this.tabPage6.TabIndex = 3;
+            this.tabPage6.Text = "Movements";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // txtMovements
+            // 
+            this.txtMovements.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtMovements.HighlightGuide = 0;
+            this.txtMovements.Lexer = ScintillaNET.Lexer.Cpp;
+            this.txtMovements.Location = new System.Drawing.Point(3, 3);
+            this.txtMovements.Name = "txtMovements";
+            this.txtMovements.RectangularSelectionAnchor = 0;
+            this.txtMovements.RectangularSelectionAnchorVirtualSpace = 0;
+            this.txtMovements.RectangularSelectionCaret = 0;
+            this.txtMovements.RectangularSelectionCaretVirtualSpace = 0;
+            this.txtMovements.Size = new System.Drawing.Size(570, 533);
+            this.txtMovements.TabIndex = 0;
+            this.txtMovements.Text = "// Load a Map...";
+            this.txtMovements.TextChanged += new System.EventHandler(this.txtMovements_TextChanged);
             // 
             // tabPage5
             // 
@@ -2835,27 +2874,31 @@
             this.pBanner.TabIndex = 7;
             this.pBanner.TabStop = false;
             // 
-            // tabPage6
+            // tabText
             // 
-            this.tabPage6.Controls.Add(this.txtMovements);
-            this.tabPage6.Location = new System.Drawing.Point(4, 22);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(576, 539);
-            this.tabPage6.TabIndex = 3;
-            this.tabPage6.Text = "Movements";
-            this.tabPage6.UseVisualStyleBackColor = true;
+            this.tabText.Controls.Add(this.txtText);
+            this.tabText.Location = new System.Drawing.Point(4, 22);
+            this.tabText.Name = "tabText";
+            this.tabText.Padding = new System.Windows.Forms.Padding(3);
+            this.tabText.Size = new System.Drawing.Size(590, 571);
+            this.tabText.TabIndex = 4;
+            this.tabText.Text = "Text";
+            this.tabText.UseVisualStyleBackColor = true;
             // 
-            // txtMovements
+            // txtText
             // 
-            this.txtMovements.AcceptsTab = true;
-            this.txtMovements.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtMovements.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMovements.Location = new System.Drawing.Point(0, 0);
-            this.txtMovements.Name = "txtMovements";
-            this.txtMovements.Size = new System.Drawing.Size(576, 539);
-            this.txtMovements.TabIndex = 2;
-            this.txtMovements.Text = "";
-            this.txtMovements.WordWrap = false;
+            this.txtText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtText.HighlightGuide = 0;
+            this.txtText.Location = new System.Drawing.Point(3, 3);
+            this.txtText.Name = "txtText";
+            this.txtText.RectangularSelectionAnchor = 0;
+            this.txtText.RectangularSelectionAnchorVirtualSpace = 0;
+            this.txtText.RectangularSelectionCaret = 0;
+            this.txtText.RectangularSelectionCaretVirtualSpace = 0;
+            this.txtText.Size = new System.Drawing.Size(584, 565);
+            this.txtText.TabIndex = 0;
+            this.txtText.Text = "text0 = Nothing to see here...\\nMove along.";
+            this.txtText.TextChanged += new System.EventHandler(this.txtText_TextChanged);
             // 
             // txtObjHeight
             // 
@@ -3880,6 +3923,7 @@
             this.tabControlScripts.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
+            this.tabPage6.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             this.tabWilds.ResumeLayout(false);
             this.tabWilds.PerformLayout();
@@ -3917,7 +3961,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBanner)).EndInit();
-            this.tabPage6.ResumeLayout(false);
+            this.tabText.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -4227,13 +4271,15 @@
         private System.Windows.Forms.TabControl tabControlScripts;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.RichTextBox txtScripts;
-        private System.Windows.Forms.RichTextBox txtFunctions;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.RichTextBox txtTokens;
         private System.Windows.Forms.Button bTokenize;
         private System.Windows.Forms.TabPage tabPage6;
-        private System.Windows.Forms.RichTextBox txtMovements;
+        private ScintillaNET.Scintilla txtMovements;
+        private ScintillaNET.Scintilla txtScripts;
+        private ScintillaNET.Scintilla txtFunctions;
+        private System.Windows.Forms.TabPage tabText;
+        private ScintillaNET.Scintilla txtText;
     }
 }
 

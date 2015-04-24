@@ -71,10 +71,21 @@ namespace DSHL.Formats.Pokémon.Scripting
 
         // Gets
         #region Gets
+
         public string GetCommandName(ushort cmd)
         {
             if (commandsByValue.ContainsKey(cmd)) return commandsByValue[cmd].Name;
             else return cmd.ToString("X4");
+        }
+
+        public string GetAllCommandNames()
+        {
+            string result = "";
+            foreach (string name in commandsByName.Keys)
+            {
+                result += name + " ";
+            }
+            return result.Remove(result.Length - 1);
         }
 
         public ushort GetCommandValue(string name)

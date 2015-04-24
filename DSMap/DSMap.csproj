@@ -39,6 +39,9 @@
     <Reference Include="OpenTK.GLControl">
       <HintPath>..\..\..\..\OpenTK\1.0\Binaries\OpenTK\Release\OpenTK.GLControl.dll</HintPath>
     </Reference>
+    <Reference Include="ScintillaNET">
+      <HintPath>..\..\..\..\Repositories\ScintillaNET-3.1.0-rc\ScintillaNET\bin\Release\ScintillaNET.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

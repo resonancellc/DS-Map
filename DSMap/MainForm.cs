@@ -16,6 +16,7 @@ using DSHL.Formats.Pokémon;
 using DSHL.Formats.Pokémon.Scripting;
 
 using OpenTK.Graphics.OpenGL;
+using ScintillaNET;
 
 namespace DSMap
 {
@@ -34,6 +35,7 @@ namespace DSMap
         private NARC encounterData;
         private PkmnText locationNames;
         private NARC scriptData;
+        private NARC textData;
 
         private CommandDatabase scriptCommands = new CommandDatabase();
         private Decompiler scriptDecompiler = null;// = new Decompiler();
@@ -43,6 +45,7 @@ namespace DSMap
         private Map map = null;
         private Header header = null;
         private Dictionary<int, int> mapHeaders = new Dictionary<int, int>();
+        private PkmnText mapTexts = null;
         private WildPokémon encounters = null;
 
         private int selectedObj = -1;
@@ -149,7 +152,7 @@ namespace DSMap
             GL.Viewport(0, 0, glMapModel.Width, glMapModel.Height);
 
             // Console stuff
-            // TODO
+            ConfigureScriptStyles();
 
             // Hide wild Pokémon editor
             tabControlWilds.Visible = false;
@@ -318,9 +321,13 @@ namespace DSMap
                 scriptData = new NARC(GetROMFilePathFromIni("ScriptData"));
                 scriptCommands.Load("assets\\" + ini[rom.Header.Code, "ScriptCommands"]);
                 scriptDecompiler = new Decompiler(scriptCommands);
+                //txtMovements.SetKeywords(0, scriptCommands.GetAllCommandNames());
+                txtScripts.SetKeywords(0, scriptCommands.GetAllCommandNames());
+                txtFunctions.SetKeywords(0, scriptCommands.GetAllCommandNames());
 
                 // Load text that we need
-                NARC textData = new NARC(GetROMFilePathFromIni("MessageData"));
+                #region Text
+                textData = new NARC(GetROMFilePathFromIni("MessageData"));
                 int mapNamesFileID = ini.GetInt32(rom.Header.Code, "Text~MapNames");
                 int pkmnNamesFileID = ini.GetInt32(rom.Header.Code, "Text~PokemonNames");
 
@@ -448,6 +455,7 @@ namespace DSMap
                 {
                     cHeaderName.Items.Add(locationNames[i]);
                 }
+                #endregion
 
                 // Fill the treeview with headers and associated maps
                 treeMaps.Nodes.Clear(); mapHeaders.Clear();
@@ -540,6 +548,16 @@ namespace DSMap
                 // todo
             }
 
+            // Load text
+            if (header.Texts < 0xFFFF)
+            {
+                mapTexts = new PkmnText(textData.GetFileMemoryStream(header.Texts));
+            }
+            else
+            {
+                mapTexts = null;
+            }
+
             // Load encounters
             if (header.WildPokemon < 0xFFFF)
             {
@@ -594,6 +612,17 @@ namespace DSMap
             {
                 tabControlScripts.Visible = false;
             }
+
+            #endregion
+
+            #region Text
+
+            string ttt = "";
+            for (int i = 0; i < mapTexts.Count; i++)
+            {
+                ttt += "text" + i + " = " + mapTexts[i] + "\n";
+            }
+            txtText.Text = ttt;
 
             #endregion
 
@@ -1691,6 +1720,8 @@ namespace DSMap
 
         #endregion
 
+        #region Scripts
+
         private void bTokenize_Click(object sender, EventArgs e)
         {
             TokenReader scripts = Tokenizer.Tokenize(txtScripts.Text);
@@ -1714,6 +1745,260 @@ namespace DSMap
             {
                 ss += t.ToString() + " ";
             }
+
+            txtTokens.Text = ss;
+        }
+
+        private void ConfigureScriptStyles()
+        {
+            #region txtScripts
+
+            // Set line numbers visible
+            txtScripts.Margins[0].Type = MarginType.Number;
+            txtScripts.Margins[0].Width = 16;
+
+            // Configuring the default style with properties
+            // we have common to every lexer style saves time.
+            txtScripts.StyleResetDefault();
+            txtScripts.Styles[Style.Default].Font = "Consolas";
+            txtScripts.Styles[Style.Default].Size = 10;
+            txtScripts.StyleClearAll();
+
+            txtScripts.Styles[Style.Cpp.CommentLine].ForeColor = Color.Green;
+            txtScripts.Styles[Style.Cpp.Word].ForeColor = Color.Blue;
+            txtScripts.Styles[Style.Cpp.Word2].ForeColor = Color.Maroon;
+
+            // Outputs:
+            // Primary keywords and identifiers
+            // Secondary keywords and identifiers
+            // Documentation comment keywords
+            // Global classes and typedefs
+            // Preprocessor definitions
+            // Task marker and error marker keywords
+            // keywords 0 are set in when a ROM is loaded
+            txtScripts.SetKeywords(1, "@");
+
+            // Instruct the lexer to calculate folding
+            txtScripts.SetProperty("fold", "1");
+            txtScripts.SetProperty("fold.compact", "1");
+
+            // Configure a margin to display folding symbols
+            txtScripts.Margins[1].Type = MarginType.Symbol;
+            txtScripts.Margins[1].Mask = Marker.MaskFolders;
+            txtScripts.Margins[1].Sensitive = true;
+            txtScripts.Margins[1].Width = 16;
+
+            // Set colors for all folding markers
+            for (int i = 25; i <= 31; i++)
+            {
+                txtScripts.Markers[i].SetForeColor(SystemColors.ControlLightLight);
+                txtScripts.Markers[i].SetBackColor(SystemColors.ControlDark);
+            }
+
+            // Configure folding markers with respective symbols
+            txtScripts.Markers[Marker.Folder].Symbol = MarkerSymbol.BoxPlus;
+            txtScripts.Markers[Marker.FolderOpen].Symbol = MarkerSymbol.BoxMinus;
+            txtScripts.Markers[Marker.FolderEnd].Symbol = MarkerSymbol.BoxPlusConnected;
+            txtScripts.Markers[Marker.FolderMidTail].Symbol = MarkerSymbol.TCorner;
+            txtScripts.Markers[Marker.FolderOpenMid].Symbol = MarkerSymbol.BoxMinusConnected;
+            txtScripts.Markers[Marker.FolderSub].Symbol = MarkerSymbol.VLine;
+            txtScripts.Markers[Marker.FolderTail].Symbol = MarkerSymbol.LCorner;
+
+            // Enable automatic folding
+            txtScripts.AutomaticFold = (AutomaticFold.Show | AutomaticFold.Click | AutomaticFold.Change);
+
+            #endregion
+
+            #region txtFunctions
+
+            // Set line numbers visible
+            txtFunctions.Margins[0].Type = MarginType.Number;
+            txtFunctions.Margins[0].Width = 16;
+
+            // Configuring the default style with properties
+            // we have common to every lexer style saves time.
+            txtFunctions.StyleResetDefault();
+            txtFunctions.Styles[Style.Default].Font = "Consolas";
+            txtFunctions.Styles[Style.Default].Size = 10;
+            txtFunctions.StyleClearAll();
+
+            txtFunctions.Styles[Style.Cpp.CommentLine].ForeColor = Color.Green;
+            txtFunctions.Styles[Style.Cpp.Word].ForeColor = Color.Blue;
+            txtFunctions.Styles[Style.Cpp.Word2].ForeColor = Color.Maroon;
+
+
+
+            // Outputs:
+            // Primary keywords and identifiers
+            // Secondary keywords and identifiers
+            // Documentation comment keywords
+            // Global classes and typedefs
+            // Preprocessor definitions
+            // Task marker and error marker keywords
+            txtFunctions.SetKeywords(1, "@");
+
+            // Instruct the lexer to calculate folding
+            txtFunctions.SetProperty("fold", "1");
+            txtFunctions.SetProperty("fold.compact", "1");
+
+            // Configure a margin to display folding symbols
+            txtFunctions.Margins[1].Type = MarginType.Symbol;
+            txtFunctions.Margins[1].Mask = Marker.MaskFolders;
+            txtFunctions.Margins[1].Sensitive = true;
+            txtFunctions.Margins[1].Width = 16;
+
+            // Set colors for all folding markers
+            for (int i = 25; i <= 31; i++)
+            {
+                txtFunctions.Markers[i].SetForeColor(SystemColors.ControlLightLight);
+                txtFunctions.Markers[i].SetBackColor(SystemColors.ControlDark);
+            }
+
+            // Configure folding markers with respective symbols
+            txtFunctions.Markers[Marker.Folder].Symbol = MarkerSymbol.BoxPlus;
+            txtFunctions.Markers[Marker.FolderOpen].Symbol = MarkerSymbol.BoxMinus;
+            txtFunctions.Markers[Marker.FolderEnd].Symbol = MarkerSymbol.BoxPlusConnected;
+            txtFunctions.Markers[Marker.FolderMidTail].Symbol = MarkerSymbol.TCorner;
+            txtFunctions.Markers[Marker.FolderOpenMid].Symbol = MarkerSymbol.BoxMinusConnected;
+            txtFunctions.Markers[Marker.FolderSub].Symbol = MarkerSymbol.VLine;
+            txtFunctions.Markers[Marker.FolderTail].Symbol = MarkerSymbol.LCorner;
+
+            // Enable automatic folding
+            txtFunctions.AutomaticFold = (AutomaticFold.Show | AutomaticFold.Click | AutomaticFold.Change);
+
+            #endregion
+
+            #region txtMovements
+            // Set line numbers visible
+            txtMovements.Margins[0].Type = MarginType.Number;
+            txtMovements.Margins[0].Width = 16;
+
+            // Configuring the default style with properties
+            // we have common to every lexer style saves time.
+            txtMovements.StyleResetDefault();
+            txtMovements.Styles[Style.Default].Font = "Consolas";
+            txtMovements.Styles[Style.Default].Size = 10;
+            txtMovements.StyleClearAll();
+
+            
+            txtMovements.Styles[Style.Cpp.CommentLine].ForeColor = Color.Green;
+            txtMovements.Styles[Style.Cpp.Word].ForeColor = Color.Blue;
+            txtMovements.Styles[Style.Cpp.Word2].ForeColor = Color.Maroon;
+            //txtMovements.Lexer = Lexer.Cpp;
+
+            // Outputs:
+            // Primary keywords and identifiers
+            // Secondary keywords and identifiers
+            // Documentation comment keywords
+            // Global classes and typedefs
+            // Preprocessor definitions
+            // Task marker and error marker keywords
+            txtMovements.SetKeywords(1, "$");
+
+            // Instruct the lexer to calculate folding
+            txtMovements.SetProperty("fold", "1");
+            txtMovements.SetProperty("fold.compact", "1");
+
+            // Configure a margin to display folding symbols
+            txtMovements.Margins[1].Type = MarginType.Symbol;
+            txtMovements.Margins[1].Mask = Marker.MaskFolders;
+            txtMovements.Margins[1].Sensitive = true;
+            txtMovements.Margins[1].Width = 16;
+
+            // Set colors for all folding markers
+            for (int i = 25; i <= 31; i++)
+            {
+                txtMovements.Markers[i].SetForeColor(SystemColors.ControlLightLight);
+                txtMovements.Markers[i].SetBackColor(SystemColors.ControlDark);
+            }
+
+            // Configure folding markers with respective symbols
+            txtMovements.Markers[Marker.Folder].Symbol = MarkerSymbol.BoxPlus;
+            txtMovements.Markers[Marker.FolderOpen].Symbol = MarkerSymbol.BoxMinus;
+            txtMovements.Markers[Marker.FolderEnd].Symbol = MarkerSymbol.BoxPlusConnected;
+            txtMovements.Markers[Marker.FolderMidTail].Symbol = MarkerSymbol.TCorner;
+            txtMovements.Markers[Marker.FolderOpenMid].Symbol = MarkerSymbol.BoxMinusConnected;
+            txtMovements.Markers[Marker.FolderSub].Symbol = MarkerSymbol.VLine;
+            txtMovements.Markers[Marker.FolderTail].Symbol = MarkerSymbol.LCorner;
+
+            // Enable automatic folding
+            txtMovements.AutomaticFold = (AutomaticFold.Show | AutomaticFold.Click | AutomaticFold.Change);
+            #endregion
+        }
+
+        private int txtMovementsMaxLineNumberCharLength;
+        private void txtMovements_TextChanged(object sender, EventArgs e)
+        {
+            // Did the number of characters in the line number display change?
+            // i.e. nnn VS nn, or nnnn VS nn, etc...
+            var maxLineNumberCharLength = txtMovements.Lines.Count.ToString().Length;
+            if (maxLineNumberCharLength == txtMovementsMaxLineNumberCharLength)
+                return;
+
+            // Calculate the width required to display the last line number
+            // and include some padding for good measure.
+            const int padding = 2;
+            txtMovements.Margins[0].Width = txtMovements.TextWidth(Style.LineNumber, new string('9', maxLineNumberCharLength + 1)) + padding;
+            txtMovementsMaxLineNumberCharLength = maxLineNumberCharLength;
+        }
+
+        private int txtScriptsMaxLineNumberCharLength;
+        private void txtScripts_TextChanged(object sender, EventArgs e)
+        {
+            // Did the number of characters in the line number display change?
+            // i.e. nnn VS nn, or nnnn VS nn, etc...
+            var maxLineNumberCharLength = txtScripts.Lines.Count.ToString().Length;
+            if (maxLineNumberCharLength == txtScriptsMaxLineNumberCharLength)
+                return;
+
+            // Calculate the width required to display the last line number
+            // and include some padding for good measure.
+            const int padding = 2;
+            txtScripts.Margins[0].Width = txtScripts.TextWidth(Style.LineNumber, new string('9', maxLineNumberCharLength + 1)) + padding;
+            txtScriptsMaxLineNumberCharLength = maxLineNumberCharLength;
+        }
+
+        private int txtFunctionsMaxLineNumberCharLength;
+        private void txtFunctions_TextChanged(object sender, EventArgs e)
+        {
+            // Did the number of characters in the line number display change?
+            // i.e. nnn VS nn, or nnnn VS nn, etc...
+            var maxLineNumberCharLength = txtFunctions.Lines.Count.ToString().Length;
+            if (maxLineNumberCharLength == txtFunctionsMaxLineNumberCharLength)
+                return;
+
+            // Calculate the width required to display the last line number
+            // and include some padding for good measure.
+            const int padding = 2;
+            txtFunctions.Margins[0].Width = txtFunctions.TextWidth(Style.LineNumber, new string('9', maxLineNumberCharLength + 1)) + padding;
+            txtFunctionsMaxLineNumberCharLength = maxLineNumberCharLength;
+        }
+
+        #endregion
+
+        private void ConfigureTextStyle()
+        {
+            // Set line numbers visible
+            txtText.Margins[0].Type = MarginType.Number;
+            txtText.Margins[0].Width = 16;
+            
+            //txtText.Margins[1].Width = 0; // And hide the first one.
+        }
+
+        private int txtTextMaxLineNumberCharLength;
+        private void txtText_TextChanged(object sender, EventArgs e)
+        {
+            // Did the number of characters in the line number display change?
+            // i.e. nnn VS nn, or nnnn VS nn, etc...
+            var maxLineNumberCharLength = txtText.Lines.Count.ToString().Length;
+            if (maxLineNumberCharLength == txtTextMaxLineNumberCharLength)
+                return;
+
+            // Calculate the width required to display the last line number
+            // and include some padding for good measure.
+            const int padding = 2;
+            txtText.Margins[0].Width = txtText.TextWidth(Style.LineNumber, new string('9', maxLineNumberCharLength + 1)) + padding;
+            txtTextMaxLineNumberCharLength = maxLineNumberCharLength;
         }
     }
 }

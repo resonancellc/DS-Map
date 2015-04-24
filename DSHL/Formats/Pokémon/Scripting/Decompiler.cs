@@ -269,7 +269,7 @@ namespace DSHL.Formats.Pokémon.Scripting
                         case "-f": // Jump to Func (32)
                             cmd.IsJump = true;
                             {
-                                uint offset = (uint)br.BaseStream.Position + br.ReadUInt32();
+                                uint offset = (uint)br.BaseStream.Position + br.ReadUInt32() + 4;
                                 cmd.Arguments.Add(offset);
                                 cmd.JumpOffset = offset;
                             }
@@ -306,10 +306,10 @@ namespace DSHL.Formats.Pokémon.Scripting
 
         public string ScriptsToString()
         {
-            string r = "# There are " + Scripts.Count + " scripts.\n\n";
+            string r = "// There are " + Scripts.Count + " scripts.\n\n";
             foreach (var script in Scripts)
             {
-                r += "# 0x" + script.Offset.ToString("X") + "\n";
+                r += "// 0x" + script.Offset.ToString("X") + "\n";
                 r += "@ " + script.Name + " {\n";
                 //r += ScriptToString(script);
                 foreach (var cmd in script.Commands)
@@ -337,7 +337,7 @@ namespace DSHL.Formats.Pokémon.Scripting
                                 continue;
                             }
 
-                            r += "0x" + cmd.Arguments[i].ToString("X") + " # This should point to a script!";
+                            r += "0x" + cmd.Arguments[i].ToString("X") + " // This should point to a script!";
                             throw new Exception("Could not find a function/script to jump to!");
                             //r += GetScriptNameAtOffset(cmd.Arguments[i]);
                             //r += "UnknownScript/Function!!! // 0x" + cmd.Arguments[i].ToString("X");
@@ -352,7 +352,7 @@ namespace DSHL.Formats.Pokémon.Scripting
                             }
                             else
                             {
-                                r += "0x" + cmd.Arguments[i].ToString("X") + " # This should point to a movement!";
+                                r += "0x" + cmd.Arguments[i].ToString("X") + " // This should point to a movement!";
                                 throw new Exception("Could not find a movement to call!");
                             }
                         }
@@ -370,10 +370,10 @@ namespace DSHL.Formats.Pokémon.Scripting
 
         public string FunctionsToString()
         {
-            string r = "# There are " + Functions.Count + " functions.\n\n";
+            string r = "// There are " + Functions.Count + " functions.\n\n";
             foreach (var func in Functions)
             {
-                r += "# 0x" + func.Offset.ToString("X") + "\n";
+                r += "// 0x" + func.Offset.ToString("X") + "\n";
                 r += "@ " + func.Name + " {\n";
                 //r += ScriptToString(script);
                 foreach (var cmd in func.Commands)
@@ -401,7 +401,7 @@ namespace DSHL.Formats.Pokémon.Scripting
                                 continue;
                             }
 
-                            r += "0x" +  cmd.Arguments[i].ToString("X") + " # This should point to a script!";
+                            r += "0x" +  cmd.Arguments[i].ToString("X") + " // This should point to a script!";
                             throw new Exception("Could not find a function/script to jump to!");
                             //r += GetScriptNameAtOffset(cmd.Arguments[i]);
                             //r += "UnknownScript/Function!!! // 0x" + cmd.Arguments[i].ToString("X");
@@ -416,7 +416,7 @@ namespace DSHL.Formats.Pokémon.Scripting
                             }
                             else
                             {
-                                r += "0x" + cmd.Arguments[i].ToString("X") + " # This should point to a movement!";
+                                r += "0x" + cmd.Arguments[i].ToString("X") + " // This should point to a movement!";
                                 throw new Exception("Could not find a movement to call!");
                             }
                         }
@@ -434,10 +434,10 @@ namespace DSHL.Formats.Pokémon.Scripting
 
         public string MovementsToString()
         {
-            string r = "# There are " + Movements.Count + " movements.\n\n";
+            string r = "// There are " + Movements.Count + " movements.\n\n";
             foreach (var moves in Movements)
             {
-                r += "# 0x" + moves.Offset.ToString("X") + "\n";
+                r += "// 0x" + moves.Offset.ToString("X") + "\n";
                 r += "$ " + moves.Name + " [\n";
                 foreach (var move in moves.Commands)
                 {

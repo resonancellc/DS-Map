@@ -24,8 +24,23 @@ namespace DSHL.Formats.Pokémon.Scripting
                 {
                     sr.Read();
                 }
-                else if (c == '#') // Command
+                else if (c == '/') // Command
                 {
+                    // Try to parse this comment start
+                    sr.Read();
+                    if (sr.Peek() == EOF)
+                    {
+                        throw new Exception("Unexpected character '" + c + "'!");
+                    }
+                    if ((char)sr.Peek() == '/')
+                    {
+                        sr.Read();
+                    }
+                    else
+                    {
+                        throw new Exception("Unexpected character '" + c + "'!");
+                    }
+
                     // Just consume the rest of this line
                     while (sr.Peek() != EOF && sr.Peek() != '\n')
                     {
