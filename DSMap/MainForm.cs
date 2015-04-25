@@ -320,6 +320,7 @@ namespace DSMap
                 // Load scipt data
                 scriptData = new NARC(GetROMFilePathFromIni("ScriptData"));
                 scriptCommands.Load("assets\\" + ini[rom.Header.Code, "ScriptCommands"]);
+
                 scriptDecompiler = new Decompiler(scriptCommands);
                 //txtMovements.SetKeywords(0, scriptCommands.GetAllCommandNames());
                 txtScripts.SetKeywords(0, scriptCommands.GetAllCommandNames());
@@ -620,7 +621,7 @@ namespace DSMap
             string ttt = "";
             for (int i = 0; i < mapTexts.Count; i++)
             {
-                ttt += "text" + i + " = " + mapTexts[i] + "\n";
+                ttt += "text" + i + "=" + mapTexts[i] + "\n";
             }
             txtText.Text = ttt;
 
@@ -1749,6 +1750,32 @@ namespace DSMap
             txtTokens.Text = ss;
         }
 
+        private void bCompile_Click(object sender, EventArgs e)
+        {
+            txtTokens.Text = "Trying to compile...\n\n";
+            try
+            {
+                TokenReader scripts = Tokenizer.Tokenize(txtScripts.Text);
+                TokenReader functions = Tokenizer.Tokenize(txtFunctions.Text);
+                TokenReader moves = Tokenizer.Tokenize(txtMovements.Text);
+
+                Compiler compiler = new Compiler(scriptCommands);
+                Block[] blocks = compiler.Compile(scripts, functions, moves);
+
+                string s = "";
+                foreach (var block in blocks)
+                {
+                    s += block.ToString() + "\n\n";
+                }
+                txtTokens.Text += s;
+            }
+            catch (Exception ex)
+            {
+                txtTokens.Text = "Error:\n" + ex.Message + "\n\n" + ex.StackTrace + "\n\n";
+            }
+            txtTokens.Text += "Done!";
+        }
+
         private void ConfigureScriptStyles()
         {
             #region txtScripts
@@ -2000,5 +2027,6 @@ namespace DSMap
             txtText.Margins[0].Width = txtText.TextWidth(Style.LineNumber, new string('9', maxLineNumberCharLength + 1)) + padding;
             txtTextMaxLineNumberCharLength = maxLineNumberCharLength;
         }
+
     }
 }

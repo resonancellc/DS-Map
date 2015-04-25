@@ -45,7 +45,9 @@
     <Compile Include="Formats\Nitro\Models\NSBTX.cs" />
     <Compile Include="Formats\Nitro\Models\OBJ.cs" />
     <Compile Include="Formats\Nitro\NARC.cs" />
+    <Compile Include="Formats\Pokémon\Scripting\AST.cs" />
     <Compile Include="Formats\Pokémon\Scripting\CommandDatabase.cs" />
+    <Compile Include="Formats\Pokémon\Scripting\Compiler.cs" />
     <Compile Include="Formats\Pokémon\Scripting\Tokenizer.cs" />
     <Compile Include="Formats\Pokémon\Scripting\Decompiler.cs" />
     <Compile Include="Formats\Pokémon\WildPokémon.cs" />

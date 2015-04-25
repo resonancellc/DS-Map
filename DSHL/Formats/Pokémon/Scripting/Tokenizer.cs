@@ -103,6 +103,7 @@ namespace DSHL.Formats.Pokémon.Scripting
                 }
                 else
                 {
+                    sr.Read();
                     throw new Exception("Unexpected character '" + c + "'!");
                 }
             }
@@ -149,7 +150,7 @@ namespace DSHL.Formats.Pokémon.Scripting
 
         public Token(char c)
         {
-            Value = c.ToString();
+            Value = c;
         }
 
         public Token(string s)
@@ -252,6 +253,24 @@ namespace DSHL.Formats.Pokémon.Scripting
         {
             // Not the safest?
             return (token.Value == Peek().Value);
+        }
+
+        /// <summary>
+        /// Returns whether the next token will be a string token.
+        /// </summary>
+        /// <returns>A boolean.</returns>
+        public bool ExpectString()
+        {
+            return (Peek().Value is string);
+        }
+
+        /// <summary>
+        /// Returns whether the next token will be a uint token.
+        /// </summary>
+        /// <returns>A boolean.</returns>
+        public bool ExpectUInt()
+        {
+            return (Peek().Value is uint);
         }
 
         // So we can use foreach loops with this.

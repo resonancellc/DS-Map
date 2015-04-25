@@ -27,45 +27,73 @@ namespace DSHL.Formats.Pokémon.Scripting
 
         public void Load(string file)
         {
-            StreamReader sr = File.OpenText(file);
-            commandsByValue.Clear();
-            commandsByName.Clear();
-
-            while (!sr.EndOfStream)
+            using (StreamReader sr = File.OpenText(file))
             {
-                // Get next line
-                string line = sr.ReadLine().Trim();
+                commandsByValue.Clear();
+                commandsByName.Clear();
 
-                // Skip blank lines
-                if (string.IsNullOrEmpty(line)) continue;
-                else if (string.IsNullOrWhiteSpace(line)) continue;
-
-                string[] parts = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                if (parts.Length < 2) continue; // For now, just skip it
-
-                // Try get value
-                ushort value = 0;
-                if (!ushort.TryParse(parts[0], out value)) continue; // All errors are skipped
-
-                // Parse
-                Command cmd = new Command();
-                cmd.Value = value;
-                cmd.Name = parts[1].ToLower(); // My scripting is case-insensitive
-                cmd.Arguments = null;
-
-                if (parts.Length > 2) // Get args, if any
+                while (!sr.EndOfStream)
                 {
-                    cmd.Arguments = new string[parts.Length - 2];
-                    for (int i = 0; i < cmd.Arguments.Length; i++)
-                    {
-                        cmd.Arguments[i] = parts[i + 2].ToLower();
-                    }
-                }
+                    // Get next line
+                    string line = sr.ReadLine().Trim();
 
-                if (commandsByName.ContainsKey(cmd.Name)) throw new Exception("Command '" + cmd.Name + "' was defined twice!");
-                if (commandsByValue.ContainsKey(cmd.Value)) throw new Exception("Command value " + cmd.Value + " was defined twice!");
-                commandsByName.Add(cmd.Name, cmd);
-                commandsByValue.Add(cmd.Value, cmd);
+                    // Skip blank lines
+                    if (string.IsNullOrEmpty(line)) continue;
+                    else if (string.IsNullOrWhiteSpace(line)) continue;
+
+                    string[] parts = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    if (parts.Length < 2) continue; // For now, just skip it
+
+                    // Try get value
+                    ushort value = 0;
+                    if (!ushort.TryParse(parts[0], out value)) continue; // All errors are skipped
+
+                    // Parse
+                    Command cmd = new Command();
+                    cmd.Value = value;
+                    cmd.Name = parts[1].ToLower(); // My scripting is case-insensitive
+                    cmd.Arguments = null;
+
+                    if (parts.Length > 2) // Get args, if any
+                    {
+                        cmd.Arguments = new string[parts.Length - 2];
+                        for (int i = 0; i < cmd.Arguments.Length; i++)
+                        {
+                            cmd.Arguments[i] = parts[i + 2].ToLower();
+                        }
+                    }
+
+                    if (commandsByName.ContainsKey(cmd.Name)) throw new Exception("Command '" + cmd.Name + "' was defined twice!");
+                    if (commandsByValue.ContainsKey(cmd.Value)) throw new Exception("Command value " + cmd.Value + " was defined twice!");
+                    commandsByName.Add(cmd.Name, cmd);
+                    commandsByValue.Add(cmd.Value, cmd);
+                }
+            }
+        }
+
+        public void Save(string file)
+        {
+            using (StreamWriter sw = File.CreateText(file))
+            {
+                // Write all commands
+                foreach (ushort cmd in commandsByValue.Keys)
+                {
+                    // cmd
+                    sw.Write(cmd.ToString());
+
+                    // name
+                    sw.Write(" " + commandsByValue[cmd].Name);
+
+                    // args
+                    if (commandsByValue[cmd].Arguments != null)
+                        foreach (string arg in commandsByValue[cmd].Arguments)
+                        {
+                            sw.Write(" " + arg);
+                        }
+
+                    // new line
+                    sw.WriteLine();
+                }
             }
         }
 
@@ -106,6 +134,16 @@ namespace DSHL.Formats.Pokémon.Scripting
             else return null;
         }
         #endregion
+
+        public bool IsCommand(string value)
+        {
+            return commandsByName.ContainsKey(value);
+        }
+
+        public bool IsCommand(ushort value)
+        {
+            return commandsByValue.ContainsKey(value);
+        }
 
         private class Command
         {

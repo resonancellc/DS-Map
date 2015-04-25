@@ -341,6 +341,7 @@
             this.txtHeaderNameStyle = new DSMap.NumericTextBox();
             this.txtHeaderObjectTextures = new DSMap.NumericTextBox();
             this.txtHeaderMapTextures = new DSMap.NumericTextBox();
+            this.bCompile = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -1059,6 +1060,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.bCompile);
             this.tabPage5.Controls.Add(this.bTokenize);
             this.tabPage5.Controls.Add(this.txtTokens);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
@@ -1071,7 +1073,7 @@
             // 
             // bTokenize
             // 
-            this.bTokenize.Location = new System.Drawing.Point(345, 7);
+            this.bTokenize.Location = new System.Drawing.Point(345, 6);
             this.bTokenize.Name = "bTokenize";
             this.bTokenize.Size = new System.Drawing.Size(75, 23);
             this.bTokenize.TabIndex = 3;
@@ -3881,6 +3883,16 @@
             this.txtHeaderMapTextures.Text = "0";
             this.txtHeaderMapTextures.Value = ((uint)(0u));
             // 
+            // bCompile
+            // 
+            this.bCompile.Location = new System.Drawing.Point(345, 35);
+            this.bCompile.Name = "bCompile";
+            this.bCompile.Size = new System.Drawing.Size(75, 23);
+            this.bCompile.TabIndex = 4;
+            this.bCompile.Text = "Compile";
+            this.bCompile.UseVisualStyleBackColor = true;
+            this.bCompile.Click += new System.EventHandler(this.bCompile_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4280,6 +4292,7 @@
         private ScintillaNET.Scintilla txtFunctions;
         private System.Windows.Forms.TabPage tabText;
         private ScintillaNET.Scintilla txtText;
+        private System.Windows.Forms.Button bCompile;
     }
 }
 
