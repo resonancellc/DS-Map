@@ -205,6 +205,37 @@ namespace DSMap
 
             // Save data
             mapData.ReplaceFile(selectedMap, map.Save());
+            if (header.Scripts < 0xFFFF)
+            {
+                /*txtTokens.Text = "Compiling (not for real)...\n\n";
+                try
+                {
+                    // Tokenize
+                    TokenReader scripts = Tokenizer.Tokenize(txtScripts.Text);
+                    TokenReader functions = Tokenizer.Tokenize(txtFunctions.Text);
+                    TokenReader moves = Tokenizer.Tokenize(txtMovements.Text);
+
+                    // Compile
+                    Compiler compiler = new Compiler(scriptCommands);
+                    byte[] result = compiler.Compile(scripts, functions, moves);
+
+                    // Replace file in NARC
+                    scriptData.ReplaceFile(header.Scripts, result);
+
+                    // Console info
+                    string s = "Result:";
+                    foreach (var block in result)
+                    {
+                        s += " " + block.ToString("X2");
+                    }
+                    txtTokens.Text += s;
+                }
+                catch (Exception ex)
+                {
+                    txtTokens.Text = "Error:\n" + ex.Message + "\n\n" + ex.StackTrace + "\n\n";
+                }
+                txtTokens.Text += "\nDone!";  */
+            }
             if (encounters != null && header.WildPokemon < 0xFFFF)
             {
                 encounterData.ReplaceFile(header.WildPokemon, encounters.Save());
@@ -213,6 +244,7 @@ namespace DSMap
 
             // Save NARCs
             mapData.Save();
+            //scriptData.Save();
             encounterData.Save();
         }
 
@@ -541,7 +573,7 @@ namespace DSMap
             // Load scripts
             if (header.Scripts < 0xFFFF)
             {
-                File.WriteAllBytes("script.bin", scriptData.GetFile(header.Scripts));
+                //File.WriteAllBytes("script.bin", scriptData.GetFile(header.Scripts));
                 scriptDecompiler.Decompile(scriptData.GetFile(header.Scripts));
             }
             else
@@ -604,10 +636,10 @@ namespace DSMap
 
             if (header.Scripts < 0xFFFF)
             {
-                tabControlScripts.Visible = true;
                 txtScripts.Text = scriptDecompiler.ScriptsToString();
                 txtFunctions.Text = scriptDecompiler.FunctionsToString();
                 txtMovements.Text = scriptDecompiler.MovementsToString();
+                tabControlScripts.Visible = true;
             }
             else
             {
@@ -618,12 +650,20 @@ namespace DSMap
 
             #region Text
 
-            string ttt = "";
-            for (int i = 0; i < mapTexts.Count; i++)
+            if (header.Texts < 0xFFFF)
             {
-                ttt += "text" + i + "=" + mapTexts[i] + "\n";
+                string ttt = "";
+                for (int i = 0; i < mapTexts.Count; i++)
+                {
+                    ttt += "text" + i + "=" + mapTexts[i] + "\n";
+                }
+                txtText.Text = ttt;
+                txtText.Visible = true;
             }
-            txtText.Text = ttt;
+            else
+            {
+                txtText.Visible = false;
+            }
 
             #endregion
 
@@ -1760,12 +1800,12 @@ namespace DSMap
                 TokenReader moves = Tokenizer.Tokenize(txtMovements.Text);
 
                 Compiler compiler = new Compiler(scriptCommands);
-                Block[] blocks = compiler.Compile(scripts, functions, moves);
+                byte[] result = compiler.Compile(scripts, functions, moves);
 
-                string s = "";
-                foreach (var block in blocks)
+                string s = "Result: ";
+                foreach (var block in result)
                 {
-                    s += block.ToString() + "\n\n";
+                    s += " " + block.ToString("X2");
                 }
                 txtTokens.Text += s;
             }

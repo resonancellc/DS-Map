@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
-namespace DSHL.Formats.Pokémon.Scripting
+namespace DSHL.Formats.Pokémon.Scripting.Ast
 {
     public class SCommand
     {
@@ -72,7 +73,34 @@ namespace DSHL.Formats.Pokémon.Scripting
         }
     }
 
-    public abstract class Block { }
+    public class MCommand
+    {
+        public ushort Type, Steps;
+
+        public MCommand(ushort type, ushort steps)
+        {
+            Type = type;
+            Steps = steps;
+        }
+
+        public int GetSize()
+        {
+            return 4;
+        }
+
+        public override string ToString()
+        {
+            return Type + " for " + Steps + " steps";
+        }
+    }
+
+    public abstract class Block
+    {
+        public virtual int GetSize()
+        {
+            return 0;
+        }
+    }
 
     public class SBlock : Block
     {
@@ -98,6 +126,38 @@ namespace DSHL.Formats.Pokémon.Scripting
         public override string ToString()
         {
             string s = Name + " = \n";
+            foreach (var cmd in Commands)
+            {
+                s += cmd.ToString() + "\n";
+            }
+            return s;
+        }
+    }
+
+    public class MBlock : Block
+    {
+        public string Name;
+        public List<MCommand> Commands;
+
+        public MBlock(string name)
+        {
+            Name = name;
+            Commands = new List<MCommand>();
+        }
+
+        public int GetSize()
+        {
+            int s = 4; // for an extra end command
+            foreach (var cmd in Commands)
+            {
+                s += cmd.GetSize();
+            }
+            return s;
+        }
+
+        public override string ToString()
+        {
+            string s = Name + " =\n";
             foreach (var cmd in Commands)
             {
                 s += cmd.ToString() + "\n";
