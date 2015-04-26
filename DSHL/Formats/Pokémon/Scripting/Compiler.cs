@@ -97,7 +97,14 @@ namespace DSHL.Formats.Pokémon.Scripting
 
 
 
-
+                    // Filler bytes
+                    if (bw.BaseStream.Position % 4 != 0)
+                    {
+                        for (int j = 0; j < 4 - (bw.BaseStream.Position % 4); j++)
+                        {
+                            bw.Write((byte)0xFF);
+                        }
+                    }
 
 
                 }
@@ -147,7 +154,14 @@ namespace DSHL.Formats.Pokémon.Scripting
                         }
                     }
 
-
+                    // Filler bytes
+                    if (bw.BaseStream.Position % 4 != 0)
+                    {
+                        for (int j = 0; j < 4 - (bw.BaseStream.Position % 4); j++)
+                        {
+                            bw.Write((byte)0xFF);
+                        }
+                    }
                 }
                 #endregion
 
@@ -168,7 +182,21 @@ namespace DSHL.Formats.Pokémon.Scripting
                         bw.Write(cmd.Steps);
                     }
 
+                    // Write "end" command
+                    bw.Write((byte)0xFE);
+                    bw.Write(new byte[] { 0, 0, 0 });
+
+                    // Filler bytes
+                    if (bw.BaseStream.Position % 4 != 0)
+                    {
+                        for (int j = 0; j < 4 - (bw.BaseStream.Position % 4); j++)
+                        {
+                            bw.Write((byte)0xFF);
+                        }
+                    }
+
                 }
+
                 #endregion
 
                 // Write actual header
@@ -178,7 +206,7 @@ namespace DSHL.Formats.Pokémon.Scripting
                     string script = ((SBlock)sResult[i]).Name;
 
                     uint pos = (uint)bw.BaseStream.Position;
-                    bw.Write(labels[script] - pos + 4u);
+                    bw.Write(labels[script] - pos - 4u);
                 }
 
                 // Write pointers
@@ -190,7 +218,7 @@ namespace DSHL.Formats.Pokémon.Scripting
                     {
                         bw.BaseStream.Seek(offset, SeekOrigin.Begin);
                         //uint pos = (uint)bw.BaseStream.Position;
-                        bw.Write(labels[label] - offset + 4u);
+                        bw.Write(labels[label] - offset - 4u);
                     }
                     else
                     {

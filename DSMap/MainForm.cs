@@ -207,7 +207,7 @@ namespace DSMap
             mapData.ReplaceFile(selectedMap, map.Save());
             if (header.Scripts < 0xFFFF)
             {
-                /*txtTokens.Text = "Compiling (not for real)...\n\n";
+                txtTokens.Text = "Compiling (not for real)...\n\n";
                 try
                 {
                     // Tokenize
@@ -234,7 +234,7 @@ namespace DSMap
                 {
                     txtTokens.Text = "Error:\n" + ex.Message + "\n\n" + ex.StackTrace + "\n\n";
                 }
-                txtTokens.Text += "\nDone!";  */
+                txtTokens.Text += "\nDone!"; // */
             }
             if (encounters != null && header.WildPokemon < 0xFFFF)
             {
@@ -244,7 +244,7 @@ namespace DSMap
 
             // Save NARCs
             mapData.Save();
-            //scriptData.Save();
+            scriptData.Save();
             encounterData.Save();
         }
 
@@ -322,6 +322,21 @@ namespace DSMap
             if (saveDialog.ShowDialog() == DialogResult.OK)
             {
                 File.WriteAllText(saveDialog.FileName, txtMovements.Text);
+            }
+        }
+
+        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (header.Scripts == 0xFFFF) return;
+
+            saveDialog.FileName = "";
+            saveDialog.Filter = "Raw Script Files|*.dssr";
+            saveDialog.Title = "Export Scripts";
+
+            if (saveDialog.ShowDialog() == DialogResult.OK)
+            {
+                //File.WriteAllText(saveDialog.FileName, txtScripts.Text);
+                File.WriteAllBytes(saveDialog.FileName, scriptData.GetFile(header.Scripts));
             }
         }
 
