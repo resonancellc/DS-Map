@@ -167,7 +167,7 @@ namespace DSMap
 
         #region Menu
 
-        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        private void loadROMToolStripMenuItem_Click(object sender, EventArgs e)
         {
             openDialog.FileName = "";
             openDialog.Filter = "NDS ROMs|*.nds";
@@ -191,14 +191,14 @@ namespace DSMap
             }
         }
 
-        private void buildToolStripMenuItem_Click(object sender, EventArgs e)
+        private void buildROMToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Build
             // It will know whether we can or not
             rom.Build();
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void saveAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // 
             if (!rom.IsLoaded() || selectedMap == -1) return;
@@ -246,6 +246,83 @@ namespace DSMap
             mapData.Save();
             //scriptData.Save();
             encounterData.Save();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void scriptsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            openDialog.FileName = "";
+            openDialog.Filter = "Script Files|*.dss";
+            openDialog.Title = "Open Scripts";
+
+            if (openDialog.ShowDialog() == DialogResult.OK)
+            {
+                txtScripts.Text = File.ReadAllText(openDialog.FileName);
+            }
+        }
+
+        private void functionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openDialog.FileName = "";
+            openDialog.Filter = "Script Files|*.dss";
+            openDialog.Title = "Open Functions";
+
+            if (openDialog.ShowDialog() == DialogResult.OK)
+            {
+                txtFunctions.Text = File.ReadAllText(openDialog.FileName);
+            }
+        }
+
+        private void movementsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openDialog.FileName = "";
+            openDialog.Filter = "Movement Files|*.dsm";
+            openDialog.Title = "Open Movements";
+
+            if (openDialog.ShowDialog() == DialogResult.OK)
+            {
+                txtMovements.Text = File.ReadAllText(openDialog.FileName);
+            }
+        }
+
+        private void scriptsToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            saveDialog.FileName = "";
+            saveDialog.Filter = "Script Files|*.dss";
+            saveDialog.Title = "Save Scripts";
+
+            if (saveDialog.ShowDialog() == DialogResult.OK)
+            {
+                File.WriteAllText(saveDialog.FileName, txtScripts.Text);
+            }
+        }
+
+        private void functionsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            saveDialog.FileName = "";
+            saveDialog.Filter = "Script Files|*.dss";
+            saveDialog.Title = "Save Functions";
+
+            if (saveDialog.ShowDialog() == DialogResult.OK)
+            {
+                File.WriteAllText(saveDialog.FileName, txtFunctions.Text);
+            }
+        }
+
+        private void movementsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            saveDialog.FileName = "";
+            saveDialog.Filter = "Movement Files|*.dsm";
+            saveDialog.Title = "Save Movements";
+
+            if (saveDialog.ShowDialog() == DialogResult.OK)
+            {
+                File.WriteAllText(saveDialog.FileName, txtMovements.Text);
+            }
         }
 
         private void createPatchToolStripMenuItem_Click(object sender, EventArgs e)
@@ -316,6 +393,11 @@ namespace DSMap
             }
 
             MessageBox.Show("Patch applied successfully!", "Yay~", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("DS Map Alpha v0.1\nCopyright (c) 2015 Hopeless Masquerade/Lost Heart", "About DS Map", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         #endregion
@@ -2067,6 +2149,7 @@ namespace DSMap
             txtText.Margins[0].Width = txtText.TextWidth(Style.LineNumber, new string('9', maxLineNumberCharLength + 1)) + padding;
             txtTextMaxLineNumberCharLength = maxLineNumberCharLength;
         }
+
 
     }
 }

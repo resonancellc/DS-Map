@@ -161,6 +161,16 @@ namespace DSHL.Formats.Pokémon.Scripting
                     }
 
                     func.Commands.Add(cmd);
+
+                    // Check if we are going into the area of another function
+                    // And exit early
+                    /*for (int i = 0; i < Functions.Count; i++)
+                    {
+                        if (Functions[i].Offset == func.Offset)
+                        {
+                            break;
+                        }
+                    }*/
                 }
                 while (!cmd.IsEnd);
 
@@ -443,9 +453,9 @@ namespace DSHL.Formats.Pokémon.Scripting
                 {
                     r += "\t";
                     // MOVE NAME
-                    r += "0x" + move.Type.ToString("X4");
+                    r += "0x" + move.Type.ToString("X");
                     r += " ";
-                    r += "0x" + move.Steps.ToString("X4");
+                    r += "0x" + move.Steps.ToString("X");
                     r += ";\n";
                 }
                 r += "]\n\n";

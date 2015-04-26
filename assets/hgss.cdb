@@ -20,7 +20,7 @@
 19 cmd13
 20 callstd u8 u8
 21 exitstd
-22 jump -f
+22 jump -f -e
 23 cmd17
 24 cmd18 u16
 25 cmd19 u16 u16
