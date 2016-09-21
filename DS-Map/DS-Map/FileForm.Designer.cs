@@ -62,6 +62,14 @@
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "Folder_16x.png");
             this.imageList1.Images.SetKeyName(1, "Document_16x.png");
+            this.imageList1.Images.SetKeyName(2, "ZipFile_16x.png");
+            this.imageList1.Images.SetKeyName(3, "Text_16x.png");
+            this.imageList1.Images.SetKeyName(4, "BinaryFile_16x.png");
+            this.imageList1.Images.SetKeyName(5, "SoundFile_16x.png");
+            this.imageList1.Images.SetKeyName(6, "ColorPalette_16x.png");
+            this.imageList1.Images.SetKeyName(7, "Image_16x.png");
+            this.imageList1.Images.SetKeyName(8, "Model3D_16x.png");
+            this.imageList1.Images.SetKeyName(9, "Animation_16x.png");
             // 
             // FileForm
             // 

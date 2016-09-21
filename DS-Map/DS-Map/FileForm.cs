@@ -52,11 +52,77 @@ namespace Lost
                 // create a node
                 var node = new TreeNode(Path.GetFileName(file));
                 node.Tag = $"F:{file}";
-                node.ImageIndex = 1;
-                node.SelectedImageIndex = 1;
+
+                var type = GuessFileType(file);
+                node.ImageIndex = type;
+                node.SelectedImageIndex = type;
 
                 // add to parent
                 parent.Nodes.Add(node);
+            }
+        }
+
+        int GuessFileType(string filename)
+        {
+            // first try to guess based on extension
+            switch (Path.GetExtension(filename).ToUpper())
+            {
+                case ".NARC":
+                    return 2;
+                case ".TXT":
+                    return 3;
+                case ".DAT":
+                case ".BIN":
+                    return 4;
+                case ".SDAT":
+                    return 5;
+                case ".NCLR":
+                    return 6;
+                case ".NCGR":
+                    return 7;
+                case ".NSBMD":
+                    return 8;
+                case ".NANR":
+                    return 9;
+            }
+
+            // read first four bytes of the file
+            // we can compare it against known file types
+            var buffer = new byte[4];
+            using (var fs = File.OpenRead(filename))
+                fs.Read(buffer, 0, 4);
+
+            // convert to string, ignore bad values
+            string id = "";
+            for (int i = 0; i < 4; i++)
+            {
+                if (buffer[i] == 0)
+                    break;
+                else
+                    id += (char)buffer[i];
+            }
+            
+            // compare against known values IDs :)
+            switch (id)
+            {
+                case "NARC":
+                case "CARC":
+                    return 2;
+                case "SDAT":
+                    return 5;
+                case "RLCN":
+                case "RPCN":
+                    return 6;
+                case "RGCN":
+                case "BTX0":
+                    return 7;
+                case "BMD0":
+                    return 8;
+                case "RNAN":
+                    return 9;
+
+                default:
+                    return 1;
             }
         }
     }

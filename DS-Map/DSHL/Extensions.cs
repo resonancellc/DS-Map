@@ -26,9 +26,9 @@ namespace Lost
             return sb.ToString();
         }
 
-        public static void WriteInt32(this FileStream fs, int i)
+        public static void WriteInt32(this Stream stream, int i)
         {
-            fs.Write(BitConverter.GetBytes(i), 0, 4);
+            stream.Write(BitConverter.GetBytes(i), 0, 4);
         }
     }
 }
