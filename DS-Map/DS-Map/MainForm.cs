@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,16 +14,23 @@ namespace Lost
 {
     public partial class MainForm : Form
     {
-        ROM rom;
-
         public MainForm()
         {
             InitializeComponent();
         }
 
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            if (!File.Exists("ndstool.exe"))
+            {
+                MessageBox.Show("ndstool.exe could not be found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+            }
+        }
+
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            rom?.Dispose();
+            
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -36,27 +45,104 @@ namespace Lost
                 if (o.ShowDialog() != DialogResult.OK)
                     return;
 
-                rom?.Dispose();
-                rom = new ROM(o.FileName);
+                var directory = Path.Combine(Path.GetDirectoryName(o.FileName), Path.GetFileNameWithoutExtension(o.FileName));
+                if (Directory.Exists(directory))
+                {
+                    if (MessageBox.Show($"A directory for {o.FileName} was found!\nExtract ROM anyway?",
+                        "Extract?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        ExtractROM(o.FileName, directory);
+                }
+                else
+                {
+                    ExtractROM(o.FileName, directory);
+                }
 
-                treeView1.Nodes.Clear();
-                treeView1.Nodes.Add(P(rom.Root));
+                OpenROM(directory);
+            }
+        }
+        
+        void OpenROM(string directory)
+        {
+            var root = Path.Combine(directory, "root");
+            var node = new TreeNode("root");
+
+            FindFiles(root, node);
+
+            treeView1.Nodes.Clear();
+            treeView1.Nodes.Add(node);
+        }
+
+        void FindFiles(string dir, TreeNode parent)
+        {
+            foreach (var dir2 in Directory.GetDirectories(dir))
+            {
+                var node = new TreeNode(Path.GetFileName(dir2));
+                FindFiles(dir2, node);
+
+                parent.Nodes.Add(node);
+            }
+
+            foreach (var file in Directory.GetFiles(dir))
+            {
+                parent.Nodes.Add(new TreeNode(Path.GetFileName(file)));
             }
         }
 
-        TreeNode P(ROM.Directory d)
+        void ExtractROM(string filename, string directory)
         {
-            var n = new TreeNode($"{d.ID:X3} {d.Name}");
+            // delete an existing directory, if needed
+            if (Directory.Exists(directory))
+                Directory.Delete(directory, true);
 
-            // children
-            foreach (var c in d.Directories)
-                n.Nodes.Add(P(c));
+            var root = Path.Combine(directory, "root");
+            var overlay = Path.Combine(directory, "overlay");
 
-            // files
-            foreach (var f in d.Files)
-                n.Nodes.Add(new TreeNode($"{f.ID:X4} {f.Name} - 0x{f.Offset:X6}"));
+            // create the extraction directory
+            Directory.CreateDirectory(directory);
+            Directory.CreateDirectory(root);
+            Directory.CreateDirectory(overlay);
 
-            return n;
+            // use ndstool to extract the ROM
+            var proc = new Process();
+            proc.StartInfo.FileName = "ndstool.exe";
+            proc.StartInfo.Arguments =
+                $"-x \"{filename}\" " +
+                $" -9 \"{Path.Combine(directory, "arm9.bin")}\" " +
+                $" -7 \"{Path.Combine(directory, "arm7.bin")}\" " +
+                $" -y9 \"{Path.Combine(directory, "y9.bin")}\" " +
+                $" -y7 \"{Path.Combine(directory, "y7.bin")}\" " +
+                $" -d \"{root}\" " +
+                $" -y \"{overlay}\" " +
+                $" -t \"{Path.Combine(directory, "banner.bin")}\" " +
+                $" -h \"{Path.Combine(directory, "header.bin")}\""
+                ;
+
+            proc.Start();
+            proc.WaitForExit();
+        }
+
+        void BuildROM(string directory, string filename)
+        {
+            var root = Path.Combine(directory, "root");
+            var overlay = Path.Combine(directory, "overlay");
+
+            // use ndstool to extract the ROM
+            var proc = new Process();
+            proc.StartInfo.FileName = "ndstool.exe";
+            proc.StartInfo.Arguments =
+                $"-c \"{filename}\" " +
+                $" -9 \"{Path.Combine(directory, "arm9.bin")}\" " +
+                $" -7 \"{Path.Combine(directory, "arm7.bin")}\" " +
+                $" -y9 \"{Path.Combine(directory, "y9.bin")}\" " +
+                $" -y7 \"{Path.Combine(directory, "y7.bin")}\" " +
+                $" -d \"{root}\" " +
+                $" -y \"{overlay}\" " +
+                $" -t \"{Path.Combine(directory, "banner.bin")}\" " +
+                $" -h \"{Path.Combine(directory, "header.bin")}\""
+                ;
+
+            proc.Start();
+            proc.WaitForExit();
         }
     }
 }

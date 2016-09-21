@@ -1,15 +1,90 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Lost
 {
-    using Stream = System.IO.Stream;
-    using Reader = System.IO.BinaryReader;
-    using Writer = System.IO.BinaryWriter;
+    public static class ROM
+    {
+        public static void Extract(string filename, string directory)
+        {
+            // things to extract:
+            // filesystem
+            // arm7/9
+            // arm overlay
+            // header
+            // banner
+            if (Directory.Exists(directory))
+                Directory.Delete(directory, true);
+            Directory.CreateDirectory(directory);
 
+            // TODO: this would be nice I guess
+        }
+
+        public static Header LoadHeader(string filename)
+        {
+            using (var stream = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
+                return LoadHeader(stream);
+        }
+
+        public static Header LoadHeader(Stream stream)
+        {
+            using (var br = new BinaryReader(stream))
+            {
+                var header = new Header();
+                br.BaseStream.Position = 0L;
+
+                header.Title = br.ReadString(12);
+                header.Code = br.ReadString(4);
+                header.Maker = br.ReadString(2);
+                header.DeviceCode = br.ReadByte();                          // bit1 = DSi
+                header.EncryptionSeed = br.ReadByte();
+                header.FileLength = br.ReadByte();
+                br.BaseStream.Seek(9L, SeekOrigin.Current);                 // 7 reserved, 2 unknown (used by DSi games)
+                header.Version = br.ReadByte();
+                header.InternalFlags = br.ReadByte();
+                header.Arm9Offset = br.ReadUInt32();
+                header.Arm9EntryAddress = br.ReadUInt32();
+                header.Arm9LoadAddress = br.ReadUInt32();
+                header.Arm9Length = br.ReadUInt32();
+                header.Arm7Offset = br.ReadUInt32();
+                header.Arm7EntryAddress = br.ReadUInt32();
+                header.Arm7LoadAddress = br.ReadUInt32();
+                header.Arm7Length = br.ReadUInt32();
+                header.FNTOffset = br.ReadUInt32();                         // !!
+                header.FNTLength = br.ReadUInt32();                         // !!
+                header.FATOffset = br.ReadUInt32();                         // !!
+                header.FATLength = br.ReadUInt32();                         // !!
+                header.Arm9OverlayOffset = br.ReadUInt32();
+                header.Arm9OverlaySize = br.ReadUInt32();
+                header.Arm7OverlayOffset = br.ReadUInt32();
+                header.Arm7OverlaySize = br.ReadUInt32();
+                header.NormalRegisterSettings = br.ReadUInt32();
+                header.SecureRegisterSettings = br.ReadUInt32();
+                header.BannerOffset = br.ReadUInt32();                      // !!
+                header.SecureAreaCRC = br.ReadUInt16();
+                header.SecureTransferTimeout = br.ReadUInt16();
+                header.Arm9AutoLoad = br.ReadUInt32();
+                header.Arm7AutoLoad = br.ReadUInt32();
+                header.SecureDisable = br.ReadUInt64();
+                header.ROMLength = br.ReadUInt32();
+                header.HeaderLength = br.ReadInt32();
+                br.BaseStream.Seek(56L, SeekOrigin.Current);
+                header.NintendoLogo = br.ReadBytes(156);
+                header.NintendoLogoCRC = br.ReadUInt16();
+                header.HeaderCRC = br.ReadUInt16();
+
+                // note: DSi extended this format but we don't care
+                return header;
+            }
+        }
+    }
+
+
+    /*
     /// <summary>
     /// Represents an NDS ROM filesystem.
     /// </summary>
@@ -112,23 +187,6 @@ namespace Lost
             Root = LoadDirectory(br, "root", 0);
         }
 
-        void ppp(Directory d, int i)
-        {
-            for (int j = 0; j < i; j++)
-                Console.Write(" ");
-            Console.WriteLine(d.Name);
-
-            foreach (var dir in d.Directories)
-                ppp(dir, i + 1);
-
-            foreach (var f in d.Files)
-            {
-                for (int j = 0; j < i + 1; j++)
-                    Console.Write(" ");
-                Console.WriteLine(f.Name);
-            }
-        }
-
         Directory LoadDirectory(Reader br, string name, int id)
         {
             br.BaseStream.Position = Header.FNTOffset + 8 * id;
@@ -138,11 +196,7 @@ namespace Lost
             var fileID = br.ReadUInt16();
             var parentID = br.ReadUInt16();
 
-            var dir = new Directory()
-            {
-                Name = name,
-                ID = id,
-            };
+            var dir = new Directory(name, id);
 
             br.BaseStream.Position = Header.FNTOffset + subTableOffset;
             for (;;)
@@ -181,7 +235,7 @@ namespace Lost
             var f = new File()
             {
                 Name = name,
-                ID = id
+                ID = id,
             };
 
             // read FAT
@@ -200,27 +254,109 @@ namespace Lost
         {
             // idea here is packing all the files in nicely
             // root directory, we need a count of all directories...
+        }
 
+        /// <summary>
+        /// Returns the <see cref="File"/> at the given path within the <see cref="ROM"/>.
+        /// </summary>
+        /// <param name="path">The path of the file to return.</param>
+        /// <returns>A <see cref="File"/> if it exists or <c>null</c> otherwise.</returns>
+        public File GetFile(string path)
+        {
+            var parts = path.Split('\\');
+            if (parts.Length == 0)
+                return null;
+
+            var f = 0;
+            if (parts[0] == "" || parts[0] == "root")
+                f++;
+            Console.WriteLine("root");
+
+            var currentDirectory = Root;
+            for (; f < parts.Length - 1; f++)
+            {
+                for (int j = 0; j < f; j++)
+                    Console.Write(" ");
+                Console.WriteLine(parts[f]);
+
+                currentDirectory = currentDirectory.GetDirectory(parts[f]);
+                if (currentDirectory == null)
+                    return null;
+            }
+
+            return currentDirectory.GetFile(parts[parts.Length - 1]);
+        }
+
+        /// <summary>
+        /// Gets the <see cref="Directory"/> at the given path within the <see cref="ROM"/>.
+        /// </summary>
+        /// <param name="path">The path of the directory to return.</param>
+        /// <returns>A <see cref="Directory"/> if it exists or <c>null</c> otherwise. </returns>
+        public Directory GetDirectory(string path)
+        {
+            var parts = path.Split('\\');
+            if (parts.Length == 0)
+                return null;
+
+            var f = 0;
+            if (parts[0] == "" || parts[0] == "root")
+                f++;
+
+            var currentDirectory = Root;
+            for (; f < parts.Length - 1; f++)
+            {
+                currentDirectory = currentDirectory.GetDirectory(parts[f]);
+                if (currentDirectory == null)
+                    return null;
+            }
+
+            return currentDirectory.GetDirectory(parts[parts.Length - 1]);
         }
 
         public class Directory
         {
+            public Directory(string name, int id)
+            {
+                Name = name;
+                ID = id;
+            }
+
             public string Name { get; set; }
             public int ID { get; set; }
 
             public List<Directory> Directories { get; } = new List<Directory>();
             public List<File> Files { get; } = new List<File>();
+
+            public Directory GetDirectory(string name)
+            {
+                for (int i = 0; i < Directories.Count; i++)
+                {
+                    if (Directories[i].Name == name)
+                        return Directories[i];
+                }
+                return null;
+            }
+
+            public File GetFile(string name)
+            {
+                for (int i = 0; i < Files.Count; i++)
+                {
+                    if (Files[i].Name == name)
+                        return Files[i];
+                }
+                return null;
+            }
         }
 
         public class File
         {
             public string Name { get; set; }
             public int ID { get; set; }
-
             public int Offset { get; set; }
             public int Length { get; set; }
         }
     }
+    */
 
     public class Header
     {
@@ -242,7 +378,7 @@ namespace Lost
         public uint Arm9AutoLoad, Arm7AutoLoad;
         public ulong SecureDisable;
         public uint ROMLength;
-        public uint HeaderLength;
+        public int HeaderLength;
         // 56 bytes reserved (00)
         public byte[] NintendoLogo; // 156 bytes
         public ushort NintendoLogoCRC, HeaderCRC;
