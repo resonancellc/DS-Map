@@ -14,6 +14,9 @@ namespace Lost
 {
     public partial class MainForm : Form
     {
+        string baseDirectory = string.Empty;
+        string rootDirectory = string.Empty;
+
         public MainForm()
         {
             InitializeComponent();
@@ -63,29 +66,9 @@ namespace Lost
         
         void OpenROM(string directory)
         {
-            var root = Path.Combine(directory, "root");
-            var node = new TreeNode("root");
-
-            FindFiles(root, node);
-
-            treeView1.Nodes.Clear();
-            treeView1.Nodes.Add(node);
-        }
-
-        void FindFiles(string dir, TreeNode parent)
-        {
-            foreach (var dir2 in Directory.GetDirectories(dir))
-            {
-                var node = new TreeNode(Path.GetFileName(dir2));
-                FindFiles(dir2, node);
-
-                parent.Nodes.Add(node);
-            }
-
-            foreach (var file in Directory.GetFiles(dir))
-            {
-                parent.Nodes.Add(new TreeNode(Path.GetFileName(file)));
-            }
+            // TODO
+            baseDirectory = directory;
+            rootDirectory = Path.Combine(directory, "root");
         }
 
         void ExtractROM(string filename, string directory)
@@ -143,6 +126,15 @@ namespace Lost
 
             proc.Start();
             proc.WaitForExit();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (rootDirectory == string.Empty)
+                return;
+
+            using (var editor = new FileForm(rootDirectory))
+                editor.ShowDialog();
         }
     }
 }
