@@ -36,6 +36,8 @@ namespace Lost
                 // create a node
                 var node = new TreeNode(Path.GetFileName(dir));
                 node.Tag = $"D:{dir}";
+                node.ImageIndex = 0;
+                node.SelectedImageIndex = 0;
 
                 // fill node with children
                 FindFiles(dir, node);
@@ -50,6 +52,8 @@ namespace Lost
                 // create a node
                 var node = new TreeNode(Path.GetFileName(file));
                 node.Tag = $"F:{file}";
+                node.ImageIndex = 1;
+                node.SelectedImageIndex = 1;
 
                 // add to parent
                 parent.Nodes.Add(node);
