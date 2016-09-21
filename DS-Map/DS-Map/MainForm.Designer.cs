@@ -32,7 +32,9 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
+            this.pIcon = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -70,11 +72,20 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // pIcon
+            // 
+            this.pIcon.Location = new System.Drawing.Point(42, 351);
+            this.pIcon.Name = "pIcon";
+            this.pIcon.Size = new System.Drawing.Size(32, 32);
+            this.pIcon.TabIndex = 2;
+            this.pIcon.TabStop = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(503, 473);
+            this.Controls.Add(this.pIcon);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -85,6 +96,7 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -96,6 +108,7 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.PictureBox pIcon;
     }
 }
 

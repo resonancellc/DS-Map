@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Lost
 {
@@ -26,13 +26,8 @@ namespace Lost
 
         public static Header LoadHeader(string filename)
         {
-            using (var stream = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
-                return LoadHeader(stream);
-        }
-
-        public static Header LoadHeader(Stream stream)
-        {
-            using (var br = new BinaryReader(stream))
+            using (var fs = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var br = new BinaryReader(fs))
             {
                 var header = new Header();
                 br.BaseStream.Position = 0L;
@@ -79,6 +74,54 @@ namespace Lost
 
                 // note: DSi extended this format but we don't care
                 return header;
+            }
+        }
+
+        public static Banner LoadBanner(string filename)
+        {
+            using (var fs = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var br = new BinaryReader(fs))
+            {
+                var banner = new Banner();
+
+                // read banner data
+                banner.Version = br.ReadUInt16();
+                banner.CRC16 = br.ReadUInt16();
+                br.BaseStream.Seek(6 + 0x16L, SeekOrigin.Current); // extra CRC's + reserved
+                var iconData = br.ReadBytes(0x200);
+                var iconPalette = br.ReadColors(16);
+                banner.JapaneseTitle = Encoding.Unicode.GetString(br.ReadBytes(0x100));
+                banner.EnglishTitle = Encoding.Unicode.GetString(br.ReadBytes(0x100));
+                banner.FrenchTitle = Encoding.Unicode.GetString(br.ReadBytes(0x100));
+                banner.GermanTitle = Encoding.Unicode.GetString(br.ReadBytes(0x100));
+                banner.ItalianTitle = Encoding.Unicode.GetString(br.ReadBytes(0x100));
+                banner.SpanishTitle = Encoding.Unicode.GetString(br.ReadBytes(0x100));
+
+                // draw icon
+                banner.Icon = new Bitmap(32, 32);
+
+                int i = 0;
+                for (int tileY = 0; tileY < 4; tileY++)
+                {
+                    for (int tileX = 0; tileX < 4; tileX++)
+                    {
+                        for (int y = 0; y < 8; y++)
+                        {
+                            for (int x = 0; x < 8; x += 2)
+                            {
+                                var left = iconData[i] & 0xF;
+                                var right = (iconData[i++] & 0xF0) >> 4;
+
+                                banner.Icon.SetPixel(x + tileX * 8, y + tileY * 8, iconPalette[left]);
+                                banner.Icon.SetPixel(x + 1 + tileX * 8, y + tileY * 8, iconPalette[right]);
+                            }
+                        }
+                    }
+                }
+
+                banner.Icon.MakeTransparent(iconPalette[0]);
+
+                return banner;
             }
         }
     }
@@ -384,5 +427,19 @@ namespace Lost
         public ushort NintendoLogoCRC, HeaderCRC;
         //public byte[] DebuggerReserved, ConfigurationSettings;
         // 160 bytes reserved (00)
+    }
+
+    public struct Banner
+    {
+        public ushort Version;
+        public ushort CRC16;
+        public string JapaneseTitle;
+        public string EnglishTitle;
+        public string FrenchTitle;
+        public string GermanTitle;
+        public string ItalianTitle;
+        public string SpanishTitle;
+
+        public Bitmap Icon;
     }
 }

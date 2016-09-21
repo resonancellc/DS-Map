@@ -69,6 +69,9 @@ namespace Lost
             // TODO
             baseDirectory = directory;
             rootDirectory = Path.Combine(directory, "root");
+
+            var banner = ROM.LoadBanner(Path.Combine(baseDirectory, "banner.bin"));
+            pIcon.Image = banner.Icon;
         }
 
         void ExtractROM(string filename, string directory)
