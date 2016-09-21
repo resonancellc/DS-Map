@@ -42,6 +42,7 @@ namespace Lost
                 // building section
 #if HEARTGOLD
                 br.BaseStream.Position = 0x14 + movementSize;
+                Console.WriteLine("{0:X} {1:X}", br.BaseStream.Position, 0x14 + movementSize);
 #else
                 br.BaseStream.Position = 0x10 + movementSize;
 #endif
@@ -68,7 +69,7 @@ namespace Lost
                 }
 
                 // model section
-                // TODO
+                var model = new Model(br);
 
                 // terrain section
                 // http://www.pokecommunity.com/showthread.php?t=371052
@@ -94,6 +95,7 @@ namespace Lost
                 //  RRRR                    rectangle_index
 #if HEARTGOLD
                 br.BaseStream.Position = 0x14 + movementSize + buildingsSize + modelSize;
+                Console.WriteLine("{0:X} {1:X}", br.BaseStream.Position, 0x14 + movementSize + buildingsSize + modelSize);
 #else
                 br.BaseStream.Position = 0x10 + movementSize + buildingsSize + modelSize;
 #endif
@@ -187,6 +189,41 @@ namespace Lost
                 // TODO
 #endif
             }
+        }
+
+        public static string[] LoadNames(Archive arc)
+        {
+            var names = new string[arc.FileCount];
+            for (int i = 0; i < arc.FileCount; i++)
+            {
+                using (var s = arc.GetFileStream(i))
+                {
+                    // skip to name within stream
+                    var movementSize = s.ReadInt32();
+                    var objectSize = s.ReadInt32();
+#if HEARTGOLD
+                    s.Seek(20 + 52 + movementSize + objectSize, SeekOrigin.Begin);
+#else
+                    s.Seek(16 + 52 + movementSize + objectSize, SeekOrigin.Begin);
+#endif
+
+                    // read 16 byte string
+                    var buffer = new byte[16];
+                    s.Read(buffer, 0, 16);
+
+                    var sb = new StringBuilder();
+                    foreach (var b in buffer)
+                    {
+                        if (b == 0)
+                            break;
+                        else
+                            sb.Append((char)b);
+                    }
+
+                    names[i] = sb.ToString();
+                }
+            }
+            return names;
         }
 
         public class Movement

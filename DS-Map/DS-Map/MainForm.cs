@@ -17,6 +17,8 @@ namespace Lost
         string baseDirectory = string.Empty;
         string rootDirectory = string.Empty;
 
+        Archive mapFile;
+
         public MainForm()
         {
             InitializeComponent();
@@ -72,6 +74,12 @@ namespace Lost
 
             var banner = ROM.LoadBanner(Path.Combine(baseDirectory, "banner.bin"));
             pIcon.Image = banner.Icon;
+
+            mapFile = new Archive(Path.Combine(rootDirectory, @"fielddata\land_data\land_data.narc"));
+            var mapNames = Map.LoadNames(mapFile);
+
+            listBox1.Items.Clear();
+            listBox1.Items.AddRange(mapNames);
         }
 
         void ExtractROM(string filename, string directory)

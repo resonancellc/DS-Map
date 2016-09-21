@@ -44,6 +44,30 @@ namespace Lost
             return c;
         }
 
+        /// <summary>
+        /// Reads a 2-byte signed fixed-point value from the current stream and advances the current position by two bytes.
+        /// </summary>
+        /// <param name="br"></param>
+        /// <returns></returns>
+        public static float ReadSFixed16(this BinaryReader br)
+        {
+            var u = br.ReadUInt16();
+
+            float value = ((u >> 12) & 0x7) + ((u & 0xFFF) / 4096f);
+            if ((u >> 15) > 0)
+                value *= -1;
+
+            return value;
+        }
+
+        public static int ReadInt32(this Stream stream)
+        {
+            var buffer = new byte[4];
+            stream.Read(buffer, 0, 4);
+            //return BitConverter.ToInt32(buffer, 0);
+            return (buffer[3] << 24) | (buffer[2] << 16) | (buffer[1] << 8) | buffer[0];
+        }
+
         public static void WriteInt32(this Stream stream, int i)
         {
             stream.Write(BitConverter.GetBytes(i), 0, 4);
