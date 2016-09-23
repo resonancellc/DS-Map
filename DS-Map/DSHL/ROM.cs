@@ -24,12 +24,12 @@ namespace Lost
             // TODO: this would be nice I guess
         }
 
-        public static Header LoadHeader(string filename)
+        public static ROMHeader LoadHeader(string filename)
         {
             using (var fs = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
             using (var br = new BinaryReader(fs))
             {
-                var header = new Header();
+                var header = new ROMHeader();
                 br.BaseStream.Position = 0L;
 
                 header.Title = br.ReadString(12);
@@ -77,12 +77,12 @@ namespace Lost
             }
         }
 
-        public static Banner LoadBanner(string filename)
+        public static ROMBanner LoadBanner(string filename)
         {
             using (var fs = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
             using (var br = new BinaryReader(fs))
             {
-                var banner = new Banner();
+                var banner = new ROMBanner();
 
                 // read banner data
                 banner.Version = br.ReadUInt16();
@@ -401,7 +401,7 @@ namespace Lost
     }
     */
 
-    public class Header
+    public class ROMHeader
     {
         // It follows this format exactly
         public string Title, Code, Maker;
@@ -429,7 +429,7 @@ namespace Lost
         // 160 bytes reserved (00)
     }
 
-    public struct Banner
+    public struct ROMBanner
     {
         public ushort Version;
         public ushort CRC16;

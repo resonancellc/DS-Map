@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Archive.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Header.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Matrix.cs" />
     <Compile Include="Model.cs" />
