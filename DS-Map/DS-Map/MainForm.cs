@@ -18,6 +18,7 @@ namespace Lost
         string rootDirectory = string.Empty;
 
         Archive mapFile;
+        Archive matrixFile;
 
         public MainForm()
         {
@@ -76,10 +77,12 @@ namespace Lost
             pIcon.Image = banner.Icon;
 
             mapFile = new Archive(Path.Combine(rootDirectory, @"fielddata\land_data\land_data.narc"));
-            var mapNames = Map.LoadNames(mapFile);
+            //var mapNames = Map.LoadNames(mapFile);
+            matrixFile = new Archive(Path.Combine(rootDirectory, @"fielddata\mapmatrix\map_matrix.narc"));
+            var matrixNames = Matrix.LoadNames(matrixFile);
 
             listBox1.Items.Clear();
-            listBox1.Items.AddRange(mapNames);
+            listBox1.Items.AddRange(matrixNames);
         }
 
         void ExtractROM(string filename, string directory)
@@ -146,6 +149,12 @@ namespace Lost
 
             using (var editor = new FileForm(rootDirectory))
                 editor.ShowDialog();
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //var map = new Map(mapFile.GetFileStream(listBox1.SelectedIndex));
+            //Text = map.Model.Name;
         }
     }
 }

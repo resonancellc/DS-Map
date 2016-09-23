@@ -12,6 +12,7 @@ namespace Lost
     {
         public Movement[,] Movements { get; }  = new Movement[32, 32];
         public List<Building> Buildings { get; } = new List<Building>();
+        public Model Model { get; set; }
 
         public Map(Stream stream)
         {
@@ -44,7 +45,7 @@ namespace Lost
                 br.BaseStream.Position = 0x14 + movementSize;
                 Console.WriteLine("{0:X} {1:X}", br.BaseStream.Position, 0x14 + movementSize);
 #else
-                br.BaseStream.Position = 0x10 + movementSize;
+                //br.BaseStream.Position = 0x10 + movementSize;
 #endif
                 for (int i = 0; i < buildingsSize / 0x30; i++)
                 {
@@ -69,7 +70,7 @@ namespace Lost
                 }
 
                 // model section
-                var model = new Model(br);
+                Model = new Model(br);
 
                 // terrain section
                 // http://www.pokecommunity.com/showthread.php?t=371052
@@ -94,11 +95,13 @@ namespace Lost
                 // connections:
                 //  RRRR                    rectangle_index
 #if HEARTGOLD
-                br.BaseStream.Position = 0x14 + movementSize + buildingsSize + modelSize;
+                //br.BaseStream.Position = 0x14 + movementSize + buildingsSize + modelSize;
                 Console.WriteLine("{0:X} {1:X}", br.BaseStream.Position, 0x14 + movementSize + buildingsSize + modelSize);
 #else
-                br.BaseStream.Position = 0x10 + movementSize + buildingsSize + modelSize;
+                //br.BaseStream.Position = 0x10 + movementSize + buildingsSize + modelSize;
+                Console.WriteLine("{0:X} {1:X}", br.BaseStream.Position, 0x10 + movementSize + buildingsSize + modelSize);
 #endif
+
                 if (terrainSize > 0) {
                     if (br.ReadUInt32() != 0x43484442)
                         Console.WriteLine("bad BDHC"); // TODO exception bad map
@@ -176,11 +179,11 @@ namespace Lost
                     }
 
                     // link connections to transitions
-                    for (int i = 0; i < transitionCount; i++)
+                    /*for (int i = 0; i < transitionCount; i++)
                     {
                         for (int j = 0; j < connections[i].Count; j++)
                             transitions[i].ConnectedPlates.Add(connectionData[connections[i].Index + j]);
-                    }
+                    }*/
                 }
 
                 // sound section
