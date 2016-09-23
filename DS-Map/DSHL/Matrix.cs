@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Lost
 {
@@ -52,7 +49,6 @@ namespace Lost
                         }
                     }
                 }
-                else _layer2 = null;
 
                 if (_hasLayer3)
                 {
@@ -65,7 +61,6 @@ namespace Lost
                         }
                     }
                 }
-                else _layer3 = null;
             }
         }
 
@@ -235,17 +230,9 @@ namespace Lost
             {
                 _hasLayer2 = value;
                 if (_hasLayer2)
-                {
                     _layer2 = new byte[_width, _height];
-                    for (int y = 0; y < _height; y++)
-                    {
-                        for (int x = 0; x < _width; x++)
-                        {
-                            _layer2[x, y] = 0;
-                        }
-                    }
-                }
-                else _layer2 = null;
+                else
+                    _layer2 = null;
             }
         }
 
@@ -256,17 +243,9 @@ namespace Lost
             {
                 _hasLayer3 = value;
                 if (_hasLayer3)
-                {
                     _layer3 = new ushort[_width, _height];
-                    for (int y = 0; y < _height; y++)
-                    {
-                        for (int x = 0; x < _width; x++)
-                        {
-                            _layer3[x, y] = 0;
-                        }
-                    }
-                }
-                else _layer3 = null;
+                else
+                    _layer3 = null;
             }
         }
 
