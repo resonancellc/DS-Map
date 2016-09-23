@@ -90,12 +90,12 @@ namespace Lost
                 br.BaseStream.Seek(6 + 0x16L, SeekOrigin.Current); // extra CRC's + reserved
                 var iconData = br.ReadBytes(0x200);
                 var iconPalette = br.ReadColors(16);
-                banner.JapaneseTitle = Encoding.Unicode.GetString(br.ReadBytes(0x100));
-                banner.EnglishTitle = Encoding.Unicode.GetString(br.ReadBytes(0x100));
-                banner.FrenchTitle = Encoding.Unicode.GetString(br.ReadBytes(0x100));
-                banner.GermanTitle = Encoding.Unicode.GetString(br.ReadBytes(0x100));
-                banner.ItalianTitle = Encoding.Unicode.GetString(br.ReadBytes(0x100));
-                banner.SpanishTitle = Encoding.Unicode.GetString(br.ReadBytes(0x100));
+                banner.JapaneseTitle = Encoding.Unicode.GetString(br.ReadBytes(0x100)).Replace("\0", "");
+                banner.EnglishTitle = Encoding.Unicode.GetString(br.ReadBytes(0x100)).Replace("\0", "");
+                banner.FrenchTitle = Encoding.Unicode.GetString(br.ReadBytes(0x100)).Replace("\0", "");
+                banner.GermanTitle = Encoding.Unicode.GetString(br.ReadBytes(0x100)).Replace("\0", "");
+                banner.ItalianTitle = Encoding.Unicode.GetString(br.ReadBytes(0x100)).Replace("\0", "");
+                banner.SpanishTitle = Encoding.Unicode.GetString(br.ReadBytes(0x100)).Replace("\0", "");
 
                 // draw icon
                 banner.Icon = new Bitmap(32, 32);
@@ -125,7 +125,6 @@ namespace Lost
             }
         }
     }
-
 
     /*
     /// <summary>

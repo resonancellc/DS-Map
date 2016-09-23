@@ -73,16 +73,47 @@ namespace Lost
             baseDirectory = directory;
             rootDirectory = Path.Combine(directory, "root");
 
+            var he = ROM.LoadHeader(Path.Combine(baseDirectory, "header.bin"));
+
             var banner = ROM.LoadBanner(Path.Combine(baseDirectory, "banner.bin"));
             pIcon.Image = banner.Icon;
+            lblROM.Text = $"{banner.EnglishTitle}\n{he.Title} [{he.Code}]";
 
             mapFile = new Archive(Path.Combine(rootDirectory, @"fielddata\land_data\land_data.narc"));
-            //var mapNames = Map.LoadNames(mapFile);
             matrixFile = new Archive(Path.Combine(rootDirectory, @"fielddata\mapmatrix\map_matrix.narc"));
-            var matrixNames = Matrix.LoadNames(matrixFile);
 
-            listBox1.Items.Clear();
-            listBox1.Items.AddRange(matrixNames);
+            var headerNames = Header.LoadNames(Path.Combine(rootDirectory, @"fielddata\maptable\mapname.bin"));
+            var mapNames = Map.LoadNames(mapFile);
+
+            var headerTable = 0xE601Cu;
+            var headerMatrixMatches = Header.LoadHeaderMatrixMatches(Path.Combine(baseDirectory, "arm9.bin"), headerTable, headerNames.Length);
+            var headerMapMatches = Matrix.LoadHeaderMapMatches(matrixFile, headerMatrixMatches);
+
+            // populate the tree with maps
+            // TODO: catch any free maps
+            for (int h = 0; h < headerNames.Length; h++)
+            {
+                // node tag pattern:
+                // header:map
+                // -1 for invalid
+
+                var headerNode = new TreeNode(headerNames[h]);
+                headerNode.Tag = $"{h}:-1";
+                headerNode.ImageIndex = 1;
+                headerNode.SelectedImageIndex = 1;
+
+                foreach (var m in headerMapMatches[h])
+                {
+                    var mapNode = new TreeNode(mapNames[m]);
+                    mapNode.Tag = $"{h}:{m}";
+                    mapNode.ImageIndex = 0;
+                    mapNode.SelectedImageIndex = 0;
+
+                    headerNode.Nodes.Add(mapNode);
+                }
+
+                treeMaps.Nodes.Add(headerNode);
+            }
         }
 
         void ExtractROM(string filename, string directory)

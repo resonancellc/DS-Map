@@ -28,12 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.pIcon = new System.Windows.Forms.PictureBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.treeMaps = new System.Windows.Forms.TreeView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.lblROM = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pIcon)).BeginInit();
             this.SuspendLayout();
@@ -75,27 +79,49 @@
             // 
             // pIcon
             // 
-            this.pIcon.Location = new System.Drawing.Point(42, 351);
+            this.pIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pIcon.Location = new System.Drawing.Point(12, 429);
             this.pIcon.Name = "pIcon";
             this.pIcon.Size = new System.Drawing.Size(32, 32);
             this.pIcon.TabIndex = 2;
             this.pIcon.TabStop = false;
             // 
-            // listBox1
+            // treeMaps
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(12, 56);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(182, 277);
-            this.listBox1.TabIndex = 3;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.treeMaps.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.treeMaps.ImageIndex = 0;
+            this.treeMaps.ImageList = this.imageList1;
+            this.treeMaps.Location = new System.Drawing.Point(12, 56);
+            this.treeMaps.Name = "treeMaps";
+            this.treeMaps.SelectedImageIndex = 0;
+            this.treeMaps.Size = new System.Drawing.Size(162, 367);
+            this.treeMaps.TabIndex = 3;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "ImageMap_16x.png");
+            this.imageList1.Images.SetKeyName(1, "Folder_16x.png");
+            // 
+            // lblROM
+            // 
+            this.lblROM.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblROM.AutoSize = true;
+            this.lblROM.Location = new System.Drawing.Point(50, 429);
+            this.lblROM.Name = "lblROM";
+            this.lblROM.Size = new System.Drawing.Size(114, 13);
+            this.lblROM.TabIndex = 4;
+            this.lblROM.Text = "Open a ROM to begin.";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(503, 473);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.lblROM);
+            this.Controls.Add(this.treeMaps);
             this.Controls.Add(this.pIcon);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.menuStrip1);
@@ -120,7 +146,9 @@
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox pIcon;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.TreeView treeMaps;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.Label lblROM;
     }
 }
 

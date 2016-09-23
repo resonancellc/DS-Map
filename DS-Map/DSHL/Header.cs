@@ -82,7 +82,7 @@ namespace Lost
             }
         }
 
-        public static string[] LoadHeaderNames(string file)
+        public static string[] LoadNames(string file)
         {
             using (BinaryReader br = new BinaryReader(File.OpenRead(file)))
             {
@@ -97,7 +97,7 @@ namespace Lost
             }
         }
 
-        public static void SaveHeaderNames(string file, string[] names)
+        public static void SaveNames(string file, string[] names)
         {
             using (BinaryWriter bw = new BinaryWriter(File.Create(file)))
             {
