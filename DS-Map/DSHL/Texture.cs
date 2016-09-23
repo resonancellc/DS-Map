@@ -554,61 +554,12 @@ namespace Lost
             // --------------------------------------------
             // Load the palette data
             // --------------------------------------------
-            /*int[] paletteSizes = new int[nsbtx.Palettes.Length];
-            /*if (paletteSizes.Length > 1)
-            {
-                for (int p = 0; p < paletteSizes.Length - 1; p++)
-                {
-                    paletteSizes[p] = (int)(nsbtx.Palettes[p + 1].Offset - nsbtx.Palettes[p].Offset) / 2;
-                    if (paletteSizes[p] < 0) throw new Exception("Palette" + p + " was < 0?\n= " + paletteSizes[p]);
-                }
+            br.BaseStream.Seek(PaletteDataOffset, SeekOrigin.Begin);
 
-                if (paletteSizes.Length > 2)
-                    paletteSizes[paletteSizes.Length - 1] = (int)(nsbtx.Palettes[paletteSizes.Length - 1].Offset - nsbtx.Palettes[paletteSizes.Length - 2].Offset) / 2;
-            }
-            else paletteSizes[0] = (int)nsbtx.PaletteDataSize / 2;*
-            if (paletteSizes.Length == 1)
-            {
-                paletteSizes[0] = (int)nsbtx.PaletteDataSize / 2;
-            }
-            else
-            {
-
-            }
-
-            // I'm going to load every color available afeer each palette...
-            uint paletteDataEnd = nsbtx.PaletteDataSize + nsbtx.PaletteDataOffset;
-            for (int i = 0; i < paletteSizes.Length; i++)
-            {
-                paletteSizes[i] = (int)(paletteDataEnd - nsbtx.Palettes[i].Offset) / 2;
-            }
-
-            //
-            for (int p = 0; p < nsbtx.Palettes.Length; p++)
-            {
-                // Go to the palette's offset
-                br.BaseStream.Seek(nsbtx.Palettes[p].Offset, SeekOrigin.Begin);
-
-                // Load the palette
-                Color[] palette = new Color[paletteSizes[p]];
-                //MessageBox.Show("Palette " + p + " is " + paletteSizes[p] + " colors!");
-                for (int i = 0; i < palette.Length; i++)
-                {
-                    // Read the color
-                    int bgr = br.ReadUInt16();
-
-                    // Get the color components
-                    int r = (bgr & 0x001F) * 8;
-                    int g = ((bgr & 0x03E0) >> 5) * 8;
-                    int b = ((bgr & 0x7C00) >> 10) * 8;
-
-                    //
-                    palette[i] = Color.FromArgb(r, g, b);
-                }
-
-                // Done
-                nsbtx.Palettes[p].Data = palette;
-            }*/
+            // Load all the colors in the palette -- simple approach
+            PaletteData = new Color[PaletteDataSize >> 1];
+            for (int i = 0; i < PaletteData.Length; i++)
+                PaletteData[i] = br.ReadColor();
         }
 
         // Header
@@ -629,6 +580,8 @@ namespace Lost
         public uint PaletteDataSize;
         public uint PaletteInfoOffset;
         public uint PaletteDataOffset;
+
+        public Color[] PaletteData;
 
         public Texture[] Textures;
         public Palette[] Palettes;
@@ -663,26 +616,14 @@ namespace Lost
 
             //
             public byte[] TileData;
-            // yeah...
         }
 
         public struct Palette
         {
-            //
             public ushort[] UnknownBlock;
-
             public uint Offset;
             public ushort Unknown;
-
             public string Name;
-
-            public Color[] Data;
-
-            // :D
-            public Color this[int index]
-            {
-                get { return Data[index]; }
-            }
         }
     }
 }

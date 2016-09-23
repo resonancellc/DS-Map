@@ -38,6 +38,8 @@
             this.treeMaps = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.lblROM = new System.Windows.Forms.Label();
+            this.listTextures = new System.Windows.Forms.ListBox();
+            this.listPalettes = new System.Windows.Forms.ListBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pIcon)).BeginInit();
             this.SuspendLayout();
@@ -115,11 +117,29 @@
             this.lblROM.TabIndex = 4;
             this.lblROM.Text = "Open a ROM to begin.";
             // 
+            // listTextures
+            // 
+            this.listTextures.FormattingEnabled = true;
+            this.listTextures.Location = new System.Drawing.Point(266, 210);
+            this.listTextures.Name = "listTextures";
+            this.listTextures.Size = new System.Drawing.Size(120, 186);
+            this.listTextures.TabIndex = 5;
+            // 
+            // listPalettes
+            // 
+            this.listPalettes.FormattingEnabled = true;
+            this.listPalettes.Location = new System.Drawing.Point(392, 210);
+            this.listPalettes.Name = "listPalettes";
+            this.listPalettes.Size = new System.Drawing.Size(120, 186);
+            this.listPalettes.TabIndex = 6;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(753, 621);
+            this.Controls.Add(this.listPalettes);
+            this.Controls.Add(this.listTextures);
             this.Controls.Add(this.lblROM);
             this.Controls.Add(this.treeMaps);
             this.Controls.Add(this.pIcon);
@@ -149,6 +169,8 @@
         private System.Windows.Forms.TreeView treeMaps;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Label lblROM;
+        private System.Windows.Forms.ListBox listTextures;
+        private System.Windows.Forms.ListBox listPalettes;
     }
 }
 

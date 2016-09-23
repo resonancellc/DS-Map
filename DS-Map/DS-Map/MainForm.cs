@@ -19,6 +19,7 @@ namespace Lost
 
         Archive mapFile;
         Archive matrixFile;
+        Archive textureFile;
 
         public MainForm()
         {
@@ -81,6 +82,7 @@ namespace Lost
 
             mapFile = new Archive(Path.Combine(rootDirectory, @"fielddata\land_data\land_data.narc"));
             matrixFile = new Archive(Path.Combine(rootDirectory, @"fielddata\mapmatrix\map_matrix.narc"));
+            textureFile = new Archive(Path.Combine(rootDirectory, @"fielddata\areadata\area_map_tex\map_tex_set.narc"));
 
             var headerNames = Header.LoadNames(Path.Combine(rootDirectory, @"fielddata\maptable\mapname.bin"));
             var mapNames = Map.LoadNames(mapFile);
@@ -114,6 +116,17 @@ namespace Lost
 
                 treeMaps.Nodes.Add(headerNode);
             }
+
+            // test load tex 6
+            var tex = new xTexture(textureFile.GetFileStream(6));
+
+            listTextures.Items.Clear();
+            foreach (var t in tex.Textures)
+                listTextures.Items.Add(t.Name);
+
+            listPalettes.Items.Clear();
+            foreach (var p in tex.Palettes)
+                listPalettes.Items.Add(p.Name);
         }
 
         void ExtractROM(string filename, string directory)
