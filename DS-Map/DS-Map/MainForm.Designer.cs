@@ -48,7 +48,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(503, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(753, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -80,7 +80,7 @@
             // pIcon
             // 
             this.pIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.pIcon.Location = new System.Drawing.Point(12, 429);
+            this.pIcon.Location = new System.Drawing.Point(12, 577);
             this.pIcon.Name = "pIcon";
             this.pIcon.Size = new System.Drawing.Size(32, 32);
             this.pIcon.TabIndex = 2;
@@ -95,7 +95,7 @@
             this.treeMaps.Location = new System.Drawing.Point(12, 56);
             this.treeMaps.Name = "treeMaps";
             this.treeMaps.SelectedImageIndex = 0;
-            this.treeMaps.Size = new System.Drawing.Size(162, 367);
+            this.treeMaps.Size = new System.Drawing.Size(162, 515);
             this.treeMaps.TabIndex = 3;
             // 
             // imageList1
@@ -109,7 +109,7 @@
             // 
             this.lblROM.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblROM.AutoSize = true;
-            this.lblROM.Location = new System.Drawing.Point(50, 429);
+            this.lblROM.Location = new System.Drawing.Point(50, 577);
             this.lblROM.Name = "lblROM";
             this.lblROM.Size = new System.Drawing.Size(114, 13);
             this.lblROM.TabIndex = 4;
@@ -119,7 +119,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(503, 473);
+            this.ClientSize = new System.Drawing.Size(753, 621);
             this.Controls.Add(this.lblROM);
             this.Controls.Add(this.treeMaps);
             this.Controls.Add(this.pIcon);
