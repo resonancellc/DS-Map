@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
 
 namespace Lost
@@ -33,7 +31,8 @@ namespace Lost
             var r = (c & 0x1F) << 3;
             var g = ((c >> 5) & 0x1F) << 3;
             var b = ((c >> 10) & 0x1F) << 3;
-            return Color.FromArgb(r, g, b);
+            var a = ((c >> 15) > 0 ? 0x00 : 0xFF);
+            return Color.FromArgb(a, r, g, b);
         }
 
         public static Color[] ReadColors(this BinaryReader br, int count)

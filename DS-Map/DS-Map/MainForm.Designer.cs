@@ -38,10 +38,14 @@
             this.treeMaps = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.lblROM = new System.Windows.Forms.Label();
-            this.listTextures = new System.Windows.Forms.ListBox();
-            this.listPalettes = new System.Windows.Forms.ListBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.glMap = new OpenTK.GLControl();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pIcon)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -117,29 +121,60 @@
             this.lblROM.TabIndex = 4;
             this.lblROM.Text = "Open a ROM to begin.";
             // 
-            // listTextures
+            // tabControl1
             // 
-            this.listTextures.FormattingEnabled = true;
-            this.listTextures.Location = new System.Drawing.Point(266, 210);
-            this.listTextures.Name = "listTextures";
-            this.listTextures.Size = new System.Drawing.Size(120, 186);
-            this.listTextures.TabIndex = 5;
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(180, 27);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(561, 582);
+            this.tabControl1.TabIndex = 5;
             // 
-            // listPalettes
+            // tabPage1
             // 
-            this.listPalettes.FormattingEnabled = true;
-            this.listPalettes.Location = new System.Drawing.Point(392, 210);
-            this.listPalettes.Name = "listPalettes";
-            this.listPalettes.Size = new System.Drawing.Size(120, 186);
-            this.listPalettes.TabIndex = 6;
+            this.tabPage1.Controls.Add(this.glMap);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(553, 556);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Map";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(553, 556);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Header";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // glMap
+            // 
+            this.glMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.glMap.BackColor = System.Drawing.Color.Black;
+            this.glMap.Location = new System.Drawing.Point(6, 6);
+            this.glMap.Name = "glMap";
+            this.glMap.Size = new System.Drawing.Size(541, 544);
+            this.glMap.TabIndex = 0;
+            this.glMap.VSync = false;
+            this.glMap.Paint += new System.Windows.Forms.PaintEventHandler(this.glMap_Paint);
+            this.glMap.Resize += new System.EventHandler(this.glMap_Resize);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(753, 621);
-            this.Controls.Add(this.listPalettes);
-            this.Controls.Add(this.listTextures);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.lblROM);
             this.Controls.Add(this.treeMaps);
             this.Controls.Add(this.pIcon);
@@ -154,6 +189,8 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pIcon)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -169,8 +206,10 @@
         private System.Windows.Forms.TreeView treeMaps;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Label lblROM;
-        private System.Windows.Forms.ListBox listTextures;
-        private System.Windows.Forms.ListBox listPalettes;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private OpenTK.GLControl glMap;
     }
 }
 

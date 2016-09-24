@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenTK.Graphics.OpenGL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -33,6 +34,8 @@ namespace Lost
                 MessageBox.Show("ndstool.exe could not be found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
             }
+
+            glMap.MakeCurrent();
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -118,15 +121,15 @@ namespace Lost
             }
 
             // test load tex 6
-            var tex = new xTexture(textureFile.GetFileStream(6));
+            var tex = new TextureSet(textureFile.GetFileStream(6));
 
-            listTextures.Items.Clear();
+            /*listTextures.Items.Clear();
             foreach (var t in tex.Textures)
                 listTextures.Items.Add(t.Name);
 
             listPalettes.Items.Clear();
             foreach (var p in tex.Palettes)
-                listPalettes.Items.Add(p.Name);
+                listPalettes.Items.Add(p.Name);*/
         }
 
         void ExtractROM(string filename, string directory)
@@ -199,6 +202,19 @@ namespace Lost
         {
             //var map = new Map(mapFile.GetFileStream(listBox1.SelectedIndex));
             //Text = map.Model.Name;
+        }
+
+        private void glMap_Paint(object sender, PaintEventArgs e)
+        {
+            GL.ClearColor(0.1f, 0.1f, 0.1f, 1f);
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+
+            glMap.SwapBuffers();
+        }
+
+        private void glMap_Resize(object sender, EventArgs e)
+        {
+            GL.Viewport(0, 0, glMap.ClientSize.Width, glMap.ClientSize.Height);
         }
     }
 }
